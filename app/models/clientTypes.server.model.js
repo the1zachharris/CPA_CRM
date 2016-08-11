@@ -11,7 +11,10 @@ var mongoose = require('mongoose'),
  * client types Schema
  */
 var clienttypesSchema = new Schema ({
-    Type: {
+    id: {
+      type: string
+    },
+    type: {
         type: string
     }
 });
