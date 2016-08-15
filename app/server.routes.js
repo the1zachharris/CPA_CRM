@@ -13,7 +13,7 @@ var router = express.Router();
 module.exports = function (app) {
 
     /************************************************************************************************
-     * LOGGING ROUTES
+     * ClientType ROUTES
      * @type {exports|module.exports}
      */
     var clientTypes = require('./controllers/clientTypes.server.controller.js');
