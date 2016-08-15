@@ -69,7 +69,7 @@ exports.create = function (req, res) {
  */
 exports.list = function (req, res) {
     try {
-        clientTypes.find().sort('-name').exec(function (err, clientTypes) {
+        clientTypes.find().sort('-type').exec(function (err, clientTypes) {
             if (!clientTypes.length) {
                 res.status(200).send()
             } else {
@@ -106,7 +106,7 @@ exports.list = function (req, res) {
  */
 exports.detail = function (req, res) {
     try {
-        clientType.find().sort('-name').exec(function (err, clientType) {
+        clientType.find({type: req.body.type}).sort('-type').exec(function (err, clientType) {
             if (!clientType.length) {
                 res.status(200).send()
             } else {
@@ -126,6 +126,60 @@ exports.detail = function (req, res) {
     }
 };
 
+/**
+ * @api {post} /clientType
+ * @apiName update
+ * @apiGroup clientType
+ *
+ * @apiParam {typeid} typeid
+ * @apiParam {updatedtype} Updatetype
+ *
+ * @apiSuccessExample Success-Response:
+ *  200 OK
+ *  {results: doc}
+ *
+ * @apiErrorExample Error-Response:
+ *  400 Bad Request
+ *  {
+*  "message": "error of some kind"
+*     }
+ */
+exports.update = function (req, res) {
+    try {
+        var query = {id: req.body.typeid};
+        clientType.findOneAndUpdate(query, req.body.updatedtype, {upsert: false}, function (err, doc) {
+            if (err) {
+                return res.status(400).send({
+                    message: logger.log("ERROR", __function, err, req, res)
+                });
+            } else {
+                res.status(200).send({results: doc});
+            }
+        });
+    } catch (err) {
+        return res.status(400).send({
+            message: logger.log("ERROR", __function, err, req, res)
+        });
+    }
+};
+
+/**
+ * @api {delete} /clientType/:clientType
+ * @apiName delete
+ * @apiGroup clientType
+ *
+ * @apiParam {typeid} typeid
+ *
+ * @apiSuccessExample Success-Response:
+ * 200 OK
+ *  {results: doc}
+ *
+ * @apiErrorExample Error-Response:
+ *  400 Bad Request
+ *  {
+*  "message": "error of some kind"
+*     }
+ */
 exports.delete = function (req, res) {
     try {
         var typeid = req.params.typeid;

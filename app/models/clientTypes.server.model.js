@@ -15,7 +15,10 @@ var clienttypesSchema = new Schema ({
       type: string
     },
     type: {
-        type: string
+        type: string,
+        required: 'Please fill in a Type for the Application',
+        unique: 'Type must be unique',
+        trim: true
     }
 });
 
