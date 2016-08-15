@@ -94,7 +94,8 @@ var server = app.listen(envLoaded.port, function() {
 //error logs in the mongo db - dh
 app.use(function(req, res, next) {
     var err = new Error('Not Found' + req.path);
-    CPA_CRMLogger.log("INFO", __function, err, req, res);
+    console.log(err);
+    //CPA_CRMLogger.log("INFO", __function, err, req, res);
     err.status = 404;
     next(err);
 });
@@ -102,7 +103,8 @@ app.use(function(req, res, next) {
 // error handlers
 
 app.use(function(err, req, res, next) {
-    CPA_CRMLogger.log("ERROR", __function, err, req, res);
+    console.log(err);
+    //CPA_CRMLogger.log("ERROR", __function, err, req, res);
     res.status(err.status || 500).send({message: err.message});
     console.log(err);
 });
