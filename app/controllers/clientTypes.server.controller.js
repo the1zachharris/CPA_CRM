@@ -4,7 +4,8 @@
  * Module dependencies.
  */
 var mongoose = require('mongoose'),
-    clientType = mongoose.model('clientType'),
+    ClienttypeModel = require('../models/clientTypes.server.model.js'),
+    Clienttype = mongoose.model('Clienttype'),
     crypto = require('crypto');
 
 
@@ -31,7 +32,7 @@ exports.create = function (req, res) {
         var current_date = (new Date()).valueOf().toString();
         var random = Math.random().toString();
 
-        var v = new clientType({
+        var v = new ClientType({
             id: crypto.createHash('sha1').update(current_date + random).digest('hex'),
             type: req.body.type
         });
@@ -69,7 +70,7 @@ exports.create = function (req, res) {
  */
 exports.list = function (req, res) {
     try {
-        clientTypes.find().sort('-type').exec(function (err, clientTypes) {
+        Clienttype.find().sort('-type').exec(function (err, clientTypes) {
             if (!clientTypes.length) {
                 res.status(200).send()
             } else {
@@ -106,7 +107,7 @@ exports.list = function (req, res) {
  */
 exports.detail = function (req, res) {
     try {
-        clientType.find({type: req.body.type}).sort('-type').exec(function (err, clientType) {
+        Clienttype.find({type: req.body.type}).sort('-type').exec(function (err, clientType) {
             if (!clientType.length) {
                 res.status(200).send()
             } else {
@@ -147,7 +148,7 @@ exports.detail = function (req, res) {
 exports.update = function (req, res) {
     try {
         var query = {id: req.body.typeid};
-        clientType.findOneAndUpdate(query, req.body.updatedtype, {upsert: false}, function (err, doc) {
+        Clienttype.findOneAndUpdate(query, req.body.updatedtype, {upsert: false}, function (err, doc) {
             if (err) {
                 return res.status(400).send({
                     message: logger.log("ERROR", __function, err, req, res)
@@ -184,7 +185,7 @@ exports.delete = function (req, res) {
     try {
         var typeid = req.params.typeid;
         var query = {id: typeid};
-        clientType.remove(query, function (err, doc) {
+        Clienttype.remove(query, function (err, doc) {
             if (err) {
                 return res.status(400).send({
                     message: logger.log("ERROR", __function, err, req, res)

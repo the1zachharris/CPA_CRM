@@ -4,18 +4,17 @@
  * Module dependencies.
  */
 var mongoose = require('mongoose'),
-    Schema = mongoose.Schema,
-    Model = mongoose.model;
+    Schema = mongoose.Schema;
 
-/**
+ /**
  * client types Schema
  */
-var clienttypesSchema = new Schema ({
+var ClienttypesSchema = new Schema ({
     id: {
-      type: string
+      type: String
     },
     type: {
-        type: string,
+        type: String,
         required: 'Please fill in a Type for the Application',
         unique: 'Type must be unique',
         trim: true
@@ -23,5 +22,5 @@ var clienttypesSchema = new Schema ({
 });
 
 
-Model('Clienttype', clienttypesSchema);
-Model('Clienttypes', clienttypesSchema);
+mongoose.model('Clienttype', ClienttypesSchema);
+mongoose.model('Clienttypes', ClienttypesSchema);

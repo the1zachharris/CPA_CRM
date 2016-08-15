@@ -16,9 +16,9 @@ var router = express.Router();
  * @type {exports|module.exports}
  */
 var clientTypes = require('./controllers/clientTypes.server.controller.js');
-router.post('/create',clientTypes.createClientType);
-router.post('/update',clientTypes.updateClientType);
-router.get('/list', clientTypes.listClientType);
-router.get('/detail', clientTypes.detailClientType);
-router.delete('/delete', clientTypes.deleteClientType);
+router.post('/clienttype/create',clientTypes.createClientType);
+router.post('/clienttype/update',clientTypes.updateClientType);
+router.get('/clienttype/list', clientTypes.listClientType);
+router.get('/clienttype/detail/:typeid', clientTypes.detailClientType);
+router.delete('/clienttype/:typeid', clientTypes.deleteClientType);
 
