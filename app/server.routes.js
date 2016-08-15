@@ -22,6 +22,7 @@ module.exports = function (app) {
     router.get('/clienttype/list', clientTypes.listClientType);
     router.get('/clienttype/detail/:typeid', clientTypes.detailClientType);
     router.delete('/clienttype/:typeid', clientTypes.deleteClientType);
+};
 
 };
 //module.exports = router;
