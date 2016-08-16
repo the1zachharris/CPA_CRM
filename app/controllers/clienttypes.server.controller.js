@@ -40,7 +40,7 @@ exports.create = function (req, res) {
         v.save(function (err, clienttype) {
             if (err) {
                 return res.status(400).send({
-                    message: logger.log("ERROR", __function, err, req, res)
+                    message: "ERROR" + err
                 });
             } else {
                 res.status(200).send({success: true, id: clienttype.id});
@@ -48,7 +48,7 @@ exports.create = function (req, res) {
         });
     } catch (err) {
         return res.status(400).send({
-            message: logger.log("ERROR", __function, err, req, res)
+            message: "ERROR" + err
         });
     }
 };
@@ -76,7 +76,7 @@ exports.list = function (req, res) {
             } else {
                 if (err) {
                     return res.status(400).send({
-                        message: logger.log("ERROR", __function, err, req, res)
+                        message: "ERROR" + err
                     });
                 } else {
                     res.jsonp(clientTypes);
@@ -85,7 +85,7 @@ exports.list = function (req, res) {
         });
     } catch (err) {
         return res.status(400).send({
-            message: logger.log("ERROR", __function, err, req, res)
+            message: "ERROR" + err
         });
     }
 };
@@ -113,7 +113,7 @@ exports.detail = function (req, res) {
             } else {
                 if (err) {
                     return res.status(400).send({
-                        message: logger.log("ERROR", __function, err, req, res)
+                        message: "ERROR" + err
                     });
                 } else {
                     res.jsonp(clientType);
@@ -122,7 +122,7 @@ exports.detail = function (req, res) {
         });
     } catch (err) {
         return res.status(400).send({
-            message: logger.log("ERROR", __function, err, req, res)
+            message: "ERROR" + err
         });
     }
 };
@@ -151,7 +151,7 @@ exports.update = function (req, res) {
         Clienttype.findOneAndUpdate(query, req.body.updatedtype, {upsert: false}, function (err, doc) {
             if (err) {
                 return res.status(400).send({
-                    message: logger.log("ERROR", __function, err, req, res)
+                    message: "ERROR" + err
                 });
             } else {
                 res.status(200).send({results: doc});
@@ -159,7 +159,7 @@ exports.update = function (req, res) {
         });
     } catch (err) {
         return res.status(400).send({
-            message: logger.log("ERROR", __function, err, req, res)
+            message: "ERROR" + err
         });
     }
 };
@@ -188,7 +188,7 @@ exports.delete = function (req, res) {
         Clienttype.remove(query, function (err, doc) {
             if (err) {
                 return res.status(400).send({
-                    message: logger.log("ERROR", __function, err, req, res)
+                    message: "ERROR" + err
                 });
             } else {
                 res.status(200).send({results: doc});
@@ -197,7 +197,7 @@ exports.delete = function (req, res) {
         })
     } catch (err) {
         return res.status(400).send({
-            message: logger.log("ERROR", __function, err, req, res)
+            message: "ERROR" + err
         });
     }
 };
