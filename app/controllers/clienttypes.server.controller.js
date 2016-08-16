@@ -4,7 +4,7 @@
  * Module dependencies.
  */
 var mongoose = require('mongoose'),
-    ClienttypeModel = require('../models/clientTypes.server.model.js'),
+    ClienttypeModel = require('../models/clienttypes.server.model.js'),
     Clienttype = mongoose.model('Clienttype'),
     crypto = require('crypto');
 
@@ -32,18 +32,18 @@ exports.create = function (req, res) {
         var current_date = (new Date()).valueOf().toString();
         var random = Math.random().toString();
 
-        var v = new ClientType({
+        var v = new Clienttype({
             id: crypto.createHash('sha1').update(current_date + random).digest('hex'),
             type: req.body.type
         });
 
-        v.save(function (err, clientType) {
+        v.save(function (err, clienttype) {
             if (err) {
                 return res.status(400).send({
                     message: logger.log("ERROR", __function, err, req, res)
                 });
             } else {
-                res.status(200).send({success: true, id: clientType.id});
+                res.status(200).send({success: true, id: clienttype.id});
             }
         });
     } catch (err) {

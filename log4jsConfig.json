@@ -1,7 +1,7 @@
 {
   "appenders": [
     {
-      "type": "file",
+      "type": "console",
       "filename": "../logs/cpa_crmApp.log",
       "maxLogSize": 20480,
       "backups": 3,

@@ -8,15 +8,15 @@ var express = require('express'),
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-var router = express.Router();
-
 module.exports = function (app) {
+
+    var router = express.Router();
 
     /************************************************************************************************
      * ClientType ROUTES
      * @type {exports|module.exports}
      */
-    var clientTypes = require('./controllers/clientTypes.server.controller.js');
+    var clientTypes = require('./controllers/clienttypes.server.controller.js');
     router.post('/clienttype/create', clientTypes.createClientType);
     router.post('/clienttype/update', clientTypes.updateClientType);
     router.get('/clienttype/list', clientTypes.listClientType);
