@@ -11,11 +11,13 @@ var mongoose = require('mongoose'),
  */
 var ClienttypesSchema = new Schema ({
     id: {
-      type: String
+        type: String,
+        required: 'Must have an id for the clienttype',
+        unique: 'id must be unique'
     },
     type: {
         type: String,
-        required: 'Please fill in a Type for the Application',
+        required: 'Please fill in a Type for the Client',
         unique: 'Type must be unique',
         trim: true
     }

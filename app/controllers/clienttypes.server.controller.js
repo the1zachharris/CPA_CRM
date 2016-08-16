@@ -9,6 +9,14 @@ var mongoose = require('mongoose'),
     crypto = require('crypto');
 
 
+exports.fooIt = function (req, res) {
+  console.log('in fooIt NOW!');
+    var num1 = 1;
+    var num2 = 4;
+    var myresult = num1 + num2;
+    return res.status(200).send({success: true, result: myresult});
+};
+
 /**
  * @api {post} /clientType/create
  * @apiName create
@@ -26,7 +34,7 @@ var mongoose = require('mongoose'),
 *  "message": "error of some kind"
 *     }
  */
-exports.create = function (req, res) {
+exports.createIt = function (req, res) {
     try {
         // used to create ID
         var current_date = (new Date()).valueOf().toString();
@@ -40,7 +48,7 @@ exports.create = function (req, res) {
         v.save(function (err, clienttype) {
             if (err) {
                 return res.status(400).send({
-                    message: "ERROR" + err
+                    message:  err
                 });
             } else {
                 res.status(200).send({success: true, id: clienttype.id});
@@ -48,7 +56,7 @@ exports.create = function (req, res) {
         });
     } catch (err) {
         return res.status(400).send({
-            message: "ERROR" + err
+            message:  err
         });
     }
 };
@@ -68,7 +76,7 @@ exports.create = function (req, res) {
 * "message": "error of some kind"
 *     }
  */
-exports.list = function (req, res) {
+exports.listAll = function (req, res) {
     try {
         Clienttype.find().sort('-type').exec(function (err, clientTypes) {
             if (!clientTypes.length) {
@@ -76,7 +84,7 @@ exports.list = function (req, res) {
             } else {
                 if (err) {
                     return res.status(400).send({
-                        message: "ERROR" + err
+                        message:  err
                     });
                 } else {
                     res.jsonp(clientTypes);
@@ -85,7 +93,7 @@ exports.list = function (req, res) {
         });
     } catch (err) {
         return res.status(400).send({
-            message: "ERROR" + err
+            message:  err
         });
     }
 };
@@ -105,7 +113,7 @@ exports.list = function (req, res) {
 * "message": "error of some kind"
 *     }
  */
-exports.detail = function (req, res) {
+exports.detailIt = function (req, res) {
     try {
         Clienttype.find({type: req.body.type}).sort('-type').exec(function (err, clientType) {
             if (!clientType.length) {
@@ -113,7 +121,7 @@ exports.detail = function (req, res) {
             } else {
                 if (err) {
                     return res.status(400).send({
-                        message: "ERROR" + err
+                        message:  err
                     });
                 } else {
                     res.jsonp(clientType);
@@ -122,7 +130,7 @@ exports.detail = function (req, res) {
         });
     } catch (err) {
         return res.status(400).send({
-            message: "ERROR" + err
+            message:  err
         });
     }
 };
@@ -145,13 +153,13 @@ exports.detail = function (req, res) {
 *  "message": "error of some kind"
 *     }
  */
-exports.update = function (req, res) {
+exports.updateIt = function (req, res) {
     try {
         var query = {id: req.body.typeid};
         Clienttype.findOneAndUpdate(query, req.body.updatedtype, {upsert: false}, function (err, doc) {
             if (err) {
                 return res.status(400).send({
-                    message: "ERROR" + err
+                    message:  err
                 });
             } else {
                 res.status(200).send({results: doc});
@@ -159,7 +167,7 @@ exports.update = function (req, res) {
         });
     } catch (err) {
         return res.status(400).send({
-            message: "ERROR" + err
+            message:  err
         });
     }
 };
@@ -181,14 +189,14 @@ exports.update = function (req, res) {
 *  "message": "error of some kind"
 *     }
  */
-exports.delete = function (req, res) {
+exports.deleteIt = function (req, res) {
     try {
         var typeid = req.params.typeid;
         var query = {id: typeid};
         Clienttype.remove(query, function (err, doc) {
             if (err) {
                 return res.status(400).send({
-                    message: "ERROR" + err
+                    message:  err
                 });
             } else {
                 res.status(200).send({results: doc});
@@ -197,7 +205,7 @@ exports.delete = function (req, res) {
         })
     } catch (err) {
         return res.status(400).send({
-            message: "ERROR" + err
+            message:  err
         });
     }
 };
