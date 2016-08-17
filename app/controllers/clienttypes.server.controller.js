@@ -80,7 +80,7 @@ exports.listAll = function (req, res) {
     try {
         Clienttype.find().sort('-type').exec(function (err, clientTypes) {
             if (!clientTypes.length) {
-                res.status(200).send()
+                res.status(200).send({clientType: clientTypes})
             } else {
                 if (err) {
                     return res.status(400).send({
@@ -115,7 +115,7 @@ exports.listAll = function (req, res) {
  */
 exports.detailIt = function (req, res) {
     try {
-        Clienttype.find({type: req.body.type}).sort('-type').exec(function (err, clientType) {
+        Clienttype.find({type: req.params.type}).sort('-type').exec(function (err, clientType) {
             if (!clientType.length) {
                 res.status(200).send()
             } else {
