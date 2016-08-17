@@ -4,40 +4,43 @@
  * Module dependencies.
  */
 var mongoose = require('mongoose'),
-    Schema = mongoose.Schema,
-    Model = mongoose.model;
+    Schema = mongoose.Schema
 
 /**
  * employees Schema
  */
 var employeesSchema = new Schema ({
-
+    id: {
+        type: String,
+        required: 'Must have an id for the employee',
+        unique: 'id must be unique'
+    },
     FirstName: {
-        type: string
+        type: String,
+        required: 'Must have an first name for the employee'
     },
-
     LastName: {
-        type: string
+        type: String,
+        required: 'Must have an last name for the employee'
     },
-
     Username: {
-        type: string
+        type: String,
+        required: 'Must have a Username for the employee',
+        unique: 'Username must be unique'
     },
-
     Password: {
-        type: string
+        //TODO: be sure to encrypt users passwords
+        type: String,
+        required: 'Must have a Password for the employee'
     },
-
     LastLogin: {
-        type: date
+        type: Date
     },
-
     DateCreated: {
-        type: date
+        type: Date
     }
-
 });
 
 
-Model('employee', employeesSchema);
-Model('employees', employeesSchema);
+mongoose.model('employee', employeesSchema);
+mongoose.model('employees', employeesSchema);
