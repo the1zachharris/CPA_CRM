@@ -10,14 +10,22 @@ var mongoose = require('mongoose'),
  * frequency Schema
  */
 var frequencySchema = new Schema({
-    Frequency: {
-        type: string
+    id: {
+        type: String,
+        required: 'Must have an id for the frequency',
+        unique: 'id must be unique'
+    },
+    frequency: {
+        type: String,
+        required: 'Must have an frequency',
+        unique: 'frequency must be unique'
     },
     pattern: {
-        type: boolean
+        type: Boolean,
+        required: 'Must have an pattern for the frequency'
     }
 });
 
 
-mongoose.model('frequency', frequencySchema);
-mongoose.model('frequencys', frequencySchema);
+mongoose.model('Frequency', frequencySchema);
+mongoose.model('Frequencies', frequencySchema);
