@@ -4,8 +4,7 @@
  * Module dependencies.
  */
 var mongoose = require('mongoose'),
-    Schema = mongoose.Schema,
-    Model = mongoose.model;
+    Schema = mongoose.Schema;
 
 /**
  * tasks Schema
@@ -13,31 +12,31 @@ var mongoose = require('mongoose'),
 var tasksSchema = new Schema ({
 
     Name: {
-        type: string
+        type: String
     },
 
     Number: {
-        type: number
+        type: Number
     },
 
     Frequency: {
-        type: string
+        type: String
     },
 
     DueDate: {
-       type: date
+       type: Date
     },
 
     ExtendedDueDate: {
-        type: date
+        type: Date
     },
 
     SecondExtendedDueDate: {
-        type: date
+        type: Date
 }
 
 });
 
 
-Model('task', tasksSchema);
-Model('tasks', tasksSchema);
+mongoose.model('task', tasksSchema);
+mongoose.model('tasks', tasksSchema);

@@ -4,75 +4,74 @@
  * Module dependencies.
  */
 var mongoose = require('mongoose'),
-    Schema = mongoose.Schema,
-    Model = mongoose.model;
+    Schema = mongoose.Schema;
 
 /**
  * clients Schema
  */
 var clientSchema = new Schema ({
     Name: {
-        type: string
+        type: String
     },
 
     Address1: {
-        type: string
+        type: String
     },
 
     Address2: {
-        type: string
+        type: String
     },
 
     City: {
-        type: string
+        type: String
     },
 
     StateProvince: {
-        type: string
+        type: String
     },
 
     PostalCode: {
-        type: string
+        type: String
     },
 
     Country: {
-        type: string
+        type: String
     },
 
     Phone: {
-        type: string
+        type: String
     },
 
-    email: {
-        type: string
+    Email: {
+        type: String
     },
 
     Contacts: {
-        type: array
+        type: Array
     },
 
     ResponsibleEmployee: {
-        type: string
+        type: String
     },
 
-    type: {
-        type: string
+    Type: {
+        type: String
     },
 
     DateCreated: {
-        type: date
+        type: Date
     },
 
     DateUpdated: {
-        type: date
+        type: Date
     },
 
     Tasks: {
-        type: array
+        type: Array
     }
 
 });
 
 
-Model('Client', clientSchema);
-Model('Clients', clientSchema);
+mongoose.model('client', clientSchema);
+mongoose.model('clients', clientSchema);

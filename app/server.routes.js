@@ -47,4 +47,40 @@ router.post('/employee/create', employee.create);
 router.post('/employee/update', employee.update);
 router.delete('/employee/delete/:employeeid', employee.delete);
 
+/************************************************************************************************
+ * reminder ROUTES
+ * @type {exports|module.exports}
+ */
+
+var reminder = require('./controllers/reminders.server.controller.js');
+router.get('/reminder/list', reminder.list);
+router.get('/reminder/detail/:Task', reminder.detail);
+router.post('/reminder/create', reminder.create);
+router.post('/reminder/update', reminder.update);
+router.delete('/reminder/delete/:reminderid', reminder.delete);
+
+/************************************************************************************************
+ * client ROUTES
+ * @type {exports|module.exports}
+ */
+
+var client = require('./controllers/clients.server.controller.js');
+router.get('/client/list', client.list);
+router.get('/client/detail/:Name', client.detail);
+router.post('/client/create', client.create);
+router.post('/client/update', client.update);
+router.delete('/client/delete/:clientid', client.delete);
+
+/************************************************************************************************
+ * task ROUTES
+ * @type {exports|module.exports}
+ */
+
+var task = require('./controllers/tasks.server.controller.js');
+router.get('/task/list', task.list);
+router.get('/task/detail/:Name', task.detail);
+router.post('/task/create', task.create);
+router.post('/task/update', task.update);
+router.delete('/task/delete/:taskid', task.delete);
+
 module.exports = router;

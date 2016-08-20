@@ -4,28 +4,32 @@
  * Module dependencies.
  */
 var mongoose = require('mongoose'),
-    Schema = mongoose.Schema,
-    Model = mongoose.model;
+    Schema = mongoose.Schema;
 
 /**
  * reminders Schema
  */
 var remindersSchema = new Schema ({
-
-    task: {
-        type: string
+    id: {
+        type: String,
+        required: 'Must have an id for the reminder',
+        unique: 'id must be unique'
     },
-
+    Task: {
+        type: String,
+        required: 'Must have an task for the reminder'
+    },
     Message: {
-        Type: string
+        Type: String
+        //required: 'Must have an message for the reminder'
     },
-
     Logic: {
-        type: object
+        type: Object,
+        required: 'Must have logic for the reminder'
     }
 
 });
 
 
-Model('reminder', remindersSchema);
-Model('reminders', remindersSchema);
+mongoose.model('reminder', remindersSchema);
+mongoose.model('reminders', remindersSchema);
