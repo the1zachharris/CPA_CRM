@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:ng="http://angularjs.org" id="ng-app" ng-app="TaskMaster" ng-cloak>
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"> <!-- force IE to use most recent standard mode -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{env}}: TaskMaster [BETA]</title>
+    <!-- Styles -->
+
+    <!--<link href="css/bundle.css" rel="stylesheet">-->
+
+
+
+    <!--  -->
+    <link rel="shortcut icon" href="images/favicon.ico">
+</head>
+
+<body id="TaskMaster">
+
+<toast></toast> <!-- ngToast container -->
+<div class="uiCurtain" layout="row" layout-align="space-around center">
+    <md-progress-circular md-diameter="60" md-mode="indeterminate"></md-progress-circular>
+</div>
+
+<!--<header data-ng-include="'modules/header/views/header.client.view.html'" class="navbar navbar-fixed-top navbar-inverse"></header>-->
+
+<!--<nav class="mainmenu show" ng-include="'modules/core/views/nav.client.view.html'"></nav>-->
+
+{% raw %}
+
+<div class="content container-fluid col-xs-12 col-md-12 menuopen">
+    <ng-view></ng-view>
+</div>
+
+<div ng-controller="TimeoutCtrl"></div>
+
+<script type="text/ng-template" id="warning-dialog.html">
+    <div class="modal-body clearfix" idle-countdown="countdown">
+        <p>You'll be logged out in <span class="label label-warning">{{countdown}}</span> <span ng-pluralize="" count="countdown" when="{'one': 'second', 'other': 'seconds' }"></span>.</p>
+        <progressbar max="120" value="countdown" animate="true" class="progress-striped active" type="warning"></progressbar>
+        <button class="btn btn-primary pull-right">Continue</button>
+    </div>
+</script>
+<h1>Hi there... FOOLS!</h1>
+<!--<script src="js/bundle.js"></script>-->
+
+<script src="app.js"></script>
+
+<!--<script src="applicationsModule.js"></script>--> <!-- Applications -->
+
+
+{% endraw %}
+</body>
+
+</html>

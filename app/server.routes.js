@@ -2,7 +2,8 @@
 
 var express = require('express'),
     app = express(),
-    bodyParser = require('body-parser');
+    bodyParser = require('body-parser'),
+    core = require('./controllers/core.server.controller.js');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -10,6 +11,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 var router = express.Router();
 
 console.log('in server.routes now');
+
+router.get('/',core.index);
 
     /************************************************************************************************
      * ClientType ROUTES
