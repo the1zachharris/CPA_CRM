@@ -1,0 +1,44 @@
+/* ================================================================================
+   Ticket Search Overrides
+   ================================================================================ */
+
+[ticketSearch] .navbar-inner {
+    content: ' ';
+    display: -webkit-box;
+}
+
+[ticketSearch] .keyword-search-controls {
+    padding-top: 8px;
+    padding-bottom: 8px;
+    padding-right: 15px;
+}
+
+[ticketSearch] .inherit-width {
+    width: inherit;
+}
+
+[ticketSearch] form {
+    padding-left: 0px;
+}
+
+[ticketSearch] div.navbar-inner {
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+[ticketSearch] .advCritOpen {
+    top: 54px;
+}
+
+[ticketSearch] .advCritClosed {
+    top: 234px;
+}
+
+[ticketSearch] form.advSrch {
+    padding-top: 0px;
+    padding-bottom: 10px;
+}
+
+[tickets] .advSrch label {
+    font-weight:bold;
+}

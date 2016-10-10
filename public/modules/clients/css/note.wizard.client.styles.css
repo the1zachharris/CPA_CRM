@@ -1,0 +1,108 @@
+.note-wizard .note-wizard-content {
+    position:relative;
+    /*
+    top: -75px;
+    */
+}
+
+/* for multiple fields
+ * when there is a preRequired field
+ */
+.note-wizard .md-layout-gt-sm-row > .has-children,
+.note-wizard .md-layout-row > .has-children {
+    -webkit-flex: 0 0 100%;
+    -ms-flex: 0 0 100%;
+    flex: 0 0 100%;
+    max-width: 100%;
+    background-color: rgba(62,161,218,0.07);
+}
+
+.note-wizard .md-layout-gt-sm-row > .has-children md-input-container.flex-100,
+.note-wizard .md-layout-row > .has-children md-input-container.flex-100 {
+    -webkit-flex: 0 0 25%;
+    -ms-flex: 0 0 25%;
+    flex: 0 0 25%;
+    max-width: 25%;
+    margin: 0 7px 0 0;
+}
+
+.note-wizard .md-layout-gt-sm-row > .has-children md-input-container.flex-100:first-child,
+.note-wizard .md-layout-row > .has-children md-input-container.flex-100:first-child {
+    margin: 0 100% 0 0;
+}
+
+.note-wizard md-list-item:last-child {
+    margin: 0 0 0;
+}
+
+.note-wizard md-select md-select-value.md-select-value span, .note-wizard md-input-container label {
+    max-width: 100%;
+}
+
+.note-wizard .md-select-value :first-child {
+    white-space: normal;
+}
+
+.note-wizard div.md-subheader {
+    margin-bottom: 8px;
+}
+
+.note-wizard md-list-item .md-no-style, .note-wizard md-list-item.md-no-proxy {
+    margin-bottom: 10px;
+}
+
+.note-wizard ng-view > section {
+    padding: 0 0 21px 0 !important;
+}
+
+.note-wizard md-input-container.md-input-has-value md-select-value.md-select-value span:first-child {
+    font-size : 1.0em;
+}
+
+span.validationText {
+    color: darkred;
+    white-space: pre-wrap;
+}
+
+.note-wizard .redText {
+    color: red;
+}
+
+.note-wizard .submissionValidationText {
+    overflow: scroll-y;
+    max-height: 600px;
+}
+
+.note-wizard .notesLengthWarningBox {
+    background-color: yellow;
+    border: 5px solid black;
+    padding: 15px;
+    font-weight: bold;
+    font-size: 15px;
+    outline-color: black;
+    vertical-align: middle;
+    text-align: center;
+    width: 300px;
+    margin-left: 50px;
+}
+
+.note-wizard .notesLengthErrorBox {
+    background-color: red;
+    border: 5px solid black;
+    padding: 15px;
+    font-weight: bold;
+    font-size: 15px;
+    outline-color: black;
+    vertical-align: middle;
+    text-align: center;
+    width: 300px;
+    margin-left: 50px;
+}
+
+.note-wizard .templateSelect md-input-container {
+    margin: 8px 8px -4px;
+}
+
+.note-wizard md-card-content md-card md-card-content {
+    padding: 0;
+}

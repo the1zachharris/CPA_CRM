@@ -1,0 +1,263 @@
+ng-view > section[ticketsFieldManager] {
+
+}
+
+[ticketsFieldManager] > md-content > md-card {
+
+}
+
+[ticketsFieldManager] div.resultsTabs.full-pane {
+    top: 60px;
+}
+
+
+[ticketsFieldManager] md-chips md-chips-wrap {
+    font-size: 1.01em;
+    padding: 2px 0 2px;
+    padding: 4px 0 0;
+    margin: 0 0 4px;
+}
+
+md-card .fieldProps {
+    margin: 0;
+    padding: 0;
+}
+
+md-card .fieldProps .dotted {
+    background-position: 0 bottom;
+    background-size: 4px 1px;
+    background-repeat: repeat-x;
+    margin-bottom: -1px;
+    border-bottom-color: transparent;
+    color: rgba(0,0,0,0.26);
+    background-image: linear-gradient(to right, rgba(0,0,0,0.26) 0%, rgba(0,0,0,0.26) 33%, transparent 0%);
+    background-image: -ms-linear-gradient(left, transparent 0%, rgba(0,0,0,0.26) 100%);
+}
+
+md-card .fieldProps md-input-container {
+    margin: 18px 0 -8px;
+}
+
+md-card .fieldProps label {
+    color: rgb(140,184,209) !important;
+}
+
+[ticketsFieldManager] div.tab-container ul.nav-tabs > li {
+    min-width: 120px;
+    max-width: 120px;
+}
+
+[ticketsFieldManager] ul.chipVals > li {
+    display: inline-block;
+    padding: 0 7px;
+    border-right: 1px solid #ccc;
+}
+
+[ticketsFieldManager] ul.chipVals > li:first-child {
+    padding: 0 7px 0 0;
+}
+
+[ticketsFieldManager] ul.chipVals > li:last-child {
+    border-right: none;
+}
+
+[ticketsFieldManager] md-list-item.groupRow {
+    background-color: #f5f5f5;
+}
+
+[ticketsFieldManager] md-list-item.fieldRow,
+[ticketsFieldManager] md-list-item {
+    overflow: hidden;
+}
+
+[ticketsFieldManager] md-list-item.fieldRow > div {
+    margin: 0 7px 0 0;
+}
+
+[ticketsFieldManager] md-list-item.fieldRow > div > ul {
+    padding: 0;
+    margin: 0;
+}
+
+[ticketsFieldManager] md-list-item.fieldRow > div > span > div,
+[ticketsFieldManager] md-list-item.fieldRow > form {
+    margin: 0 6px 0 0;
+}
+
+
+[ticketsFieldManager] md-checkbox {
+    margin-bottom: 0;
+}
+
+    [ticketsFieldManager] md-checkbox .md-icon {
+        width: 14px;
+        height: 14px;
+    }
+
+    [ticketsFieldManager] md-checkbox.md-checked .md-icon:after {
+        left: 4.67px;
+        top: 1.22px;
+        width: 5.67px;
+        height: 10.33px;
+    }
+
+
+[ticketsFieldManager] md-list.itemAdds {
+    max-height: 300px;
+    overflow-y: auto;
+    border: 1px solid #ccc;
+    padding: 0;
+    min-height: 48px;
+}
+
+    [ticketsFieldManager] md-list.itemAdds.fieldList {
+        min-height: 48px;
+    }
+
+    [ticketsFieldManager] md-list.itemAdds md-list-item {
+        background-color: #eee;
+    }
+
+    [ticketsFieldManager] md-list.itemAdds md-list-item:last-child {
+        margin: 8px;
+    }
+
+[ticketsFieldManager] md-tabs-canvas i.fa {
+    font-size: 1.31em;
+}
+[ticketsFieldManager] md-tabs-canvas input {
+    border: none;
+    padding: 0 4px;
+    width: auto;
+    background: none;
+}
+
+[ticketsFieldManager] md-tabs md-tabs-content-wrapper {
+    margin: 16px;
+}
+
+[ticketsFieldManager] md-tabs md-tab-item {
+    padding: 8px 12px 9px 12px;
+}
+
+    [ticketsFieldManager] md-tabs md-tab-item > span:first-of-type {
+        padding: 0 16px 0 0;
+    }
+
+[ticketsFieldManager] .vAccordion--default v-pane-header,
+[ticketsFieldManager] .vAccordion--default v-pane-header h4 {
+    border-bottom: none;
+    margin: 0 0 0 8px;
+    padding: 8px;
+    overflow: hidden;
+}
+
+    [ticketsFieldManager] .vAccordion--default v-pane-header md-input-container {
+        margin: -18px 0 -8px;
+    }
+
+
+[ticketsFieldManager] .group,
+[ticketsFieldManager] .trashcan md-list.trashedFields md-list-item {
+    background-color: #fff;
+}
+
+[ticketsFieldManager] v-accordion.field {
+    background-color: #f5f5f5;
+    margin: 0 16px;
+    padding: 0;
+    width: auto;
+    border-bottom: 1px solid #fff;
+}
+
+[ticketsFieldManager] .vAccordion--default v-pane-header::after,
+[ticketsFieldManager] .vAccordion--default v-pane-header::before {
+    display: none;
+}
+
+[ticketsFieldManager] v-pane-header > div {
+    display: flex;
+    flex-direction: row;
+    flex: 1;
+}
+
+[ticketsFieldManager] v-pane-header > div [dnd-handle] {
+    margin: 10px 0;
+}
+
+.dropzone [dnd-list] {
+    padding: 0;
+}
+
+.vAccordion--default v-pane-content > div {
+    padding-bottom: 0;
+}
+
+[ticketsFieldManager] md-checkbox .md-container {
+    margin: 2px 0 0 0;
+}
+
+[ticketsFieldManager] md-checkbox div.md-label {
+    margin: 9px 8px 0 18px;
+}
+
+[ticketsFieldManager] md-card.toolpalette {
+    overflow-y: auto;
+}
+
+    [ticketsFieldManager] .toolpalette .caption{
+        font-size: 1.01em;
+    }
+
+    [ticketsFieldManager] .toolpalette > md-input-container{
+        margin: 24px 6px;
+        width: 95%;
+    }
+
+    [ticketsFieldManager] .toolpalette .tabList md-list-item {
+        padding: 0;
+    }
+
+        [ticketsFieldManager] .toolpalette .tabList md-list-item button.md-no-style.md-button {
+            text-align: center;
+        }
+
+        [ticketsFieldManager] .toolpalette .tabList md-list-item button.md-no-style.md-button div {
+            justify-content: center;
+        }
+
+[ticketsFieldManager] md-list-item .md-list-item-inner {
+    min-height: auto;
+}
+
+[ticketsFieldManager] .dropzone {
+    min-height: 32px;
+    width: 100%;
+}
+
+[ticketsFieldManager] .dropzone .dndPlaceholder.oscar {
+    border: 1px solid rgba(200,0,0,0.5);
+    background-color: rgba(255,0,0,0.5);
+    -webkit-box-shadow: inset 0 0 7px rgba(200,0,0,0.75);
+    -moz-box-shadow: inset 0 0 7px rgba(200,0,0,0.75);
+    box-shadow: inset 0 0 7px rgba(200,0,0,0.75);
+    color: #fff;
+}
+
+md-list-item.reqfield,
+md-list-item.reqfield v-accordion.field {
+    background-color: rgba(255,0,0,0.04);
+}
+
+md-button.close {
+    min-height: inherit;
+    min-width: 24px;
+}
+
+md-input-container.inPopover {
+    margin: 32px 0 0;
+}
+
+md-card.progressWrapper {
+    padding: 12px;
+}

@@ -1,0 +1,543 @@
+/* ================================================================================
+   Tickets Overrides
+   ================================================================================ */
+
+[tickets] > md-toolbar:first-of-type + *:first-of-type {
+    bottom: 0;
+}
+
+.ticketDetail md-input-container textarea {
+    resize: vertical;
+    overflow-y: auto;
+    min-height: 35px;
+    max-height: 200px;
+}
+
+.search.col-md-3 {
+    display: none;
+}
+
+
+.search div.searchFilters table {
+    width: 100%;
+}
+
+.search > *:last-child,
+.search > ul.resultsTabs {
+    margin: 0;
+}
+
+section.search > form.advSrch {
+    margin: 1px 0 0;
+}
+
+.search ul.resultsTabs {
+    padding: 0 14px;
+}
+
+.search span.glyphicon-search {
+    position: absolute;
+    top: 25px;
+    right: 25px;
+    opacity: 0.7;
+}
+
+div.results ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    -webkit-border-radius: 0 0 7px 7px;
+    -moz-border-radius: 0 0 7px 7px;
+    border-radius: 0 0 7px 7px;
+    overflow: hidden;
+}
+
+div.results ul li {
+    margin: 0;
+    padding: 0;
+    border-bottom: 1px solid #ddd;
+    background: #fff;
+}
+
+div.results ul li:last-child {
+    border-bottom: none;
+
+}
+
+div.results table {
+    width: 100%;
+    -webkit-border-radius: 0 0 7px 7px;
+    -moz-border-radius: 0 0 7px 7px;
+    border-radius: 0 0 7px 7px;
+}
+
+div.results table tr {
+    border-bottom: 1px solid #aaa;
+}
+
+div.results table tr:last-child {
+    border-bottom: none;
+}
+
+div.results table th,
+div.results table td {
+    padding: 7px 12px;
+    text-align: left;
+    vertical-align: top;
+}
+
+div.results table th:first-child,
+div.results table td:first-child {
+    width: 7%;
+}
+
+div.results table td:first-child {
+    font-weight: bold;
+}
+
+div.results table th:nth-child(2),
+div.results table td:nth-child(2) {
+    width: 50%;
+}
+
+div.results table th:nth-child(1),
+div.results table td:nth-child(1),
+div.results table th:nth-child(3),
+div.results table td:nth-child(3) {
+    width: 10%;
+}
+
+div.results table th:nth-child(4),
+div.results table td:nth-child(4) {
+    width: 50%;
+}
+
+div.results table th:nth-child(4),
+div.results table td:nth-child(4) {
+    font-size: 0.91em;
+    font-style: italic;
+}
+
+div.results .btn-group {
+    margin: 0 7px;
+}
+
+div.results span.stats {
+    display: inline-block;
+    padding: 7px 0;
+}
+
+
+div.results div.ticketList li {
+    -webkit-transition: background 0.2s;
+    -moz-transition: background 0.2s;
+    -ms-transition: background 0.2s;
+    -o-transition: background 0.2s;
+    transition: background 0.2s;
+}
+
+div.results div.ticketList li:hover {
+    background: #E2F4FF;
+}
+
+
+
+
+
+
+ul.nav-tabs {
+    border-bottom: none;
+}
+
+section.search > ul.nav-tabs {
+    padding: 0 14px;
+    margin: 0;
+}
+
+section.search > ul.nav-tabs li a {
+    padding: 5px 9px;
+    cursor: pointer;
+}
+
+
+div.panel-default > div.panel-heading {
+    clear: both;
+}
+
+
+
+
+.ticketDetail {
+    padding: 15px;
+}
+
+
+/*
+.panel-heading a:after {
+    font-family:'Glyphicons Halflings';
+    content:"\e114";
+    float: right;
+    color: grey;
+}
+
+.panel-heading a.collapsed:after {
+    content:"\e080";
+}
+*/
+
+.ticketDetail md-input-container textarea {
+    resize: vertical;
+    overflow-y: auto;
+    min-height: 35px;
+    max-height: 200px;
+}
+
+.caseHistoryDataGrid {
+    width: 100%;
+    min-height: 34px;
+    max-height: 250px;
+    overflow-y: auto;
+}
+.caseHistoryDataGrid table tr td{
+    overflow: hidden;
+}
+.expandCaseHistoryButton {
+    background-color:#424242;
+    color:white;
+    border-color:transparent;
+    padding-left:2px;
+}
+.activityLogDataGrid{
+    width: 100%;
+    min-height: 34px;
+    max-height: 250px;
+    overflow-y: auto;
+}
+.activityLogDataGrid table tr td{
+    overflow: hidden;
+}
+
+.expandCollapseBtn {
+    background-color:#424242;
+    color:white;
+    border-color:transparent;
+    padding-left:2px;
+}
+.expandCollapseBtn, .expandCollapseBtn:hover{
+    color: none;
+}
+.expandCollapseDiv {
+    background-color: #424242;
+    height: 35px;
+    padding-top: 5px;
+    border: 1px solid #ddd;
+}
+
+
+
+[tickets] md-card button {
+    width: auto;
+}
+
+[tickets] md-card md-input-container {
+    width: 100%;
+}
+
+
+[tickets] .table-fixed_headers div[class*=flex] > div[contenteditable] {
+    padding: 8px;
+}
+
+
+[tickets] #caseSection {
+    overflow-y: scroll;
+}
+
+[tickets] .caseDetail {
+    height: 100%;
+}
+
+[tickets] md-toolbar .md-toolbar-tools {
+    height: auto;
+    overflow: auto;
+    padding: 0 16px;
+    /*
+    -webkit-transition: height 0.25s ease;
+       -moz-transition: height 0.25s ease;
+        -ms-transition: height 0.25s ease;
+         -o-transition: height 0.25s ease;
+            transition: height 0.25s ease;
+            */
+}
+
+[tickets] md-toolbar .md-toolbar-tools md-card md-input-container {
+    margin: 0;
+}
+
+[tickets] md-toolbar .md-toolbar-tools md-card md-input-container.md-input-has-value label,
+[tickets] md-toolbar .md-toolbar-tools md-card md-input-container.md-input-focused label {
+    bottom: 75%;
+}
+
+[tickets] md-toolbar div.md-toolbar-tools > div:first-child,
+[tickets] md-toolbar md-card {
+    margin: 0 0 4px;
+}
+
+[tickets] md-toolbar md-checkbox {
+    margin: 8px 8px 8px 0;
+}
+
+[tickets] md-toolbar .md-toolbar-tools > md-input-container {
+    margin: 0 4px;
+}
+
+[tickets] md-toolbar .md-toolbar-tools.keyword md-input-container {
+    padding: 2px;
+}
+
+[tickets] dd button {
+    min-height: 18px;
+    min-width: auto;
+    margin: 0 1px;
+    font-size: 1.01em;
+    line-height: 1.01em;
+    padding: 0 4px;
+}
+
+    [tickets] dd button i {
+        margin: 0px 1px 2px 0px;
+    }
+
+
+
+
+/* Autocomplete styling in Case Details ******************************************/
+
+[tickets] .panel-body md-autocomplete {
+    height: auto;
+    min-width: auto;
+}
+
+[tickets] .panel-body md-autocomplete button {
+    display: none;
+}
+
+    [tickets] .panel-body md-autocomplete button md-icon {
+        height: 18px;
+        width: 18px;
+    }
+
+    [tickets] .panel-body md-autocomplete .md-whiteframe-z1 {
+        -webkit-box-shadow: none;
+        -moz-box-shadow: none;
+        box-shadow: none;
+    }
+
+    [tickets] .panel-body md-autocomplete md-autocomplete-wrap {
+        height: auto;
+        margin: 0 8px 0 0;
+    }
+
+        [tickets] .panel-body md-autocomplete input {
+            font-size: 1.01em;
+            padding: 0 4px 0 0;
+            line-height: inherit;
+            height: auto;
+        }
+
+        [tickets] .panel-body md-autocomplete input,
+        [tickets] .panel-body md-autocomplete input.ng-dirty {
+            border: 1px solid rgba(0,0,0,0);
+        }
+
+        [tickets] .panel-body md-autocomplete input:focus {
+            border: 1px solid rgba(0,0,0,0.25);
+        }
+
+    [tickets] .panel-body md-autocomplete md-autocomplete-wrap md-progress-linear .md-mode-indeterminate {
+        top: 4px;
+        height: 1px;
+    }
+
+
+
+/* Field styling in Advanced Search ******************************************/
+
+[tickets] form md-autocomplete.searchField button {
+    display: none;
+}
+
+[tickets] form md-autocomplete.searchField,
+[tickets] form md-autocomplete.searchField md-autocomplete-wrap md-input-container {
+    padding: 0;
+    padding-bottom: 0;
+}
+
+[tickets] form md-autocomplete.searchField md-autocomplete-wrap md-input-container {
+    padding: 8px;
+}
+
+
+
+/* Removes min-height from tabs
+ * due to UI Grid and expanded search causing multiple scroll bars
+ *****************************************************************************/
+
+[tickets] md-tabs:not(.md-no-tab-content):not(.md-dynamic-height) {
+    min-height: auto;
+}
+
+
+
+[tickets] #advSearchForm .alert-warning::before {
+    content: normal;
+}
+
+
+
+
+.item-title i {
+    padding: 0 4px 0 0;
+    color: rgba(0,0,0,0.5);
+}
+
+
+md-input-container label:not(.md-container-ignore) {
+   left: auto;
+}
+
+md-menu-item md-list-item .md-list-item-inner {
+    min-height: auto;
+}
+
+md-menu-item md-list-item .md-list-item-inner > md-checkbox {
+    width: auto;
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 0;
+}
+md-menu-item md-list-item .md-list-item-inner > md-checkbox .md-label {
+    display: inline-block;
+}
+
+.md-virtual-repeat-container.md-autocomplete-suggestions-container {
+    width: 22%;
+}
+
+.md-virtual-repeat-container.md-autocomplete-suggestions-container + .md-virtual-repeat-container.md-autocomplete-suggestions-container {
+    width: 33%;
+}
+
+[tickets] dd.empty {
+    font-style: italic;
+    color: #aaa;
+}
+
+[tickets] section.note-wizard md-tabs md-tabs-content-wrapper {
+    top: 0;
+}
+
+[tickets] section.note-wizard md-tabs md-pagination-wrapper md-tab-item {
+    border-bottom: 3px solid rgba(245,245,245,0.91);
+}
+
+[tickets] .note-wizard md-tab-content > div > md-card > md-card-content {
+    max-height: 360px;
+    overflow: auto;
+}
+
+[tickets] md-sidenav md-toolbar {
+    margin: 0;
+    border-top: none;
+    border-bottom: none;
+    background: rgba(62,161,218,1);
+    min-height: 32px;
+}
+
+    [tickets] md-sidenav md-toolbar .md-toolbar-tools {
+        font-size: 1.31em;
+        font-weight: bold;
+        color: #fff;
+    }
+
+    [tickets] md-sidenav md-toolbar button {
+        min-width: 28px;
+        padding: 0;
+        line-height: 18px;
+        margin: 4px 2px;
+    }
+
+    [tickets] md-sidenav md-toolbar button:last-child {
+        margin: 4px 8px 4px 2px;
+    }
+
+    [tickets] md-sidenav md-card md-chips {
+        margin: 16px 0 8px;
+    }
+
+        [tickets] md-sidenav md-card .md-chips .md-chip {
+            max-width: 280px;
+        }
+
+    [tickets] md-sidenav md-card md-input-container {
+        margin: 0;
+    }
+
+    [tickets] md-sidenav h5 {
+        margin: 0;
+    }
+
+    [tickets] md-sidenav md-list md-list-item {
+        padding: 0 8px;
+    }
+
+        [tickets] md-sidenav md-list md-list-item button {
+            padding: 2px 4px;
+            text-transform: none;
+        }
+
+    [tickets] md-sidenav md-list md-list-item .md-list-item-inner {
+        min-height: 24px;
+        align-items: flex-start;
+        -webkit-align-items: flex-start;
+        -ms-flex-align: start;
+    }
+
+        [tickets] md-sidenav md-list md-list-item .md-list-item-inner > div:first-child {
+            margin: 2px 0 0;
+        }
+
+md-tooltip .md-content {
+    height: auto;
+}
+
+
+
+
+
+
+
+/* tablets, port and land */
+@media only screen
+        and (min-device-width : 768px)
+        and (max-device-width : 1024px)  {
+
+
+
+}
+
+
+/* tablets, portrait */
+@media only screen
+        and (min-width : 768px)
+        and (max-width : 1024px)
+        and (orientation : portrait) {
+
+    section.searchSect div.results {
+        padding: 0;
+        margin: 45px 0 0 0;
+    }
+
+
+}

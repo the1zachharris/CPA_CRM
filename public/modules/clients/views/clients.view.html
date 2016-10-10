@@ -1,0 +1,525 @@
+<!-- not used, but leaving for reference
+                               <script type="text/ng-template" id="addNoteWizard">
+    <md-dialog aria-label="" flex-gt-sm="50">
+    <md-toolbar>
+    <div class="md-toolbar-tools">
+    <h2>Add Note Wizard {{templateInfo.group}} {{templateInfo.name}}</h2>
+<span flex></span>
+<md-button class="md-icon-button" ng-click="cancel()"><i class="fa fa-times"></i></md-button>
+    </div>
+    </md-toolbar>
+    <md-dialog-content>
+    <notes-wizard
+templateGroup="templateInfo.group"
+templateName="templateInfo.name"
+    ></notes-wizard>
+    </md-dialog-content>
+    <md-dialog-actions layout="row">
+    <span flex></span>
+<md-button ng-click="cancel()" class="md-raised">Cancel</md-button>
+    <md-button ng-click="finishNote()" class="md-raised">OK</md-button>
+    </md-dialog-actions>
+    </md-dialog>
+    </script>
+    -->
+
+
+    <section class="full-height nopad search" clients flex="100" layout="column">
+
+    <div class="appheader">
+    <h3>{{clientsSettings.name}}</h3>
+</div>
+
+<md-toolbar>
+
+<!-- Keyword Search bar -->
+<div class="md-toolbar-tools keyword" ng-if="!search.isAdvancedSearch" flex="100">
+    <form ng-submit="search.searchclients()" layout="row" flex="25" name="keywordSearchForm">
+    <md-input-container flex>
+<label>Enter a keyword to search ...</label>
+<input type="text" ng-model="search.keyword" id="keyword">
+    </md-input-container>
+    <md-button class="md-raised md-primary" ng-click="search.searchclients()" aria-label="search clients"><i class="fa fa-search"></i></md-button>
+    </form>
+    <span flex></span>
+<md-button class="md-raised" ng-click="search.toggleSearchOptions()" ng-if="canSaveSearches">
+    <md-icon md-svg-src="images/icon-search_options.svg"></md-icon>
+    <md-tooltip md-direction="left">search options</md-tooltip>
+</md-button>
+<md-button class="md-raised" ng-click="search.toggleAdvancedSearch()">search <md-tooltip md-direction="left">Go to Advanced Search</md-tooltip></md-button>
+</div>
+
+<!-- Advanced Search bar -->
+<div class="md-toolbar-tools" ng-if="search.isAdvancedSearch" layout="column" flex="100">
+    <div layout="row" layout-align="start center" class="full-width">
+    <md-checkbox ng-model="search.advFields.searchCases" aria-label="Search cases" ng-change="search.unsetCasesAndSubcaseFields()">Cases</md-checkbox>
+    <md-checkbox ng-model="search.advFields.searchSubcases" aria-label="Search subcases" ng-change="search.unsetCasesAndSubcaseFields()">Subcases</md-checkbox>
+    <span flex></span>
+<md-button class="md-raised" ng-click="search.toggleSearchOptions()" ng-if="canSaveSearches">
+    <md-icon md-svg-src="images/icon-search_options.svg"></md-icon>
+    <md-tooltip md-direction="left">search options</md-tooltip>
+</md-button>
+<md-button class="md-raised" ng-click="search.toggleAdvancedSearch()">advanced search <md-tooltip md-direction="left">Go to Keyword Search</md-tooltip></md-button>
+</div>
+<form ng-submit="search.searchclients()" layout="column" class="full-width" name="advSearchForm" id="advSearchForm">
+    <md-card layout="row" layout-padding layout-wrap>
+
+<!-- Created From Date -->
+<md-input-container flex-gt-sm="15">
+    <label>Created from Date</label>
+<input mdc-datetime-picker
+date="true"
+time="true"
+id="createFromDate"
+short-time="true"
+format="ddd, MMM DD, YYYY hh:mm a"
+ng-model="search.advFields.CreatedFrom"
+    >
+    </md-input-container>
+
+    <!-- Created To Date -->
+<md-input-container flex-gt-sm="15">
+    <label>Created to Date</label>
+<input mdc-datetime-picker
+date="true"
+time="true"
+id="createToDate"
+short-time="true"
+format="ddd, MMM DD, YYYY HH:mm Z"
+ng-model="search.advFields.CreatedTo"
+    >
+    </md-input-container>
+
+    <!-- Client Type -->
+<md-autocomplete
+class="searchField"
+flex-gt-sm="15"
+
+md-autoselect="true"
+md-select-on-match="true"
+md-min-length="0"
+md-selected-item="search.clientType"
+md-selected-item-change="search.setClientType()"
+md-search-text="search.clientTypeText"
+md-items="type in search.getClientTypes(search.clientTypeText)"
+md-item-text="type.name"
+md-floating-label="Client Type"
+    >
+    <md-item-template>
+    <span md-highlight-text="clientTypeText" md-highlight-flags="^i">{{type.name}}</span>
+</md-item-template>
+<md-not-found>No client types matching "{{search.clientTypeText}}" were found.</md-not-found>
+</md-autocomplete>
+
+<!-- Case SubType -->
+<md-autocomplete
+class="searchField"
+flex-gt-sm="15"
+
+md-autoselect="true"
+md-select-on-match="true"
+md-min-length="0"
+md-no-cache="true"
+md-selected-item="search.caseSubtype"
+md-selected-item-change="search.setCaseSubtype()"
+md-search-text="search.caseSubTypeText"
+md-items="subtype in search.getCaseSubTypes(search.caseSubTypeText)"
+md-item-text="subtype.name"
+md-floating-label="Case Subtype"
+
+ng-if="search.caseType != ''"
+    >
+    <md-item-template>
+    <span md-highlight-text="caseSubTypeText" md-highlight-flags="^i">{{subtype.name}}</span>
+</md-item-template>
+<md-not-found>No case types matching "{{search.caseSubTypeText}}" were found.</md-not-found>
+</md-autocomplete>
+
+<!-- Originator Login
+<md-input-container flex-gt-sm="15">
+    <label>Originator Login</label>
+<input ng-model="search.advFields.OriginatorLogin" type="text">
+    </md-input-container>
+    -->
+    <md-autocomplete
+class="searchField"
+flex-gt-sm="15"
+md-min-length="3"
+md-autoselect="true"
+md-select-on-match="true"
+md-floating-label="Originator"
+
+md-selected-item="search.originator"
+md-selected-item-change="search.setOriginator()"
+md-items="orig in search.listUsers(search.originatorText)"
+md-item-text="orig.fullName"
+
+md-search-text="search.originatorText"
+
+md-menu-class="autocomplete-custom-template"
+    >
+    <md-item-template>
+    <span class="item-title"><i class="fa fa-user"></i>{{orig.fullName}}</span>
+</md-item-template>
+<md-not-found>No Person matching "{{search.originatorText}}" were found.</md-not-found>
+</md-autocomplete>
+
+<!-- Originator Workgroup
+<md-input-container flex-gt-sm="15">
+    <label>Originator Workgroup</label>
+<input ng-model="search.advFields.OriginatorWorkGroup" type="text">
+    </md-input-container>
+    -->
+    <md-autocomplete
+class="searchField"
+flex-gt-sm="15"
+md-min-length="1"
+md-autoselect="true"
+md-select-on-match="true"
+md-floating-label="Originator Workgroup"
+
+md-selected-item="search.advFields.OriginatorWorkGroup"
+md-items="group in search.listWorkgroups(search.origWorkgroupText)"
+
+md-search-text="search.origWorkgroupText"
+
+md-menu-class="autocomplete-custom-template"
+    >
+    <md-item-template>
+    <span class="item-title"><i class="fa fa-user"></i>{{group}}</span>
+</md-item-template>
+<md-not-found>No Workgroups matching "{{search.groupText}}" were found.</md-not-found>
+</md-autocomplete>
+
+<!-- Condition -->
+<md-input-container flex-gt-sm="15">
+    <label>Condition</label>
+    <md-select ng-model="search.advFields.Condition">
+    <md-option value="OPEN">Open</md-option>
+    <md-option value="CLOSED">Closed</md-option>
+    </md-select>
+    </md-input-container>
+
+    <!-- Title -->
+    <md-input-container flex-gt-sm="15">
+    <label>Title</label>
+    <input ng-model="search.advFields.CaseOnlyTitle" type="text">
+    </md-input-container>
+
+    <!-- SCID -->
+    <md-input-container flex-gt-sm="15">
+    <label>SCID</label>
+    <input ng-model="search.advFields.SCID" type="text">
+    </md-input-container>
+
+    <!-- Service ID -->
+<md-input-container flex-gt-sm="15">
+    <label>Service ID</label>
+<input ng-model="search.advFields.ServiceId" type="text">
+    </md-input-container>
+
+    <!-- Owner Login
+<md-input-container flex-gt-sm="15">
+    <label>Owner Login</label>
+<input ng-model="search.advFields.OwnerNTLogin" type="text">
+    </md-input-container>
+    -->
+    <md-autocomplete
+class="searchField"
+flex-gt-sm="15"
+md-min-length="3"
+md-autoselect="true"
+md-select-on-match="true"
+md-floating-label="Owner"
+
+md-selected-item="search.caseOwner"
+md-selected-item-change="search.setCaseOwner()"
+md-items="owner in search.listUsers(search.caseOwnerText)"
+md-item-text="owner.fullName"
+
+md-search-text="search.caseOwnerText"
+
+md-menu-class="autocomplete-custom-template"
+    >
+    <md-item-template>
+    <span class="item-title"><i class="fa fa-user"></i>{{owner.fullName}}</span>
+</md-item-template>
+<md-not-found>No Person matching "{{search.caseOwnerText}}" were found.</md-not-found>
+</md-autocomplete>
+
+
+
+<!-- Owner Workgroup
+<md-input-container flex-gt-sm="15">
+    <label>Owner Workgroup</label>
+<input ng-model="search.advFields.OwnerWorkGroup" type="text">
+    </md-input-container>
+    -->
+    <md-autocomplete
+class="searchField"
+flex-gt-sm="15"
+md-min-length="1"
+md-autoselect="true"
+md-select-on-match="true"
+md-floating-label="Owner Workgroup"
+
+md-selected-item="search.advFields.OwnerWorkGroup"
+md-items="group in search.listWorkgroups(search.ownWorkgroupText)"
+
+md-search-text="search.ownWorkgroupText"
+
+md-menu-class="autocomplete-custom-template"
+    >
+    <md-item-template>
+    <span class="item-title"><i class="fa fa-user"></i>{{group}}</span>
+</md-item-template>
+<md-not-found>No Workgroups matching "{{search.groupText}}" were found.</md-not-found>
+</md-autocomplete>
+
+<!-- Site ID -->
+<md-input-container flex-gt-sm="15">
+    <label>Site ID</label>
+<input ng-model="search.advFields.SiteId" type="text">
+    </md-input-container>
+
+    <!-- Site Name -->
+<md-input-container flex-gt-sm="15">
+    <label>Site Name</label>
+<input ng-model="search.advFields.SiteName" type="text">
+    </md-input-container>
+
+    <!-- Customer Name -->
+<md-input-container flex="15">
+    <label>Customer Name</label>
+<input ng-model="search.advFields.CustomerName" type="text">
+    </md-input-container>
+
+    <!-- Severity
+    <md-input-container flex-gt-sm="15">
+    <label>Severity</label>
+    <input ng-model="search.advFields.Severity" type="text">
+    </md-input-container>
+    -->
+    <md-input-container flex-gt-sm="15">
+    <label>Severity</label>
+    <md-select ng-model="search.advFields.Severity" md-on-open="search.getSeverityTypes()">
+    <md-option value="{{sev.name}}" ng-repeat="sev in search.severityTypes track by $index">{{sev.name}}</md-option>
+</md-select>
+</md-input-container>
+
+<!-- PCSID -->
+<md-input-container flex-gt-sm="15">
+    <label>PCSID</label>
+    <input ng-model="search.advFields.PCSID" type="text">
+    </md-input-container>
+
+    <!-- PIID -->
+    <md-input-container flex-gt-sm="15">
+    <label>PIID</label>
+    <input ng-model="search.advFields.PIID" type="text">
+    </md-input-container>
+    </md-card>
+
+    <!-- Case fields -->
+<md-card class="full-width" layout="row" layout-padding layout-wrap ng-if="search.advFields.searchCases">
+    <span class="md-subhead" flex-gt-sm="15">Case Search</span>
+<md-input-container flex-gt-sm="15">
+    <label>Customer ID</label>
+<input ng-model="search.advFields.CustomerId" type="text">
+    </md-input-container>
+    </md-card>
+
+    <!-- Subcase fields -->
+<md-card class="full-width" layout="row" layout-padding layout-wrap ng-if="search.advFields.searchSubcases">
+    <span class="md-subhead" flex-gt-sm="15">Subcase Search</span>
+<md-input-container flex-gt-sm="15">
+    <label>Title</label>
+    <input ng-model="search.advFields.SubcaseTitle" type="text">
+    </md-input-container>
+    <!-- Subcase Owner
+<md-input-container flex-gt-sm="15">
+    <label>Owner Login</label>
+<input ng-model="search.advFields.SubcaseOwnerLogin" type="text">
+    </md-input-container>
+    -->
+    <md-autocomplete
+class="searchField"
+flex-gt-sm="15"
+md-min-length="3"
+md-autoselect="true"
+md-select-on-match="true"
+md-floating-label="Owner"
+
+md-selected-item="search.subcaseOwner"
+md-selected-item-change="search.setSubcaseOwner()"
+md-items="owner in search.listUsers(search.subcaseOwnerText)"
+md-item-text="owner.fullName"
+
+md-search-text="search.subcaseOwnerText"
+
+md-menu-class="autocomplete-custom-template"
+    >
+    <md-item-template>
+    <span class="item-title"><i class="fa fa-user"></i>{{owner.fullName}}</span>
+</md-item-template>
+<md-not-found>No Person matching "{{search.subcaseOwnerText}}" were found.</md-not-found>
+</md-autocomplete>
+</md-card>
+
+<!-- actions -->
+<div layout="row" layout-align="end start" class="full-width">
+    <span ng-if="!search.isSearching && search.type == 'adv' && gridOptions.data.length == 0" class="alert-warning">This criteria doesn&rsquo;t return any results.</span>
+<span flex></span>
+<md-button class="md-raised" ng-click="search.reset()" ng-click="search.resetSearch()">Reset</md-button>
+    <md-button class="md-raised md-primary" ng-click="search.searchclients()">Go</md-button>
+    </div>
+    </form>
+    </div>
+    </md-toolbar>
+
+    <md-content class="search clients" layout="column" flex>
+<md-tabs
+md-selected="tabData.selectedIndex"
+md-border-bottom
+md-autoselect
+ng-if="!template.inProgress"
+    ng-init="openclientLink()"
+md-dynamic-height="false"
+    >
+    <md-tab ng-repeat="(tabKey,tabValue) in tabs track by $index">
+    <md-tab-label>
+    <span>{{tabValue.ticketId}}</span>
+<a ng-if="tabKey != '0'" href="" ng-click="removeTab(tabKey)"><i class="fa fa-times"></i></a>
+    </md-tab-label>
+    <md-tab-body>
+    <ng-include ng-if="tabKey == '0'" src="'./modules/clients/views/ticket-search.client.view.html'"></ng-include>
+    <ng-include ng-if="tabKey != '0'" src="'./modules/clients/views/ticket-view.client.view.html'"></ng-include>
+    </md-tab-body>
+    </md-tab>
+    </md-tabs>
+    </md-content>
+
+    <!-- Saved searches panel -->
+<md-sidenav class="md-sidenav-right md-whiteframe-z2" md-component-id="searchOptions" md-is-open="search.sideNavOpen">
+    <md-toolbar class="md-theme-light" layout="row">
+    <h3 class="md-toolbar-tools">Searches</h3>
+    <span flex></span>
+<md-button class="md-raised" ng-click="search.toggleEditSearches()" aria-label="edit searches">
+    <i class="fa fa-pencil"></i>
+    <md-tooltip>edit your searches</md-tooltip>
+</md-button>
+<md-button class="md-raised" ng-click="search.toggleSearchSave()" aria-label="add a search">
+    <i class="fa fa-plus"></i>
+    <md-tooltip>add a search</md-tooltip>
+</md-button>
+</md-toolbar>
+<md-content ng-controller="SearchOptionsController" layout-padding>
+<md-card layout="column" ng-if="search.saveCurrentSearch">
+    <div ng-if="search.newSavedSearch.criteria.length == 0">
+    <p layout="row">
+    <strong><em>There is no search criteria to save.</em></strong>
+<span flex></span>
+<i class="fa fa-times" ng-click="search.toggleSearchSave()"></i>
+    </p>
+    </div>
+    <div ng-if="search.newSavedSearch.criteria.length > 0">
+    <h5>Save Search</h5>
+<md-chips name="searchCriteria" ng-model="search.newSavedSearch.criteria" readonly="true">
+    <md-chip-template>
+    <span ng-if="$chip.field == 'searchCases' && $chip.value == true"><i class="fa fa-times-circle" ng-click="search.newSavedSearch.criteria.splice($index,1)"></i> Cases</span>
+    <span ng-if="$chip.field == 'searchSubcases' && $chip.value == true"><i class="fa fa-times-circle" ng-click="search.newSavedSearch.criteria.splice($index,1)"></i> Subcases</span>
+    <span ng-if="$chip.field != 'searchCases' && $chip.field != 'searchSubcases'"><i class="fa fa-times-circle" ng-click="search.newSavedSearch.criteria.splice($index,1)"></i> {{search.language[$chip.field] + ' : ' + $chip.value}}</span>
+</md-chip-template>
+</md-chips>
+<md-input-container>
+<label>Search Name</label>
+<input type="text" ng-model="search.newSavedSearch.name">
+    </md-input-container>
+    <div layout="row">
+    <span flex></span>
+<md-button class="md-raised md-warn" aria-label="cancel save" ng-click="search.toggleSearchSave()"><i class="fa fa-times"></i></md-button>
+    <md-button class="md-raised md-primary" aria-label="commit save" ng-click="search.saveSearch('favorite')"><i class="fa fa-check"></i></md-button>
+    </div>
+    </div>
+    </md-card>
+    <h5 layout="row">
+    <em>Favorites</em>
+    <span flex></span>
+<md-button class="md-raised" ng-if="search.editSearches" ng-click="search.deleteSearch('favorite')"><small>clear</small></md-button>
+    </h5>
+    <div ng-if="search.savedSearches.favorite.length < 1 || search.savedSearches.favorite == undefined"><em>You have no saved searches</em></div>
+<md-list ng-if="search.savedSearches.favorite.length > 0">
+    <md-list-item ng-repeat="favSrch in search.savedSearches.favorite">
+    <i class="fa fa-minus-circle" style="color:#C90449;font-size: 1.51em;text-shadow: 0 0 3px rgba(0,0,0,0.3);" ng-if="search.editSearches" ng-click="search.deleteSearch(favSrch.id)"></i>
+    <md-button ng-click="search.executeSavedSearch(favSrch)">
+    {{favSrch.name}}
+<md-tooltip layout="column">
+    <div ng-repeat="favSrchVal in favSrch.criteria">{{search.language[favSrchVal.field]}} : {{favSrchVal.value}}</div>
+</md-tooltip>
+</md-button>
+</md-list-item>
+</md-list>
+
+<md-divider></md-divider>
+<h5 layout="row">
+    <em>Recent (Last {{clientsSettings.recentSearchesMax}})</em>
+<span flex></span>
+<md-button class="md-raised" ng-if="search.editSearches" ng-click="search.deleteSearch('recent')"><small>clear</small></md-button>
+    </h5>
+    <div ng-if="search.savedSearches.recent.length < 1 || search.savedSearches.recent == undefined"><em>You have no recent searches</em></div>
+<md-list ng-if="search.savedSearches.recent.length > 0">
+    <md-list-item ng-repeat="recSrch in search.savedSearches.recent" ng-click="search.executeSavedSearch(recSrch)" layout="row" layout-align="start start">
+    <div flex="20" layout="row" layout-align="end start">{{recSrch.type}}</div>
+<div flex="5"></div>
+    <div flex>
+<span ng-repeat="crit in recSrch.criteria" layout="column">
+    <strong><span ng-if="crit.field !='keyword'">{{search.language[crit.field]}} : </span>{{crit.value}}</strong>
+</span>
+</div>
+</md-list-item>
+</md-list>
+</md-content>
+</md-sidenav>
+
+</section>
+<div class="table-responsive resultsList" ng-class="{advCritOpen: criteriaCollapsed, advCritClosed: !criteriaCollapsed}" layout="column">
+    <!-- progress circular -->
+    <div flex-gt-sm="100" layout="row" layout-align="center center" ng-if="searching">
+        <md-card layout="row" layout-wrap class="progressWrapper">
+            <div flex="100" layout="row" layout-align="center center" class="md-subhead">Searching clients</div>
+            <div flex="100" layout="row" layout-align="center center">
+                <md-progress-circular md-mode="indeterminate" md-diameter="96"></md-progress-circular>
+            </div>
+        </md-card>
+    </div>
+
+    <!-- progress circular -->
+    <div flex-gt-sm="100" layout="row" layout-align="center center" ng-if="search.isSearching">
+        <md-card layout="row" layout-wrap class="progressWrapper">
+            <div flex="100" layout="row" layout-align="center center" class="md-subhead">Searching clients</div>
+            <div flex="100" layout="row" layout-align="center center">
+                <md-progress-circular md-mode="indeterminate" md-diameter="96"></md-progress-circular>
+            </div>
+        </md-card>
+    </div>
+
+    <!--- No results ----->
+    <div
+            ng-if="!search.isSearching && gridOptions.data.length == 0"
+            style="margin-top:-50px;position: absolute;top:50%; text-align: center; left: 0; right: 0;"
+    >No results to display.
+    </div>
+
+    <!--- Results grid ----->
+    <div
+            ui-grid="gridOptions"
+            ui-grid-auto-resize
+            ui-grid-cellnav
+            ui-grid-resize-columns
+            ui-grid-custom-cell-select
+            ui-grid-pagination
+
+            class="grid"
+            ng-if="!search.isSearching"
+    ></div>
+</div>

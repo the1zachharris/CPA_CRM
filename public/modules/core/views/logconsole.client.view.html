@@ -1,0 +1,82 @@
+<section class="full-height scroll" ng-init="initTabs()" style="background-color: white;">
+
+    <div class="appheader">
+        <h3>OCL Log Console</h3>
+    </div>
+
+    <div class="container-fluid" ng-controller="LogConsoleController as tab">
+
+        <ul class="nav nav-tabs" style="padding-top: 2px;">
+            <li ng-class="{active:tab.isSet(1)}"><a href ng-click="tab.setTab(1)">Client Console</a></li>
+            <li ng-class="{active:tab.isSet(2)}"><a href ng-click="tab.setTab(2)">Server Console</a></li>
+        </ul>
+
+        <div class="tab-content" ng-show="tab.isSet(1)" ng-init="initClientLogConsole()" style="border-bottom: 1px dashed lightblue;padding-top: 10px;">
+
+            <div class="row">
+                <div ng-show="showClientErrorMessage != null" style="text-align: center;" class="alert alert-danger alert-dismissible" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    {{showClientErrorMessage}}
+                </div>
+            </div>
+
+            <div class="row" style="padding-top: 5px;">
+                <div style="padding-left:20px;">
+                    <div>
+                        <label>Select Node:</label>
+                    </div>
+                    <form role="form">
+                        <label class="radio-inline">
+                            <input type="radio" ng-model="node.selected" value="1" ng-change='toggleNodes(node.selected)'>
+                            Node 1
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" ng-model="node.selected" value="2" ng-change='toggleNodes(node.selected)'>
+                            Node 2
+                        </label>
+                    </form>
+                </div>
+                <div style="padding-top: 5px;">
+                    <div class="col-md-5">
+                        <h3  id="logLevelNode1" style="padding-top: 19px;">{{log.logLevel}}</h3>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="dropdown">
+                            <label for="logLevelDropDown">Change Log Level To:</label>
+                            <select id="logLevelDropDown" ng-model="log.value" class="form-control"
+                                    ng-options="v for v in log.values">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-1" style="padding-top: 17px;">
+                        <button type="submit" ng-click="updateLogLevel(log.value)" class="btn btn-default">
+                            <i class="fa fa-floppy-o"></i>&nbsp;Save
+                        </button>
+                    </div>
+                    <div class="col-md-4" style="padding-top: 25px;">
+                        <label style="" ng-show="updateResponseMessage != null || updateResponseMessage">
+                            <i style="color: green" class="fa fa-check"></i>
+                            {{updateResponseMessage}}
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div ng-show="tab.isSet(2)" ng-init="initServerLogConsole()">
+            <div class="row">
+                <div ng-show="showServerErrorMessage != null" style="text-align: center;" class="alert alert-danger alert-dismissible" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    {{showServerErrorMessage}}
+                </div>
+            </div>
+            <table style="width:100%" style="height: 100%;">
+                </tr>
+                <tr>
+                    <td><iframe id="serverLogConsoleIframe" style="height: 900px;width: 1450px;"></iframe></td>
+                </tr>
+            </table>
+        </div>
+
+    </div>
+</section>

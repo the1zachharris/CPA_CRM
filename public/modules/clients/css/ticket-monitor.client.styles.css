@@ -1,0 +1,417 @@
+[ticketMonitor] > section.full-height {
+    overflow-y: auto;
+}
+
+[ticketMonitor] .st-sort-ascent:before {
+    content: '\25B2';
+}
+
+[ticketMonitor] .st-sort-descent:before {
+    content: '\25BC';
+}
+
+[ticketMonitor] .table-container{
+    height:500px;
+    overflow-y:scroll;
+}
+
+[ticketMonitor] .loading-indicator {
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    width: 100%;
+    text-align: center;
+    padding: 0.7em; }
+
+[ticketMonitor] .loading-indicator:before {
+    display: inline-block;
+    margin: 0 0.4em;
+    min-width: 1em;
+    min-height: 1em;
+    border-top: 4px solid #646464;
+    border-right: 4px solid #e6e6e6;
+    border-left: 4px solid #e6e6e6;
+    border-bottom: 4px solid #646464;
+    content: "";
+    -webkit-animation: halfspin 1s ease infinite;
+    -moz-animation: halfspin 1s ease infinite;
+    -o-animation: halfspin 1s ease infinite;
+    animation: halfspin 1s ease infinite;
+    border-radius: 100%;
+}
+
+@-webkit-keyframes halfspin {
+    to {
+        -webkit-transform: rotate(180deg);
+        -moz-transform: rotate(180deg);
+        transform: rotate(180deg); } }
+
+@-moz-keyframes halfspin {
+    to {
+        -webkit-transform: rotate(180deg);
+        -moz-transform: rotate(180deg);
+        transform: rotate(180deg); } }
+
+@keyframes halfspin {
+    to {
+        -webkit-transform: rotate(180deg);
+        -moz-transform: rotate(180deg);
+        transform: rotate(180deg); } }
+
+
+[ticketMonitor] .ac-tooltip {
+    border:           2px solid rgba( 50, 50, 50, 0.8 );
+    background-color: rgba( 100, 100, 100, 0.5 );
+    border-radius:    5px;
+    padding:          2px;
+    color:            white;
+}
+
+[ticketMonitor] .ac-legend table  {
+    border-top:  20px solid rgba( 255, 255, 255, 0 );
+    border-collapse: collapse;
+}
+[ticketMonitor] .ac-legend table tr {
+    border-top:  7px solid rgba( 255, 255, 255, 0 );
+}
+
+[ticketMonitor] [ac-chart] {
+    margin:        4% 0;
+    width:         103%;
+    height:        250px;
+    margin-bottom: 60px;
+}
+[ticketMonitor] .status-container.row {
+    /*
+    margin-left: 0;
+    */
+}
+
+[ticketMonitor] [ac-chart] .ac-title {
+    font-weight:  900;
+    font-size:    20px;
+}
+
+[ticketMonitor] .status-heading {
+    font-weight:  900;
+    font-size:    16px;
+}
+[ticketMonitor] .status-title {
+    font-weight:  900;
+    font-size:    20px;
+}
+
+[ticketMonitor] [ac-chart] .ac-line {
+    fill:         none;
+    stroke-width: 2px;
+}
+
+[ticketMonitor] g.button:hover{
+    opacity: 0.6;
+}
+
+[ticketMonitor].scrolled {
+
+}
+
+
+[ticketMonitor] .status-container {
+    /*
+    position: fixed;
+    margin-top: 0;
+    margin-right: 27px;
+    */
+    transition:
+        background-color 0.25s ease,
+        padding 0.25s ease,
+        margin 0.25s ease,
+        box-shadow 0.25s ease
+    ;
+}
+
+[ticketMonitor].scrolled .status-container {
+    margin-left: -16px;
+    padding: 7px 7px 0 14px;
+    margin-right: 63px;
+    z-index: 99;
+    margin-top: -16px;
+    /*
+    background-color: rgba(255,255,255,0.77);
+    border-radius: 7px;
+    -webkit-box-shadow: 0 0 3px rgba(0, 0, 0, 0.49);
+    -moz-box-shadow: 0 0 3px rgba(0, 0, 0, 0.49);
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.49);
+    */
+}
+
+[ticketMonitor] .status-container {
+    /*
+    position: fixed;
+    margin-top: 9px;
+    */
+}
+
+[ticketMonitor] .status-container img {
+    position: absolute;
+    height: 82px;
+    opacity: 0.07;
+    left: 9px;
+    top: -14px;
+}
+
+[ticketMonitor].scrolled .status-container img {
+    display: none;
+}
+
+[ticketMonitor] .charts {
+    /*
+    padding: 149px 0 0;
+    */
+}
+
+    [ticketMonitor] .charts a {
+        color: rgba(0,0,0,0.49);
+        font-size: 1.41em;
+        cursor: pointer;
+    }
+
+    [ticketMonitor] .charts a:hover {
+        color: rgba(255,0,0,1.0);
+    }
+
+
+
+
+
+[ticketMonitor] .status-container .panel {
+    margin: 0 7px 7px 0;
+    overflow: hidden;
+}
+
+    [ticketMonitor].scrolled .panel .toggle {
+        display: none;
+    }
+
+    [ticketMonitor] .panel .panel-body {
+        padding: 9px;
+        font-size: 1.11em;
+    }
+
+    [ticketMonitor].scrolled .panel .panel-body {
+        font-weight: bold;
+        text-align: center;
+        font-size: 1.21em;
+        padding: 7px;
+    }
+
+        [ticketMonitor] .panel .panel-body p {
+            margin: 7px 0 0 11px;
+        }
+
+        [ticketMonitor].scrolled .panel .panel-body p {
+            margin: 0;
+        }
+
+
+
+
+
+/**************************************************
+ * Mini Toolbar - might be moved to a new file just for mini toolbars
+ **************************************************/
+
+
+[ticketMonitor] .tools {
+    position: fixed;
+    margin-top: -21px;
+    right: 49px;
+    background: rgba(255,255,255,0.77);
+    border-bottom-left-radius: 9px;
+    padding: 3px 9px 2px;
+    border-bottom-right-radius: 9px;
+    -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.49);
+    -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.49);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.49);
+    z-index: 999;
+}
+
+    [ticketMonitor] .tools a {
+        cursor: pointer;
+        font-size: 1.21em;
+        text-transform: uppercase;
+    }
+
+    [ticketMonitor] .tools a:hover {
+        text-decoration: none;
+    }
+
+
+
+
+
+/**************************************************
+ Server Statai
+ **************************************************/
+
+[ticketMonitor] ul.status-container .running {
+    border: 1px solid #00ff00;
+    -webkit-box-shadow: 0 0 3px rgba(0,144,0,0.21);
+    -moz-box-shadow: 0 0 3px rgba(0,144,0,0.21);
+    box-shadow: 0 0 3px rgba(0,144,0,0.21);
+}
+
+[ticketMonitor] ul.status-container .failed {
+    border: 1px solid #ff0000;
+    -webkit-box-shadow: 0 0 3px rgba(144,0,0,0.21);
+    -moz-box-shadow: 0 0 3px rgba(144,0,0,0.21);
+    box-shadow: 0 0 3px rgba(144,0,0,0.21);
+}
+
+[ticketMonitor] ul.status-container .shutdown {
+    border: 1px solid #ff0000;
+    -webkit-box-shadow: 0 0 3px rgba(144,0,0,0.21);
+    -moz-box-shadow: 0 0 3px rgba(144,0,0,0.21);
+    box-shadow: 0 0 3px rgba(144,0,0,0.21);
+}
+
+[ticketMonitor] ul.status-container .shuttingDown {
+    border: 1px solid #ff0000;
+    -webkit-box-shadow: 0 0 3px rgba(144,0,0,0.21);
+    -moz-box-shadow: 0 0 3px rgba(144,0,0,0.21);
+    box-shadow: 0 0 3px rgba(144,0,0,0.21);
+}
+
+[ticketMonitor] ul.status-container .starting {
+    border: 1px solid #ff0000;
+    -webkit-box-shadow: 0 0 3px rgba(144,0,0,0.21);
+    -moz-box-shadow: 0 0 3px rgba(144,0,0,0.21);
+    box-shadow: 0 0 3px rgba(144,0,0,0.21);
+}
+
+[ticketMonitor] ul.status-container .standby {
+    border: 1px solid #ff0000;
+    -webkit-box-shadow: 0 0 3px rgba(144,0,0,0.21);
+    -moz-box-shadow: 0 0 3px rgba(144,0,0,0.21);
+    box-shadow: 0 0 3px rgba(144,0,0,0.21);
+}
+
+[ticketMonitor] ul.status-container .admin {
+    border: 1px solid #ff0000;
+    -webkit-box-shadow: 0 0 3px rgba(144,0,0,0.21);
+    -moz-box-shadow: 0 0 3px rgba(144,0,0,0.21);
+    box-shadow: 0 0 3px rgba(144,0,0,0.21);
+}
+
+[ticketMonitor] ul.status-container .resuming {
+    border: 1px solid #ff0000;
+    -webkit-box-shadow: 0 0 3px rgba(144,0,0,0.21);
+    -moz-box-shadow: 0 0 3px rgba(144,0,0,0.21);
+    box-shadow: 0 0 3px rgba(144,0,0,0.21);
+}
+
+[ticketMonitor] ul.status-container .suspending {
+    border: 1px solid #ff0000;
+    -webkit-box-shadow: 0 0 3px rgba(144,0,0,0.21);
+    -moz-box-shadow: 0 0 3px rgba(144,0,0,0.21);
+    box-shadow: 0 0 3px rgba(144,0,0,0.21);
+}
+
+[ticketMonitor] ul.status-container .forceSuspending {
+    border: 1px solid #ff0000;
+    -webkit-box-shadow: 0 0 3px rgba(144,0,0,0.21);
+    -moz-box-shadow: 0 0 3px rgba(144,0,0,0.21);
+    box-shadow: 0 0 3px rgba(144,0,0,0.21);
+}
+
+[ticketMonitor].scrolled .panel .panel-body:hover .hoverStatus {
+    opacity: 1;
+    color: rgba(255,255,255,1);
+}
+
+[ticketMonitor] .hoverStatus {
+    border-radius: 4px;
+    color: rgba(255,255,255,0);
+    padding: 8px 0;
+    position: absolute;
+    top: 0;
+    left: 15px;
+    right: 22px;
+    opacity: 0;
+
+    -webkit-transition: opacity 0.25s ease, color 0.5s ease;
+    -moz-transition: opacity 0.25s ease, color 0.5s ease;
+    -ms-transition: opacity 0.25s ease, color 0.5s ease;
+    -o-transition: opacity 0.25s ease, color 0.5s ease;
+    transition: opacity 0.25s ease, color 0.5s ease;
+}
+
+[ticketMonitor] .panel.running .hoverStatus {
+    background: rgba(100,200,100,0.84);
+}
+
+[ticketMonitor] .panel.failed .hoverStatus,
+[ticketMonitor] .panel.shutdown .hoverStatus,
+[ticketMonitor] .panel.shuttingDown .hoverStatus,
+[ticketMonitor] .panel.starting .hoverStatus,
+[ticketMonitor] .panel.standby .hoverStatus,
+[ticketMonitor] .panel.admin .hoverStatus,
+[ticketMonitor] .panel.resuming .hoverStatus,
+[ticketMonitor] .panel.suspending .hoverStatus,
+[ticketMonitor] .panel.forceSuspending .hoverStatus {
+    background: rgba(200,100,100,0.84);
+}
+
+
+
+.ticketPerfModal .modal-lg {
+    width: 90%;
+}
+
+
+
+
+
+
+
+
+
+/**************************************************
+ Chart Rules
+ **************************************************/
+
+
+
+
+
+
+
+.legend {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+g.x.axis,
+g.y.axis {
+    font-family: robotoregular !important;
+}
+
+.legendText {
+    font-family: robotoregular, Frutiger, "Frutiger Linotype", Univers, Calibri, "Gill Sans", "Gill Sans MT", "Myriad Pro", Myriad, "DejaVu Sans Condensed", "Liberation Sans", "Nimbus Sans L", Tahoma, Geneva, "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+
+g.legendItem.series_7 {
+    -webkit-transform: translate(0,304) !important;
+    -moz-transform: translate(0,304) !important;
+    -ms-transform: translate(0,304) !important;
+    -o-transform: translate(0,304) !important;
+    transform: translate(0,304) !important;
+}
+
+g.legendItem.series_7 {
+    -webkit-transform: translate(100,304) !important;
+    -moz-transform: translate(100,304) !important;
+    -ms-transform: translate(100,304) !important;
+    -o-transform: translate(100,304) !important;
+    transform: translate(100,304) !important;
+}

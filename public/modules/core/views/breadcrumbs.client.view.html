@@ -1,0 +1,15 @@
+<ul class="breadcrumbs pull-left">
+    <!-- loop through states to display state names -->
+    <li ng-repeat="state in $navigationState.currentState.path">
+        <!-- if parent state: -->
+        <span ng-if="!$navigationState.isCurrent(state)">
+            <!-- #FIXME: Parent state links are not working -->
+            <!--<span class="glyphicon glyphicon-chevron-right"></span><a href="#{{ state.url.format(params) }}">{{$navigationState.getDisplayName(state)}}</a>-->
+            <span class="fa fa-angle-right"></span>{{$navigationState.getDisplayName(state)}}
+        </span>
+        <!-- if current state: -->
+        <span ng-if="$navigationState.isCurrent(state)">
+            <span class="fa fa-angle-right"></span>{{$navigationState.getDisplayName(state)}}
+        </span>
+    </li>
+</ul>

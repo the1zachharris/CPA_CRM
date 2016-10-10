@@ -1,0 +1,68 @@
+<section oclDashboard class="container-fluid full-height nopad" layout="column">
+	<div class="appheader">
+		<h3>Ops Console Lite Dashboard</h3>
+	</div>
+	<md-content flex layout-padding>
+		<div class="clearfix">
+			<accordion class="col-md-6">
+				<accordion-group is-open="true" is-disabled="true">
+					<accordion-heading>
+						<h4>OCL Resources</h4>
+					</accordion-heading>
+					<ul>
+						<li><a href="/jobAids/OCL_NED_JobAid.pdf">OCL NED Job Aid</a></li>
+						<li><a href="/jobAids/OCL_NotesWizardJobAid.pdf">OCL Notes Wizard Job Aid</a></li>
+						<li><a href="/jobAids/OCL_TemplateManagerJobAid.pdf">OCL Template Manager Job Aid</a></li>
+					</ul>
+				</accordion-group>
+			</accordion>
+			<accordion class="col-md-6">
+				<accordion-group is-open="true" is-disabled="true">
+					<accordion-heading>
+						<h4>Here are the roles you've been assigned</h4>
+					</accordion-heading>
+					<ul>
+						<li ng-repeat="r in roles"><strong>{{r.appName}}</strong> Role: {{r.name}}</li>
+					</ul>
+				</accordion-group>
+			</accordion>
+		</div>
+		<div class="clearfix">
+			<accordion class="col-md-6">
+				<accordion-group is-open="true" is-disabled="true">
+					<accordion-heading>
+						<h4>Here are the last 25 actions you performed in the system</h4>
+					</accordion-heading>
+					<dl class=dl-horizontal>
+						<dh ng-hide="aHistory">No Previous actions, go check out the system</dh>
+						<div ng-repeat="h in aHistory">
+							<dt>On {{h.actionTime | date: 'medium' }}</dt>
+							<dd>You performed:  <strong><a href="/#{{h.routeURL}}">{{h.applicationname}}</a> -  {{h.diffDate | number: 0}}  {{h.interval}} ago</strong></dd>
+						</div>
+					</dl>
+				</accordion-group>
+			</accordion>
+			<accordion class="col-md-6">
+				<accordion-group is-open="true" is-disabled="true">
+					<accordion-heading>
+						<h4>Release and Announcement Information</h4>
+					</accordion-heading>
+					<p>Populate with release notes.</p>
+				</accordion-group>
+			</accordion>
+		</div>
+	</md-content>
+	<script type="text/ng-template" id="appModal">
+		<div class="modal-header">
+			<i class="fa pull-right fa-{{modal.icon}}" ng-if="modal.icon" ng-class="{'error' : modal.title == 'Error','warning' : modal.title == 'Warning','success' : modal.title == 'Success'}"></i>
+			<h4 class="modal-title">{{modal.title}}</h4>
+		</div>
+		<div class="modal-body">
+			{{modal.body}}
+		</div>
+		<div class="modal-footer">
+			<button class="btn btn-primary" type="button" ng-click="cancel()">ok</button>
+		</div>
+	</script>
+
+</section>
