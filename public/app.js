@@ -1,7 +1,7 @@
 'use strict';
 window.onerror = function (errorMsg, url, lineNumber, column, errorObj) {
 
-    console.dir(errorObj);
+    //console.dir(errorObj);
 
     /*var msg = {
         TaskMasterClientController : function(){ var app = url.split('/'); return app[app.length-1]},
