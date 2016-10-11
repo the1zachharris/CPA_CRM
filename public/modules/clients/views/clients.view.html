@@ -111,260 +111,53 @@ md-floating-label="Client Type"
 <md-not-found>No client types matching "{{search.clientTypeText}}" were found.</md-not-found>
 </md-autocomplete>
 
-<!-- Case SubType -->
-<md-autocomplete
-class="searchField"
-flex-gt-sm="15"
-
-md-autoselect="true"
-md-select-on-match="true"
-md-min-length="0"
-md-no-cache="true"
-md-selected-item="search.caseSubtype"
-md-selected-item-change="search.setCaseSubtype()"
-md-search-text="search.caseSubTypeText"
-md-items="subtype in search.getCaseSubTypes(search.caseSubTypeText)"
-md-item-text="subtype.name"
-md-floating-label="Case Subtype"
-
-ng-if="search.caseType != ''"
-    >
-    <md-item-template>
-    <span md-highlight-text="caseSubTypeText" md-highlight-flags="^i">{{subtype.name}}</span>
-</md-item-template>
-<md-not-found>No case types matching "{{search.caseSubTypeText}}" were found.</md-not-found>
-</md-autocomplete>
-
-<!-- Originator Login
+<!-- Name -->
 <md-input-container flex-gt-sm="15">
-    <label>Originator Login</label>
-<input ng-model="search.advFields.OriginatorLogin" type="text">
-    </md-input-container>
-    -->
-    <md-autocomplete
-class="searchField"
-flex-gt-sm="15"
-md-min-length="3"
-md-autoselect="true"
-md-select-on-match="true"
-md-floating-label="Originator"
-
-md-selected-item="search.originator"
-md-selected-item-change="search.setOriginator()"
-md-items="orig in search.listUsers(search.originatorText)"
-md-item-text="orig.fullName"
-
-md-search-text="search.originatorText"
-
-md-menu-class="autocomplete-custom-template"
-    >
-    <md-item-template>
-    <span class="item-title"><i class="fa fa-user"></i>{{orig.fullName}}</span>
-</md-item-template>
-<md-not-found>No Person matching "{{search.originatorText}}" were found.</md-not-found>
-</md-autocomplete>
-
-<!-- Originator Workgroup
-<md-input-container flex-gt-sm="15">
-    <label>Originator Workgroup</label>
-<input ng-model="search.advFields.OriginatorWorkGroup" type="text">
-    </md-input-container>
-    -->
-    <md-autocomplete
-class="searchField"
-flex-gt-sm="15"
-md-min-length="1"
-md-autoselect="true"
-md-select-on-match="true"
-md-floating-label="Originator Workgroup"
-
-md-selected-item="search.advFields.OriginatorWorkGroup"
-md-items="group in search.listWorkgroups(search.origWorkgroupText)"
-
-md-search-text="search.origWorkgroupText"
-
-md-menu-class="autocomplete-custom-template"
-    >
-    <md-item-template>
-    <span class="item-title"><i class="fa fa-user"></i>{{group}}</span>
-</md-item-template>
-<md-not-found>No Workgroups matching "{{search.groupText}}" were found.</md-not-found>
-</md-autocomplete>
-
-<!-- Condition -->
-<md-input-container flex-gt-sm="15">
-    <label>Condition</label>
-    <md-select ng-model="search.advFields.Condition">
-    <md-option value="OPEN">Open</md-option>
-    <md-option value="CLOSED">Closed</md-option>
-    </md-select>
-    </md-input-container>
-
-    <!-- Title -->
-    <md-input-container flex-gt-sm="15">
-    <label>Title</label>
-    <input ng-model="search.advFields.CaseOnlyTitle" type="text">
-    </md-input-container>
-
-    <!-- SCID -->
-    <md-input-container flex-gt-sm="15">
-    <label>SCID</label>
-    <input ng-model="search.advFields.SCID" type="text">
-    </md-input-container>
-
-    <!-- Service ID -->
-<md-input-container flex-gt-sm="15">
-    <label>Service ID</label>
-<input ng-model="search.advFields.ServiceId" type="text">
-    </md-input-container>
-
-    <!-- Owner Login
-<md-input-container flex-gt-sm="15">
-    <label>Owner Login</label>
-<input ng-model="search.advFields.OwnerNTLogin" type="text">
-    </md-input-container>
-    -->
-    <md-autocomplete
-class="searchField"
-flex-gt-sm="15"
-md-min-length="3"
-md-autoselect="true"
-md-select-on-match="true"
-md-floating-label="Owner"
-
-md-selected-item="search.caseOwner"
-md-selected-item-change="search.setCaseOwner()"
-md-items="owner in search.listUsers(search.caseOwnerText)"
-md-item-text="owner.fullName"
-
-md-search-text="search.caseOwnerText"
-
-md-menu-class="autocomplete-custom-template"
-    >
-    <md-item-template>
-    <span class="item-title"><i class="fa fa-user"></i>{{owner.fullName}}</span>
-</md-item-template>
-<md-not-found>No Person matching "{{search.caseOwnerText}}" were found.</md-not-found>
-</md-autocomplete>
-
-
-
-<!-- Owner Workgroup
-<md-input-container flex-gt-sm="15">
-    <label>Owner Workgroup</label>
-<input ng-model="search.advFields.OwnerWorkGroup" type="text">
-    </md-input-container>
-    -->
-    <md-autocomplete
-class="searchField"
-flex-gt-sm="15"
-md-min-length="1"
-md-autoselect="true"
-md-select-on-match="true"
-md-floating-label="Owner Workgroup"
-
-md-selected-item="search.advFields.OwnerWorkGroup"
-md-items="group in search.listWorkgroups(search.ownWorkgroupText)"
-
-md-search-text="search.ownWorkgroupText"
-
-md-menu-class="autocomplete-custom-template"
-    >
-    <md-item-template>
-    <span class="item-title"><i class="fa fa-user"></i>{{group}}</span>
-</md-item-template>
-<md-not-found>No Workgroups matching "{{search.groupText}}" were found.</md-not-found>
-</md-autocomplete>
-
-<!-- Site ID -->
-<md-input-container flex-gt-sm="15">
-    <label>Site ID</label>
-<input ng-model="search.advFields.SiteId" type="text">
-    </md-input-container>
-
-    <!-- Site Name -->
-<md-input-container flex-gt-sm="15">
-    <label>Site Name</label>
-<input ng-model="search.advFields.SiteName" type="text">
-    </md-input-container>
-
-    <!-- Customer Name -->
-<md-input-container flex="15">
-    <label>Customer Name</label>
-<input ng-model="search.advFields.CustomerName" type="text">
-    </md-input-container>
-
-    <!-- Severity
-    <md-input-container flex-gt-sm="15">
-    <label>Severity</label>
-    <input ng-model="search.advFields.Severity" type="text">
-    </md-input-container>
-    -->
-    <md-input-container flex-gt-sm="15">
-    <label>Severity</label>
-    <md-select ng-model="search.advFields.Severity" md-on-open="search.getSeverityTypes()">
-    <md-option value="{{sev.name}}" ng-repeat="sev in search.severityTypes track by $index">{{sev.name}}</md-option>
-</md-select>
+    <label>Name</label>
+    <input ng-model="search.advFields.Name" type="text">
 </md-input-container>
 
-<!-- PCSID -->
+<!-- Address -->
 <md-input-container flex-gt-sm="15">
-    <label>PCSID</label>
-    <input ng-model="search.advFields.PCSID" type="text">
-    </md-input-container>
+    <label>Address</label>
+    <input ng-model="search.advFields.Address" type="text">
+</md-input-container>
 
-    <!-- PIID -->
-    <md-input-container flex-gt-sm="15">
-    <label>PIID</label>
-    <input ng-model="search.advFields.PIID" type="text">
-    </md-input-container>
-    </md-card>
-
-    <!-- Case fields -->
-<md-card class="full-width" layout="row" layout-padding layout-wrap ng-if="search.advFields.searchCases">
-    <span class="md-subhead" flex-gt-sm="15">Case Search</span>
+<!-- Phone -->
 <md-input-container flex-gt-sm="15">
-    <label>Customer ID</label>
-<input ng-model="search.advFields.CustomerId" type="text">
-    </md-input-container>
-    </md-card>
+    <label>Phone</label>
+    <input ng-model="search.advFields.Phone" type="text">
+</md-input-container>
 
-    <!-- Subcase fields -->
-<md-card class="full-width" layout="row" layout-padding layout-wrap ng-if="search.advFields.searchSubcases">
-    <span class="md-subhead" flex-gt-sm="15">Subcase Search</span>
+<!-- Email -->
 <md-input-container flex-gt-sm="15">
-    <label>Title</label>
-    <input ng-model="search.advFields.SubcaseTitle" type="text">
-    </md-input-container>
-    <!-- Subcase Owner
-<md-input-container flex-gt-sm="15">
-    <label>Owner Login</label>
-<input ng-model="search.advFields.SubcaseOwnerLogin" type="text">
-    </md-input-container>
-    -->
-    <md-autocomplete
-class="searchField"
-flex-gt-sm="15"
-md-min-length="3"
-md-autoselect="true"
-md-select-on-match="true"
-md-floating-label="Owner"
+    <label>Email</label>
+    <input ng-model="search.advFields.Email" type="text">
+</md-input-container>
 
-md-selected-item="search.subcaseOwner"
-md-selected-item-change="search.setSubcaseOwner()"
-md-items="owner in search.listUsers(search.subcaseOwnerText)"
-md-item-text="owner.fullName"
-
-md-search-text="search.subcaseOwnerText"
-
-md-menu-class="autocomplete-custom-template"
-    >
+<!--  Contacts -->
+<md-autocomplete
+        class="searchField"
+        md-min-length="0"
+        md-autoselect="true"
+        md-select-on-match="true"
+        md-selected-item="search.Contacts"
+        md-selected-item-change="search.setContacts()"
+        md-items="type in search.getContacts(search.contactsText)"
+        md-item-text="type.contacts"
+        md-floating-label="Contacts"
+>
     <md-item-template>
-    <span class="item-title"><i class="fa fa-user"></i>{{owner.fullName}}</span>
-</md-item-template>
-<md-not-found>No Person matching "{{search.subcaseOwnerText}}" were found.</md-not-found>
+        <span md-highlight-text="contactsText" md-highlight-flags="^i">{{type.name}}</span>
+    </md-item-template>
+    <md-not-found>No contacts matching "{{search.contactsText}}" were found.</md-not-found>
 </md-autocomplete>
-</md-card>
+
+    <!-- Responsible Employee -->
+<md-input-container flex-gt-sm="15">
+    <label>Responsible Employee</label>
+<input ng-model="search.advFields.ResponsibleEmployee" type="text">
+    </md-input-container>
 
 <!-- actions -->
 <div layout="row" layout-align="end start" class="full-width">
