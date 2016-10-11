@@ -232,9 +232,6 @@ clients.controller('clientsController',[
                 url: '/clients/search',
                 data: {
                     searchString: $scope.search.searchString,
-                    caseSearch: $scope.search.advFields.searchCases,
-                    subCaseSearch: $scope.search.advFields.searchSubcases,
-                    searchType: $scope.search.currentType,
                     rows: paginationOptions.pageSize,
                     start: (paginationOptions.pageNumber - 1) * paginationOptions.pageSize
                 }

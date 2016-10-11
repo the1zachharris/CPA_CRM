@@ -1,5 +1,6 @@
 'use strict';
-window.onerror = function (errorMsg, url, lineNumber, column, errorObj) {
+
+//window.onerror = function (errorMsg, url, lineNumber, column, errorObj) {
 
     //console.dir(errorObj);
 
@@ -19,7 +20,7 @@ window.onerror = function (errorMsg, url, lineNumber, column, errorObj) {
     //xhttp.open("POST", "/log");
     //xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     //xhttp.send(JSON.stringify(msg));
-};
+//};
 
 
 var app = angular.module('taskMaster', [
