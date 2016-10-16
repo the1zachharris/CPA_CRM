@@ -34,25 +34,6 @@
                     <md-button aria-label="label" ng-click="sendMail(tabValue.ticketId,tabValue.title)">
                         <md-icon md-svg-src="images/_icons/email.svg" aria-label="email link"></md-icon> email link to case detail
                     </md-button>
-                </md-menu-item>
-                <md-menu-item layout="column">
-                    <p><strong><em>Show details</em></strong></p>
-                    <md-list>
-                        <md-list-item><md-checkbox ng-model="tabValue.showCaseDetailsPane">Case Details</md-checkbox></md-list-item>
-                        <md-list-item><md-checkbox ng-model="tabValue.showActivityLogPane">Activity Log</md-checkbox></md-list-item>
-                        <md-list-item><md-checkbox ng-model="tabValue.showCaseHistoryPane">Case History</md-checkbox></md-list-item>
-                        <md-list-item ng-if="!tabValue.isSubcase"><md-checkbox ng-model="tabValue.showCloseCaseDetailsPane">Close Case Details</md-checkbox></md-list-item>
-                        <md-list-item ng-if="!tabValue.isSubcase"><md-checkbox ng-model="tabValue.showContactDetailsPane">Contact Details</md-checkbox></md-list-item>
-                        <md-list-item><md-checkbox ng-model="tabValue.showCustomerDetailsPane">Customer Details</md-checkbox></md-list-item>
-                        <md-list-item ng-if="!tabValue.isSubcase"><md-checkbox ng-model="tabValue.showEbondingDetailsPane">Ebonding Details</md-checkbox></md-list-item>
-                        <md-list-item ng-if="!tabValue.isSubcase"><md-checkbox ng-model="tabValue.showNetworkOutagePane">Network Outage</md-checkbox></md-list-item>
-                        <md-list-item ng-if="!tabValue.isSubcase"><md-checkbox ng-model="tabValue.showPremiseDetailsPane">Premise Details</md-checkbox></md-list-item>
-                        <md-list-item ng-if="!tabValue.isSubcase"><md-checkbox ng-model="tabValue.showSlaDetailsPane">SLA Details</md-checkbox></md-list-item>
-                        <md-list-item ng-if="!tabValue.isSubcase"><md-checkbox ng-model="tabValue.showServiceDetailsPane">Service Details</md-checkbox></md-list-item>
-                        <md-list-item><md-checkbox ng-model="tabValue.showUserDetailsPane">User Details</md-checkbox></md-list-item>
-                        <md-list-item ng-if="!tabValue.isSubcase"><md-checkbox ng-model="tabValue.showVoiceDataDetailsPane">Voice Data Details</md-checkbox></md-list-item>
-                    </md-list>
-                </md-menu-item>
             </md-menu-content>
         </md-menu>
     </div>

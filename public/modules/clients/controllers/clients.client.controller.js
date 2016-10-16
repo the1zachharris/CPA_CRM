@@ -84,7 +84,7 @@ clients.controller('clientsController',[
             }
         );
 
-        // check to see if user is authorized to make updates in NED
+        // check to see if user is authorized to make updates in Clients
         authorization.check(
             'clients',
             'Save Searches',
@@ -127,11 +127,11 @@ clients.controller('clientsController',[
             paginationPageSize: 50,
             useExternalPagination: true,
             columnDefs: [
-                { name: 'clientId', displayName: 'Case ID', solrName: 'IdNumber', width: "5%", type: "number" },
-                { name: 'severity', solrName: 'Severity', width: "5%"  },
-                { name: 'status', solrName: 'Status', width: "8%"  },
-                { name: 'caseType', solrName: 'CaseType', width: "8%"  },
-                { name: 'title', solrName: 'Title', width: "55%"  },
+                { name: 'Name', displayName: 'Case ID', solrName: 'IdNumber', width: "5%", type: "number" },
+                { name: 'Address', solrName: 'Severity', width: "5%"  },
+                { name: 'Phone', solrName: 'Status', width: "8%"  },
+                { name: 'Email', solrName: 'CaseType', width: "8%"  },
+                { name: 'Type', solrName: 'Title', width: "55%"  },
                 { name: 'customer.customerName', solrName: 'CustomerName', displayName: 'Customer', width: "*"  },
                 { name: 'createDate', solrName: 'CreationTime', width: "*", cellFilter: 'date:\'MM/dd/yyyy h:mm a\'', sort: {direction: 'desc', priority: 0}},
                 {
@@ -297,57 +297,36 @@ clients.controller('clientsController',[
             subcaseOwnerText : '', // text for owner searchahead
 
             advFields : {
-                searchCases : true,
-                searchSubcases : true,
-                CaseType : '',
-                SubType : '',
-                CreatedFrom : '',
-                CreatedTo : '',
-                OriginatorNTLogin : '',
-                OriginatorWorkGroup : '',
-                Condition : '',
-                CaseOnlyTitle : '',
-                SCID : '',
-                ServiceId : '',
-                CaseOnlyOwner : '',
-                OwnerWorkGroup : '',
-                SiteId : '',
-                SiteName : '',
-                CustomerName : '',
-                Severity : '',
-                PCSID : '',
-                PIID : '',
-                CustomerId : '',
-                SubcaseTitle : '',
-                SubcaseOwner : ''
+                Name : '',
+                Address1 : '',
+                Address2 : '',
+                City : '',
+                StateProvince : '',
+                PostalCode : '',
+                Country : '',
+                Phone : '',
+                Email : '',
+                Contacts : '',
+                ResponsibleEmployee : '',
+                Type : '',
+                Tasks : ''
             },
 
             // Language
             language : {
-                searchCases : 'Search Cases',
-                searchSubcases : 'Search Subcases',
-                CaseType : 'Case Type',
-                SubType : 'Subtype',
-                CreatedFrom : 'Created From Date',
-                CreatedTo : 'Created To Date',
-                OriginatorNTLogin : 'Originator NT Login',
-                OriginatorWorkGroup : 'Originator Workgroup',
-                Condition : 'Condition',
-                CaseOnlyTitle : 'Case Title',
-                keyword : 'Keyword',
-                SCID : 'SCID',
-                ServiceId : 'Service ID',
-                CaseOnlyOwner : 'Case Owner',
-                OwnerWorkGroup : 'Owner Workgroup',
-                SiteId : 'Site ID',
-                SiteName : 'Site Name',
-                CustomerName : 'Customer Name',
-                Severity : 'Severity',
-                PCSID : 'PCSID',
-                PIID : 'PIID',
-                CustomerId : 'Customer ID',
-                SubcaseTitle : 'Subcase Title',
-                SubcaseOwner : 'Subcase Owner'
+                Name : 'Name',
+                Address1 : 'Address 1',
+                Address2 : 'Address 2',
+                City : 'City',
+                StateProvince : 'State/Province',
+                PostalCode : 'Postal Code',
+                Country : 'Country',
+                Phone : 'Phone',
+                Email : 'Emali',
+                Contacts : 'Contacts',
+                ResponsibleEmployee : 'Responsible Employee',
+                Type : 'Type',
+                Tasks : 'Tasks'
             },
 
 
@@ -629,11 +608,11 @@ clients.controller('clientsController',[
                 );
             },
 
-            // returns a list of case types from Clarify
-            getCaseTypes : function (caseTxt) {
+            // returns a list of Responsible Employees from Mongo
+            getResponsibleEmployee : function (caseTxt) {
                 try {
                     if (!methodCop.check([caseTxt])) {
-                        return clientsSearchCalls.getAllCaseTypesFromClarify()
+                        return clientsSearchCalls.getAllResponsibleEmployeeFromMongo()
                             .then(
                                 function (resp) {
                                     return _.map(resp, function (elem) {
@@ -641,11 +620,11 @@ clients.controller('clientsController',[
                                     });
                                 },
                                 function (err) {
-                                    logError('There was an error getting a list of case types: ' + err.message);
+                                    logError('There was an error getting a list of Responsible Employees: ' + err.message);
                                 }
                             );
                     } else {
-                        return clientsSearchCalls.getCaseTypesFromClarify(caseTxt)
+                        return clientsSearchCalls.getResponsibleEmployeeFromMongo(caseTxt)
                             .then(
                                 function (resp) {
                                     return _.map(resp, function (elem) {
@@ -653,13 +632,13 @@ clients.controller('clientsController',[
                                     });
                                 },
                                 function (err) {
-                                    logError('There was an error getting a list of case types: ' + err.message);
+                                    logError('There was an error getting a list of Responsible Employees: ' + err.message);
                                 }
                             );
                     }
                 }
                 catch (err) {
-                    logError('There was an error getting a list of case types: ' + err.message);
+                    logError('There was an error getting a list of Responsible Employees: ' + err.message);
                 }
             },
 

@@ -37,12 +37,8 @@ var app = angular.module('taskMaster', [
     'xeditable',
 
     // TaskMaster Application Modules
-    'applications',
-    'cleints',
-    'sva',
-    'ned',
-    'users',
-    'groups'
+    'clients',
+    'tasks'
 ]);
 
 app.config(['$routeProvider', '$controllerProvider', '$provide', function ($routeProvider, $TaskMasterazyLoad) {
