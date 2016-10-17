@@ -54,11 +54,11 @@ test.controller('testController',[
         asvc
     ){
         /* =====================================================================
-         * Get user get spec'd user from database
+         * Get all tasks from Mongo database
          * ===================================================================== */
-        $scope.getUser = function (user) {
+        $scope.getTasks = function () {
 
-            usersCalls.getUser({
+            clientCalls.getTasks({
                 username: encodeURIComponent(user.username)
             }).then(
                 function (res) {
