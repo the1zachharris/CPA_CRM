@@ -53,38 +53,113 @@ test.controller('testController',[
         clientsSettings,
         asvc
     ){
+    var tasks = "",
+        clientTypes = "",
+        employees = "",
+        client = "",
+        keyword = "",
+        Name = "",
+        Address1 = "",
+        Address2 = "",
+        City = "",
+        StateProvince = "",
+        PostalCode = "",
+        Country = "",
+        Phone = "",
+        Email = "",
+        Contacts = "",
+        ResponsibleEmployee = "",
+        Type = "",
+        Tasks = "";
         /* =====================================================================
          * Get all tasks from Mongo database
          * ===================================================================== */
         $scope.getTasks = function () {
 
             clientCalls.getTasks({
-                username: encodeURIComponent(user.username)
             }).then(
                 function (res) {
-                    user = angular.copy(res.data);
-
-                    user.rolesByApp = lodash.chain(user.roles)
-                        .groupBy("appName")
-                        .pairs()
-                        .map(function (currentItem) {
-                            return lodash.object(lodash.zip(["name", "roles"], currentItem));
-                        })
-                        .value();
-
-                    // add trackers for role switches in flyout menu in UI
-                    $scope.setRolesForUser(user);
-
-                    // reformat date to readable value
-                    user.created = moment(user.created).format('MM/DD/YYYY HH:MM:SS.SSSS Z');
-                    user.loginTime = moment(user.loginTime).format('MM/DD/YYYY HH:MM:SS.SSSS Z');
+                    tasks = angular.copy(res.data);
                 },
                 function (err) {
-                    console.error('Error getting user details: ' + err.message);
-                    oclLog.log('error', 'Error getting user details: ' + err.message);
+                    console.error('Error getting tasks: ' + err.message);
                 }
             );
-        }
+        };
+        /* =====================================================================
+         * Get all client types from Mongo database
+         * ===================================================================== */
+        $scope.getClientTypes = function () {
+
+            clientCalls.getClientTypes({
+            }).then(
+                function (res) {
+                    clientTypes = angular.copy(res.data);
+                },
+                function (err) {
+                    console.error('Error getting client types: ' + err.message);
+                }
+            );
+        };
+        /* =====================================================================
+         * Get all employees from Mongo database
+         * ===================================================================== */
+        $scope.getEmployees = function () {
+
+            clientCalls.getEmployees({
+            }).then(
+                function (res) {
+                    employees = angular.copy(res.data);
+                },
+                function (err) {
+                    console.error('Error getting employees: ' + err.message);
+                }
+            );
+        };
+        /* =====================================================================
+         * search the clients through the Mongo database
+         * ===================================================================== */
+        $scope.clientSearch = function () {
+
+            clientCalls.clientSearch({
+                keyword: keyword
+            }).then(
+                function (res) {
+                    client = angular.copy(res.data);
+                },
+                function (err) {
+                    console.error('Error searching clients: ' + err.message);
+                }
+            );
+        };
+        /* =====================================================================
+         * create new client
+         * ===================================================================== */
+        $scope.newClient = function () {
+
+            clientCalls.newClient({
+                Name: Name,
+                Address1: Address1,
+                Address2: Address2,
+                City: City,
+                StateProvince: StateProvince,
+                PostalCode: PostalCode,
+                Country: Country,
+                Phone: Phone,
+                Email: Email,
+                Contacts: Contacts,
+                ResponsibleEmployee: ResponsibleEmployee,
+                Type: Type,
+                Tasks: Tasks
+            }).then(
+                function (res) {
+                    client = angular.copy(res.data);
+                },
+                function (err) {
+                    console.error('Error searching clients: ' + err.message);
+                }
+            );
+        };
 
     }
     ]
