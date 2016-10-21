@@ -73,6 +73,7 @@ router.get('/client/detail/:Name', client.detail);
 router.post('/client/create', client.create);
 router.post('/client/update', client.update);
 router.delete('/client/delete/:clientid', client.delete);
+router.post('/client/search', client.search);
 
 /************************************************************************************************
  * task ROUTES

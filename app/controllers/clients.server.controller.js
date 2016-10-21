@@ -250,8 +250,8 @@ exports.delete = function (req, res) {
  */
 exports.search = function (req, res) {
     try {
-        var keyword = req.params.keyword;
-        var query = {text: keyword};
+        var keyword = req.body.keyword;
+        var query = {$text: {$search: keyword}};
         client.find(query, function (err, doc) {
             if (err) {
                 return res.status(400).send({
