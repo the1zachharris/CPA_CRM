@@ -230,3 +230,41 @@ exports.delete = function (req, res) {
         });
     }
 };
+
+/**
+ * @api {search} /client/:client
+ * @apiName search
+ * @apiGroup client
+ *
+ * @apiParam {keyword} keyword
+ *
+ * @apiSuccessExample Success-Response:
+ * 200 OK
+ *  {results: doc}
+ *
+ * @apiErrorExample Error-Response:
+ *  400 Bad Request
+ *  {
+*  "message": "error of some kind"
+*     }
+ */
+exports.search = function (req, res) {
+    try {
+        var keyword = req.params.keyword;
+        var query = {text: keyword};
+        client.find(query, function (err, doc) {
+            if (err) {
+                return res.status(400).send({
+                    message:  err
+                });
+            } else {
+                res.status(200).send({results: doc});
+            }
+
+        })
+    } catch (err) {
+        return res.status(400).send({
+            message:  err
+        });
+    }
+};

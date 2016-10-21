@@ -55,8 +55,62 @@ clients.controller('clientsController',[
 
         $scope.appheader = 'clients';
         $scope.tab = undefined;
+
+        /* Tab handling */
+        $scope.tabs = {
+            '0' : {
+                active : true,
+                clientName : 'Results',
+                results : [],
+                status : {
+                    display : false
+                }
+            }
+        };
+
+        $scope.removeTab = function (index) {
+            try {
+                delete $scope.tabs[index];
+            }
+            catch (err) {
+                logError('There was an error trying to close a tab: ' + err.message);
+            }
+        };
+
+        /* Tab Detail Functions */
+
+        $scope.openNewTab = function(id) {
+            if(id) {
+                var win = window.open(window.location.href + '/' + id, '_blank');
+                win.focus();
+            }
+        };
+
+        $scope.copyToClipboard = function(clipped){
+            var textToCopy = window.location.href.indexOf(clipped) > -1 ? window.location.href : window.location.href + '/' + clipped;
+            if (navigator.appName ==='Microsoft Internet Explorer'){
+                window.clipboardData.setData('Text', textToCopy);
+            } else { //Chrome etc.
+                var hiddenElement = document.createElement('textarea');
+                hiddenElement.innerText = textToCopy;
+                document.body.appendChild(hiddenElement);
+                hiddenElement.select();
+                document.execCommand('copy',false,null)
+            }
+        };
+
+        $scope.sendMail = function (id,title) {
+            var location = window.location.href.indexOf(id) > -1 ? window.location.href : window.location.href + '/' + id;
+            location = location.replace("#", "%23");
+            title = title.replace("#", "%23");
+            document.location.href = "mailto:?subject=" + id + " : " + title + "&body=" + location;
+        };
+
+
         $scope.tabData = {
-            selectedIndex : 0
+            selectedIndex : 0,
+            clientName : "",
+            clientType : ""
         };
 
         clientsSettings
