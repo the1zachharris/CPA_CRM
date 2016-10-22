@@ -60,8 +60,34 @@ app.config(['$routeProvider', '$controllerProvider', '$provide', function ($rout
                     }]
                 }
             })
+            .when('/test', {
+                name: 'test',
+                templateUrl: 'modules/clients/views/test.view.html',
+                label: 'test',
+                controller: 'MainController',
+                resolve: {
+                    loadMyCtrl: ['$ocLazyLoad', function ($ocLazyLoad) {
+                        return $ocLazyLoad.load({
+                            name: 'testController',
+                            files: [
+                                // Controllers
+                                'modules/clients/controllers/clients.client.controller.js',
+
+                                // Styles
+                                'modules/core/css/datagrids.client.styles.css',
+                                'modules/core/css/tabsets.client.styles.css',
+                                //'modules/core/css/search.client.styles.css',
+                                //'modules/clients/css/clients.client.styles.css',
+                                //'modules/clients/css/client-search.client.style.css',
+                                'modules/clients/css/note.wizard.client.styles.css'
+                            ]
+                        });
+                    }]
+                }
+
+            })
             .when('/', {
-                templateUrl: 'modules/core/views/home.client.view.html',
+                templateUrl: 'modules/clients/views/clients.view.html',
                 label: 'Dashboard',
                 controller: 'MainController',
                 resolve: {
@@ -131,11 +157,6 @@ app.run(function(editableOptions,$http,$log,$rootScope,Idle,AnalyticsService){
 
     $rootScope.userAgent = window.navigator.userAgent;
     $rootScope.ua = new UAParser().getResult();
-
-    $rootScope.$on('$routeChangeStart', function(event, current, previous) {
-        $rootScope.currentRoute = current.$$route.originalPath;
-        AnalyticsService.createAnalytic();
-    });
 
 });
 
