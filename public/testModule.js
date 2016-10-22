@@ -40,7 +40,7 @@ test.config([
     }]);
 
 
-clients.factory('clientCalls', function($http,$log) {
+test.factory('clientCalls', function($http,$log) {
     var taskMasterService = {
         getTasks: function(req){
             var promise = $http({

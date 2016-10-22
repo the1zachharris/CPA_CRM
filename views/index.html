@@ -1,18 +1,12 @@
-<!DOCTYPE html>
-<html >
+<html ng-app="jacksApp">
 <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"> <!-- force IE to use most recent standard mode -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{env}}: Taskmaster [BETA]</title>
-    <!-- Styles -->
-
-
+    <script src='https://code.angularjs.org/1.5.0-rc.0/angular.js'></script>
+    <script src='app.js'></script>
 </head>
-
-<body >
-
-<h1>Hi there... FOOLS!</h1>
-
+<body>
+<div ng-controller="mainController">
+    <h1>Making an Angular App</h1>
+    <p>foo: {{foo}}</p>
+</div>
 </body>
-
 </html>
