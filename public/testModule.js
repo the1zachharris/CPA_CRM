@@ -5,39 +5,7 @@ var test = angular.module('test',[
     'oc.lazyLoad'
 ]);
 
-test.config([
-    '$routeProvider',
-    function (
-        $routeProvider
-    ) {
-        $routeProvider
-            .when('/test', {
-                name: 'test',
-                templateUrl: 'views/test.view.html',
-                label: 'test',
-                controller: 'testController',
-                resolve: {
-                    loadMyCtrl: ['$ocLazyLoad', function ($ocLazyLoad) {
-                        return $ocLazyLoad.load({
-                            name: 'testController',
-                            files: [
-                                // Controllers
-                                'test.client.controller.js',
 
-                                // Styles
-                                'modules/core/css/datagrids.client.styles.css',
-                                'modules/core/css/tabsets.client.styles.css',
-                                'modules/core/css/search.client.styles.css',
-                                'modules/clients/css/clients.client.styles.css',
-                                'modules/clients/css/client-search.client.style.css',
-                                'modules/clients/css/note.wizard.client.styles.css'
-                            ]
-                        });
-                    }]
-                }
-
-            })
-    }]);
 
 
 test.factory('clientCalls', function($http,$log) {
@@ -68,6 +36,17 @@ test.factory('clientCalls', function($http,$log) {
             var promise = $http({
                 method: 'GET',
                 url: '/employee/list',
+                params: req
+            }).then(function (response) {
+                return response;
+            });
+            // Return the promise to the controller
+            return promise;
+        },
+        getClients: function(req){
+            var promise = $http({
+                method: 'GET',
+                url: '/client/list',
                 params: req
             }).then(function (response) {
                 return response;

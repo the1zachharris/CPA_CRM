@@ -1,5 +1,6 @@
 <div ng-controller="MainController">
-    <h1>TrakkTask Software</h1>
-    <p>Some text here.</p>
-    <h2>The date now is: {{foo}}</h2>
+    <h1>Client list</h1>
+    <ul>
+        <li ng-repeat="client in getClients">{{client.Name}}</li>
+    </ul>
 </div>

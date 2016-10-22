@@ -1,6 +1,6 @@
 'use strict';
-var test = angular.module('test',[
-    'taskMaster',
+var clients = angular.module('clients',[
+   // 'taskMaster',
     'ui.grid',
     'ui.grid.pagination',
     'ui.grid.exporter',
@@ -16,7 +16,7 @@ var test = angular.module('test',[
 ]);
 
 
-test.controller('testController',[
+test.controller('MainController',[
     '$scope',
     '$http',
     '$mdDialog',
@@ -53,7 +53,7 @@ test.controller('testController',[
         clientsSettings,
         asvc
     ){
-    var tasks = "",
+    var tasks = "foo",
         clientTypes = "",
         employees = "",
         client = "",
@@ -117,6 +117,22 @@ test.controller('testController',[
             );
         };
         /* =====================================================================
+         * Get all clients from Mongo database
+         * ===================================================================== */
+        $scope.getClients = function () {
+
+            clientCalls.getClients({
+            }).then(
+                function (res) {
+                    employees = angular.copy(res.data);
+                    console.dir(employees);
+                },
+                function (err) {
+                    console.error('Error getting clients: ' + err.message);
+                }
+            );
+        };
+        /* =====================================================================
          * search the clients through the Mongo database
          * ===================================================================== */
         $scope.clientSearch = function () {
@@ -164,5 +180,6 @@ test.controller('testController',[
     }
     ]
         );
+
 
 

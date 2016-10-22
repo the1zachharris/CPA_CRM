@@ -34,11 +34,11 @@ var app = angular.module('TrakkTask', [
     'ngAnimate',
     'ngMaterial',
     // 'ui.grid',
-    'xeditable'
+    'xeditable',
 
     // TrakkTask Application Modules
     //'clients',
-    //'tasks'
+    'test'
 ]);
 
 
@@ -71,7 +71,7 @@ app.config(['$routeProvider', '$controllerProvider', '$provide', function ($rout
                             name: 'testController',
                             files: [
                                 // Controllers
-                                'modules/clients/controllers/clients.client.controller.js',
+                                'modules/clients/controllers/test.client.controller.js',
 
                                 // Styles
                                 'modules/core/css/datagrids.client.styles.css',
