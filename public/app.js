@@ -16,6 +16,20 @@ myApp.controller('mainController', function($scope) {
             scope: $scope,
             size: 1
         };
-        return boo;
+        //return boo;
     };
+});
+
+myApp.controller('MainController', function($scope) {
+
+    var person = {
+        firstName: "Logan",
+        lastName: "Something",
+        imageSrc: "http://static.srcdn.com/slir/w437-h273-q90-c437:273/wp-content/uploads/Tom-Hardy-Wolverine-Header-by-Bosslogic.jpg"
+
+    };
+
+    $scope.text = "Hello Angular!";
+    $scope.person = person;
+    console.dir(person);
 });
