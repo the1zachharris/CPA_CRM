@@ -71,6 +71,7 @@ test.controller('MainController',[
         ResponsibleEmployee = "",
         Type = "",
         Tasks = "";
+        $scope.myVar = 'test data';
         /* =====================================================================
          * Get all tasks from Mongo database
          * ===================================================================== */
@@ -124,8 +125,9 @@ test.controller('MainController',[
             clientCalls.getClients({
             }).then(
                 function (res) {
-                    employees = angular.copy(res.data);
-                    console.dir(employees);
+                    clients = angular.copy(res.data);
+                    $scope.clients = clients;
+                    console.dir(clients);
                 },
                 function (err) {
                     console.error('Error getting clients: ' + err.message);

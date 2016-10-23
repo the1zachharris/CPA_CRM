@@ -1,6 +1,8 @@
-<div ng-controller="MainController">
+<script ng-init="listClients();"></script>
+<div ng-controller="ClientController">
     <h1>Client list</h1>
+    <p>myVar Value: {{myVar}}</p>
     <ul>
-        <li ng-repeat="client in getClients">{{client.Name}}</li>
+        <li ng-repeat="client in clients">{{client.Name}}</li>
     </ul>
 </div>
