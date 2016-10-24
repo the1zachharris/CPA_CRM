@@ -13,7 +13,7 @@ clients.config([
             $routeProvider
                 .when('/clients',{
                     name: 'clients',
-                    templateUrl:'modules/clients/views/test.view.html',
+                    templateUrl:'modules/clients/views/clients.view.html',
                     label: 'clients',
                     controller: 'clientsController',
                     resolve: {
@@ -28,8 +28,8 @@ clients.config([
                                     'modules/core/css/datagrids.client.styles.css',
                                     'modules/core/css/tabsets.client.styles.css',
                                     'modules/core/css/search.client.styles.css',
-                                    //'modules/clients/css/clients.client.styles.css',
-                                    //'modules/clients/css/client-search.client.style.css',
+                                    'modules/clients/css/clients.client.styles.css',
+                                    'modules/clients/css/client-search.client.style.css',
                                     'modules/clients/css/note.wizard.client.styles.css'
                                 ]});
                         }]

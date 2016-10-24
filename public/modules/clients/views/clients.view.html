@@ -61,7 +61,7 @@ templateName="templateInfo.name"
 </md-button>
 <md-button class="md-raised" ng-click="search.toggleAdvancedSearch()">advanced search <md-tooltip md-direction="left">Go to Keyword Search</md-tooltip></md-button>
 </div>
-<form ng-submit="search.searchclients()" layout="column" class="full-width" name="advSearchForm" id="advSearchForm">
+<form ng-submit="search.searchClients()" layout="column" class="full-width" name="advSearchForm" id="advSearchForm">
     <md-card layout="row" layout-padding layout-wrap>
 
 <!-- Created From Date -->
@@ -185,8 +185,8 @@ md-dynamic-height="false"
 <a ng-if="tabKey != '0'" href="" ng-click="removeTab(tabKey)"><i class="fa fa-times"></i></a>
     </md-tab-label>
     <md-tab-body>
-    <ng-include ng-if="tabKey == '0'" src="'./modules/clients/views/ticket-search.client.view.html'"></ng-include>
-    <ng-include ng-if="tabKey != '0'" src="'./modules/clients/views/ticket-view.client.view.html'"></ng-include>
+    <ng-include ng-if="tabKey == '0'" src="'./modules/clients/views/client-search.client.view.html'"></ng-include>
+    <ng-include ng-if="tabKey != '0'" src="'./modules/clients/views/client-view.client.view.html'"></ng-include>
     </md-tab-body>
     </md-tab>
     </md-tabs>
@@ -206,72 +206,7 @@ md-dynamic-height="false"
     <md-tooltip>add a search</md-tooltip>
 </md-button>
 </md-toolbar>
-<md-content ng-controller="SearchOptionsController" layout-padding>
-<md-card layout="column" ng-if="search.saveCurrentSearch">
-    <div ng-if="search.newSavedSearch.criteria.length == 0">
-    <p layout="row">
-    <strong><em>There is no search criteria to save.</em></strong>
-<span flex></span>
-<i class="fa fa-times" ng-click="search.toggleSearchSave()"></i>
-    </p>
-    </div>
-    <div ng-if="search.newSavedSearch.criteria.length > 0">
-    <h5>Save Search</h5>
-<md-chips name="searchCriteria" ng-model="search.newSavedSearch.criteria" readonly="true">
-    <md-chip-template>
-    <span ng-if="$chip.field == 'searchCases' && $chip.value == true"><i class="fa fa-times-circle" ng-click="search.newSavedSearch.criteria.splice($index,1)"></i> Cases</span>
-    <span ng-if="$chip.field == 'searchSubcases' && $chip.value == true"><i class="fa fa-times-circle" ng-click="search.newSavedSearch.criteria.splice($index,1)"></i> Subcases</span>
-    <span ng-if="$chip.field != 'searchCases' && $chip.field != 'searchSubcases'"><i class="fa fa-times-circle" ng-click="search.newSavedSearch.criteria.splice($index,1)"></i> {{search.language[$chip.field] + ' : ' + $chip.value}}</span>
-</md-chip-template>
-</md-chips>
-<md-input-container>
-<label>Search Name</label>
-<input type="text" ng-model="search.newSavedSearch.name">
-    </md-input-container>
-    <div layout="row">
-    <span flex></span>
-<md-button class="md-raised md-warn" aria-label="cancel save" ng-click="search.toggleSearchSave()"><i class="fa fa-times"></i></md-button>
-    <md-button class="md-raised md-primary" aria-label="commit save" ng-click="search.saveSearch('favorite')"><i class="fa fa-check"></i></md-button>
-    </div>
-    </div>
-    </md-card>
-    <h5 layout="row">
-    <em>Favorites</em>
-    <span flex></span>
-<md-button class="md-raised" ng-if="search.editSearches" ng-click="search.deleteSearch('favorite')"><small>clear</small></md-button>
-    </h5>
-    <div ng-if="search.savedSearches.favorite.length < 1 || search.savedSearches.favorite == undefined"><em>You have no saved searches</em></div>
-<md-list ng-if="search.savedSearches.favorite.length > 0">
-    <md-list-item ng-repeat="favSrch in search.savedSearches.favorite">
-    <i class="fa fa-minus-circle" style="color:#C90449;font-size: 1.51em;text-shadow: 0 0 3px rgba(0,0,0,0.3);" ng-if="search.editSearches" ng-click="search.deleteSearch(favSrch.id)"></i>
-    <md-button ng-click="search.executeSavedSearch(favSrch)">
-    {{favSrch.name}}
-<md-tooltip layout="column">
-    <div ng-repeat="favSrchVal in favSrch.criteria">{{search.language[favSrchVal.field]}} : {{favSrchVal.value}}</div>
-</md-tooltip>
-</md-button>
-</md-list-item>
-</md-list>
 
-<md-divider></md-divider>
-<h5 layout="row">
-    <em>Recent (Last {{clientsSettings.recentSearchesMax}})</em>
-<span flex></span>
-<md-button class="md-raised" ng-if="search.editSearches" ng-click="search.deleteSearch('recent')"><small>clear</small></md-button>
-    </h5>
-    <div ng-if="search.savedSearches.recent.length < 1 || search.savedSearches.recent == undefined"><em>You have no recent searches</em></div>
-<md-list ng-if="search.savedSearches.recent.length > 0">
-    <md-list-item ng-repeat="recSrch in search.savedSearches.recent" ng-click="search.executeSavedSearch(recSrch)" layout="row" layout-align="start start">
-    <div flex="20" layout="row" layout-align="end start">{{recSrch.type}}</div>
-<div flex="5"></div>
-    <div flex>
-<span ng-repeat="crit in recSrch.criteria" layout="column">
-    <strong><span ng-if="crit.field !='keyword'">{{search.language[crit.field]}} : </span>{{crit.value}}</strong>
-</span>
-</div>
-</md-list-item>
-</md-list>
-</md-content>
 </md-sidenav>
 
 </section>
