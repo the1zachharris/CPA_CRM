@@ -27,14 +27,14 @@ templateName="templateInfo.name"
     <section class="full-height nopad search" clients flex="100" layout="column">
 
     <div class="appheader">
-    <h3>{{clientsSettings.name}}</h3>
+    <h3>some app header here</h3>
 </div>
 
 <md-toolbar>
 
 <!-- Keyword Search bar -->
-<div class="md-toolbar-tools keyword" ng-if="!search.isAdvancedSearch" flex="100">
-    <form ng-submit="search.searchclients()" layout="row" flex="25" name="keywordSearchForm">
+<div class="md-toolbar-tools keyword" ng-if="!search.isAdvancedSearch" flex="100" ng-controller="clientsController">
+    <form ng-submit="clientSearch(keyword)" layout="row" flex="25" name="keywordSearchForm">
     <md-input-container flex>
 <label>Enter a keyword to search ...</label>
 <input type="text" ng-model="search.keyword" id="keyword">
