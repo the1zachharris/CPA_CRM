@@ -1,8 +1,12 @@
-<script ng-init="listClients();"></script>
+<script></script>
 <div ng-controller="ClientController">
+    <h2>Client keyword search</h2>
+    <input type="text" ng-model="keyword">
+    <button ng-click="clientSearch()">submit</button>
     <h1>Client list</h1>
-    <p>myVar Value: {{myVar}}</p>
     <ul>
-        <li ng-repeat="client in clients">{{client.Name}}</li>
+        <li ng-repeat="client in clients">Name:{{client.Name}}
+            Address:{{client.Address1}}</li>
     </ul>
 </div>
+

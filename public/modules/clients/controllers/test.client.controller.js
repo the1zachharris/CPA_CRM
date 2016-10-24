@@ -143,7 +143,8 @@ test.controller('MainController',[
                 keyword: keyword
             }).then(
                 function (res) {
-                    client = angular.copy(res.data);
+                    clients = angular.copy(res.data);
+                    $scope.clients = clients;
                 },
                 function (err) {
                     console.error('Error searching clients: ' + err.message);

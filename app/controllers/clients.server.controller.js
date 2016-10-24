@@ -249,22 +249,17 @@ exports.delete = function (req, res) {
 *     }
  */
 exports.search = function (req, res) {
-    try {
-        var keyword = req.body.keyword;
-        var query = {$text: {$search: keyword}};
-        client.find(query, function (err, doc) {
-            if (err) {
-                return res.status(400).send({
-                    message:  err
-                });
-            } else {
-                res.status(200).send({results: doc});
-            }
+    var keyword = req.body.keyword;
+    console.log(keyword);
+    var query = {$text: {$search: keyword}};
+    client.find(query, function (err, doc) {
+        if (err) {
+            return res.status(400).send({
+                message:  err
+            });
+        } else {
+            res.status(200).send({results: doc});
+        }
 
-        })
-    } catch (err) {
-        return res.status(400).send({
-            message:  err
-        });
-    }
+    })
 };
