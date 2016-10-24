@@ -24,15 +24,11 @@ clients.controller('clientsController',[
     '$rootScope',
     '$routeParams',
     '$sce',
+    'clientCalls',
     'authorization',
     'lodash',
     'methodCop',
     'uiGridConstants',
-    'oclLog',
-    'clientAssignCalls',
-    'clientsSearchCalls',
-    'clientsSettings',
-    'AnalyticsService',
     function(
         $scope,
         $http,
@@ -42,19 +38,143 @@ clients.controller('clientsController',[
         $rootScope,
         $routeParams,
         $sce,
+        clientCalls,
         authorization,
         lodash,
         methodCop,
         uiGridConstants,
-        oclLog,
-        clientAssignCalls,
-        clientsSearchCalls,
-        clientsSettings,
         asvc
     ) {
 
         $scope.appheader = 'clients';
         $scope.tab = undefined;
+
+        var tasks = "foo",
+            clientTypes = "",
+            employees = "",
+            client = "",
+            keyword = "",
+            Name = "",
+            Address1 = "",
+            Address2 = "",
+            City = "",
+            StateProvince = "",
+            PostalCode = "",
+            Country = "",
+            Phone = "",
+            Email = "",
+            Contacts = "",
+            ResponsibleEmployee = "",
+            Type = "",
+            Tasks = "";
+        $scope.myVar = 'test data';
+        /* =====================================================================
+         * Get all tasks from Mongo database
+         * ===================================================================== */
+        $scope.getTasks = function () {
+
+            clientCalls.getTasks({
+            }).then(
+                function (res) {
+                    tasks = angular.copy(res.data);
+                },
+                function (err) {
+                    console.error('Error getting tasks: ' + err.message);
+                }
+            );
+        };
+        /* =====================================================================
+         * Get all client types from Mongo database
+         * ===================================================================== */
+        $scope.getClientTypes = function () {
+
+            clientCalls.getClientTypes({
+            }).then(
+                function (res) {
+                    clientTypes = angular.copy(res.data);
+                },
+                function (err) {
+                    console.error('Error getting client types: ' + err.message);
+                }
+            );
+        };
+        /* =====================================================================
+         * Get all employees from Mongo database
+         * ===================================================================== */
+        $scope.getEmployees = function () {
+
+            clientCalls.getEmployees().then(
+                function (res) {
+                    employees = angular.copy(res.data);
+                },
+                function (err) {
+                    console.error('Error getting employees: ' + err.message);
+                }
+            );
+        };
+        /* =====================================================================
+         * Get all clients from Mongo database
+         * ===================================================================== */
+        $scope.listClients = function () {
+            console.log('inside listClients');
+            console.dir(clientCalls.getClients);
+            clientCalls.getClients().then(
+                function (res) {
+                    clients = angular.copy(res.data);
+                    $scope.clients = clients;
+                    console.dir(clients);
+                },
+                function (err) {
+                    console.error('Error getting clients: ' + err.message);
+                }
+            );
+        };
+        /* =====================================================================
+         * search the clients through the Mongo database
+         * ===================================================================== */
+        $scope.clientSearch = function (keyword) {
+            console.log(keyword);
+            console.dir(clientCalls);
+            clientCalls.clientSearch({
+                keyword: keyword
+            }).then(
+                function (res) {
+                    clients = angular.copy(res.data.results);
+                    $scope.clients = clients;
+                },
+                function (err) {
+                    console.error('Error searching clients: ' + err.message);
+                }
+            );
+        };
+        /* =====================================================================
+         * create new client
+         * ===================================================================== */
+        $scope.newClient = function () {
+
+            clientCalls.newClient({
+                Name: Name,
+                Address1: Address1,
+                Address2: Address2,
+                City: City,
+                StateProvince: StateProvince,
+                PostalCode: PostalCode,
+                Country: Country,
+                Phone: Phone,
+                Email: Email,
+                Contacts: Contacts,
+                ResponsibleEmployee: ResponsibleEmployee,
+                Type: Type,
+                Tasks: Tasks
+            }).then(
+                function (res) {
+                    client = angular.copy(res.data);
+                },
+                function (err) {
+                    console.error('Error searching clients: ' + err.message);
+                }
+            );
+        };
 
         /* Tab handling */
         $scope.tabs = {
@@ -113,7 +233,7 @@ clients.controller('clientsController',[
             clientType : ""
         };
 
-        clientsSettings
+        /*clientsSettings
             .get()
             .then(
                 function (resp){
@@ -122,7 +242,7 @@ clients.controller('clientsController',[
                 function (err) {
                     console.error(err);
                 }
-            );
+            );*/
 
         // can the logged in user add notes?
         authorization.check(
@@ -537,10 +657,10 @@ clients.controller('clientsController',[
                         this.execCurrentSave = search;
                     }
 
-                    $mdSidenav('searchOptions').close()
+                    /*$mdSidenav('searchOptions').close()
                         .then(function () {
                             $scope.search.searchclients();
-                        });
+                        });*/
 
                 }
 
@@ -1043,8 +1163,8 @@ clients.controller('clientsController',[
             },
 
             // reveal search options sidenav
-            toggleSearchOptions: function () {
-                /*
+            /*toggleSearchOptions: function () {
+
                  $mdSidenav('searchOptions')
                  .toggle()
                  .then(function () {
@@ -1055,10 +1175,10 @@ clients.controller('clientsController',[
                  }
                  $scope.search.getSavedSearches();
                  });
-                 */
+
                 this.saveCurrentSearch = false;
                 this.sideNavOpen = !this.sideNavOpen;
-            },
+            },*/
 
             // toggle save search
             toggleSearchSave : function () {
@@ -1091,7 +1211,7 @@ clients.controller('clientsController',[
 
 
         // we need to have a workaround for detecting when the sidenav is closed
-        $scope.$watch(
+        /*$scope.$watch(
             function() { return $mdSidenav('searchOptions').isOpen(); },
             function(newValue, oldValue) {
                 if (!newValue) {
@@ -1102,7 +1222,7 @@ clients.controller('clientsController',[
                     $scope.search.getSavedSearches();
                 }
             }
-        );
+        );*/
 
 
         $scope.removeTab = function (index) {
