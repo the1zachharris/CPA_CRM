@@ -293,12 +293,12 @@ clients.factory('clientCalls', function($http,$log) {
             return promise;
         },
         clientSearch: function(req){
-            console.dir(req);
             var promise = $http({
                 method: 'POST',
                 url: '/client/search',
                 data: req
             }).then(function (response) {
+                console.dir(response);
                 return response;
             });
             // Return the promise to the controller

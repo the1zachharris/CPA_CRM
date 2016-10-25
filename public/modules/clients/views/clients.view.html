@@ -37,9 +37,9 @@ templateName="templateInfo.name"
     <form ng-submit="clientSearch(keyword)" layout="row" flex="25" name="keywordSearchForm">
     <md-input-container flex>
 <label>Enter a keyword to search ...</label>
-<input type="text" ng-model="search.keyword" id="keyword">
+<input ng-model="keyword">
     </md-input-container>
-    <md-button class="md-raised md-primary" ng-click="search.searchclients()" aria-label="search clients"><i class="fa fa-search"></i></md-button>
+    <md-button class="md-raised md-primary" ng-click="clientSearch(keyword)" aria-label="search clients"><i class="fa fa-search"></i></md-button>
     </form>
     <span flex></span>
 <md-button class="md-raised" ng-click="search.toggleSearchOptions()" ng-if="canSaveSearches">

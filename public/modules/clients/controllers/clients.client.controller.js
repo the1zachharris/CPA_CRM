@@ -130,11 +130,9 @@ clients.controller('clientsController',[
             );
         };
         /* =====================================================================
-         * search the clients through the Mongo database
+         * search the clients in the Mongo database
          * ===================================================================== */
         $scope.clientSearch = function (keyword) {
-            console.log(keyword);
-            console.dir(clientCalls);
             clientCalls.clientSearch({
                 keyword: keyword
             }).then(
@@ -301,7 +299,7 @@ clients.controller('clientsController',[
             paginationPageSize: 50,
             useExternalPagination: true,
             columnDefs: [
-                { name: 'Name', displayName: 'Case ID', solrName: 'IdNumber', width: "5%", type: "number" },
+                { name: 'Name', displayName: 'Name', solrName: 'IdNumber', width: "5%", type: "number" },
                 { name: 'Address', solrName: 'Severity', width: "5%"  },
                 { name: 'Phone', solrName: 'Status', width: "8%"  },
                 { name: 'Email', solrName: 'CaseType', width: "8%"  },
