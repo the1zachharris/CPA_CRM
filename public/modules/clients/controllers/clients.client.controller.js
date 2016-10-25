@@ -133,12 +133,18 @@ clients.controller('clientsController',[
          * search the clients in the Mongo database
          * ===================================================================== */
         $scope.clientSearch = function (keyword) {
+            this.isSearching = true;
+
+            // re-select the first tab
+            $scope.tabData.selectedIndex = 0;
+
             clientCalls.clientSearch({
                 keyword: keyword
             }).then(
                 function (res) {
                     clients = angular.copy(res.data.results);
                     $scope.clients = clients;
+                    $scope.gridOptions.data = clients;
                 },
                 function (err) {
                     console.error('Error searching clients: ' + err.message);
@@ -294,7 +300,7 @@ clients.controller('clientsController',[
 
         $scope.gridOptions = {
             totalItems : 0,
-            data : [],
+            data : '',
             paginationPageSizes: [50, 100, 200],
             paginationPageSize: 50,
             useExternalPagination: true,
@@ -401,7 +407,7 @@ clients.controller('clientsController',[
             asvc.addStep('uiGridSearch');
             var req = {
                 method: 'POST',
-                url: '/clients/search',
+                url: '/client/search',
                 data: {
                     searchString: $scope.search.searchString,
                     rows: paginationOptions.pageSize,
