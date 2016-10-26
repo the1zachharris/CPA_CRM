@@ -145,6 +145,7 @@ clients.controller('clientsController',[
                     clients = angular.copy(res.data.results);
                     $scope.clients = clients;
                     //$scope.gridOptions.data = clients;
+                    console.dir($scope.gridOptions.data);
                 },
                 function (err) {
                     console.error('Error searching clients: ' + err.message);

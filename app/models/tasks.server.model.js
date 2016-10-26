@@ -16,7 +16,7 @@ var tasksSchema = new Schema ({
     },
 
     Number: {
-        type: Number
+        type: String
     },
 
     Frequency: {
