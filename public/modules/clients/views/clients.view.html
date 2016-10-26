@@ -25,10 +25,9 @@ templateName="templateInfo.name"
 
 
     <section class="full-height nopad search" clients flex="100" layout="column">
-
-    <div class="appheader">
-    <h3>some app header here</h3>
-</div>
+        <div class="appheader">
+        <h3>Clients</h3>
+        </div>
 
 <md-toolbar>
 
@@ -185,8 +184,38 @@ md-dynamic-height="false"
 <a ng-if="tabKey != '0'" href="" ng-click="removeTab(tabKey)"><i class="fa fa-times"></i></a>
     </md-tab-label>
     <md-tab-body>
-    <ng-include ng-if="tabKey == '0'" src="'./modules/clients/views/client-search.client.view.html'"></ng-include>
-    <ng-include ng-if="tabKey != '0'" src="'./modules/clients/views/client-view.client.view.html'"></ng-include>
+        <div class="table-responsive resultsList" ng-class="{advCritOpen: criteriaCollapsed, advCritClosed: !criteriaCollapsed}" layout="column">
+            <!-- progress circular -->
+            <div flex-gt-sm="100" layout="row" layout-align="center center" ng-if="searching">
+                <md-card layout="row" layout-wrap class="progressWrapper">
+                    <div flex="100" layout="row" layout-align="center center" class="md-subhead">Searching Tickets</div>
+                    <div flex="100" layout="row" layout-align="center center">
+                        <md-progress-circular md-mode="indeterminate" md-diameter="96"></md-progress-circular>
+                    </div>
+                </md-card>
+            </div>
+
+            <!-- progress circular -->
+            <div flex-gt-sm="100" layout="row" layout-align="center center" ng-if="search.isSearching">
+                <md-card layout="row" layout-wrap class="progressWrapper">
+                    <div flex="100" layout="row" layout-align="center center" class="md-subhead">Searching Tickets</div>
+                    <div flex="100" layout="row" layout-align="center center">
+                        <md-progress-circular md-mode="indeterminate" md-diameter="96"></md-progress-circular>
+                    </div>
+                </md-card>
+            </div>
+
+            <!--- Results grid ----->
+            <div
+                    ui-grid="gridOptions"
+                    ui-grid-auto-resize
+                    ui-grid-cellnav
+                    ui-grid-resize-columns
+                    ui-grid-custom-cell-select
+                    ui-grid-pagination
+                    class="grid"
+            ></div>
+        </div>
     </md-tab-body>
     </md-tab>
     </md-tabs>
@@ -210,44 +239,3 @@ md-dynamic-height="false"
 </md-sidenav>
 
 </section>
-<div class="table-responsive resultsList" ng-class="{advCritOpen: criteriaCollapsed, advCritClosed: !criteriaCollapsed}" layout="column">
-    <!-- progress circular -->
-    <div flex-gt-sm="100" layout="row" layout-align="center center" ng-if="searching">
-        <md-card layout="row" layout-wrap class="progressWrapper">
-            <div flex="100" layout="row" layout-align="center center" class="md-subhead">Searching clients</div>
-            <div flex="100" layout="row" layout-align="center center">
-                <md-progress-circular md-mode="indeterminate" md-diameter="96"></md-progress-circular>
-            </div>
-        </md-card>
-    </div>
-
-    <!-- progress circular -->
-    <div flex-gt-sm="100" layout="row" layout-align="center center" ng-if="search.isSearching">
-        <md-card layout="row" layout-wrap class="progressWrapper">
-            <div flex="100" layout="row" layout-align="center center" class="md-subhead">Searching clients</div>
-            <div flex="100" layout="row" layout-align="center center">
-                <md-progress-circular md-mode="indeterminate" md-diameter="96"></md-progress-circular>
-            </div>
-        </md-card>
-    </div>
-
-    <!--- No results ----->
-    <div
-            ng-if="!search.isSearching && gridOptions.data.length == 0"
-            style="margin-top:-50px;position: absolute;top:50%; text-align: center; left: 0; right: 0;"
-    >No results to display.
-    </div>
-
-    <!--- Results grid ----->
-    <div
-            ui-grid="gridOptions"
-            ui-grid-auto-resize
-            ui-grid-cellnav
-            ui-grid-resize-columns
-            ui-grid-custom-cell-select
-            ui-grid-pagination
-
-            class="grid"
-            ng-if="!search.isSearching"
-    ></div>
-</div>

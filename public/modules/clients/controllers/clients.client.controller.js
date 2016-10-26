@@ -144,7 +144,7 @@ clients.controller('clientsController',[
                 function (res) {
                     clients = angular.copy(res.data.results);
                     $scope.clients = clients;
-                    $scope.gridOptions.data = clients;
+                    //$scope.gridOptions.data = clients;
                 },
                 function (err) {
                     console.error('Error searching clients: ' + err.message);
@@ -297,34 +297,21 @@ clients.controller('clientsController',[
             pageSize: 50,
             sort: null
         };
-
+        /*
         $scope.gridOptions = {
             totalItems : 0,
-            data : '',
+            data : [],
             paginationPageSizes: [50, 100, 200],
             paginationPageSize: 50,
             useExternalPagination: true,
             columnDefs: [
-                { name: 'Name', displayName: 'Name', solrName: 'IdNumber', width: "5%", type: "number" },
-                { name: 'Address', solrName: 'Severity', width: "5%"  },
-                { name: 'Phone', solrName: 'Status', width: "8%"  },
-                { name: 'Email', solrName: 'CaseType', width: "8%"  },
-                { name: 'Type', solrName: 'Title', width: "55%"  },
+                { name: 'Name', displayName: 'Name', width: "5%", field: "Name" },
+                { name: 'Address', field: 'Address1', width: "5%"  },
+                { name: 'Phone', field: 'Phone', width: "8%"  },
+                { name: 'Email', field: 'Email', width: "8%"  },
+                { name: 'Type', field: 'Type', width: "55%"  },
                 { name: 'customer.customerName', solrName: 'CustomerName', displayName: 'Customer', width: "*"  },
-                { name: 'createDate', solrName: 'CreationTime', width: "*", cellFilter: 'date:\'MM/dd/yyyy h:mm a\'', sort: {direction: 'desc', priority: 0}},
-                {
-                    name: 'actions',
-                    displayName: '',
-                    cellTemplate:
-                    '<md-button aria-label="client Detail" class="md-mini" ng-click="grid.appScope.openItemTab(row.entity.clientId)" ng-disabled="grid.appScope.disabledDetailBtns[row.entity.clientId]">'
-                    + '<i class="fa fa-info-circle"></i>'
-                    + '<md-tooltip>client Detail</md-tooltip>'
-                    + '</md-button>',
-                    enableSorting: false,
-                    width: "40",
-                    resizable: false,
-                    pinnable: false
-                }
+                { name: 'createDate', field: 'DateCreated', cellFilter: 'date:\'MM/dd/yyyy h:mm a\'', sort: {direction: 'desc', priority: 0}}
             ],
             useExternalSorting: true,
             onRegisterApi: function(gridApi) {
@@ -338,6 +325,24 @@ clients.controller('clientsController',[
             rowTemplate : '<div ng-dblclick="grid.appScope.openItemTab(row.entity.clientId)" layout-gt-sm="row">' +
             '  <div ng-repeat="(colRenderIndex, col) in colContainer.renderedColumns track by col.colDef.name" class="ui-grid-cell" ng-class="{ \'ui-grid-row-header-cell\': col.isRowHeader }"  ui-grid-cell layout="row" layout-align="start center"></div>' +
             '</div>'
+        };
+        */
+
+        $scope.gridOptions = {
+            enableSorting: true,
+            columnDefs: [
+                { name:'firstName', field: 'first-name' },
+                { name:'1stFriend', field: 'friends[0]' },
+                { name:'city', field: 'address.city'},
+                { name:'getZip', field: 'getZip()', enableCellEdit:false}
+            ],
+            data : [      {
+                "first-name": "Cox",
+                "friends": ["friend0"],
+                "address": {street:"301 Dove Ave", city:"Laurel", zip:"39565"},
+                "getZip" : function() {return this.address.zip;}
+            }
+            ]
         };
 
         function sortChanged(grid, sortColumns) {
