@@ -145,6 +145,7 @@ clients.controller('clientsController',[
                     clients = angular.copy(res.data.results);
                     $scope.clients = clients;
                     $scope.gridOptions.data = clients;
+                    console.dir($scope.gridOptions.data);
                 },
                 function (err) {
                     console.error('Error searching clients: ' + err.message);
@@ -305,11 +306,11 @@ clients.controller('clientsController',[
             paginationPageSize: 50,
             useExternalPagination: true,
             columnDefs: [
-                { name: 'Name', displayName: 'Name', solrName: 'IdNumber', width: "5%", type: "number" },
-                { name: 'Address', solrName: 'Severity', width: "5%"  },
-                { name: 'Phone', solrName: 'Status', width: "8%"  },
-                { name: 'Email', solrName: 'CaseType', width: "8%"  },
-                { name: 'Type', solrName: 'Title', width: "55%"  },
+                { name: 'Name', displayName: 'Name', solrName: 'Name', width: "5%", type: "number" },
+                { name: 'Address', solrName: 'Address1', width: "5%"  },
+                { name: 'Phone', solrName: 'Phone', width: "8%"  },
+                { name: 'Email', solrName: 'Email', width: "8%"  },
+                { name: 'Type', solrName: 'Type', width: "55%"  },
                 { name: 'customer.customerName', solrName: 'CustomerName', displayName: 'Customer', width: "*"  },
                 { name: 'createDate', solrName: 'CreationTime', width: "*", cellFilter: 'date:\'MM/dd/yyyy h:mm a\'', sort: {direction: 'desc', priority: 0}},
                 {

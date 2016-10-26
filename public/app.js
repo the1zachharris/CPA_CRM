@@ -37,8 +37,8 @@ var app = angular.module('TrakkTask', [
     'xeditable',
 
     // TrakkTask Application Modules
-    'clients'
-    //'test'
+    'clients',
+    'tasks'
 ]);
 
 
@@ -133,22 +133,6 @@ app.run(function(editableOptions,$http,$log,$rootScope,Idle,AnalyticsService){
     $rootScope.ua = new UAParser().getResult();
 
 });
-
-
-app.controller('ClientController',[
-        '$scope',
-        '$http',
-    'clientCalls',
-        function(
-            $scope,
-            $http,
-            clientCalls
-        ){
-
-
-        }
-    ]
-);
 
 
 app.controller('MainController', function (

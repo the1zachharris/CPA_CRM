@@ -1,0 +1,18 @@
+<script></script>
+<div ng-controller="tasksController">
+    <form layout="row" flex="100">
+        <md-input-container flex>
+            <label><i class="fa fa-search"></i> Search clients</label>
+            <input>
+        </md-input-container>
+        <md-button id="refreshAllButton" type="button" aria-label="reset" class="md-raised">
+            <i class="fa fa-refresh"></i>
+            <md-tooltip>reset search</md-tooltip>
+        </md-button>
+    </form>
+    <h1>Tasks</h1>
+    <ul>
+        <li ng-repeat="x in tasks">Name:{{x.Name}}
+            Address:{{x.Address1}}</li>
+    </ul>
+</div>
