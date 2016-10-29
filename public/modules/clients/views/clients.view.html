@@ -1,173 +1,9 @@
-<!-- not used, but leaving for reference
-                               <script type="text/ng-template" id="addNoteWizard">
-    <md-dialog aria-label="" flex-gt-sm="50">
-    <md-toolbar>
-    <div class="md-toolbar-tools">
-    <h2>Add Note Wizard {{templateInfo.group}} {{templateInfo.name}}</h2>
-<span flex></span>
-<md-button class="md-icon-button" ng-click="cancel()"><i class="fa fa-times"></i></md-button>
+<section class="full-height nopad search" clients flex="100" layout="column">
+    <div class="appheader">
+    <h3>Clients</h3>
     </div>
-    </md-toolbar>
-    <md-dialog-content>
-    <notes-wizard
-templateGroup="templateInfo.group"
-templateName="templateInfo.name"
-    ></notes-wizard>
-    </md-dialog-content>
-    <md-dialog-actions layout="row">
-    <span flex></span>
-<md-button ng-click="cancel()" class="md-raised">Cancel</md-button>
-    <md-button ng-click="finishNote()" class="md-raised">OK</md-button>
-    </md-dialog-actions>
-    </md-dialog>
-    </script>
-    -->
 
 
-    <section class="full-height nopad search" clients flex="100" layout="column">
-        <div class="appheader">
-        <h3>Clients</h3>
-        </div>
-
-<md-toolbar>
-
-<!-- Keyword Search bar -->
-<div class="md-toolbar-tools keyword" ng-if="!search.isAdvancedSearch" flex="100" ng-controller="clientsController">
-    <form ng-submit="clientSearch(keyword)" layout="row" flex="25" name="keywordSearchForm">
-    <md-input-container flex>
-<label>Enter a keyword to search ...</label>
-<input ng-model="keyword">
-    </md-input-container>
-    <md-button class="md-raised md-primary" ng-click="clientSearch(keyword)" aria-label="search clients"><i class="fa fa-search"></i></md-button>
-    </form>
-    <span flex></span>
-<md-button class="md-raised" ng-click="search.toggleSearchOptions()" ng-if="canSaveSearches">
-    <md-icon md-svg-src="images/icon-search_options.svg"></md-icon>
-    <md-tooltip md-direction="left">search options</md-tooltip>
-</md-button>
-<md-button class="md-raised" ng-click="search.toggleAdvancedSearch()">search <md-tooltip md-direction="left">Go to Advanced Search</md-tooltip></md-button>
-</div>
-
-<!-- Advanced Search bar -->
-<div class="md-toolbar-tools" ng-if="search.isAdvancedSearch" layout="column" flex="100">
-    <div layout="row" layout-align="start center" class="full-width">
-    <md-checkbox ng-model="search.advFields.searchCases" aria-label="Search cases" ng-change="search.unsetCasesAndSubcaseFields()">Cases</md-checkbox>
-    <md-checkbox ng-model="search.advFields.searchSubcases" aria-label="Search subcases" ng-change="search.unsetCasesAndSubcaseFields()">Subcases</md-checkbox>
-    <span flex></span>
-<md-button class="md-raised" ng-click="search.toggleSearchOptions()" ng-if="canSaveSearches">
-    <md-icon md-svg-src="images/icon-search_options.svg"></md-icon>
-    <md-tooltip md-direction="left">search options</md-tooltip>
-</md-button>
-<md-button class="md-raised" ng-click="search.toggleAdvancedSearch()">advanced search <md-tooltip md-direction="left">Go to Keyword Search</md-tooltip></md-button>
-</div>
-<form ng-submit="search.searchClients()" layout="column" class="full-width" name="advSearchForm" id="advSearchForm">
-    <md-card layout="row" layout-padding layout-wrap>
-
-<!-- Created From Date -->
-<md-input-container flex-gt-sm="15">
-    <label>Created from Date</label>
-<input mdc-datetime-picker
-date="true"
-time="true"
-id="createFromDate"
-short-time="true"
-format="ddd, MMM DD, YYYY hh:mm a"
-ng-model="search.advFields.CreatedFrom"
-    >
-    </md-input-container>
-
-    <!-- Created To Date -->
-<md-input-container flex-gt-sm="15">
-    <label>Created to Date</label>
-<input mdc-datetime-picker
-date="true"
-time="true"
-id="createToDate"
-short-time="true"
-format="ddd, MMM DD, YYYY HH:mm Z"
-ng-model="search.advFields.CreatedTo"
-    >
-    </md-input-container>
-
-    <!-- Client Type -->
-<md-autocomplete
-class="searchField"
-flex-gt-sm="15"
-
-md-autoselect="true"
-md-select-on-match="true"
-md-min-length="0"
-md-selected-item="search.clientType"
-md-selected-item-change="search.setClientType()"
-md-search-text="search.clientTypeText"
-md-items="type in search.getClientTypes(search.clientTypeText)"
-md-item-text="type.name"
-md-floating-label="Client Type"
-    >
-    <md-item-template>
-    <span md-highlight-text="clientTypeText" md-highlight-flags="^i">{{type.name}}</span>
-</md-item-template>
-<md-not-found>No client types matching "{{search.clientTypeText}}" were found.</md-not-found>
-</md-autocomplete>
-
-<!-- Name -->
-<md-input-container flex-gt-sm="15">
-    <label>Name</label>
-    <input ng-model="search.advFields.Name" type="text">
-</md-input-container>
-
-<!-- Address -->
-<md-input-container flex-gt-sm="15">
-    <label>Address</label>
-    <input ng-model="search.advFields.Address" type="text">
-</md-input-container>
-
-<!-- Phone -->
-<md-input-container flex-gt-sm="15">
-    <label>Phone</label>
-    <input ng-model="search.advFields.Phone" type="text">
-</md-input-container>
-
-<!-- Email -->
-<md-input-container flex-gt-sm="15">
-    <label>Email</label>
-    <input ng-model="search.advFields.Email" type="text">
-</md-input-container>
-
-<!--  Contacts -->
-<md-autocomplete
-        class="searchField"
-        md-min-length="0"
-        md-autoselect="true"
-        md-select-on-match="true"
-        md-selected-item="search.Contacts"
-        md-selected-item-change="search.setContacts()"
-        md-items="type in search.getContacts(search.contactsText)"
-        md-item-text="type.contacts"
-        md-floating-label="Contacts"
->
-    <md-item-template>
-        <span md-highlight-text="contactsText" md-highlight-flags="^i">{{type.name}}</span>
-    </md-item-template>
-    <md-not-found>No contacts matching "{{search.contactsText}}" were found.</md-not-found>
-</md-autocomplete>
-
-    <!-- Responsible Employee -->
-<md-input-container flex-gt-sm="15">
-    <label>Responsible Employee</label>
-<input ng-model="search.advFields.ResponsibleEmployee" type="text">
-    </md-input-container>
-
-<!-- actions -->
-<div layout="row" layout-align="end start" class="full-width">
-    <span ng-if="!search.isSearching && search.type == 'adv' && gridOptions.data.length == 0" class="alert-warning">This criteria doesn&rsquo;t return any results.</span>
-<span flex></span>
-<md-button class="md-raised" ng-click="search.reset()" ng-click="search.resetSearch()">Reset</md-button>
-    <md-button class="md-raised md-primary" ng-click="search.searchclients()">Go</md-button>
-    </div>
-    </form>
-    </div>
-    </md-toolbar>
 
     <md-content class="search clients" layout="column" flex>
 <md-tabs
@@ -185,28 +21,8 @@ md-dynamic-height="false"
     </md-tab-label>
     <md-tab-body>
         <div class="table-responsive resultsList" ng-class="{advCritOpen: criteriaCollapsed, advCritClosed: !criteriaCollapsed}" layout="column">
-            <!-- progress circular -->
-            <div flex-gt-sm="100" layout="row" layout-align="center center" ng-if="searching">
-                <md-card layout="row" layout-wrap class="progressWrapper">
-                    <div flex="100" layout="row" layout-align="center center" class="md-subhead">Searching Tickets</div>
-                    <div flex="100" layout="row" layout-align="center center">
-                        <md-progress-circular md-mode="indeterminate" md-diameter="96"></md-progress-circular>
-                    </div>
-                </md-card>
-            </div>
-
-            <!-- progress circular -->
-            <div flex-gt-sm="100" layout="row" layout-align="center center" ng-if="search.isSearching">
-                <md-card layout="row" layout-wrap class="progressWrapper">
-                    <div flex="100" layout="row" layout-align="center center" class="md-subhead">Searching Tickets</div>
-                    <div flex="100" layout="row" layout-align="center center">
-                        <md-progress-circular md-mode="indeterminate" md-diameter="96"></md-progress-circular>
-                    </div>
-                </md-card>
-            </div>
-
-            <!--- Results grid ----->
-            <div
+           <!--- Results grid ----->
+            <div ng-init="listClients()"
                     ui-grid="gridOptions"
                     ui-grid-auto-resize
                     ui-grid-cellnav
@@ -221,21 +37,5 @@ md-dynamic-height="false"
     </md-tabs>
     </md-content>
 
-    <!-- Saved searches panel -->
-<md-sidenav class="md-sidenav-right md-whiteframe-z2" md-component-id="searchOptions" md-is-open="search.sideNavOpen">
-    <md-toolbar class="md-theme-light" layout="row">
-    <h3 class="md-toolbar-tools">Searches</h3>
-    <span flex></span>
-<md-button class="md-raised" ng-click="search.toggleEditSearches()" aria-label="edit searches">
-    <i class="fa fa-pencil"></i>
-    <md-tooltip>edit your searches</md-tooltip>
-</md-button>
-<md-button class="md-raised" ng-click="search.toggleSearchSave()" aria-label="add a search">
-    <i class="fa fa-plus"></i>
-    <md-tooltip>add a search</md-tooltip>
-</md-button>
-</md-toolbar>
-
-</md-sidenav>
 
 </section>
