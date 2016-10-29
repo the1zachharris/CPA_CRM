@@ -1,0 +1,32 @@
+<script></script>
+<div ng-controller="tasksController">
+    <form ng-submit="createTask()" layout="row" flex="100">
+        <md-input-container flex>
+            <label><i class="fa fa-search"></i> Name</label>
+            <input ng-model="newtask.Name">
+        </md-input-container>
+        <md-input-container flex>
+            <label><i class="fa fa-search"></i> Number</label>
+            <input ng-model="newtask.Number">
+        </md-input-container>
+        <md-input-container flex>
+            <label><i class="fa fa-search"></i> Frequency</label>
+            <input ng-model="newtask.Frequency">
+        </md-input-container>
+        <md-input-container flex>
+            <label><i class="fa fa-search"></i> DueDate</label>
+            <input ng-model="newtask.DueDate">
+        </md-input-container>
+        <md-input-container flex>
+            <label><i class="fa fa-search"></i> ExtendedDueDate</label>
+            <input ng-model="newtask.ExtendedDueDate">
+        </md-input-container>
+        <md-input-container flex>
+            <label><i class="fa fa-search"></i> SecondExtendedDueDate</label>
+            <input ng-model="newtask.SecondExtendedDueDate">
+        </md-input-container>
+        <md-button type="submit" aria-label="Create a Task">
+            <i>Create!!!</i>
+        </md-button>
+    </form>
+</div>

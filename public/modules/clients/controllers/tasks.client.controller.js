@@ -49,7 +49,7 @@ tasks.controller('tasksController',[
             DueDate = "",
             ExtendedDueDate = "",
             SecondExtendedDueDate = "",
-            newtask = "",
+            newTask = "",
             updatedtask = "",
             deletedtask = "";
         $scope.myVar = 'test data';
@@ -61,6 +61,8 @@ tasks.controller('tasksController',[
             taskCalls.getTasks({}).then(
                 function (res) {
                     tasks = angular.copy(res.data);
+                    $scope.tasks = tasks;
+                    console.dir(tasks)
                 },
                 function (err) {
                     console.error('Error getting tasks: ' + err.message);
@@ -73,15 +75,16 @@ tasks.controller('tasksController',[
         $scope.createTask = function () {
 
             taskCalls.createTask({
-                Name: Name,
-                Number: Number,
-                Frequency: Frequency,
-                DueDate: DueDate,
-                ExtendedDueDate: ExtendedDueDate,
-                SecondExtendedDueDate: SecondExtendedDueDate
+                Name: newtask.Name,
+                Number: newtask.Number,
+                Frequency: newtask.Frequency,
+                DueDate: newtask.DueDate,
+                ExtendedDueDate: newtask.ExtendedDueDate,
+                SecondExtendedDueDate: newtask.SecondExtendedDueDate
             }).then(
                 function (res) {
-                    newtask = angular.copy(res.data);
+                    newTask = angular.copy(res.data);
+                    $scope.newTask = newTask;
                 },
                 function (err) {
                     console.error('Error creating task: ' + err.message);
@@ -103,6 +106,7 @@ tasks.controller('tasksController',[
             }).then(
                 function (res) {
                     updatedtask = angular.copy(res.data);
+                    $scope.updatedtask = updatedtask;
                 },
                 function (err) {
                     console.error('Error updating task: ' + err.message);
@@ -117,6 +121,7 @@ tasks.controller('tasksController',[
             taskCalls.deleteTask({}).then(
                 function (res) {
                     deletedtask = angular.copy(res.data);
+                    $scope.deletedtask = deletedtask;
                 },
                 function (err) {
                     console.error('Error deleting task: ' + err.message);

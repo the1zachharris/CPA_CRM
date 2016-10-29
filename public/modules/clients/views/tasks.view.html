@@ -1,18 +1,32 @@
 <script></script>
-<div ng-controller="tasksController">
+<div ng-controller="tasksController" ng-init="getTasks()">
     <form layout="row" flex="100">
         <md-input-container flex>
-            <label><i class="fa fa-search"></i> Search clients</label>
-            <input>
+            <label><i class="fa fa-search"></i> Search Tasks</label>
+            <input ng-model="query">
         </md-input-container>
-        <md-button id="refreshAllButton" type="button" aria-label="reset" class="md-raised">
-            <i class="fa fa-refresh"></i>
-            <md-tooltip>reset search</md-tooltip>
-        </md-button>
+        <button type="button" aria-label="new" ng-click="openPage('/tasks/create')">
+            <i>+ New</i>
+            <md-tooltip>Create new Task</md-tooltip>
+        </button>
     </form>
     <h1>Tasks</h1>
-    <ul>
-        <li ng-repeat="x in tasks">Name:{{x.Name}}
-            Address:{{x.Address1}}</li>
-    </ul>
+    <table style="width:100%">
+        <tr>
+            <th>Name</th>
+            <th>Number</th>
+            <th>Frequency</th>
+            <th>DueDate</th>
+            <th>ExtendedDueDate</th>
+            <th>SecondExtendedDueDate</th>
+        </tr>
+        <tr ng-repeat="task in tasks | filter:query">
+            <td>{{task.Name}}</td>
+            <td>{{task.Number}}</td>
+            <td>{{task.Frequency}}</td>
+            <td>{{task.DueDate}}</td>
+            <td>{{task.ExtendedDueDate}}</td>
+            <td>{{task.SecondExtendedDueDate}}</td>
+        </tr>
+    </table>
 </div>

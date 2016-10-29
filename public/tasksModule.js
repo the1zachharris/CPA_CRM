@@ -36,17 +36,17 @@ tasks.config([
                     }
 
                 })
-                .when('/clients/create',{
-                    name: 'clients',
-                    templateUrl:'modules/clients/views/create-clients.client.view.html',
-                    label: 'Create client',
-                    controller: 'clientCreateController',
+                .when('/tasks/create',{
+                    name: 'tasks',
+                    templateUrl:'modules/clients/views/create-tasks.client.view.html',
+                    label: 'Create tasks',
+                    controller: 'tasksController',
                     resolve: {
                         loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
                             return $ocLazyLoad.load({
-                                name: 'clientCreateController',
+                                name: 'tasksController',
                                 files:[
-                                    'modules/clients/controllers/clients.create.client.controller.js',
+                                    'modules/clients/controllers/tasks.client.controller.js',
 
                                     // Styles
                                     'modules/core/css/tabsets.client.styles.css',
