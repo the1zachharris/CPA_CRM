@@ -258,10 +258,11 @@ tasks.factory('taskCalls', function($http,$log) {
             return promise;
         },
         createTask: function(req){
+            console.dir(req);
             var promise = $http({
                 method: 'POST',
                 url: '/task/create',
-                params: req
+                data: req
             }).then(function (response) {
                 return response;
             });
@@ -272,7 +273,7 @@ tasks.factory('taskCalls', function($http,$log) {
             var promise = $http({
                 method: 'POST',
                 url: '/task/update',
-                params: req
+                data: req
             }).then(function (response) {
                 return response;
             });

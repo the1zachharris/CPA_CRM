@@ -53,6 +53,7 @@ tasks.controller('tasksController',[
             updatedtask = "",
             deletedtask = "";
         $scope.myVar = 'test data';
+        $scope.badTask = false;
         /* =====================================================================
          * Get all tasks from Mongo database
          * ===================================================================== */
@@ -72,8 +73,8 @@ tasks.controller('tasksController',[
         /* =====================================================================
          * create new task
          * ===================================================================== */
-        $scope.createTask = function () {
-
+        $scope.createTask = function (newtask) {
+            console.log(newtask);
             taskCalls.createTask({
                 Name: newtask.Name,
                 Number: newtask.Number,
@@ -84,10 +85,10 @@ tasks.controller('tasksController',[
             }).then(
                 function (res) {
                     newTask = angular.copy(res.data);
-                    $scope.newTask = newTask;
                 },
                 function (err) {
-                    console.error('Error creating task: ' + err.message);
+                    $scope.badTask = 'Error creating task: ' + JSON.stringify(err.data.message);
+                    console.error('Error creating task: ' + JSON.stringify(err.data.message));
                 }
             );
         };
