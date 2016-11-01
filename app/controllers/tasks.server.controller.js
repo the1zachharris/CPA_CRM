@@ -117,7 +117,7 @@ exports.list = function (req, res) {
  */
 exports.detail = function (req, res) {
     try {
-        task.find({type: req.params.type}).sort('-type').exec(function (err, task) {
+        task.find({_id: req.params.taskID}).exec(function (err, task) {
             if (!task.length) {
                 res.status(200).send()
             } else {
