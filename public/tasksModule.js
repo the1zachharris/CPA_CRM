@@ -36,17 +36,17 @@ tasks.config([
                     }
 
                 })
-                .when('/clients/create',{
-                    name: 'clients',
-                    templateUrl:'modules/clients/views/create-clients.client.view.html',
-                    label: 'Create client',
-                    controller: 'clientCreateController',
+                .when('/tasks/create',{
+                    name: 'tasks',
+                    templateUrl:'modules/clients/views/create-tasks.client.view.html',
+                    label: 'Create tasks',
+                    controller: 'tasksController',
                     resolve: {
                         loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
                             return $ocLazyLoad.load({
-                                name: 'clientCreateController',
+                                name: 'tasksController',
                                 files:[
-                                    'modules/clients/controllers/clients.create.client.controller.js',
+                                    'modules/clients/controllers/tasks.client.controller.js',
 
                                     // Styles
                                     'modules/core/css/tabsets.client.styles.css',
@@ -55,24 +55,21 @@ tasks.config([
                         }]
                     }
                 })
-                .when('/clients/create/note/wizard',{
-                    name: 'clients',
-                    templateUrl:'modules/clients/views/note.wizard.client.view.html',
-                    label: 'Create Note Wizard',
-                    controller: 'clientCreateNoteWizardController',
+                .when('/task/update/:taskID',{
+                    name: 'tasks',
+                    templateUrl:'modules/clients/views/create-tasks.client.view.html',
+                    label: 'Update tasks',
+                    controller: 'updateController',
                     resolve: {
                         loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
                             return $ocLazyLoad.load({
-                                name: 'clientCreateNoteWizardController',
+                                name: 'updateController',
                                 files:[
-                                    // Controllers
-                                    'modules/clients/controllers/note.wizard.client.controller.js',
+                                    'modules/clients/controllers/tasks.client.controller.js',
 
                                     // Styles
-                                    'modules/clients/css/note.wizard.client.styles.css'
-
-                                    // Directives
-                                    // 'modules/core/directives/tabset.client.directive.js'
+                                    'modules/core/css/tabsets.client.styles.css',
+                                    'modules/clients/css/client-create.client.styles.css'
                                 ]});
                         }]
                     }
@@ -257,11 +254,13 @@ tasks.factory('taskCalls', function($http,$log) {
             // Return the promise to the controller
             return promise;
         },
+        //TODO: create detail task function
         createTask: function(req){
+            console.dir(req);
             var promise = $http({
                 method: 'POST',
                 url: '/task/create',
-                params: req
+                data: req
             }).then(function (response) {
                 return response;
             });
@@ -272,7 +271,7 @@ tasks.factory('taskCalls', function($http,$log) {
             var promise = $http({
                 method: 'POST',
                 url: '/task/update',
-                params: req
+                data: req
             }).then(function (response) {
                 return response;
             });

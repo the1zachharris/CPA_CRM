@@ -558,7 +558,7 @@ app.controller('MenuController', [
         $scope.currentRouteName = $route.current.$$route.name;
 
         $scope.openPage = function (pageName) {
-            console.log('in openPage');
+            console.log(pageName);
             $location.path(pageName.replace(/#/, ''));
         };
 

@@ -43,16 +43,11 @@ tasks.controller('tasksController',[
         console.log("in task controller");
 
         var tasks = "",
-            Name = "",
-            Number = "",
-            Frequency = "",
-            DueDate = "",
-            ExtendedDueDate = "",
-            SecondExtendedDueDate = "",
-            newtask = "",
+            newTask = "",
             updatedtask = "",
             deletedtask = "";
         $scope.myVar = 'test data';
+        $scope.badTask = false;
         /* =====================================================================
          * Get all tasks from Mongo database
          * ===================================================================== */
@@ -61,6 +56,8 @@ tasks.controller('tasksController',[
             taskCalls.getTasks({}).then(
                 function (res) {
                     tasks = angular.copy(res.data);
+                    $scope.tasks = tasks;
+                    console.dir(tasks)
                 },
                 function (err) {
                     console.error('Error getting tasks: ' + err.message);
@@ -70,45 +67,79 @@ tasks.controller('tasksController',[
         /* =====================================================================
          * create new task
          * ===================================================================== */
-        $scope.createTask = function () {
-
+        $scope.createTask = function (newtask) {
+            console.log(newtask);
             taskCalls.createTask({
-                Name: Name,
-                Number: Number,
-                Frequency: Frequency,
-                DueDate: DueDate,
-                ExtendedDueDate: ExtendedDueDate,
-                SecondExtendedDueDate: SecondExtendedDueDate
+                Name: newtask.Name,
+                Number: newtask.Number,
+                Frequency: newtask.Frequency,
+                DueDate: newtask.DueDate,
+                ExtendedDueDate: newtask.ExtendedDueDate,
+                SecondExtendedDueDate: newtask.SecondExtendedDueDate
             }).then(
                 function (res) {
-                    newtask = angular.copy(res.data);
+                    newTask = angular.copy(res.data);
+                    $scope.newtask = {};
+                    //$scope.newtask.Name = "";
+                    console.dir($scope.newtask);
                 },
                 function (err) {
-                    console.error('Error creating task: ' + err.message);
+                    $scope.badTask = 'Error creating task: ' + JSON.stringify(err.data.message);
+                    console.error('Error creating task: ' + JSON.stringify(err.data.message));
                 }
             );
         };
-        /* =====================================================================
-         * update task
-         * ===================================================================== */
-        $scope.updateTask = function () {
+        /* ================================================================================
+         * updateController
+         * ================================================================================ */
+        tasks.controller('updateController', function($scope) {
 
-            taskCalls.updateTask({
-                Name: Name,
-                Number: Number,
-                Frequency: Frequency,
-                DueDate: DueDate,
-                ExtendedDueDate: ExtendedDueDate,
-                SecondExtendedDueDate: SecondExtendedDueDate
-            }).then(
-                function (res) {
-                    updatedtask = angular.copy(res.data);
-                },
-                function (err) {
-                    console.error('Error updating task: ' + err.message);
-                }
-            );
-        };
+            /* =====================================================================
+             * update task
+             * ===================================================================== */
+            $scope.updateTask = function (updatetask) {
+
+                taskCalls.updateTask({
+                    Name: updatetask.Name,
+                    Number: updatetask.Number,
+                    Frequency: updatetask.Frequency,
+                    DueDate: updatetask.DueDate,
+                    ExtendedDueDate: updatetask.ExtendedDueDate,
+                    SecondExtendedDueDate: updatetask.SecondExtendedDueDate
+                }).then(
+                    function (res) {
+                        updatedtask = angular.copy(res.data);
+                        $scope.updatedtask = updatedtask;
+                    },
+                    function (err) {
+                        console.error('Error updating task: ' + err.message);
+                    }
+                );
+            };
+
+            /* =====================================================================
+             * view task
+             * ===================================================================== */
+            $scope.viewTask = function (taskID) {
+
+                taskCalls.updateTask({
+                    Name: updatetask.Name,
+                    Number: updatetask.Number,
+                    Frequency: updatetask.Frequency,
+                    DueDate: updatetask.DueDate,
+                    ExtendedDueDate: updatetask.ExtendedDueDate,
+                    SecondExtendedDueDate: updatetask.SecondExtendedDueDate
+                }).then(
+                    function (res) {
+                        updatedtask = angular.copy(res.data);
+                        $scope.updatedtask = updatedtask;
+                    },
+                    function (err) {
+                        console.error('Error updating task: ' + err.message);
+                    }
+                );
+            };
+        });
         /* =====================================================================
          * Delete a task from Mongo database
          * ===================================================================== */
@@ -117,6 +148,7 @@ tasks.controller('tasksController',[
             taskCalls.deleteTask({}).then(
                 function (res) {
                     deletedtask = angular.copy(res.data);
+                    $scope.deletedtask = deletedtask;
                 },
                 function (err) {
                     console.error('Error deleting task: ' + err.message);
@@ -125,3 +157,4 @@ tasks.controller('tasksController',[
         };
     }
 ]);
+

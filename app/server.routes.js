@@ -89,7 +89,7 @@ router.post('/client/search', client.search);
  */
 var task = require('./controllers/tasks.server.controller.js');
 router.get('/task/list', task.list);
-router.get('/task/detail/:Name', task.detail);
+router.get('/task/detail/:taskID', task.detail);
 router.post('/task/create', task.create);
 router.post('/task/update', task.update);
 router.delete('/task/delete/:taskid', task.delete);

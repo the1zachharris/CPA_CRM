@@ -12,19 +12,29 @@ var mongoose = require('mongoose'),
 var tasksSchema = new Schema ({
 
     Name: {
-        type: String
+        type: String,
+        required: 'Please fill in a name for the Task',
+        unique: 'Task name must be unique',
+        trim: true
     },
 
     Number: {
-        type: String
+        type: String,
+        required: 'Please fill in a number for the Task',
+        unique: 'Task number must be unique',
+        trim: true
     },
 
     Frequency: {
-        type: String
+        type: String,
+        required: 'Please fill in a frequency for the Task',
+        trim: true
     },
 
     DueDate: {
-       type: Date
+       type: Date,
+        required: 'Please fill in a due date for the Task',
+        trim: true
     },
 
     ExtendedDueDate: {
