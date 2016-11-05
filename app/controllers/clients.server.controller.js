@@ -41,45 +41,39 @@ var mongoose = require('mongoose'),
 *     }
  */
 exports.create = function (req, res) {
-    try {
-        // used to create ID
-        var current_date = (new Date()).valueOf().toString();
-        var random = Math.random().toString();
+    // used to create ID
+    var current_date = (new Date()).valueOf().toString();
+    var random = Math.random().toString();
 
-        var v = new client({
-            id: crypto.createHash('sha1').update(current_date + random).digest('hex'),
-            Name: req.body.Name,
-            Address1: req.body.Address1,
-            Address2: req.body.Address2,
-            City: req.body.City,
-            StateProvince: req.body.StateProvince,
-            PostalCode: req.body.PostalCode,
-            Country: req.body.Country,
-            Phone: req.body.Phone,
-            Email: req.body.Email,
-            Contacts: req.body.Contacts,
-            ResponsibleEmployee: req.body.ResponsibleEmployee,
-            Type: req.body.Type,
-            DateCreated: current_date,
-            DateUpdated: req.body.DateUpdated,
-            Tasks: req.body.Tasks
+    var v = new client({
+        id: crypto.createHash('sha1').update(current_date + random).digest('hex'),
+        Name: req.body.Name,
+        Address1: req.body.Address1,
+        Address2: req.body.Address2,
+        City: req.body.City,
+        StateProvince: req.body.StateProvince,
+        PostalCode: req.body.PostalCode,
+        Country: req.body.Country,
+        Phone: req.body.Phone,
+        Email: req.body.Email,
+        Contacts: req.body.Contacts,
+        ResponsibleEmployee: req.body.ResponsibleEmployee,
+        Type: req.body.Type,
+        DateCreated: current_date,
+        DateUpdated: req.body.DateUpdated,
+        Tasks: req.body.Tasks
 
-        });
+    });
 
-        v.save(function (err, client) {
-            if (err) {
-                return res.status(400).send({
-                    message:  err
-                });
-            } else {
-                res.status(200).send({success: true, id: client.id});
-            }
-        });
-    } catch (err) {
-        return res.status(400).send({
-            message:  err
-        });
-    }
+    v.save(function (err, client) {
+        if (err) {
+            return res.status(400).send({
+                message:  err
+            });
+        } else {
+            res.status(200).send({success: true, id: client.id});
+        }
+    });
 };
 
 /**
@@ -98,25 +92,19 @@ exports.create = function (req, res) {
 *     }
  */
 exports.list = function (req, res) {
-    try {
-        client.find().sort('-type').exec(function (err, clients) {
-            if (!client.length) {
-                res.status(200).send({clients: clients})
+    client.find().sort('-type').exec(function (err, clients) {
+        if (!client.length) {
+            res.status(200).send({clients: clients})
+        } else {
+            if (err) {
+                return res.status(400).send({
+                    message:  err
+                });
             } else {
-                if (err) {
-                    return res.status(400).send({
-                        message:  err
-                    });
-                } else {
-                    res.jsonp(clients);
-                }
+                res.jsonp(clients);
             }
-        });
-    } catch (err) {
-        return res.status(400).send({
-            message:  err
-        });
-    }
+        }
+    });
 };
 
 /**
@@ -135,25 +123,19 @@ exports.list = function (req, res) {
 *     }
  */
 exports.detail = function (req, res) {
-    try {
-        client.find({type: req.params.type}).sort('-type').exec(function (err, client) {
-            if (!client.length) {
-                res.status(200).send()
+    client.find({type: req.params.type}).sort('-type').exec(function (err, client) {
+        if (!client) {
+            res.status(200).send()
+        } else {
+            if (err) {
+                return res.status(400).send({
+                    message:  err
+                });
             } else {
-                if (err) {
-                    return res.status(400).send({
-                        message:  err
-                    });
-                } else {
-                    res.jsonp(client);
-                }
+                res.jsonp(client);
             }
-        });
-    } catch (err) {
-        return res.status(400).send({
-            message:  err
-        });
-    }
+        }
+    });
 };
 
 /**
@@ -175,22 +157,16 @@ exports.detail = function (req, res) {
 *     }
  */
 exports.update = function (req, res) {
-    try {
-        var query = {id: req.body.typeid};
-        client.findOneAndUpdate(query, req.body.updatedclient, {upsert: false}, function (err, doc) {
-            if (err) {
-                return res.status(400).send({
-                    message:  err
-                });
-            } else {
-                res.status(200).send({results: doc});
-            }
-        });
-    } catch (err) {
-        return res.status(400).send({
-            message:  err
-        });
-    }
+    var query = {id: req.body.id};
+    client.findOneAndUpdate(query, req.body.updatedclient, {upsert: true}, function (err, doc) {
+        if (err) {
+            return res.status(400).send({
+                message:  err
+            });
+        } else {
+            res.status(200).send({results: doc});
+        }
+    });
 };
 
 /**
@@ -211,24 +187,18 @@ exports.update = function (req, res) {
 *     }
  */
 exports.delete = function (req, res) {
-    try {
-        var clientid = req.params.clientid;
-        var query = {id: clientid};
-        client.remove(query, function (err, doc) {
-            if (err) {
-                return res.status(400).send({
-                    message:  err
-                });
-            } else {
-                res.status(200).send({results: doc});
-            }
+    var clientid = req.params.clientid;
+    var query = {id: clientid};
+    client.remove(query, function (err, doc) {
+        if (err) {
+            return res.status(400).send({
+                message:  err
+            });
+        } else {
+            res.status(200).send({results: doc});
+        }
 
-        })
-    } catch (err) {
-        return res.status(400).send({
-            message:  err
-        });
-    }
+    })
 };
 
 /**

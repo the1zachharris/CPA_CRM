@@ -20,7 +20,7 @@
         </tr>
 
         <tr ng-repeat="task in tasks | filter:query">
-            <td><a data-ng-href="#/task/update/{{task._id}}">{{task.Name}}</a></td>
+            <td><a data-ng-href="#/task/update/{{task.id}}">{{task.Name}}</a></td>
             <td>{{task.Number}}</td>
             <td>{{task.Frequency}}</td>
             <td>{{task.DueDate}}</td>

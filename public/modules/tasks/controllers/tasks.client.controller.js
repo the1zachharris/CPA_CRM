@@ -98,7 +98,7 @@ tasks.controller('tasksController',[
         $scope.updateTask = function (detailedtask) {
 
             taskCalls.updateTask({
-                taskid: detailedtask._id,
+                taskid: detailedtask.id,
                 Name: detailedtask.Name,
                 Number: detailedtask.Number,
                 Frequency: detailedtask.Frequency,

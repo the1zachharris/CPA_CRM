@@ -55,7 +55,7 @@ clients.config([
                     }
                 })
 
-                .when('/clients/:clientID',{
+                .when('/clients/:clientid',{
                     name: 'clients',
                     templateUrl:'modules/clients/views/client.client.view.html',
                     label: 'clients',

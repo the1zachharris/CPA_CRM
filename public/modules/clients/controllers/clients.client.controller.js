@@ -313,7 +313,7 @@ clients.controller('clientsController',[
                     name: 'actions',
                     displayName: '',
                     cellTemplate:
-                    '<md-button aria-label="Client Detail" class="md-mini" ng-click="grid.appScope.openItemTab(row.entity.ticketId)" ng-disabled="grid.appScope.disabledDetailBtns[row.entity.ticketId]">'
+                    '<md-button aria-label="Client Detail" class="md-mini" ng-click="grid.appScope.openItemTab(row.entity.id)" ng-disabled="grid.appScope.disabledDetailBtns[row.entity.id]">'
                     + '<i class="fa fa-info-circle"></i>'
                     + '<md-tooltip>Client Detail</md-tooltip>'
                     + '</md-button>',
@@ -670,8 +670,8 @@ clients.controller('clientsController',[
         // if there is a client ID in the route, let's load it.
         $scope.openclientLink = function () {
             try {
-                if (methodCop.check([$routeParams.clientID])) {
-                    $scope.openItemTab($routeParams.clientID);
+                if (methodCop.check([$routeParams.clientid])) {
+                    $scope.openItemTab($routeParams.clientid);
                 }
             }
             catch (err) {

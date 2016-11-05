@@ -32,35 +32,29 @@ var mongoose = require('mongoose'),
 *     }
  */
 exports.create = function (req, res) {
-    try {
-        // used to create ID
-        var current_date = (new Date()).valueOf().toString();
-        var random = Math.random().toString();
+    // used to create ID
+    var current_date = (new Date()).valueOf().toString();
+    var random = Math.random().toString();
 
-        var v = new task({
-            id: crypto.createHash('sha1').update(current_date + random).digest('hex'),
-            Name: req.body.Name,
-            Number: req.body.Number,
-            Frequency: req.body.Frequency,
-            DueDate: req.body.DueDate,
-            ExtendedDueDate: req.body.ExtendedDueDate,
-            SecondExtendedDueDate: req.body.SecondExtendedDueDate
-        });
+    var v = new task({
+        id: crypto.createHash('sha1').update(current_date + random).digest('hex'),
+        Name: req.body.Name,
+        Number: req.body.Number,
+        Frequency: req.body.Frequency,
+        DueDate: req.body.DueDate,
+        ExtendedDueDate: req.body.ExtendedDueDate,
+        SecondExtendedDueDate: req.body.SecondExtendedDueDate
+    });
 
-        v.save(function (err, task) {
-            if (err) {
-                return res.status(400).send({
-                    message:  err
-                });
-            } else {
-                res.status(200).send({success: true, id: task.id});
-            }
-        });
-    } catch (err) {
-        return res.status(400).send({
-            message:  err
-        });
-    }
+    v.save(function (err, task) {
+        if (err) {
+            return res.status(400).send({
+                message:  err
+            });
+        } else {
+            res.status(200).send({success: true, id: task.id});
+        }
+    });
 };
 
 /**
@@ -79,25 +73,19 @@ exports.create = function (req, res) {
 *     }
  */
 exports.list = function (req, res) {
-    try {
-        task.find().sort('-type').exec(function (err, task) {
-            if (!task.length) {
-                res.status(200).send({tasks: task})
+    task.find().sort('-type').exec(function (err, task) {
+        if (!task.length) {
+            res.status(200).send({tasks: task})
+        } else {
+            if (err) {
+                return res.status(400).send({
+                    message:  err
+                });
             } else {
-                if (err) {
-                    return res.status(400).send({
-                        message:  err
-                    });
-                } else {
-                    res.jsonp(task);
-                }
+                res.jsonp(task);
             }
-        });
-    } catch (err) {
-        return res.status(400).send({
-            message:  err
-        });
-    }
+        }
+    });
 };
 
 /**
@@ -116,7 +104,7 @@ exports.list = function (req, res) {
 *     }
  */
 exports.detail = function (req, res) {
-    task.findOne({_id: req.params.taskid}).exec(function (err, task) {
+    task.findOne({id: req.params.taskid}).exec(function (err, task) {
         if (err) {
             return res.status(400).send({
                 message: err
@@ -146,7 +134,7 @@ exports.detail = function (req, res) {
 *     }
  */
 exports.update = function (req, res) {
-    var query = {_id: req.body.taskid};
+    var query = {id: req.body.taskid};
     task.findOneAndUpdate(query, req.body, {upsert: true}, function (err, doc) {
         if (err) {
             return res.status(400).send({
@@ -176,22 +164,16 @@ exports.update = function (req, res) {
 *     }
  */
 exports.delete = function (req, res) {
-    try {
-        var taskid = req.params.taskid;
-        var query = {id: taskid};
-        task.remove(query, function (err, doc) {
-            if (err) {
-                return res.status(400).send({
-                    message:  err
-                });
-            } else {
-                res.status(200).send({results: doc});
-            }
+    var taskid = req.params.taskid;
+    var query = {id: taskid};
+    task.remove(query, function (err, doc) {
+        if (err) {
+            return res.status(400).send({
+                message:  err
+            });
+        } else {
+            res.status(200).send({results: doc});
+        }
 
-        })
-    } catch (err) {
-        return res.status(400).send({
-            message:  err
-        });
-    }
+    })
 };
