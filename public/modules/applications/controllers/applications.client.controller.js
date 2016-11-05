@@ -498,7 +498,7 @@ var applications = angular.module('applications',[
 
 
             $scope.addApplication = function(){
-                if ($scope.canCreate) {
+                //if ($scope.canCreate) {
                     $scope.appSend = {
                         application: $scope.application.name,
                         icon: $scope.application.icon,
@@ -585,7 +585,8 @@ var applications = angular.module('applications',[
                             };
                             $scope.openModal('sm');
                         });
-                } else {
+            /*
+            } else {
                     $scope.modal = {
                         title : 'Error',
                         icon : 'exclamation-triangle',
@@ -593,7 +594,7 @@ var applications = angular.module('applications',[
                     };
                     $scope.openModal('sm');
                 }
-
+            */
             };
 
             $scope.find = function(){
@@ -642,7 +643,7 @@ var applications = angular.module('applications',[
             };
 
             $scope.update = function(){
-                if ($scope.canUpdate) {
+                //if ($scope.canUpdate) {
                     delete $scope.application.roles;
                     $scope.application.roles = [];
                     $scope.application.roles.push($scope.application.allRoles);
@@ -715,6 +716,7 @@ var applications = angular.module('applications',[
                         .error(function(err){
                             $scope.error = err.message;
                         });
+                /*
                 } else {
                     $scope.modal = {
                         title : 'Error',
@@ -723,10 +725,11 @@ var applications = angular.module('applications',[
                     };
                     $scope.openModal('sm');
                 }
+                */
             };
 
             $scope.deleteApp = function(){
-                if ($scope.canDelete) {
+                //if ($scope.canDelete) {
                     $scope.modal = {
                         title : 'Delete ' + $scope.application.name,
                         body : 'Are you sure you want to delete the application, \'' + $scope.application.name + '?\''
@@ -750,7 +753,8 @@ var applications = angular.module('applications',[
                             $log.info('Delete App cancelled');
                         }
                     );
-                } else {
+            /*
+            } else {
                     $scope.modal = {
                         title : 'Error',
                         icon : 'exclamation-triangle',
@@ -758,7 +762,7 @@ var applications = angular.module('applications',[
                     };
                     $scope.openModal('sm');
                 }
-
+            */
             };
 
             $scope.forRealDeleteApp = function(){
