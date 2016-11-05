@@ -123,10 +123,10 @@ clients.controller('clientsController',[
                     clients = angular.copy(res.data);
                     $scope.clients = clients;
                     $scope.gridOptions.data = clients;
-                    console.log('clients:');
-                    console.dir($scope.clients);
-                    console.log('gridOptions.data: ');
-                    console.dir($scope.gridOptions.data);
+                    //console.log('clients:');
+                    //console.dir($scope.clients);
+                    //console.log('gridOptions.data: ');
+                    //console.dir($scope.gridOptions.data);
                 },
                 function (err) {
                     console.error('Error getting clients: ' + err.message);

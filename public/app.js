@@ -37,6 +37,7 @@ var app = angular.module('TrakkTask', [
     'xeditable',
 
     // TrakkTask Application Modules
+    'applications',
     'clients',
     'tasks'
 ]);

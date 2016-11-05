@@ -14,11 +14,23 @@ console.log('in server.routes now');
 
 router.get('/',core.index);
 
-    /************************************************************************************************
-     * ClientType ROUTES
-     * @type {exports|module.exports}
-     */
+/************************************************************************************************
+ * APPLICATION ROUTES
+ * @type {exports|module.exports}
+ */
+var applications = require('./controllers/applications.server.controller.js');
+router.get('/applications', applications.list);
+router.get('/applications/settings/:appName', applications.getSettings);
+router.post('/applications', applications.create);
+router.get('/application/:applicationId',applications.read);
+router.post('/applications/update', applications.update);
+router.delete('/applications/:applicationId', applications.delete);
+router.post('/checkApp',applications.checkName);
 
+/************************************************************************************************
+ * ClientType ROUTES
+ * @type {exports|module.exports}
+ */
 var clientTypes = require('./controllers/clienttypes.server.controller.js');
 router.get('/clienttype/list', clientTypes.listAll);
 router.post('/clienttype/create', clientTypes.createIt);
@@ -30,7 +42,6 @@ router.delete('/clienttype/:typeid', clientTypes.deleteIt);
  * frequency ROUTES
  * @type {exports|module.exports}
  */
-
 var frequency = require('./controllers/frequencys.server.controller.js');
 router.get('/frequency/list', frequency.list);
 router.get('/frequency/detail/:frequency', frequency.detail);
@@ -42,7 +53,6 @@ router.delete('/frequency/delete/:frequencyid', frequency.delete);
  * employee ROUTES
  * @type {exports|module.exports}
  */
-
 var employee = require('./controllers/employees.server.controller.js');
 router.get('/employee/list', employee.list);
 router.get('/employee/detail/:FirstName', employee.detail);
@@ -54,7 +64,6 @@ router.delete('/employee/delete/:employeeid', employee.delete);
  * reminder ROUTES
  * @type {exports|module.exports}
  */
-
 var reminder = require('./controllers/reminders.server.controller.js');
 router.get('/reminder/list', reminder.list);
 router.get('/reminder/detail/:Task', reminder.detail);
@@ -66,7 +75,6 @@ router.delete('/reminder/delete/:reminderid', reminder.delete);
  * client ROUTES
  * @type {exports|module.exports}
  */
-
 var client = require('./controllers/clients.server.controller.js');
 router.get('/client/list', client.list);
 router.get('/client/detail/:Name', client.detail);
@@ -79,7 +87,6 @@ router.post('/client/search', client.search);
  * task ROUTES
  * @type {exports|module.exports}
  */
-
 var task = require('./controllers/tasks.server.controller.js');
 router.get('/task/list', task.list);
 router.get('/task/detail/:taskID', task.detail);

@@ -1,0 +1,245 @@
+<section data-ng-init="findOne()" applicationsManage>
+
+	<div class="appheader">
+		<h3>Manage Application <strong>{{application.name}}</strong></h3>
+	</div>
+
+	<div class="page-header">
+		<h3 class="">Application Details</h3>
+	</div>
+	
+	<div style="margin: 0 0 42px ;">
+		<div class="row" style="margin: 0 0 9px 21px;">
+			<div class="input-group col-lg-6">
+				<span class="input-group-addon" id="basic-addon1">Application Name</span>
+				<input type="text" ng-model="application.name" class="form-control" required placeholder="Application Name" aria-describedby="basic-addon1">
+			</div>
+		</div>
+		<div class="row" style="margin: 0 0 9px 21px;">
+			<div class="input-group col-lg-6">
+				<span class="input-group-addon" id="basic-addon1">ITPKMID</span>
+				<input type="text" ng-model="itpkmid" class="form-control" aria-describedby="basic-addon1">
+			</div>
+		</div>
+		<div class="row" style="margin: 0 0 9px 21px;">
+			<div class="input-group col-lg-6">
+				<span class="input-group-addon" id="basic-addon1">Application Icon</span>
+				<input class="form-control" type="text" required ng-model="application.icon" placeholder="Give the Font Awesome code for your application...">
+				<span class="input-group-addon" id="basic-addon2"><a href="http://fortawesome.github.io/Font-Awesome/icons/" target="_blank">guide</a></span>
+				<!--<span class="input-group-btn dropdown"><ui-iconpicker ng-model="menuIcon" groups="bootstrap font-awesome"></ui-iconpicker></span>-->
+			</div>
+		</div>
+		<div class="row" style="margin: 0 0 9px 21px;">
+			<div class="input-group col-lg-6">
+				<span class="input-group-addon" id="basic-addon1">Description</span>
+				<input type="text" ng-model="application.description" class="form-control" required aria-describedby="basic-addon1">
+			</div>
+		</div>
+	</div>
+
+	<div class="page-header">
+		<h3 class="">Roles and Permissions</h3>
+	</div>
+	<h4 ng-hide="application.roles">No Roles were added</h4>
+	<div class="row" style="margin: 0 0 9px 21px;">
+		<div class="well" style="overflow-x: auto;">
+			<table class="table-striped table-bordered">
+				<thead>
+					<tr>
+						<th>Roles</th>
+						<th></th>
+						<th style="text-align: center" ng-repeat="p in application.allPerms">
+							<div class="input-group">
+								<input type="text" ng-model="p.name" class="form-control">
+								<span class="input-group-btn"><button class="btn btn-danger" type="button" ng-click="removePerm($index)"><i class="fa fa-minus"></i></button></span>
+							</div>
+						</th>
+						<th>Delete Role</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="r in application.allRoles">
+						<td><input type="text" ng-model="r.name" class="form-control"></td>
+						<td><button class="btn btn-sm" ng-click="checkAll(r.name)"><i class="glyphicon glyphicon-check"></i></button></td>
+						<td align="center" ng-repeat="c in application.allPerms">
+							<input data-perm="{{c.name}}" data-role="{{r.name}}" data-roleid="{{r.id}}" type="checkbox" name="{{r.name}}" ng-value="c.name" class="{{r.name.replace(' ','')}} {{c.name.replace(' ','')}}">
+						</td>
+						<td><button type="button" class="btn btn-danger"><i class="fa fa-trash" ng-click="removeRole($index)"></i></button></td>
+					</tr>
+				</tbody>
+			</table>
+			<div class="row" style="margin: 21px 0 0 0;">
+				<div class="input-group col-lg-4">
+					<span class="input-group-addon" id="basic-addon1">Add a new role</span>
+					<input type="text" ng-model="application.newRole" class="form-control" placeholder="New role name...">
+					<span class="input-group-btn"><button class="btn btn-default" type="button" ng-click="checkRole(application.newRole)"><i class="fa fa-plus"></i></button></span>
+				</div>
+				<br>
+				<div class="input-group col-lg-4">
+					<span class="input-group-addon" id="basic-addon1">Add a new permission</span>
+					<input type="text" ng-model="application.newPerm" class="form-control" placeholder="New permission name...">
+					<span class="input-group-btn"><button class="btn btn-default" type="button" ng-click="checkPerm(application.newPerm)"><i class="fa fa-plus"></i></button></span>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="page-header">
+		<h3 class="">Menu Items</h3>
+	</div>
+	<h4 ng-if="application.menuItems.length > 0">No menu items were added</h4>
+	<div class="row" style="margin: 0 0 9px 21px;">
+		<div class="well">
+			<h5>Using the matrix below, specify which permission the user must have to have access to the menu item.</h5>
+			<p>Not specifying a permission with your menu item will make it available to <strong><em>ALL</em></strong> authenticated OCL users.</p>
+			<table class="table-striped table-bordered">
+				<thead>
+					<tr>
+						<th>Menu Item Name</th>
+						<th>Menu Item Icon</th>
+						<th>Menu Item Route</th>
+						<th style="text-align: center" ng-repeat="p in application.allPerms">{{p.name}}</th>
+						<th>Delete Menu Item</th>
+						<th>Remove Permissions</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="(mk,mv) in application.allMenuItems">
+						<td><input type="text" class="form-control" ng-model="mv.name"></td>
+						<td><input type="text" class="form-control" ng-model="mv.icon"></td>
+						<td><input type="text" class="form-control" ng-model="mv.location"></td>
+						<td align="center" ng-repeat="(pk,pv) in application.allPerms">
+							<input type="radio" data-menuitem="{{mv.name}}" data-perm="{{pv.name}}" ng-model="application.allMenuItems[mk].perm" class="{{mv.name.replace(' ','')}} {{pv.name.replace(' ','')}}" ng-value="pv.name" class="">
+						</td>
+						<td>
+							<button class="btn btn-danger btn-sm" ng-click="removeMenuItem($index)"><i class="fa fa-trash"></i></button>
+						</td>
+						<td>
+							<button class="btn btn-danger btn-sm" ng-click="removeMenuItemPerms($index)"><i class="fa fa-hand-scissors-o"></i></button>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+
+			<div class="row" style="margin: 21px 0 0 0;">
+				<form class="" ng-submit="checkMenuItem(application.newMenuItem,application.newMenuIcon,application.newMenuLoc)" class="col-lg-6">
+					<div class="input-group col-lg-6" style="margin: 0 0 14px;">
+						<span class="input-group-addon" id="basic-addon1">Menu Item Name</span>
+						<input type="text" ng-model="application.newMenuItem" class="form-control" required placeholder="Give a name for your menu item..." autofocus>
+					</div>
+					<div class="input-group col-lg-6" style="margin: 0 0 14px;">
+						<span class="input-group-addon" id="basic-addon1">Menu Item Icon</span>
+						<input class="form-control" type="text" required ng-model="application.newMenuIcon" placeholder="Give the Font Awesome code for your menu item...">
+						<span class="input-group-addon" id="basic-addon2"><a href="http://fortawesome.github.io/Font-Awesome/icons/" target="_blank">guide</a></span>
+						<!--<span class="input-group-btn dropdown"><ui-iconpicker ng-model="menuIcon" groups="bootstrap font-awesome"></ui-iconpicker></span>-->
+					</div>
+					<div class="input-group col-lg-6" style="margin: 0 0 14px;">
+						<span class="input-group-addon" id="basic-addon1">OCL Route or URL</span>
+						<input type="text" ng-model="application.newMenuLoc" class="form-control" required placeholder="Give an OCL route or other URL for your menu item...">
+					</div>
+					<button class="btn btn-default" type="submit">Add Menu Items <i class="fa fa-plus"></i></button>
+				</form>
+			</div>
+		</div>
+	</div>
+
+	<div class="page-header">
+		<h3 class="">Application Settings</h3>
+	</div>
+	<div class="row" style="margin: 0 0 9px 21px;">
+		<div class="well">
+			<table class="table-striped table-bordered">
+				<thead>
+					<tr>
+						<th>Setting</th>
+						<th>Value</th>
+						<th>Info</th>
+						<th>Delete Setting</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="(sk,sv) in application.settings">
+						<td valign="top"><input type="text" class="form-control" ng-model="sv.name"></td>
+						<td valign="top"><input type="text" class="form-control" ng-model="sv.value"></td>
+						<td valign="top"><textarea ng-model="sv.info" class="form-control" rows="4" cols="48"></textarea></td>
+						<td valign="top">
+							<button class="btn btn-danger btn-sm" ng-click="removeSetting($index)"><i class="fa fa-trash"></i></button>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<div class="row" style="margin: 21px 0 0 0;">
+				<form class="" ng-submit="addSetting()" class="col-lg-6">
+					<div class="input-group col-lg-6" style="margin: 0 0 14px;">
+						<span class="input-group-addon" id="basic-addon1">Setting Name</span>
+						<input type="text" ng-model="application.newSettingName" class="form-control" required placeholder="Specify your setting name...">
+					</div>
+					<div class="input-group col-lg-6" style="margin: 0 0 14px;">
+						<span class="input-group-addon" id="basic-addon1">Setting Value</span>
+						<input type="text" ng-model="application.newSettingValue" class="form-control" required placeholder="Specify your initial value...">
+					</div>
+					<div class="input-group col-lg-6" style="margin: 0 0 14px;">
+						<span class="input-group-addon" id="basic-addon1">Setting Info</span>
+						<textarea ng-model="application.newSettingInfo" class="form-control" placeholder="Provide a description for using this setting..."></textarea>
+					</div>
+					<button class="btn btn-default" type="submit">Add Application Setting <i class="fa fa-plus"></i></button>
+				</form>
+			</div>
+		</div>
+	</div>
+
+	<!--
+	<small>
+		<em class="text-muted pull-left bumpRight">
+			Posted on
+			<span data-ng-bind="application.created | date:'mediumDate'"></span>
+			by
+			<span data-ng-bind="application.user"></span>
+		</em>
+	</small>
+	-->
+
+
+	<div class="well">
+		<a class="btn btn-warning" ng-href="#/applications">Cancel Changes &nbsp;<i class="fa fa-close"></i></a>
+		<button class="btn btn-success" ng-click="update();">Save Changes &nbsp;<i class="glyphicon glyphicon-edit"></i></button>
+		<button class="btn btn-danger" data-ng-click="deleteApp();">Delete Application &nbsp;<i class="glyphicon glyphicon-trash"></i></button>
+	</div>
+
+
+
+
+
+
+	<!-- Modal Template -->
+
+	<script type="text/ng-template" id="appModal">
+		<div class="modal-header">
+			<i class="fa pull-right fa-{{modal.icon}}" ng-if="modal.icon" ng-class="{'error' : modal.title == 'Error','warning' : modal.title == 'Warning','success' : modal.title == 'Success'}"></i>
+			<h4 class="modal-title">{{modal.title}}</h4>
+		</div>
+		<div class="modal-body">
+			{{modal.body}}
+		</div>
+		<div class="modal-footer">
+			<button class="btn btn-primary" type="button" ng-click="cancel()">Cancel</button>
+			<button class="btn btn-primary" type="button" ng-click="confirm()">OK</button>
+		</div>
+	</script>
+
+	<script type="text/ng-template" id="appModal2">
+		<div class="modal-header">
+			<i class="fa pull-right fa-{{modal.icon}}" ng-if="modal.icon" ng-class="{'error' : modal.title == 'Error','warning' : modal.title == 'Warning','success' : modal.title == 'Success'}"></i>
+			<h4 class="modal-title">{{modal.title}}</h4>
+		</div>
+		<div class="modal-body">
+			{{modal.body}}
+		</div>
+		<div class="modal-footer">
+			<button class="btn btn-primary" type="button" ng-click="cancel()">OK</button>
+		</div>
+	</script>
+
+
+
+</section>

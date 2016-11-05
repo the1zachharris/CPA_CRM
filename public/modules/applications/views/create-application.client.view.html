@@ -1,0 +1,352 @@
+<section applications>
+
+    <div class="appheader">
+        <h3>Create Application <span ng-show="appAdded"><strong>{{application.name}}</strong></span></h3>
+    </div>
+
+    <!--
+    <div class="form-group">
+
+        <div class="form-group">
+            <ui-iconpicker groups="bootstrap font-awesome"></ui-iconpicker>
+            <p class="help-block">Using Bootstrap and Font Awesome Icons</p>
+        </div>
+
+    </div>
+    -->
+    <tabset>
+
+
+        <!----------------------- Application Details Tab ---------------------------------------------->
+        <tab heading="1 : Details" active="tabs.tab1.active" disabled="tabs.tab1.dead">
+            <div class="page-header">
+                <h3 class="">Application Details</h3>
+            </div>
+            <form class="form-group col-lg-6" ng-submit="checkName()">
+                <fieldset>
+                    <div class="input-group">
+                        <span class="input-group-addon">Application Name</span>
+                        <input type="text" ng-model="application.name" class="form-control" required aria-describedby="basic-addon1">
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon">ITPKMID</span>
+                        <input type="text" ng-model="application.itpkmid" class="form-control" aria-describedby="basic-addon1">
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon">Application Icon</span>
+                        <input class="form-control" type="text" required ng-model="application.icon" placeholder="Give the Font Awesome code for your application...">
+                        <span class="input-group-addon" id="basic-addon2"><a href="http://fortawesome.github.io/Font-Awesome/icons/" target="_blank">guide</a></span>
+                        <!--<span class="input-group-btn dropdown"><ui-iconpicker ng-model="menuIcon" groups="bootstrap font-awesome"></ui-iconpicker></span>-->
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon">Description</span>
+                        <input type="text" ng-model="application.description" class="form-control" required aria-describedby="basic-addon1">
+                    </div>
+                </fieldset>
+                <button type="button" ng-click="cancelCreate()" class="btn btn-default">Cancel</button>
+                <button type="submit" class="btn btn-default">Next<i class="glyphicon glyphicon-chevron-right"></i></button>
+            </form>
+        </tab>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <!----------------------- Roles Tab---------------------------------------------->
+        <tab heading="2 : Roles" active="tabs.tab2.active" disabled="tabs.tab2.dead">
+            <div class="page-header">
+                <h3>Add Roles for <strong>{{application.name}}</strong></h3>
+            </div>
+            <div class="row">
+                <form class="col-lg-6" ng-submit="checkRole(application.newRole)">
+                    <div class="input-group">
+                        <input type="text" ng-model="application.newRole" class="form-control" required placeholder="Role Name" autofocus>
+                        <span class="input-group-btn"><button class="btn btn-default" type="submit">Add Role <i class="glyphicon glyphicon-plus"></i></button></span>
+                    </div>
+                </form>
+            </div>
+            <div class="row" ng-show="showRolesAdded" ng-animate=" 'animate' ">
+                <div class="well">
+                    <div class="col-lg-6">
+                        <table class="table table-striped">
+                            <caption>Roles Added <em>(Fields are editable)</em></caption>
+                            <tr>
+                                <th>Role Name</th>
+                                <th>Delete</th>
+                            </tr>
+                            <tr ng-repeat="r in application.allRoles">
+                                <td contenteditable="true">{{r.name}}</td>
+                                <td>
+                                    <span class="text-right" ng-click="removeRole($index)">Delete <i class="glyphicon glyphicon-trash"></i></span>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <button type="button" ng-click="goToTab('tab1')" class="btn btn-default"><i class="glyphicon glyphicon-chevron-left"></i> Go Back to Application Details</button>
+                <button type="button" ng-click="goToTab('tab3')" ng-disabled="tabs.tab3.dead" class="btn btn-default">Next Step<i class="glyphicon glyphicon-chevron-right"></i></button>
+            </div>
+        </tab>
+
+
+
+
+
+
+
+
+
+
+        <!---------------------------------  Permissions Tab--------------------------------------->
+        <tab heading="3 : Permissions" active="tabs.tab3.active" disabled="tabs.tab3.dead">
+            <div class="row">
+                <form ng-submit="checkPerm(application.newPerm)" class="col-lg-6">
+                    <h4>Add Permissions for <strong>{{application.name}}</strong></h4>
+                    <div class="input-group">
+                        <input type="text" ng-model="application.newPerm" class="form-control" required placeholder="Permission Name" autofocus>
+                        <span class="input-group-btn"><button class="btn btn-default" type="submit">Add Permission <i class="fa fa-plus"></i></button></span>
+                    </div>
+                </form>
+            </div>
+            <div class="row" ng-show="permAdded" ng-animate=" 'animate' ">
+                <div class="well">
+                    <h5>Using the matrix below, specify which roles have specified permissions within the application.</h5>
+                    <table class="table-striped table-bordered">
+                        <thead>
+                            <th>Roles</th>
+                            <th ng-repeat="p in application.allPerms" ng-model="p.name">
+                                <div class="input-group">
+                                    <input type="text" ng-model="p.name" class="form-control input-sm">
+                                    <span class="input-group-btn"><button class="btn btn-danger btn-sm" type="button" ng-click="removePerm($index)"><i class="fa fa-close"></i></button></span>
+                                </div>
+                            </th>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="r in application.allRoles">
+                                <td contenteditable="true">{{r.name}}</td>
+                                <td ng-repeat="c in application.allPerms">
+                                    <div class="checkbox text-center form-group-lg">
+                                        <input
+                                            data-perm="{{c.name}}"
+                                            data-role="{{r.name}}"
+                                            type="checkbox"
+                                            name="{{r.name}}"
+                                            ng-value="c.name"
+                                            class="{{r.name.replace(' ','')}} {{c.name.replace(' ','')}}"
+                                        >
+                                    </div>
+                                </td>
+                                <td ng-show="showChecks">
+                                    <button class="btn btn-sm" ng-click="checkAll(r.name)"><i class="glyphicon glyphicon-check"></i></button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="row">
+                <button ng-click="goToTab('tab2')" class="btn btn-default"><i class="glyphicon glyphicon-chevron-left"></i> Go Back to Roles</button>
+                <button ng-click="goToTab('tab4')" ng-disabled="tabs.tab4.dead" class="btn btn-default">Create Menu Items <i class="glyphicon glyphicon-chevron-right"></i></button>
+            </div>
+        </tab>
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <!---------------------------------  Menu Items Tab --------------------------------------->
+        <tab heading="4 : Menu Items" active="tabs.tab4.active" disabled="tabs.tab4.dead">
+            <h3>Add Menu Items for <strong>{{application.name}}</strong></h3>
+            <div class="row">
+                <form ng-submit="checkMenuItem(application.newMenuItem,application.newMenuIcon,application.newMenuLoc)" class="col-lg-6">
+                    <div class="input-group">
+                        <span class="input-group-addon">Menu Item Name</span>
+                        <input type="text" ng-model="application.newMenuItem" class="form-control" required placeholder="Give a name for your menu item..." autofocus>
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon">Menu Item Icon</span>
+                        <input class="form-control" type="text" required ng-model="application.newMenuIcon" placeholder="Give the Font Awesome code for your menu item...">
+                        <span class="input-group-addon"><a href="http://fortawesome.github.io/Font-Awesome/icons/" target="_blank">guide</a></span>
+                        <!--<span class="input-group-btn dropdown"><ui-iconpicker ng-model="menuIcon" groups="bootstrap font-awesome"></ui-iconpicker></span>-->
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon">OCL Route or URL</span>
+                        <input type="text" ng-model="application.newMenuLoc" class="form-control" required placeholder="Give an OCL route or other URL for your menu item...">
+                    </div>
+                    <button class="btn btn-default" type="submit">Add Menu Items <i class="glyphicon glyphicon-plus"></i></button>
+                </form>
+            </div>
+            <div class="row" ng-show="application.ready" ng-animate=" 'animate' ">
+                <div class="well">
+                    <h5>Using the matrix below, specify which permission the user must have to have access to the menu item.</h5>
+                    <p>Not specifying a permission with your menu item will make it available to <strong><em>ALL</em></strong> authenticated OCL users.</p>
+                    <table class="table-striped table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Menu Items</th>
+                                <th>Menu Item Icon</th>
+                                <th>Menu Item Route</th>
+                                <th ng-repeat="p in application.allPerms">
+                                    <div style="text-align:center">{{p.name}}</div>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="(mk,mv) in application.allMenuItems">
+                                <td contenteditable="true">{{mv.name}}</td>
+                                <td contenteditable="true">{{mv.icon}}</td>
+                                <td contenteditable="true">{{mv.location}}</td>
+                                <td ng-repeat="(pk,pv) in application.allPerms">
+                                    <!--<input type="radio" ng-model="m.perm" class="" ng-value="p.pName" class="">-->
+                                    <input type="radio" data-menuitem="{{mv.name}}" data-perm="{{pv.name}}" ng-model="application.allMenuItems[mk].perm" class="{{mv.name.replace(' ','')}} {{pv.name.replace(' ','')}}" ng-value="pv.name" class="">
+                                </td>
+                                <td ng-show="showChecks">
+                                    <button type="button" class="btn btn-danger btn-sm" ng-click="removeMenuItem($index)"><i class="fa fa-trash"></i></button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="row">
+                <button type="button" ng-click="goToTab('tab2')" class="btn btn-default"><i class="glyphicon glyphicon-chevron-left"></i> Go Back to Permissions</button>
+                <button type="button" class="btn btn-success" ng-disabled="!application.ready" ng-click="addApplication()">Finish Creating {{application.name}}</button>
+            </div>
+        </tab>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <!---------------------------------  App Setup Tab --------------------------------------->
+        <tab heading="5 : Application Setup" active="tabs.tab5.active" disabled="tabs.tab5.dead">
+            <h3>Your application <strong>{{application.name}}</strong> has been created!</h3>
+
+            <!--
+            <div class="panel panel-default">
+
+                <div class="panel-heading">Details</div>
+                <div class="panel-body">
+                    <ul class="list-unstyled">
+                        <li><span class="label label-default">Name</span></li>
+                        <li>{{application.name}}</li>
+                        <li>&nbsp;</li>
+                        <li><span class="label label-default">Description</span></li>
+                        <li>{{application.description}}</li>
+                    </ul>
+                </div>
+
+                <div class="panel-heading">Role and Permissions</div>
+                <div class="panel-body">
+                    <table class="table-striped table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Roles</th>
+                                <th ng-repeat="p in application.allPerms">{{p.pName}}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="r in application.allRoles">
+                                <td>{{r.name}}</td>
+                                <td ng-repeat="c in application.allPerms">
+                                    <input data-perm="{{c.pName}}" data-role="{{r.name}}" type="checkbox" disabled name="{{r.name}}" ng-value="c.pName" class="{{r.name.replace(' ','')}} {{c.pName.replace(' ','')}}">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="panel-heading">Menu Items</div>
+                <div class="panel-body">
+                    <table class="table-striped table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Menu Items</th>
+                                <th ng-repeat="p in application.allPerms">{{p.pName}}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="m in application.allMenuItems">
+                            <td>{{m.name}}</td>
+                            <td ng-repeat="p in application.allPerms">
+                                <input type="radio" ng-model="m.perm" disabled ng-value="p.pName" class="">
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+            -->
+            <div class="row">
+                <a class="btn btn-primary" ng-href="#/applications/{{dataRec.id}}">View Application Details</a>
+                <button type="button" class="btn btn-primary" ng-click="backToAppsList()">OK</button>
+            </div>
+        </tab>
+
+
+
+    </tabset>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Modal Template -->
+
+    <script type="text/ng-template" id="appModal">
+        <div class="modal-header">
+            <h3 class="modal-title">{{modal.title}}</h3>
+        </div>
+        <div class="modal-body">
+            {{modal.body}}
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" type="button" ng-click="cancel()">OK</button>
+        </div>
+    </script>
+
+
+
+
+</section>
