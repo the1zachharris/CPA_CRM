@@ -146,13 +146,8 @@ exports.detail = function (req, res) {
 *     }
  */
 exports.update = function (req, res) {
-
-    var query = {id: req.body.taskid};
-
-    console.log('taskid: ' + req.body.taskid);
-    console.log('the whole req: ');
-    console.dir(req.body);
-    task.findOneAndUpdate(query, req.body.taskid, {upsert: false}, function (err, doc) {
+    var query = {_id: req.body.taskid};
+    task.findOneAndUpdate(query, req.body, {upsert: true}, function (err, doc) {
         if (err) {
             return res.status(400).send({
                 message:  err
@@ -161,7 +156,6 @@ exports.update = function (req, res) {
             res.status(200).send({results: doc});
         }
     });
-
 };
 
 /**

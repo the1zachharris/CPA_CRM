@@ -86,7 +86,6 @@ tasks.factory('taskCalls', function($http,$log, $routeParams) {
             }).then(function (response) {
                 return response;
             });
-            // Return the promise to the controller
             return promise;
         },
         detailTask: function(){
@@ -107,7 +106,6 @@ tasks.factory('taskCalls', function($http,$log, $routeParams) {
             }).then(function (response) {
                 return response;
             });
-            // Return the promise to the controller
             return promise;
         },
         updateTask: function(req){
@@ -118,7 +116,6 @@ tasks.factory('taskCalls', function($http,$log, $routeParams) {
             }).then(function (response) {
                 return response;
             });
-            // Return the promise to the controller
             return promise;
         },
         deleteTask: function(req){
@@ -129,7 +126,6 @@ tasks.factory('taskCalls', function($http,$log, $routeParams) {
             }).then(function (response) {
                 return response;
             });
-            // Return the promise to the controller
             return promise;
         }
     };
