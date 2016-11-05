@@ -38,8 +38,8 @@ exports.create = function(req, res) {
 		allPerms: req.body.newApp.allPerms,
 		itpkmid: req.body.newApp.itpkmid,
 		icon: req.body.newApp.icon,
-        allMenuItems: req.body.newApp.allMenuItems,
-        user: req.user.username
+        allMenuItems: req.body.newApp.allMenuItems
+        //user: req.user.username
 	});
 
 	v.save(function(err,app) {

@@ -569,7 +569,7 @@ var applications = angular.module('applications',[
                         })();
                     });
 
-                    $http.post('/applications/Applications/Create',{newApp:$scope.appSend})
+                    $http.post('/applications',{newApp:$scope.appSend})
                         .success(function(data){
                             $scope.dataRec = data;
                             // console.log(data);
@@ -708,7 +708,7 @@ var applications = angular.module('applications',[
                         })();
                     });
 
-            $http.post('/applications/update/Applications/Update',{updatedApp:$scope.application})
+            $http.post('/applications/update',{updatedApp:$scope.application})
                         .success(function(data){
                             $scope.dataRec = data;
                             window.location.href ='#/applications';
@@ -766,7 +766,7 @@ var applications = angular.module('applications',[
             };
 
             $scope.forRealDeleteApp = function(){
-                $http.delete('/applications/Applications/Manage/'+$scope.application._id)
+                $http.delete('/applications/manage/'+$scope.application._id)
                     .success(function(data){
                         window.location.href ='#/applications';
                         $scope.dataRec = data;
