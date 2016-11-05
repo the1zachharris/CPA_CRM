@@ -5,12 +5,10 @@
             <label><i class="fa fa-search"></i> Search Tasks</label>
             <input ng-model="query">
         </md-input-container>
-        <button type="button" aria-label="new" ng-click="openPage('/tasks/create')">
-            <i>+ New</i>
-            <md-tooltip>Create new Task</md-tooltip>
-        </button>
+        <a class="btn btn-default" href="/#/tasks/create">Create New Task</a>
     </form>
     <h1>Tasks</h1>
+
     <table style="width:100%">
         <tr>
             <th>Name</th>
@@ -20,6 +18,7 @@
             <th>ExtendedDueDate</th>
             <th>SecondExtendedDueDate</th>
         </tr>
+
         <tr ng-repeat="task in tasks | filter:query">
             <td>{{task.Name}}</td>
             <td>{{task.Number}}</td>
@@ -29,4 +28,5 @@
             <td>{{task.SecondExtendedDueDate}}</td>
         </tr>
     </table>
+
 </div>

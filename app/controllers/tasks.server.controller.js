@@ -82,7 +82,7 @@ exports.list = function (req, res) {
     try {
         task.find().sort('-type').exec(function (err, task) {
             if (!task.length) {
-                res.status(200).send({employee: task})
+                res.status(200).send({tasks: task})
             } else {
                 if (err) {
                     return res.status(400).send({
@@ -117,7 +117,7 @@ exports.list = function (req, res) {
  */
 exports.detail = function (req, res) {
     try {
-        task.find({_id: req.params.taskID}).exec(function (err, task) {
+        task.find({_id: req.params.taskid}).exec(function (err, task) {
             if (!task.length) {
                 res.status(200).send()
             } else {
@@ -157,7 +157,7 @@ exports.detail = function (req, res) {
  */
 exports.update = function (req, res) {
     try {
-        var query = {id: req.body.typeid};
+        var query = {id: req.body.taskid};
         task.findOneAndUpdate(query, req.body.updatedtask, {upsert: false}, function (err, doc) {
             if (err) {
                 return res.status(400).send({

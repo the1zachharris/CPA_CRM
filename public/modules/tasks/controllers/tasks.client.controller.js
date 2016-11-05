@@ -90,55 +90,48 @@ tasks.controller('tasksController',[
                 }
             );
         };
-        /* ================================================================================
-         * updateController
-         * ================================================================================ */
-        tasks.controller('updateController',[
-            'taskCalls',
-            function updateController(
-                $scope
-            ) {
-
-            /* =====================================================================
-             * update task
-             * ===================================================================== */
-            $scope.updateTask = function (updatetask) {
-
-                taskCalls.updateTask({
-                    Name: updatetask.Name,
-                    Number: updatetask.Number,
-                    Frequency: updatetask.Frequency,
-                    DueDate: updatetask.DueDate,
-                    ExtendedDueDate: updatetask.ExtendedDueDate,
-                    SecondExtendedDueDate: updatetask.SecondExtendedDueDate
-                }).then(
-                    function (res) {
-                        updatedtask = angular.copy(res.data);
-                        $scope.updatedtask = updatedtask;
-                    },
-                    function (err) {
-                        console.error('Error updating task: ' + err.message);
-                    }
-                );
-            };
 
 
-            /* =====================================================================
-             * view task
-             * ===================================================================== */
-            $scope.viewTask = function (taskid) {
+        /* =====================================================================
+         * update task
+         * ===================================================================== */
+        $scope.updateTask = function (updatetask) {
 
-                taskCalls.detailTask(taskid).then(
-                    function (res) {
-                        detailedtask = angular.copy(res.data);
-                        $scope.detailedtask = detailedtask;
-                    },
-                    function (err) {
-                        console.error('Error viewing task: ' + err.message);
-                    }
-                );
-            };
-        }]);
+            taskCalls.updateTask({
+                Name: updatetask.Name,
+                Number: updatetask.Number,
+                Frequency: updatetask.Frequency,
+                DueDate: updatetask.DueDate,
+                ExtendedDueDate: updatetask.ExtendedDueDate,
+                SecondExtendedDueDate: updatetask.SecondExtendedDueDate
+            }).then(
+                function (res) {
+                    updatedtask = angular.copy(res.data);
+                    $scope.updatedtask = updatedtask;
+                },
+                function (err) {
+                    console.error('Error updating task: ' + err.message);
+                }
+            );
+        };
+
+
+        /* =====================================================================
+         * view task
+         * ===================================================================== */
+        $scope.viewTask = function (taskid) {
+
+            taskCalls.detailTask(taskid).then(
+                function (res) {
+                    detailedtask = angular.copy(res.data);
+                    $scope.detailedtask = detailedtask;
+                },
+                function (err) {
+                    console.error('Error viewing task: ' + err.message);
+                }
+            );
+        };
+
         /* =====================================================================
          * Delete a task from Mongo database
          * ===================================================================== */

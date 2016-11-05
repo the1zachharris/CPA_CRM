@@ -621,11 +621,6 @@ app.controller('ModalInstanceCtrl', function ($scope, $modalInstance) {
 
 
 
-
-
-
-
-
 /* MD Theming and Color Customizations ================================================ */
 app.config(function ($mdThemingProvider) {
 
