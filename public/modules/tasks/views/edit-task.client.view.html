@@ -1,5 +1,5 @@
 <div ng-controller="tasksController" ng-init="viewTask()">
-    <form ng-submit="updateTask()" layout="row" flex="100">
+    <form ng-submit="updateTask(detailedtask)" layout="row" flex="100">
         <md-input-container flex>
             <label><i class="fa fa-search"></i> Name</label>
             <input ng-model="detailedtask.Name" required>
@@ -25,7 +25,7 @@
             <input ng-model="detailedtask.SecondExtendedDueDate">
         </md-input-container>
         <md-button class="md-raised md-primary" type="submit" aria-label="Create a Task">
-            <i class="fa fa-plus">Create!!!</i>
+            <i class="fa fa-plus">Update!!!</i>
         </md-button>
     </form>
     <div ng-if="badTask">

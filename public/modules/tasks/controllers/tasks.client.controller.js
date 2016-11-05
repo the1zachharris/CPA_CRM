@@ -95,15 +95,16 @@ tasks.controller('tasksController',[
         /* =====================================================================
          * update task
          * ===================================================================== */
-        $scope.updateTask = function (updatetask) {
+        $scope.updateTask = function (detailedtask) {
 
             taskCalls.updateTask({
-                Name: updatetask.Name,
-                Number: updatetask.Number,
-                Frequency: updatetask.Frequency,
-                DueDate: updatetask.DueDate,
-                ExtendedDueDate: updatetask.ExtendedDueDate,
-                SecondExtendedDueDate: updatetask.SecondExtendedDueDate
+                taskid: detailedtask._id,
+                Name: detailedtask.Name,
+                Number: detailedtask.Number,
+                Frequency: detailedtask.Frequency,
+                DueDate: detailedtask.DueDate,
+                ExtendedDueDate: detailedtask.ExtendedDueDate,
+                SecondExtendedDueDate: detailedtask.SecondExtendedDueDate
             }).then(
                 function (res) {
                     updatedtask = angular.copy(res.data);
@@ -125,6 +126,7 @@ tasks.controller('tasksController',[
                 function (res) {
                     detailedtask = angular.copy(res.data);
                     $scope.detailedtask = detailedtask;
+                    console.dir(detailedtask);
                 },
                 function (err) {
                     console.error('Error viewing task: ' + err.message);
