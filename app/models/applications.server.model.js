@@ -16,10 +16,6 @@ var ApplicationSchema = new Schema({
         unique: 'Application name must be unique',
 		trim: true
 	},
-
-    itpkmid: {
-        type: String
-    },
     description: {
         type: String
     },

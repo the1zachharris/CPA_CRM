@@ -83,7 +83,7 @@ clients.config([
 
 var defaultTimeout = 10 * 1000;
 
-clients.factory('clientCalls', function($http,$log) {
+clients.factory('clientCalls', function($http,$log, $routeParams) {
     console.log("in clientCalls factory");
     var clientsMasterService = {
         getTasks: function(req){

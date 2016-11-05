@@ -125,10 +125,10 @@ clients.controller('clientsController',[
                     $scope.gridOptions.data = clients;
                     //console.log('clients:');
                     //console.dir($scope.clients);
-                    //console.log('gridOptions.data: ');
+                    console.log('gridOptions.data: ');
                     //TODO: add dynamic html link to update with the name of the client here or add an extra column to click on an icon for the details
 
-                    //console.dir($scope.gridOptions.data);
+                    console.dir($scope.gridOptions.data);
                 },
                 function (err) {
                     console.error('Error getting clients: ' + err.message);
@@ -308,7 +308,20 @@ clients.controller('clientsController',[
                 { name: 'Type', field: 'Type'},
                 { name:'Address', field: 'Address1' },
                 { name:'Phone', field: 'Phone'},
-                { name:'Email', field: 'Email', enableCellEdit:false}
+                { name:'Email', field: 'Email', enableCellEdit:false},
+                {
+                    name: 'actions',
+                    displayName: '',
+                    cellTemplate:
+                    '<md-button aria-label="Client Detail" class="md-mini" ng-click="grid.appScope.openItemTab(row.entity.ticketId)" ng-disabled="grid.appScope.disabledDetailBtns[row.entity.ticketId]">'
+                    + '<i class="fa fa-info-circle"></i>'
+                    + '<md-tooltip>Client Detail</md-tooltip>'
+                    + '</md-button>',
+                    enableSorting: false,
+                    width: "40",
+                    resizable: false,
+                    pinnable: false
+                }
             ],
             data : []
         };
