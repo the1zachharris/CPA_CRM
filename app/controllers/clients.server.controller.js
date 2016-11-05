@@ -99,16 +99,16 @@ exports.create = function (req, res) {
  */
 exports.list = function (req, res) {
     try {
-        client.find().sort('-type').exec(function (err, client) {
+        client.find().sort('-type').exec(function (err, clients) {
             if (!client.length) {
-                res.status(200).send({employee: client})
+                res.status(200).send({clients: clients})
             } else {
                 if (err) {
                     return res.status(400).send({
                         message:  err
                     });
                 } else {
-                    res.jsonp(client);
+                    res.jsonp(clients);
                 }
             }
         });

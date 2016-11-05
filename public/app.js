@@ -37,6 +37,7 @@ var app = angular.module('TrakkTask', [
     'xeditable',
 
     // TrakkTask Application Modules
+    'applications',
     'clients',
     'tasks'
 ]);
@@ -557,6 +558,7 @@ app.controller('MenuController', [
         $scope.currentRouteName = $route.current.$$route.name;
 
         $scope.openPage = function (pageName) {
+            console.log('in openPage');
             $location.path(pageName.replace(/#/, ''));
         };
 

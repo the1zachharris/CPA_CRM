@@ -1,0 +1,50 @@
+[applications] div.input-group {
+    margin: 0 0 14px;
+}
+
+[applications] a:hover {
+    color: #000;
+}
+
+[applications] table div.input-group {
+    margin: 0;
+}
+
+[applications] table div.checkbox {
+    margin-top: -10px;
+    margin-left: 30px;
+}
+
+[applications] div.tab-content {
+    padding: 21px 0;
+    background: rgba(255, 255, 255, 0.93);
+    overflow: hidden;
+}
+
+[applications] div.row,
+[applications] div.tab-pane {
+    padding: 21px;
+}
+
+[applications] div.page-header {
+    min-height: auto;
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    border-radius: 0;
+    padding: 0 0 0 21px;
+}
+
+[applications] th,
+[applications] td {
+    padding: 9px;
+}
+
+[applications] .ui-iconpicker button.btn {
+    padding: 6px 7px;
+}
+
+[applications] div.well {
+    overflow: hidden;
+}
+
+
