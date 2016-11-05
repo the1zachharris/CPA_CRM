@@ -126,6 +126,8 @@ clients.controller('clientsController',[
                     //console.log('clients:');
                     //console.dir($scope.clients);
                     //console.log('gridOptions.data: ');
+                    //TODO: add dynamic html link to update with the name of the client here or add an extra column to click on an icon for the details
+
                     //console.dir($scope.gridOptions.data);
                 },
                 function (err) {

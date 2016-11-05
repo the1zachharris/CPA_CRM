@@ -7,6 +7,7 @@ var tasks = angular.module('tasks',[
 
 tasks.config([
         '$routeProvider',
+    '$provide',
         function (
             $routeProvider
         ) {
@@ -53,7 +54,7 @@ tasks.config([
                 })
                 .when('/task/update/:taskid',{
                     name: 'tasks',
-                    templateUrl:'modules/clients/views/edit-task.client.view.html',
+                    templateUrl:'modules/tasks/views/edit-task.client.view.html',
                     label: 'Update tasks',
                     controller: 'tasksController',
                     resolve: {
@@ -74,10 +75,7 @@ tasks.config([
     ]
 );
 
-console.log("in tasks module");
-
-
-tasks.factory('taskCalls', function($http,$log) {
+tasks.factory('taskCalls', function($http,$log, $routeParams) {
     console.log("in taskCalls factory");
     var taskMasterService = {
         getTasks: function(req){
@@ -91,10 +89,10 @@ tasks.factory('taskCalls', function($http,$log) {
             // Return the promise to the controller
             return promise;
         },
-        detailTask: function(taskid){
+        detailTask: function(){
             var promise = $http({
                 method: 'GET',
-                url: '/task/detail/' + taskid
+                url: '/task/detail/' + $routeParams.taskid
             }).then(function (response) {
                 return response;
             });

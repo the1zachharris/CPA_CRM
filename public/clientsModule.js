@@ -82,8 +82,6 @@ clients.config([
 );
 
 var defaultTimeout = 10 * 1000;
-console.log("in clients module");
-
 
 clients.factory('clientCalls', function($http,$log) {
     console.log("in clientCalls factory");

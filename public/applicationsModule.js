@@ -1,5 +1,11 @@
 var applications = angular.module('applications',['ngRoute','oc.lazyLoad']);
-    applications.config(['$routeProvider', '$controllerProvider', '$provide', function ($routeProvider, $ocLazyLoad) {
+    applications.config(['$routeProvider',
+        '$controllerProvider',
+        '$provide',
+        function (
+            $routeProvider,
+            $ocLazyLoad
+        ) {
         $routeProvider
             .when('/applications/create', {
                 name: 'Applications',
