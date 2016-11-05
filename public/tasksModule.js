@@ -254,7 +254,15 @@ tasks.factory('taskCalls', function($http,$log) {
             // Return the promise to the controller
             return promise;
         },
-        //TODO: create detail task function
+        detailTask: function(taskID){
+            var promise = $http({
+                method: 'GET',
+                url: '/task/detail/' + taskID
+            }).then(function (response) {
+                return response;
+            });
+            return promise;
+        },
         createTask: function(req){
             console.dir(req);
             var promise = $http({

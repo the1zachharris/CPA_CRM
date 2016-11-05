@@ -25,7 +25,7 @@ tasks.controller('tasksController',[
     '$rootScope',
     '$routeParams',
     '$sce',
-    function(
+    function tasksController(
         taskCalls,
         $scope,
         $http,
@@ -45,6 +45,7 @@ tasks.controller('tasksController',[
         var tasks = "",
             newTask = "",
             updatedtask = "",
+            detailedtask = "",
             deletedtask = "";
         $scope.myVar = 'test data';
         $scope.badTask = false;
@@ -92,7 +93,11 @@ tasks.controller('tasksController',[
         /* ================================================================================
          * updateController
          * ================================================================================ */
-        tasks.controller('updateController', function($scope) {
+        tasks.controller('updateController',[
+            'taskCalls',
+            function updateController(
+                $scope
+            ) {
 
             /* =====================================================================
              * update task
@@ -117,29 +122,23 @@ tasks.controller('tasksController',[
                 );
             };
 
+
             /* =====================================================================
              * view task
              * ===================================================================== */
             $scope.viewTask = function (taskID) {
 
-                taskCalls.updateTask({
-                    Name: updatetask.Name,
-                    Number: updatetask.Number,
-                    Frequency: updatetask.Frequency,
-                    DueDate: updatetask.DueDate,
-                    ExtendedDueDate: updatetask.ExtendedDueDate,
-                    SecondExtendedDueDate: updatetask.SecondExtendedDueDate
-                }).then(
+                taskCalls.detailTask(taskID).then(
                     function (res) {
-                        updatedtask = angular.copy(res.data);
-                        $scope.updatedtask = updatedtask;
+                        detailedtask = angular.copy(res.data);
+                        $scope.detailedtask = detailedtask;
                     },
                     function (err) {
-                        console.error('Error updating task: ' + err.message);
+                        console.error('Error viewing task: ' + err.message);
                     }
                 );
             };
-        });
+        }]);
         /* =====================================================================
          * Delete a task from Mongo database
          * ===================================================================== */
