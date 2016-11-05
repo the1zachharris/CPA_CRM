@@ -116,25 +116,15 @@ exports.list = function (req, res) {
 *     }
  */
 exports.detail = function (req, res) {
-    try {
-        task.find({_id: req.params.taskid}).exec(function (err, task) {
-            if (!task.length) {
-                res.status(200).send()
-            } else {
-                if (err) {
-                    return res.status(400).send({
-                        message:  err
-                    });
-                } else {
-                    res.jsonp(task);
-                }
-            }
-        });
-    } catch (err) {
-        return res.status(400).send({
-            message:  err
-        });
-    }
+    task.findOne({_id: req.params.taskid}).exec(function (err, task) {
+        if (err) {
+            return res.status(400).send({
+                message: err
+            });
+        } else {
+            res.jsonp(task);
+        }
+    });
 };
 
 /**
@@ -156,22 +146,22 @@ exports.detail = function (req, res) {
 *     }
  */
 exports.update = function (req, res) {
-    try {
-        var query = {id: req.body.taskid};
-        task.findOneAndUpdate(query, req.body.updatedtask, {upsert: false}, function (err, doc) {
-            if (err) {
-                return res.status(400).send({
-                    message:  err
-                });
-            } else {
-                res.status(200).send({results: doc});
-            }
-        });
-    } catch (err) {
-        return res.status(400).send({
-            message:  err
-        });
-    }
+
+    var query = {id: req.body.taskid};
+
+    console.log('taskid: ' + req.body.taskid);
+    console.log('the whole req: ');
+    console.dir(req.body);
+    task.findOneAndUpdate(query, req.body.taskid, {upsert: false}, function (err, doc) {
+        if (err) {
+            return res.status(400).send({
+                message:  err
+            });
+        } else {
+            res.status(200).send({results: doc});
+        }
+    });
+
 };
 
 /**
