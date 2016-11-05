@@ -29,10 +29,6 @@
                         <input type="text" ng-model="application.name" class="form-control" required aria-describedby="basic-addon1">
                     </div>
                     <div class="input-group">
-                        <span class="input-group-addon">ITPKMID</span>
-                        <input type="text" ng-model="application.itpkmid" class="form-control" aria-describedby="basic-addon1">
-                    </div>
-                    <div class="input-group">
                         <span class="input-group-addon">Application Icon</span>
                         <input class="form-control" type="text" required ng-model="application.icon" placeholder="Give the Font Awesome code for your application...">
                         <span class="input-group-addon" id="basic-addon2"><a href="http://fortawesome.github.io/Font-Awesome/icons/" target="_blank">guide</a></span>
@@ -47,18 +43,6 @@
                 <button type="submit" class="btn btn-default">Next<i class="glyphicon glyphicon-chevron-right"></i></button>
             </form>
         </tab>
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -99,14 +83,6 @@
                 <button type="button" ng-click="goToTab('tab3')" ng-disabled="tabs.tab3.dead" class="btn btn-default">Next Step<i class="glyphicon glyphicon-chevron-right"></i></button>
             </div>
         </tab>
-
-
-
-
-
-
-
-
 
 
         <!---------------------------------  Permissions Tab--------------------------------------->
@@ -161,16 +137,6 @@
                 <button ng-click="goToTab('tab4')" ng-disabled="tabs.tab4.dead" class="btn btn-default">Create Menu Items <i class="glyphicon glyphicon-chevron-right"></i></button>
             </div>
         </tab>
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -233,20 +199,6 @@
                 <button type="button" class="btn btn-success" ng-disabled="!application.ready" ng-click="addApplication()">Finish Creating {{application.name}}</button>
             </div>
         </tab>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -322,16 +274,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
     <!-- Modal Template -->
 
     <script type="text/ng-template" id="appModal">
@@ -345,8 +287,6 @@
             <button class="btn btn-primary" type="button" ng-click="cancel()">OK</button>
         </div>
     </script>
-
-
 
 
 </section>
