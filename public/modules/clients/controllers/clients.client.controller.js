@@ -313,10 +313,7 @@ clients.controller('clientsController',[
                     name: 'actions',
                     displayName: '',
                     cellTemplate:
-                    '<md-button aria-label="Client Detail" class="md-mini" ng-click="grid.appScope.openItemTab(row.entity.id)" ng-disabled="grid.appScope.disabledDetailBtns[row.entity.id]">'
-                    + '<i class="fa fa-info-circle"></i>'
-                    + '<md-tooltip>Client Detail</md-tooltip>'
-                    + '</md-button>',
+                    '<a ng-href="#/client/update/{{row.entity.id}}"  aria-label="Client Detail" class="md-mini"><i class="fa fa-info-circle"></i></a>',
                     enableSorting: false,
                     width: "40",
                     resizable: false,

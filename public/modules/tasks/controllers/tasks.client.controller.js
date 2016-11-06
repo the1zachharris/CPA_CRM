@@ -25,6 +25,9 @@ tasks.controller('tasksController',[
     '$rootScope',
     '$routeParams',
     '$sce',
+    'lodash',
+    'methodCop',
+    'uiGridConstants',
     function tasksController(
         taskCalls,
         $scope,
@@ -34,8 +37,10 @@ tasks.controller('tasksController',[
         $mdToast,
         $rootScope,
         $routeParams,
-        $sce
-
+        $sce,
+        lodash,
+        methodCop,
+        uiGridConstants
     ) {
 
         $scope.appheader = 'tasks';
@@ -49,6 +54,27 @@ tasks.controller('tasksController',[
             deletedtask = "";
         $scope.myVar = 'test data';
         $scope.badTask = false;
+        $scope.gridOptions = {
+            enableSorting: true,
+            enableFiltering: true,
+            columnDefs: [
+                { name:'Name', field: 'Name' },
+                { name: 'Number', field: 'Number'},
+                { name:'Frequency', field: 'Frequency' },
+                { name:'Due Date', field: 'DueDate'},
+                {
+                    name: 'actions',
+                    displayName: '',
+                    cellTemplate:
+                        '<a ng-href="#/task/update/{{row.entity.id}}"  aria-label="Task Detail" class="md-mini"><i class="fa fa-info-circle"></i></a>',
+                    enableSorting: false,
+                    width: "60",
+                    resizable: false,
+                    pinnable: false
+                }
+            ],
+            data : []
+        };
         /* =====================================================================
          * Get all tasks from Mongo database
          * ===================================================================== */
@@ -58,7 +84,8 @@ tasks.controller('tasksController',[
                 function (res) {
                     tasks = angular.copy(res.data);
                     $scope.tasks = tasks;
-                    console.dir(tasks)
+                    console.dir(tasks);
+                    $scope.gridOptions.data = tasks;
                 },
                 function (err) {
                     console.error('Error getting tasks: ' + err.message);

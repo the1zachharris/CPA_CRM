@@ -1,5 +1,5 @@
 <script></script>
-<div ng-controller="tasksController" ng-init="getTasks()">
+<div ng-controller="tasksController" >
     <form layout="row" flex="100">
         <md-input-container flex>
             <label><i class="fa fa-search"></i> Search Tasks</label>
@@ -9,6 +9,7 @@
     </form>
     <h1>Tasks</h1>
 
+    <!--
     <table style="width:100%">
         <tr>
             <th>Name</th>
@@ -28,5 +29,18 @@
             <td>{{task.SecondExtendedDueDate}}</td>
         </tr>
     </table>
+    -->
+    <div layout="column">
+        <!--- Results grid ----->
+        <div ng-init="getTasks()"
+             ui-grid="gridOptions"
+             ui-grid-auto-resize
+             ui-grid-cellnav
+             ui-grid-resize-columns
+             ui-grid-custom-cell-select
+             ui-grid-pagination
+             class="grid"
+        ></div>
+    </div>
 
 </div>

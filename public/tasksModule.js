@@ -2,8 +2,7 @@ var tasks = angular.module('tasks',[
     'angular-clipboard',
     'ngRoute',
     'ngMaterial',
-    'oc.lazyLoad'
-]);
+    'oc.lazyLoad']);
 
 tasks.config([
         '$routeProvider',
