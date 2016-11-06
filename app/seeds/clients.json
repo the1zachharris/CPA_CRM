@@ -1,83 +1,85 @@
-{
-    "id" : "faa3d2af4100aa162c2210ed1ac27059c5d94ef7", 
-    "Name" : "Brandy Harris", 
-    "Address1" : "12907 S. 120th East Place", 
-    "Address2" : "", 
-    "City" : "Broken Arrow", 
-    "StateProvince" : "OK", 
-    "PostalCode" : "74011", 
-    "Country" : "USA", 
-    "Phone" : "918.381.2650", 
-    "Email" : "the1brandyharris@gmail.com", 
-    "ResponsibleEmployee" : "Drew Harris", 
-    "Type" : "Personal", 
-    "DateCreated" : "2016-11-05T21:43:29.568+0000",
-    "Tasks" : [
+[
+    {
+        "id" : "faa3d2af4100aa162c2210ed1ac27059c5d94ef7",
+        "Name" : "Brandy Harris",
+        "Address1" : "12907 S. 120th East Place",
+        "Address2" : "",
+        "City" : "Broken Arrow",
+        "StateProvince" : "OK",
+        "PostalCode" : "74011",
+        "Country" : "USA",
+        "Phone" : "918.381.2650",
+        "Email" : "the1brandyharris@gmail.com",
+        "ResponsibleEmployee" : "Drew Harris",
+        "Type" : "Personal",
+        "DateCreated" : "2016-11-05T21:43:29.568+0000",
+        "Tasks" : [
 
-    ], 
-    "Contacts" : [
+        ],
+        "Contacts" : [
 
-    ]
-}
-{
-    "id" : "6fd5f9c363d4ca7f24ac2dd994635a09146dff3e", 
-    "Name" : "Drew Harris", 
-    "Address1" : "12907 S. 120th East Place", 
-    "Address2" : "", 
-    "City" : "Broken Arrow", 
-    "StateProvince" : "OK", 
-    "PostalCode" : "74011", 
-    "Country" : "USA", 
-    "Phone" : "918.732.9267", 
-    "Email" : "the1drewharris@gmail.com", 
-    "ResponsibleEmployee" : "Brandy Harris", 
-    "Type" : "Personal", 
-    "DateCreated" : "2016-11-05T21:43:59.348+0000",
-    "Tasks" : [
+        ]
+    },
+    {
+        "id" : "6fd5f9c363d4ca7f24ac2dd994635a09146dff3e",
+        "Name" : "Drew Harris",
+        "Address1" : "12907 S. 120th East Place",
+        "Address2" : "",
+        "City" : "Broken Arrow",
+        "StateProvince" : "OK",
+        "PostalCode" : "74011",
+        "Country" : "USA",
+        "Phone" : "918.732.9267",
+        "Email" : "the1drewharris@gmail.com",
+        "ResponsibleEmployee" : "Brandy Harris",
+        "Type" : "Personal",
+        "DateCreated" : "2016-11-05T21:43:59.348+0000",
+        "Tasks" : [
 
-    ], 
-    "Contacts" : [
+        ],
+        "Contacts" : [
 
-    ]
-}
-{
-    "id" : "43359699f3b100fee37c127274ee5bc6ec7b0678", 
-    "Name" : "Zach Harris", 
-    "Address1" : "12907 S. 120th East Place", 
-    "Address2" : "", 
-    "City" : "Broken Arrow", 
-    "StateProvince" : "OK", 
-    "PostalCode" : "74011", 
-    "Country" : "USA", 
-    "Phone" : "918.973.2101", 
-    "Email" : "the1drewharris@gmail.com", 
-    "ResponsibleEmployee" : "Brandy Harris", 
-    "Type" : "Personal", 
-    "DateCreated" : "2016-11-05T21:45:14.606+0000",
-    "Tasks" : [
+        ]
+    },
+    {
+        "id" : "43359699f3b100fee37c127274ee5bc6ec7b0678",
+        "Name" : "Zach Harris",
+        "Address1" : "12907 S. 120th East Place",
+        "Address2" : "",
+        "City" : "Broken Arrow",
+        "StateProvince" : "OK",
+        "PostalCode" : "74011",
+        "Country" : "USA",
+        "Phone" : "918.973.2101",
+        "Email" : "the1drewharris@gmail.com",
+        "ResponsibleEmployee" : "Brandy Harris",
+        "Type" : "Personal",
+        "DateCreated" : "2016-11-05T21:45:14.606+0000",
+        "Tasks" : [
 
-    ], 
-    "Contacts" : [
+        ],
+        "Contacts" : [
 
-    ]
-}
-{
-    "id" : "f41bb11a12c68cef0023eeeff491c26e6626e53b", 
-    "Name" : "TrakkTask LLC", 
-    "Address1" : "PO Box 217", 
-    "Address2" : "", 
-    "City" : "Glenpool", 
-    "StateProvince" : "OK", 
-    "PostalCode" : "74033-0217", 
-    "Country" : "USA", 
-    "Email" : "maud@trakktask.com", 
-    "ResponsibleEmployee" : "Jeff Showalter", 
-    "Type" : "LLC", 
-    "DateCreated" : "2016-11-05T21:47:28.688+0000",
-    "Tasks" : [
+        ]
+    },
+    {
+        "id" : "f41bb11a12c68cef0023eeeff491c26e6626e53b",
+        "Name" : "TrakkTask LLC",
+        "Address1" : "PO Box 217",
+        "Address2" : "",
+        "City" : "Glenpool",
+        "StateProvince" : "OK",
+        "PostalCode" : "74033-0217",
+        "Country" : "USA",
+        "Email" : "maud@trakktask.com",
+        "ResponsibleEmployee" : "Jeff Showalter",
+        "Type" : "LLC",
+        "DateCreated" : "2016-11-05T21:47:28.688+0000",
+        "Tasks" : [
 
-    ], 
-    "Contacts" : [
+        ],
+        "Contacts" : [
 
-    ]
-}
+        ]
+    }
+]

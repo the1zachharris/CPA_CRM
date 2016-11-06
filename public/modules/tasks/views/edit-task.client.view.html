@@ -1,36 +1,31 @@
-<div ng-controller="tasksController" ng-init="viewTask()">
+<div ng-init="viewTask()">
     <form ng-submit="updateTask(detailedtask)" layout="row" flex="100">
         <md-input-container flex>
-            <label><i class="fa fa-search"></i> Name</label>
+            <label>Name</label>
             <input ng-model="detailedtask.Name" required>
         </md-input-container>
         <md-input-container flex>
-            <label><i class="fa fa-search"></i> Number</label>
+            <label>Number</label>
             <input ng-model="detailedtask.Number" required>
         </md-input-container>
         <md-input-container flex>
-            <label><i class="fa fa-search"></i> Frequency</label>
+            <label>Frequency</label>
             <input ng-model="detailedtask.Frequency" required>
         </md-input-container>
         <md-input-container flex>
-            <label><i class="fa fa-search"></i> DueDate</label>
+            <label>Due Date</label>
             <input ng-model="detailedtask.DueDate" required>
         </md-input-container>
         <md-input-container flex>
-            <label><i class="fa fa-search"></i> ExtendedDueDate</label>
+            <label>Extended Due Date</label>
             <input ng-model="detailedtask.ExtendedDueDate">
         </md-input-container>
         <md-input-container flex>
-            <label><i class="fa fa-search"></i> SecondExtendedDueDate</label>
+            <label>Second Extended Due Date</label>
             <input ng-model="detailedtask.SecondExtendedDueDate">
         </md-input-container>
-        <md-button class="md-raised md-primary" type="submit" aria-label="Create a Task">
-            <i class="fa fa-plus">Update!!!</i>
+        <md-button class="md-raised md-primary" type="submit" aria-label="Update Task">
+            <i class="fa fa-pencil">Update</i>
         </md-button>
     </form>
-    <div ng-if="badTask">
-        <md-toast>
-            {{badTask}}
-        </md-toast>
-    </div>
 </div>

@@ -54,6 +54,7 @@ tasks.controller('tasksController',[
             deletedtask = "";
         $scope.myVar = 'test data';
         $scope.badTask = false;
+        //TODO: implement more inclusive filter like this example: http://plnkr.co/edit/cTxLLI84kXy9HR2JekbX?p=preview
         $scope.gridOptions = {
             enableSorting: true,
             enableFiltering: true,
