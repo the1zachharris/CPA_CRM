@@ -28,6 +28,8 @@ tasks.controller('tasksController',[
     'lodash',
     'methodCop',
     'uiGridConstants',
+    '$modal',
+    '$log',
     function tasksController(
         taskCalls,
         $scope,
@@ -40,7 +42,9 @@ tasks.controller('tasksController',[
         $sce,
         lodash,
         methodCop,
-        uiGridConstants
+        uiGridConstants,
+        $modal,
+        $log
     ) {
 
         $scope.appheader = 'tasks';
@@ -109,8 +113,7 @@ tasks.controller('tasksController',[
                 function (res) {
                     newTask = angular.copy(res.data);
                     $scope.newtask = {};
-                    //$scope.newtask.Name = "";
-                    console.dir($scope.newtask);
+                    window.location.href ='#/tasks';
                 },
                 function (err) {
                     $scope.badTask = 'Error creating task: ' + JSON.stringify(err.data.message);
@@ -165,18 +168,119 @@ tasks.controller('tasksController',[
         /* =====================================================================
          * Delete a task from Mongo database
          * ===================================================================== */
-        $scope.deleteTask = function () {
+        $scope.deleteTask = function (detailedtask) {
 
-            taskCalls.deleteTask({}).then(
-                function (res) {
-                    deletedtask = angular.copy(res.data);
-                    $scope.deletedtask = deletedtask;
+            $scope.modal = {
+                title : 'Delete ' + detailedtask.name,
+                body : 'Are you sure you want to delete the task, \'' + detailedtask.name + '?\''
+            };
+
+            var modalInstance = $modal.open({
+                animation: true,
+                templateUrl: 'appModal',
+                controller: 'ModalInstanceCtrl',
+                scope: $scope,
+                size: 'md'
+                // resolve: {}
+            });
+
+            modalInstance.result.then(
+                function () {
+                    taskCalls.deleteTask({
+                        taskid: detailedtask.id
+                    }).then(
+                        function (res) {
+                            deletedtask = angular.copy(res.data);
+                            $scope.deletedtask = deletedtask;
+                            window.location.href ='#/tasks';
+                        },
+                        function (err) {
+                            console.error('Error deleting task: ' + err.message);
+                        }
+                    );
                 },
-                function (err) {
-                    console.error('Error deleting task: ' + err.message);
+                function () {
+                    // $log.info('Modal dismissed at: ' + new Date());
+                    $log.info('Delete App cancelled');
                 }
             );
+        };
+
+
+
+
+
+
+
+        $scope.deleteApp = function(){
+            //if ($scope.canDelete) {
+            $scope.modal = {
+                title : 'Delete ' + $scope.application.name,
+                body : 'Are you sure you want to delete the application, \'' + $scope.application.name + '?\''
+            };
+
+            var modalInstance = $modal.open({
+                animation: true,
+                templateUrl: 'appModal',
+                controller: 'ModalInstanceCtrl',
+                scope: $scope,
+                size: 'md'
+                // resolve: {}
+            });
+
+            modalInstance.result.then(
+                function () {
+                    $scope.forRealDeleteApp();
+                },
+                function () {
+                    // $log.info('Modal dismissed at: ' + new Date());
+                    $log.info('Delete App cancelled');
+                }
+            );
+            /*
+             } else {
+             $scope.modal = {
+             title : 'Error',
+             icon : 'exclamation-triangle',
+             body : 'You are not authorized to perform this function.'
+             };
+             $scope.openModal('sm');
+             }
+             */
+        };
+
+        $scope.forRealDeleteApp = function(){
+            $http.delete('/applications/manage/'+$scope.application.id)
+                .success(function(data){
+                    window.location.href ='#/applications';
+                    $scope.dataRec = data;
+                })
+                .error(function(err){
+                    $scope.error = err.message;
+                    $log.error('There was an error deleting the app: ' + err.message);
+                    $scope.modal = {
+                        title : 'Error',
+                        body : 'There is an error deleting the application. Please try again.'
+                    };
+                    $scope.openModal('sm');
+                })
         };
     }
 ]);
 
+/* ================================================================================
+ Modal Controller
+ * ================================================================================ */
+tasks.controller('ModalInstanceCtrl', function ($scope, $modalInstance) {
+
+    $scope.cancel = function () {
+        // $log.info('We are canceling...');
+        $modalInstance.dismiss('cancel');
+    };
+    $scope.confirm = function () {
+        //$log.info('We are confirming...');
+        $modalInstance.close('closed');
+    };
+
+
+});

@@ -119,8 +119,8 @@ tasks.factory('taskCalls', function($http,$log, $routeParams) {
         },
         deleteTask: function(req){
             var promise = $http({
-                    method: 'DELETE',
-                url: '/task/delete',
+                method: 'DELETE',
+                url: '/task/delete/' + $routeParams.taskid,
                 params: req
             }).then(function (response) {
                 return response;
