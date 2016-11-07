@@ -8,6 +8,10 @@
     </form>
     -->
     <h1>Tasks</h1>
+    <md-input-container flex>
+        <label><i class="fa fa-search"></i> Search Tasks</label>
+        <input ng-change="refreshData(search)" ng-model="search">
+    </md-input-container>
     <a class="btn btn-default" href="/#/tasks/create">Create New Task</a>
     <!--
     <table style="width:100%">

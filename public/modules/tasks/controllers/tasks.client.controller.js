@@ -28,6 +28,7 @@ tasks.controller('tasksController',[
     'lodash',
     'methodCop',
     'uiGridConstants',
+    '$filter',
     function tasksController(
         taskCalls,
         $scope,
@@ -40,7 +41,8 @@ tasks.controller('tasksController',[
         $sce,
         lodash,
         methodCop,
-        uiGridConstants
+        uiGridConstants,
+        $filter
     ) {
 
         $scope.appheader = 'tasks';
@@ -52,8 +54,8 @@ tasks.controller('tasksController',[
             updatedtask = "",
             detailedtask = "",
             deletedtask = "";
-        $scope.myVar = 'test data';
-        $scope.badTask = false;
+
+
         //TODO: implement more inclusive filter like this example: http://plnkr.co/edit/cTxLLI84kXy9HR2JekbX?p=preview
         $scope.gridOptions = {
             enableSorting: true,
@@ -76,6 +78,18 @@ tasks.controller('tasksController',[
             ],
             data : []
         };
+
+
+        $scope.refreshData = function (termObj) {
+            $scope.gridOptions.data = $scope.tasks;
+            while (termObj) {
+                var oSearchArray = termObj.split(' ');
+                $scope.gridOptions.data = $filter('filter')($scope.gridOptions.data, oSearchArray[0], undefined);
+                oSearchArray.shift();
+                termObj = (oSearchArray.length !== 0) ? oSearchArray.join(' ') : '';
+            }
+        };
+
         /* =====================================================================
          * Get all tasks from Mongo database
          * ===================================================================== */

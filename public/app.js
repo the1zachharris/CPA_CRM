@@ -213,10 +213,8 @@ app.controller('MainController', function (
             $scope.TaskMasterMenu = $rootScope.TaskMasterMenu;
         }
     );
-
-
-
 });
+
 
 // authorization service
 app.factory(
