@@ -29,7 +29,7 @@ tasks.controller('tasksController',[
     'methodCop',
     'uiGridConstants',
     '$filter',
-    function tasksController(
+    function (
         taskCalls,
         $scope,
         $http,
@@ -80,13 +80,13 @@ tasks.controller('tasksController',[
         };
 
 
-        $scope.refreshData = function (termObj) {
+        $scope.refreshData = function (keyword) {
             $scope.gridOptions.data = $scope.tasks;
-            while (termObj) {
-                var oSearchArray = termObj.split(' ');
+            while (keyword) {
+                var oSearchArray = keyword.split(' ');
                 $scope.gridOptions.data = $filter('filter')($scope.gridOptions.data, oSearchArray[0], undefined);
                 oSearchArray.shift();
-                termObj = (oSearchArray.length !== 0) ? oSearchArray.join(' ') : '';
+                keyword = (oSearchArray.length !== 0) ? oSearchArray.join(' ') : '';
             }
         };
 
