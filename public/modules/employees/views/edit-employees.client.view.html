@@ -1,0 +1,64 @@
+<div ng-init="viewTask()">
+    <form ng-submit="updateTask(detailedtask)" layout="row" flex="100">
+        <md-input-container flex>
+            <label>Name</label>
+            <input ng-model="detailedtask.Name" required>
+        </md-input-container>
+        <md-input-container flex>
+            <label>Number</label>
+            <input ng-model="detailedtask.Number" required>
+        </md-input-container>
+        <md-input-container flex>
+            <label>Frequency</label>
+            <input ng-model="detailedtask.Frequency" required>
+        </md-input-container>
+        <md-input-container flex>
+            <label>Due Date</label>
+            <input ng-model="detailedtask.DueDate" required>
+        </md-input-container>
+        <md-input-container flex>
+            <label>Extended Due Date</label>
+            <input ng-model="detailedtask.ExtendedDueDate">
+        </md-input-container>
+        <md-input-container flex>
+            <label>Second Extended Due Date</label>
+            <input ng-model="detailedtask.SecondExtendedDueDate">
+        </md-input-container>
+        <md-button class="md-raised md-primary" type="submit" aria-label="Update Task">
+            <i class="fa fa-pencil">Update</i>
+        </md-button>
+        <md-button class="md-raised md-primary" ng-click="deleteTask(detailedtask)" aria-label="Delete Task">
+            <i class="fa fa-pencil">Delete</i>
+        </md-button>
+    </form>
+
+
+    <!-- Modal Template -->
+
+    <script type="text/ng-template" id="appModal">
+        <div class="modal-header">
+            <i class="fa pull-right fa-{{modal.icon}}" ng-if="modal.icon" ng-class="{'error' : modal.title == 'Error','warning' : modal.title == 'Warning','success' : modal.title == 'Success'}"></i>
+            <h4 class="modal-title">{{modal.title}}</h4>
+        </div>
+        <div class="modal-body">
+            {{modal.body}}
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" type="button" ng-click="cancel()">Cancel</button>
+            <button class="btn btn-primary" type="button" ng-click="confirm()">OK</button>
+        </div>
+    </script>
+
+    <script type="text/ng-template" id="appModal2">
+        <div class="modal-header">
+            <i class="fa pull-right fa-{{modal.icon}}" ng-if="modal.icon" ng-class="{'error' : modal.title == 'Error','warning' : modal.title == 'Warning','success' : modal.title == 'Success'}"></i>
+            <h4 class="modal-title">{{modal.title}}</h4>
+        </div>
+        <div class="modal-body">
+            {{modal.body}}
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" type="button" ng-click="cancel()">OK</button>
+        </div>
+    </script>
+</div>

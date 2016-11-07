@@ -1,0 +1,21 @@
+<div >
+    <h1>Tasks</h1>
+    <md-input-container flex>
+        <label><i class="fa fa-search"></i> Search Tasks</label>
+        <input ng-change="refreshData(search)" ng-model="search">
+    </md-input-container>
+    <a class="btn btn-default" href="/#/tasks/create">Create New Task</a>
+
+    <div layout="column">
+        <!--- Results grid ----->
+        <div ng-init="getTasks()"
+             ui-grid="gridOptions"
+             ui-grid-auto-resize
+             ui-grid-cellnav
+             ui-grid-resize-columns
+             ui-grid-custom-cell-select
+             ui-grid-pagination
+             class="grid"
+        ></div>
+    </div>
+</div>

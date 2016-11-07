@@ -1,28 +1,28 @@
-var tasks = angular.module('tasks',[
+var employees = angular.module('employees',[
     'angular-clipboard',
     'ngRoute',
     'ngMaterial',
     'oc.lazyLoad']);
 
-tasks.config([
+employees.config([
         '$routeProvider',
-    '$provide',
+        '$provide',
         function (
             $routeProvider
         ) {
             $routeProvider
-                .when('/tasks',{
-                    name: 'tasks',
-                    templateUrl:'modules/tasks/views/list-tasks.client.view.html',
-                    label: 'tasks',
-                    controller: 'tasksController',
+                .when('/employees',{
+                    name: 'employees',
+                    templateUrl:'modules/tasks/views/list-employees.client.view.html',
+                    label: 'employees',
+                    controller: 'employeesController',
                     resolve: {
                         loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
                             return $ocLazyLoad.load({
-                                name: 'tasksController',
+                                name: 'employeesController',
                                 files:[
                                     // Controllers
-                                    'modules/tasks/controllers/tasks.client.controller.js',
+                                    'modules/tasks/controllers/employees.client.controller.js',
 
                                     // Styles
                                     'modules/core/css/datagrids.client.styles.css',
@@ -33,17 +33,17 @@ tasks.config([
                     }
 
                 })
-                .when('/tasks/create',{
-                    name: 'tasks',
-                    templateUrl:'modules/tasks/views/create-tasks.client.view.html',
-                    label: 'Create tasks',
-                    controller: 'tasksController',
+                .when('/employees/create',{
+                    name: 'employees',
+                    templateUrl:'modules/tasks/views/create-employees.client.view.html',
+                    label: 'Create employees',
+                    controller: 'employeesController',
                     resolve: {
                         loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
                             return $ocLazyLoad.load({
-                                name: 'tasksController',
+                                name: 'employeesController',
                                 files:[
-                                    'modules/tasks/controllers/tasks.client.controller.js'
+                                    'modules/tasks/controllers/employees.client.controller.js'
 
                                     // Styles
 
@@ -52,16 +52,16 @@ tasks.config([
                     }
                 })
                 .when('/task/update/:taskid',{
-                    name: 'tasks',
-                    templateUrl:'modules/tasks/views/edit-task.client.view.html',
-                    label: 'Update tasks',
-                    controller: 'tasksController',
+                    name: 'employees',
+                    templateUrl:'modules/tasks/views/edit-employees.client.view.html',
+                    label: 'Update employees',
+                    controller: 'employeesController',
                     resolve: {
                         loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
                             return $ocLazyLoad.load({
-                                name: 'tasksController',
+                                name: 'employeesController',
                                 files:[
-                                    'modules/tasks/controllers/tasks.client.controller.js'
+                                    'modules/tasks/controllers/employees.client.controller.js'
 
                                     // Styles
 
@@ -74,53 +74,52 @@ tasks.config([
     ]
 );
 
-tasks.factory('taskCalls', function($http,$log, $routeParams) {
-    console.log("in taskCalls factory");
-    var taskMasterService = {
-        getTasks: function(req){
+employees.factory('employeeCalls', function($http,$log, $routeParams) {
+    console.log("in employeeCalls factory");
+    var employeesMasterService = {
+        getEmployees: function(req){
             var promise = $http({
                 method: 'GET',
-                url: '/task/list',
+                url: '/employees/list',
                 params : req
             }).then(function (response) {
                 return response;
             });
             return promise;
         },
-        detailTask: function(){
+        detailEmployee: function(){
             var promise = $http({
                 method: 'GET',
-                url: '/task/detail/' + $routeParams.taskid
+                url: '/employees/detail/' + $routeParams.FirstName
             }).then(function (response) {
                 return response;
             });
             return promise;
         },
-        createTask: function(req){
-            console.dir(req);
+        createEmployee: function(req){
             var promise = $http({
                 method: 'POST',
-                url: '/task/create',
+                url: '/employees/create',
                 data: req
             }).then(function (response) {
                 return response;
             });
             return promise;
         },
-        updateTask: function(req){
+        updateEmployee: function(req){
             var promise = $http({
                 method: 'POST',
-                url: '/task/update',
+                url: '/employees/update',
                 data: req
             }).then(function (response) {
                 return response;
             });
             return promise;
         },
-        deleteTask: function(req){
+        deleteEmployee: function(req){
             var promise = $http({
                 method: 'DELETE',
-                url: '/task/delete/' + $routeParams.taskid,
+                url: '/employees/delete/' + $routeParams.employeeid,
                 params: req
             }).then(function (response) {
                 return response;
@@ -128,5 +127,5 @@ tasks.factory('taskCalls', function($http,$log, $routeParams) {
             return promise;
         }
     };
-    return taskMasterService;
+    return employeesMasterService;
 });
