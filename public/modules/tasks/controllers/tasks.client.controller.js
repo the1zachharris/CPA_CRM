@@ -47,7 +47,6 @@ tasks.controller('tasksController',[
 
         $scope.appheader = 'tasks';
         $scope.tab = undefined;
-        console.log("in task controller");
 
         var tasks = "",
             newTask = "",
@@ -55,8 +54,6 @@ tasks.controller('tasksController',[
             detailedtask = "",
             deletedtask = "";
 
-
-        //TODO: implement more inclusive filter like this example: http://plnkr.co/edit/cTxLLI84kXy9HR2JekbX?p=preview
         $scope.gridOptions = {
             enableSorting: true,
             enableFiltering: true,
