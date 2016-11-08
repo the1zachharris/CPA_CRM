@@ -1,30 +1,18 @@
 <div >
-    <form ng-submit="createTask(newtask)" layout="row" flex="100">
+    <form ng-submit="createEmployee(newemployee)" layout="row" flex="100">
         <md-input-container flex>
-            <label>Name</label>
-            <input ng-model="newtask.Name" required>
+            <label>First Name</label>
+            <input ng-model="newemployee.FirstName" required>
         </md-input-container>
         <md-input-container flex>
-            <label>Number</label>
-            <input ng-model="newtask.Number" required>
+            <label>Last Name</label>
+            <input ng-model="newemployee.LastName" required>
         </md-input-container>
         <md-input-container flex>
-            <label>Frequency</label>
-            <input ng-model="newtask.Frequency" required>
+            <label>Email</label>
+            <input ng-model="newemployee.Email" required>
         </md-input-container>
-        <md-input-container flex>
-            <label>Due Date</label>
-            <input ng-model="newtask.DueDate" required>
-        </md-input-container>
-        <md-input-container flex>
-            <label>Extended Due Date</label>
-            <input ng-model="newtask.ExtendedDueDate">
-        </md-input-container>
-        <md-input-container flex>
-            <label>Second Extended Due Date</label>
-            <input ng-model="newtask.SecondExtendedDueDate">
-        </md-input-container>
-        <md-button class="md-raised md-primary" type="submit" aria-label="Create Task">
+        <md-button class="md-raised md-primary" type="submit" aria-label="Create Employee">
             <i class="fa fa-plus">Create</i>
         </md-button>
     </form>

@@ -213,7 +213,7 @@ tasks.controller('tasksController',[
                 },
                 function () {
                     // $log.info('Modal dismissed at: ' + new Date());
-                    $log.info('Delete App cancelled');
+                    $log.info('Delete task cancelled');
                 }
             );
         };

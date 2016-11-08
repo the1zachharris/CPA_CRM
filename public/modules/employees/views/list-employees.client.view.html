@@ -1,14 +1,14 @@
 <div >
-    <h1>Tasks</h1>
+    <h1>Employees</h1>
     <md-input-container flex>
-        <label><i class="fa fa-search"></i> Search Tasks</label>
+        <label><i class="fa fa-search"></i> Search Employees</label>
         <input ng-change="refreshData(search)" ng-model="search">
     </md-input-container>
-    <a class="btn btn-default" href="/#/tasks/create">Create New Task</a>
+    <a class="btn btn-default" href="#/employees/create">Create New Employee</a>
 
     <div layout="column">
         <!--- Results grid ----->
-        <div ng-init="getTasks()"
+        <div ng-init="getEmployees()"
              ui-grid="gridOptions"
              ui-grid-auto-resize
              ui-grid-cellnav

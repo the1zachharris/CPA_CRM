@@ -13,7 +13,7 @@ employees.config([
             $routeProvider
                 .when('/employees',{
                     name: 'employees',
-                    templateUrl:'modules/tasks/views/list-employees.client.view.html',
+                    templateUrl:'modules/employees/views/list-employees.client.view.html',
                     label: 'employees',
                     controller: 'employeesController',
                     resolve: {
@@ -22,20 +22,20 @@ employees.config([
                                 name: 'employeesController',
                                 files:[
                                     // Controllers
-                                    'modules/tasks/controllers/employees.client.controller.js',
+                                    'modules/employees/controllers/employees.client.controller.js',
 
                                     // Styles
                                     'modules/core/css/datagrids.client.styles.css',
                                     'modules/core/css/tabsets.client.styles.css',
                                     'modules/core/css/search.client.styles.css'
-                                ]});
+                                ]
+                            });
                         }]
                     }
-
                 })
                 .when('/employees/create',{
                     name: 'employees',
-                    templateUrl:'modules/tasks/views/create-employees.client.view.html',
+                    templateUrl:'modules/employees/views/create-employees.client.view.html',
                     label: 'Create employees',
                     controller: 'employeesController',
                     resolve: {
@@ -43,17 +43,18 @@ employees.config([
                             return $ocLazyLoad.load({
                                 name: 'employeesController',
                                 files:[
-                                    'modules/tasks/controllers/employees.client.controller.js'
+                                    'modules/employees/controllers/employees.client.controller.js'
 
                                     // Styles
 
-                                ]});
+                                ]
+                            });
                         }]
                     }
                 })
-                .when('/task/update/:taskid',{
+                .when('/task/update/:employeeid',{
                     name: 'employees',
-                    templateUrl:'modules/tasks/views/edit-employees.client.view.html',
+                    templateUrl:'modules/employees/views/edit-employees.client.view.html',
                     label: 'Update employees',
                     controller: 'employeesController',
                     resolve: {
@@ -61,11 +62,12 @@ employees.config([
                             return $ocLazyLoad.load({
                                 name: 'employeesController',
                                 files:[
-                                    'modules/tasks/controllers/employees.client.controller.js'
+                                    'modules/employees/controllers/employees.client.controller.js'
 
                                     // Styles
 
-                                ]});
+                                ]
+                            });
                         }]
                     }
                 })

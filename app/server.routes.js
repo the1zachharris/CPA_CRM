@@ -54,7 +54,7 @@ router.delete('/frequency/delete/:frequencyid', frequency.delete);
  * @type {exports|module.exports}
  */
 var employee = require('./controllers/employees.server.controller.js');
-router.get('/employee/list', employee.list);
+router.get('/employees/list', employee.list);
 router.get('/employee/detail/:FirstName', employee.detail);
 router.post('/employee/create', employee.create);
 router.post('/employee/update', employee.update);

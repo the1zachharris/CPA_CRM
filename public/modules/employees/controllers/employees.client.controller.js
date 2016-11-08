@@ -15,7 +15,7 @@ var employees = angular.module('employees',[
 ]);
 
 
-tasks.controller('employeesController',[
+employees.controller('employeesController',[
     'employeeCalls',
     '$scope',
     '$http',
@@ -32,7 +32,7 @@ tasks.controller('employeesController',[
     '$modal',
     '$log',
     function (
-        taskCalls,
+        employeeCalls,
         $scope,
         $http,
         $mdDialog,
@@ -52,11 +52,10 @@ tasks.controller('employeesController',[
         $scope.appheader = 'employees';
         $scope.tab = undefined;
 
-        var tasks = "",
-            newTask = "",
-            updatedtask = "",
-            detailedtask = "",
-            deletedtask = "";
+        var employees = "",
+            updatedemployee = "",
+            detailedemployee = "",
+            deletedemployee = "";
 
         $scope.gridOptions = {
             enableSorting: true,
@@ -82,7 +81,7 @@ tasks.controller('employeesController',[
 
 
         $scope.refreshData = function (keyword) {
-            $scope.gridOptions.data = $scope.tasks;
+            $scope.gridOptions.data = $scope.employees;
             while (keyword) {
                 var oSearchArray = keyword.split(' ');
                 $scope.gridOptions.data = $filter('filter')($scope.gridOptions.data, oSearchArray[0], undefined);
@@ -96,11 +95,11 @@ tasks.controller('employeesController',[
          * ===================================================================== */
         $scope.getEmployees = function () {
 
-            taskCalls.getEmployees({}).then(
+            employeeCalls.getEmployees({}).then(
                 function (res) {
-                    tasks = angular.copy(res.data);
-                    $scope.tasks = tasks;
-                    $scope.gridOptions.data = tasks;
+                    employees = angular.copy(res.data);
+                    $scope.employees = employees;
+                    $scope.gridOptions.data = employees;
                 },
                 function (err) {
                     console.error('Error getting employees: ' + err.message);
@@ -111,7 +110,7 @@ tasks.controller('employeesController',[
          * create new employee
          * ===================================================================== */
         $scope.createEmployee = function (newemployee) {
-            taskCalls.createEmployee({
+            employeeCalls.createEmployee({
                 FirstName: newemployee.FirstName,
                 LastName: newemployee.LastName,
                 Email: newemployee.Email
@@ -119,10 +118,9 @@ tasks.controller('employeesController',[
                 function (res) {
                     newemployee = angular.copy(res.data);
                     $scope.newemployee = {};
-                    window.location.href ='#/tasks';
+                    window.location.href ='#/employees';
                 },
                 function (err) {
-                    $scope.badTask = 'Error creating employee: ' + JSON.stringify(err.data.message);
                     console.error('Error creating employee: ' + JSON.stringify(err.data.message));
                 }
             );
@@ -132,23 +130,20 @@ tasks.controller('employeesController',[
         /* =====================================================================
          * update employee
          * ===================================================================== */
-        $scope.updateTask = function (detailedemployee) {
+        $scope.updateEmployee = function (detailedemployee) {
 
-            taskCalls.updateTask({
+            employeeCalls.updateTask({
                 employeeid: detailedemployee.id,
                 FirstName: detailedemployee.FirstName,
                 LastName: detailedemployee.LastName,
-                Username: detailedemployee.Username,
-                DueDate: detailedemployee.DueDate,
-                ExtendedDueDate: detailedemployee.ExtendedDueDate,
-                SecondExtendedDueDate: detailedemployee.SecondExtendedDueDate
+                Email: detailedemployee.Email
             }).then(
                 function (res) {
-                    updatedtask = angular.copy(res.data);
-                    $scope.updatedtask = updatedtask;
+                    updatedemployee = angular.copy(res.data);
+                    $scope.updatedemployee = updatedemployee;
                 },
                 function (err) {
-                    console.error('Error updating task: ' + err.message);
+                    console.error('Error updating employee: ' + err.message);
                 }
             );
         };
@@ -157,16 +152,15 @@ tasks.controller('employeesController',[
         /* =====================================================================
          * view task
          * ===================================================================== */
-        $scope.viewTask = function () {
+        $scope.viewEmployee = function () {
 
-            taskCalls.detailTask().then(
+            employeeCalls.detailEmployee().then(
                 function (res) {
-                    detailedtask = angular.copy(res.data);
-                    $scope.detailedtask = detailedtask;
-                    console.dir(detailedtask);
+                    detailedemployee = angular.copy(res.data);
+                    $scope.detailedtask = detailedemployee;
                 },
                 function (err) {
-                    console.error('Error viewing task: ' + err.message);
+                    console.error('Error viewing employee: ' + err.message);
                 }
             );
         };
@@ -174,11 +168,11 @@ tasks.controller('employeesController',[
         /* =====================================================================
          * Delete a task from Mongo database
          * ===================================================================== */
-        $scope.deleteTask = function (detailedtask) {
+        $scope.deleteTask = function (detailedemployee) {
 
             $scope.modal = {
-                title : 'Delete ' + detailedtask.name,
-                body : 'Are you sure you want to delete the task, \'' + detailedtask.name + '?\''
+                title : 'Delete ' + detailedemployee.FirstName,
+                body : 'Are you sure you want to delete this employee, \'' + detailedemployee.FirstName + '?\''
             };
 
             var modalInstance = $modal.open({
@@ -192,84 +186,24 @@ tasks.controller('employeesController',[
 
             modalInstance.result.then(
                 function () {
-                    taskCalls.deleteTask({
-                        taskid: detailedtask.id
+                    employeeCalls.deleteEmployee({
+                        employeeid: detailedemployee.id
                     }).then(
                         function (res) {
-                            deletedtask = angular.copy(res.data);
-                            $scope.deletedtask = deletedtask;
-                            window.location.href ='#/tasks';
+                            deletedemployee = angular.copy(res.data);
+                            $scope.deletedemployee = deletedemployee;
+                            window.location.href ='#/employees';
                         },
                         function (err) {
-                            console.error('Error deleting task: ' + err.message);
+                            console.error('Error deleting employee: ' + err.message);
                         }
                     );
                 },
                 function () {
                     // $log.info('Modal dismissed at: ' + new Date());
-                    $log.info('Delete App cancelled');
+                    $log.info('Delete employee cancelled');
                 }
             );
-        };
-
-
-
-
-
-
-
-        $scope.deleteApp = function(){
-            //if ($scope.canDelete) {
-            $scope.modal = {
-                title : 'Delete ' + $scope.application.name,
-                body : 'Are you sure you want to delete the application, \'' + $scope.application.name + '?\''
-            };
-
-            var modalInstance = $modal.open({
-                animation: true,
-                templateUrl: 'appModal',
-                controller: 'ModalInstanceCtrl',
-                scope: $scope,
-                size: 'md'
-                // resolve: {}
-            });
-
-            modalInstance.result.then(
-                function () {
-                    $scope.forRealDeleteApp();
-                },
-                function () {
-                    // $log.info('Modal dismissed at: ' + new Date());
-                    $log.info('Delete App cancelled');
-                }
-            );
-            /*
-             } else {
-             $scope.modal = {
-             title : 'Error',
-             icon : 'exclamation-triangle',
-             body : 'You are not authorized to perform this function.'
-             };
-             $scope.openModal('sm');
-             }
-             */
-        };
-
-        $scope.forRealDeleteApp = function(){
-            $http.delete('/applications/manage/'+$scope.application.id)
-                .success(function(data){
-                    window.location.href ='#/applications';
-                    $scope.dataRec = data;
-                })
-                .error(function(err){
-                    $scope.error = err.message;
-                    $log.error('There was an error deleting the app: ' + err.message);
-                    $scope.modal = {
-                        title : 'Error',
-                        body : 'There is an error deleting the application. Please try again.'
-                    };
-                    $scope.openModal('sm');
-                })
         };
     }
 ]);
@@ -277,7 +211,7 @@ tasks.controller('employeesController',[
 /* ================================================================================
  Modal Controller
  * ================================================================================ */
-tasks.controller('ModalInstanceCtrl', function ($scope, $modalInstance) {
+employees.controller('ModalInstanceCtrl', function ($scope, $modalInstance) {
 
     $scope.cancel = function () {
         // $log.info('We are canceling...');
