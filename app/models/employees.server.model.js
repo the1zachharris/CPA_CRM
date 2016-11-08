@@ -23,15 +23,9 @@ var employeesSchema = new Schema ({
         type: String,
         required: 'Must have an last name for the employee'
     },
-    Username: {
+    Email: {
         type: String,
-        required: 'Must have a Username for the employee',
-        unique: 'Username must be unique'
-    },
-    Password: {
-        //TODO: be sure to encrypt users passwords
-        type: String,
-        required: 'Must have a Password for the employee'
+        required: 'Must have a Email for the employee'
     },
     LastLogin: {
         type: Date
