@@ -151,6 +151,7 @@ tasks.controller('tasksController',[
                 function (res) {
                     updatedtask = angular.copy(res.data);
                     $scope.updatedtask = updatedtask;
+                    window.location.href ='#/tasks';
                 },
                 function (err) {
                     console.error('Error updating task: ' + err.message);
@@ -215,66 +216,6 @@ tasks.controller('tasksController',[
                     $log.info('Delete App cancelled');
                 }
             );
-        };
-
-
-
-
-
-
-
-        $scope.deleteApp = function(){
-            //if ($scope.canDelete) {
-            $scope.modal = {
-                title : 'Delete ' + $scope.application.name,
-                body : 'Are you sure you want to delete the application, \'' + $scope.application.name + '?\''
-            };
-
-            var modalInstance = $modal.open({
-                animation: true,
-                templateUrl: 'appModal',
-                controller: 'ModalInstanceCtrl',
-                scope: $scope,
-                size: 'md'
-                // resolve: {}
-            });
-
-            modalInstance.result.then(
-                function () {
-                    $scope.forRealDeleteApp();
-                },
-                function () {
-                    // $log.info('Modal dismissed at: ' + new Date());
-                    $log.info('Delete App cancelled');
-                }
-            );
-            /*
-             } else {
-             $scope.modal = {
-             title : 'Error',
-             icon : 'exclamation-triangle',
-             body : 'You are not authorized to perform this function.'
-             };
-             $scope.openModal('sm');
-             }
-             */
-        };
-
-        $scope.forRealDeleteApp = function(){
-            $http.delete('/applications/manage/'+$scope.application.id)
-                .success(function(data){
-                    window.location.href ='#/applications';
-                    $scope.dataRec = data;
-                })
-                .error(function(err){
-                    $scope.error = err.message;
-                    $log.error('There was an error deleting the app: ' + err.message);
-                    $scope.modal = {
-                        title : 'Error',
-                        body : 'There is an error deleting the application. Please try again.'
-                    };
-                    $scope.openModal('sm');
-                })
         };
     }
 ]);
