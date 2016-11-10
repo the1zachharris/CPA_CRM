@@ -55,7 +55,7 @@ clients.config([
                     }
                 })
 
-                .when('/clients/:clientid',{
+                .when('/clients/:id',{
                     name: 'clients',
                     templateUrl:'modules/clients/views/client.client.view.html',
                     label: 'clients',
@@ -176,7 +176,7 @@ clients.factory('clientCalls', function($http,$log, $routeParams) {
         deleteClient: function(req){
             var promise = $http({
                 method: 'DELETE',
-                url: '/client/delete/:clientid'
+                url: '/client/delete/:id'
             }).then(function (response) {
                 return response;
             });

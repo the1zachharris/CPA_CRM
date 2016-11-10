@@ -134,7 +134,7 @@ exports.detail = function (req, res) {
  * @apiName update
  * @apiGroup frequency
  *
- * @apiParam {frequencyid} frequencyid
+ * @apiParam {id} id
  * @apiParam {updatedfrequency} Updatefrequency
  *
  * @apiSuccessExample Success-Response:
@@ -171,7 +171,7 @@ exports.update = function (req, res) {
  * @apiName delete
  * @apiGroup frequency
  *
- * @apiParam {frequencyid} frequencyid
+ * @apiParam {id} id
  *
  * @apiSuccessExample Success-Response:
  * 200 OK
@@ -185,8 +185,8 @@ exports.update = function (req, res) {
  */
 exports.delete = function (req, res) {
     try {
-        var frequencyid = req.params.frequencyid;
-        var query = {id: frequencyid};
+        var id = req.params.id;
+        var query = {id: id};
         Frequency.remove(query, function (err, doc) {
             if (err) {
                 return res.status(400).send({

@@ -1,33 +1,21 @@
-<div ng-init="viewTask()">
-    <form ng-submit="updateTask(detailedtask)" layout="row" flex="100">
+<div ng-init="viewEmployee()">
+    <form ng-submit="updateEmployee(detailedemployee)" layout="row" flex="100">
         <md-input-container flex>
-            <label>Name</label>
-            <input ng-model="detailedtask.Name" required>
+            <label>First Name</label>
+            <input ng-model="detailedemployee.FirstName" required>
         </md-input-container>
         <md-input-container flex>
-            <label>Number</label>
-            <input ng-model="detailedtask.Number" required>
+            <label>Last Name</label>
+            <input ng-model="detailedemployee.LastName" required>
         </md-input-container>
         <md-input-container flex>
-            <label>Frequency</label>
-            <input ng-model="detailedtask.Frequency" required>
+            <label>Email</label>
+            <input ng-model="detailedemployee.Email" required>
         </md-input-container>
-        <md-input-container flex>
-            <label>Due Date</label>
-            <input ng-model="detailedtask.DueDate" required>
-        </md-input-container>
-        <md-input-container flex>
-            <label>Extended Due Date</label>
-            <input ng-model="detailedtask.ExtendedDueDate">
-        </md-input-container>
-        <md-input-container flex>
-            <label>Second Extended Due Date</label>
-            <input ng-model="detailedtask.SecondExtendedDueDate">
-        </md-input-container>
-        <md-button class="md-raised md-primary" type="submit" aria-label="Update Task">
+        <md-button class="md-raised md-primary" type="submit" aria-label="Update Employee">
             <i class="fa fa-pencil">Update</i>
         </md-button>
-        <md-button class="md-raised md-primary" ng-click="deleteTask(detailedtask)" aria-label="Delete Task">
+        <md-button class="md-raised md-primary" ng-click="deleteEmployee(detailedemployee)" aria-label="Delete Employee">
             <i class="fa fa-pencil">Delete</i>
         </md-button>
     </form>

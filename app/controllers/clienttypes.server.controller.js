@@ -107,7 +107,7 @@ exports.listAll = function (req, res) {
  */
 exports.detailIt = function (req, res) {
     try {
-        Clienttype.find({type: req.params.type}).sort('-type').exec(function (err, clientType) {
+        Clienttype.find({id: req.params.id}).sort('-type').exec(function (err, clientType) {
             if (!clientType.length) {
                 res.status(200).send()
             } else {
@@ -147,8 +147,8 @@ exports.detailIt = function (req, res) {
  */
 exports.updateIt = function (req, res) {
     try {
-        var query = {id: req.body.typeid};
-        Clienttype.findOneAndUpdate(query, req.body.updatedtype, {upsert: false}, function (err, doc) {
+        var query = {id: req.body.id};
+        Clienttype.findOneAndUpdate(query, req.body.id, {upsert: false}, function (err, doc) {
             if (err) {
                 return res.status(400).send({
                     message:  err
@@ -183,8 +183,8 @@ exports.updateIt = function (req, res) {
  */
 exports.deleteIt = function (req, res) {
     try {
-        var typeid = req.params.typeid;
-        var query = {id: typeid};
+        var id = req.params.id;
+        var query = {id: id};
         Clienttype.remove(query, function (err, doc) {
             if (err) {
                 return res.status(400).send({

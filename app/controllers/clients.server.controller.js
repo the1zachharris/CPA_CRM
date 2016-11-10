@@ -123,7 +123,7 @@ exports.list = function (req, res) {
 *     }
  */
 exports.detail = function (req, res) {
-    client.find({type: req.params.type}).sort('-type').exec(function (err, client) {
+    client.find({id: req.params.id}).sort('-type').exec(function (err, client) {
         if (!client) {
             res.status(200).send()
         } else {
@@ -187,8 +187,8 @@ exports.update = function (req, res) {
 *     }
  */
 exports.delete = function (req, res) {
-    var clientid = req.params.clientid;
-    var query = {id: clientid};
+    var id = req.params.id;
+    var query = {id: id};
     client.remove(query, function (err, doc) {
         if (err) {
             return res.status(400).send({

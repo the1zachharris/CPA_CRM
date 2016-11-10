@@ -143,6 +143,7 @@ clients.controller('clientsController',[
 
             // re-select the first tab
             $scope.tabData.selectedIndex = 0;
+            $scope.tabData.selectedIndex = 0;
 
             clientCalls.clientSearch({
                 keyword: keyword

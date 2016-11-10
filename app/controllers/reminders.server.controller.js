@@ -136,7 +136,7 @@ exports.detail = function (req, res) {
  * @apiName update
  * @apiGroup reminder
  *
- * @apiParam {reminderid} reminderid
+ * @apiParam {id} id
  * @apiParam {updatedreminder} Updatereminder
  *
  * @apiSuccessExample Success-Response:
@@ -173,7 +173,7 @@ exports.update = function (req, res) {
  * @apiName delete
  * @apiGroup reminder
  *
- * @apiParam {reminderid} reminderid
+ * @apiParam {id} id
  *
  * @apiSuccessExample Success-Response:
  * 200 OK
@@ -187,8 +187,8 @@ exports.update = function (req, res) {
  */
 exports.delete = function (req, res) {
     try {
-        var reminderid = req.params.reminderid;
-        var query = {id: reminderid};
+        var id = req.params.id;
+        var query = {id: id};
         reminder.remove(query, function (err, doc) {
             if (err) {
                 return res.status(400).send({

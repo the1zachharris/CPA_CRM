@@ -52,7 +52,7 @@ employees.config([
                         }]
                     }
                 })
-                .when('/task/update/:employeeid',{
+                .when('/employee/update/:id',{
                     name: 'employees',
                     templateUrl:'modules/employees/views/edit-employees.client.view.html',
                     label: 'Update employees',
@@ -92,7 +92,7 @@ employees.factory('employeeCalls', function($http,$log, $routeParams) {
         detailEmployee: function(){
             var promise = $http({
                 method: 'GET',
-                url: '/employees/detail/' + $routeParams.FirstName
+                url: '/employee/detail/' + $routeParams.id
             }).then(function (response) {
                 return response;
             });
@@ -101,7 +101,7 @@ employees.factory('employeeCalls', function($http,$log, $routeParams) {
         createEmployee: function(req){
             var promise = $http({
                 method: 'POST',
-                url: '/employees/create',
+                url: '/employee/create',
                 data: req
             }).then(function (response) {
                 return response;
@@ -111,7 +111,7 @@ employees.factory('employeeCalls', function($http,$log, $routeParams) {
         updateEmployee: function(req){
             var promise = $http({
                 method: 'POST',
-                url: '/employees/update',
+                url: '/employee/update',
                 data: req
             }).then(function (response) {
                 return response;
@@ -121,7 +121,7 @@ employees.factory('employeeCalls', function($http,$log, $routeParams) {
         deleteEmployee: function(req){
             var promise = $http({
                 method: 'DELETE',
-                url: '/employees/delete/' + $routeParams.employeeid,
+                url: '/employee/delete/' + $routeParams.id,
                 params: req
             }).then(function (response) {
                 return response;

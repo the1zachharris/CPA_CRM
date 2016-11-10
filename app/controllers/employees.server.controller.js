@@ -16,8 +16,7 @@ var mongoose = require('mongoose'),
  *
  * @apiParam {FirstName} FirstName
  * @apiParam {LastName} LastName
- * @apiParam {Username} Username
- * @apiParam {Password} Password
+ * @apiParam {Email} Email
  *
  * @apiSuccessExample Success-Response:
  *  200 OK
@@ -39,8 +38,7 @@ exports.create = function (req, res) {
             id: crypto.createHash('sha1').update(current_date + random).digest('hex'),
             FirstName: req.body.FirstName,
             LastName: req.body.LastName,
-            Username: req.body.Username,
-            Password: req.body.Password,
+            Email: req.body.Email,
             DateCreated: current_date
         });
 
@@ -113,25 +111,15 @@ exports.list = function (req, res) {
 *     }
  */
 exports.detail = function (req, res) {
-    try {
-        employee.find({type: req.params.type}).sort('-type').exec(function (err, employee) {
-            if (!employee.length) {
-                res.status(200).send()
-            } else {
-                if (err) {
-                    return res.status(400).send({
-                        message:  err
-                    });
-                } else {
-                    res.jsonp(employee);
-                }
-            }
-        });
-    } catch (err) {
-        return res.status(400).send({
-            message:  err
-        });
-    }
+    employee.findOne({id: req.params.id}).exec(function (err, employee) {
+        if (err) {
+            return res.status(400).send({
+                message:  err
+            });
+        } else {
+            res.jsonp(employee);
+        }
+    });
 };
 
 /**
@@ -153,9 +141,8 @@ exports.detail = function (req, res) {
 *     }
  */
 exports.update = function (req, res) {
-    try {
-        var query = {id: req.body.typeid};
-        employee.findOneAndUpdate(query, req.body.updatedemployee, {upsert: false}, function (err, doc) {
+        var query = {id: req.body.id};
+        employee.findOneAndUpdate(query, req.body, {upsert: false}, function (err, doc) {
             if (err) {
                 return res.status(400).send({
                     message:  err
@@ -164,11 +151,6 @@ exports.update = function (req, res) {
                 res.status(200).send({results: doc});
             }
         });
-    } catch (err) {
-        return res.status(400).send({
-            message:  err
-        });
-    }
 };
 
 /**
@@ -190,8 +172,8 @@ exports.update = function (req, res) {
  */
 exports.delete = function (req, res) {
     try {
-        var employeeid = req.params.employeeid;
-        var query = {id: employeeid};
+        var id = req.params.id;
+        var query = {id: id};
         employee.remove(query, function (err, doc) {
             if (err) {
                 return res.status(400).send({

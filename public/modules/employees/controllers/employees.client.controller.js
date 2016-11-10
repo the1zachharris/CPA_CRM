@@ -63,7 +63,6 @@ employees.controller('employeesController',[
             columnDefs: [
                 { name:'First Name', field: 'FirstName' },
                 { name: 'Last Name', field: 'LastName'},
-                { name:'Username', field: 'Username' },
                 { name:'Email', field: 'Email'},
                 {
                     name: 'actions',
@@ -131,9 +130,9 @@ employees.controller('employeesController',[
          * update employee
          * ===================================================================== */
         $scope.updateEmployee = function (detailedemployee) {
-
-            employeeCalls.updateTask({
-                employeeid: detailedemployee.id,
+            console.dir(detailedemployee);
+            employeeCalls.updateEmployee({
+                id: detailedemployee.id,
                 FirstName: detailedemployee.FirstName,
                 LastName: detailedemployee.LastName,
                 Email: detailedemployee.Email
@@ -141,6 +140,8 @@ employees.controller('employeesController',[
                 function (res) {
                     updatedemployee = angular.copy(res.data);
                     $scope.updatedemployee = updatedemployee;
+                    window.location.href ='#/employees';
+                    console.dir(updatedemployee);
                 },
                 function (err) {
                     console.error('Error updating employee: ' + err.message);
@@ -157,7 +158,8 @@ employees.controller('employeesController',[
             employeeCalls.detailEmployee().then(
                 function (res) {
                     detailedemployee = angular.copy(res.data);
-                    $scope.detailedtask = detailedemployee;
+                    $scope.detailedemployee = detailedemployee;
+                    console.dir(detailedemployee);
                 },
                 function (err) {
                     console.error('Error viewing employee: ' + err.message);
@@ -168,7 +170,7 @@ employees.controller('employeesController',[
         /* =====================================================================
          * Delete a task from Mongo database
          * ===================================================================== */
-        $scope.deleteTask = function (detailedemployee) {
+        $scope.deleteEmployee = function (detailedemployee) {
 
             $scope.modal = {
                 title : 'Delete ' + detailedemployee.FirstName,
@@ -187,7 +189,7 @@ employees.controller('employeesController',[
             modalInstance.result.then(
                 function () {
                     employeeCalls.deleteEmployee({
-                        employeeid: detailedemployee.id
+                        id: detailedemployee.id
                     }).then(
                         function (res) {
                             deletedemployee = angular.copy(res.data);

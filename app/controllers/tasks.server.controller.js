@@ -104,7 +104,7 @@ exports.list = function (req, res) {
 *     }
  */
 exports.detail = function (req, res) {
-    task.findOne({id: req.params.taskid}).exec(function (err, task) {
+    task.findOne({id: req.params.id}).exec(function (err, task) {
         if (err) {
             return res.status(400).send({
                 message: err
@@ -120,7 +120,7 @@ exports.detail = function (req, res) {
  * @apiName update
  * @apiGroup task
  *
- * @apiParam {taskid} taskid
+ * @apiParam {id} id
  * @apiParam {updatedtask} Updatetask
  *
  * @apiSuccessExample Success-Response:
@@ -134,7 +134,7 @@ exports.detail = function (req, res) {
 *     }
  */
 exports.update = function (req, res) {
-    var query = {id: req.body.taskid};
+    var query = {id: req.body.id};
     task.findOneAndUpdate(query, req.body, {upsert: true}, function (err, doc) {
         if (err) {
             return res.status(400).send({
@@ -151,7 +151,7 @@ exports.update = function (req, res) {
  * @apiName delete
  * @apiGroup task
  *
- * @apiParam {taskid} taskid
+ * @apiParam {id} id
  *
  * @apiSuccessExample Success-Response:
  * 200 OK
@@ -164,8 +164,8 @@ exports.update = function (req, res) {
 *     }
  */
 exports.delete = function (req, res) {
-    var taskid = req.params.taskid;
-    var query = {id: taskid};
+    var id = req.params.id;
+    var query = {id: id};
     task.remove(query, function (err, doc) {
         if (err) {
             return res.status(400).send({

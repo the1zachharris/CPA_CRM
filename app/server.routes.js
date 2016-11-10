@@ -35,8 +35,8 @@ var clientTypes = require('./controllers/clienttypes.server.controller.js');
 router.get('/clienttype/list', clientTypes.listAll);
 router.post('/clienttype/create', clientTypes.createIt);
 router.post('/clienttype/update', clientTypes.updateIt);
-router.get('/clienttype/detail/:type', clientTypes.detailIt);
-router.delete('/clienttype/:typeid', clientTypes.deleteIt);
+router.get('/clienttype/detail/:id', clientTypes.detailIt);
+router.delete('/clienttype/:id', clientTypes.deleteIt);
 
 /************************************************************************************************
  * frequency ROUTES
@@ -44,10 +44,10 @@ router.delete('/clienttype/:typeid', clientTypes.deleteIt);
  */
 var frequency = require('./controllers/frequencys.server.controller.js');
 router.get('/frequency/list', frequency.list);
-router.get('/frequency/detail/:frequency', frequency.detail);
+router.get('/frequency/detail/:id', frequency.detail);
 router.post('/frequency/create', frequency.create);
 router.post('/frequency/update', frequency.update);
-router.delete('/frequency/delete/:frequencyid', frequency.delete);
+router.delete('/frequency/delete/:id', frequency.delete);
 
 /************************************************************************************************
  * employee ROUTES
@@ -55,10 +55,10 @@ router.delete('/frequency/delete/:frequencyid', frequency.delete);
  */
 var employee = require('./controllers/employees.server.controller.js');
 router.get('/employees/list', employee.list);
-router.get('/employee/detail/:FirstName', employee.detail);
+router.get('/employee/detail/:id', employee.detail);
 router.post('/employee/create', employee.create);
 router.post('/employee/update', employee.update);
-router.delete('/employee/delete/:employeeid', employee.delete);
+router.delete('/employee/delete/:id', employee.delete);
 
 /************************************************************************************************
  * reminder ROUTES
@@ -66,10 +66,10 @@ router.delete('/employee/delete/:employeeid', employee.delete);
  */
 var reminder = require('./controllers/reminders.server.controller.js');
 router.get('/reminder/list', reminder.list);
-router.get('/reminder/detail/:Task', reminder.detail);
+router.get('/reminder/detail/:id', reminder.detail);
 router.post('/reminder/create', reminder.create);
 router.post('/reminder/update', reminder.update);
-router.delete('/reminder/delete/:reminderid', reminder.delete);
+router.delete('/reminder/delete/:id', reminder.delete);
 
 /************************************************************************************************
  * client ROUTES
@@ -77,10 +77,10 @@ router.delete('/reminder/delete/:reminderid', reminder.delete);
  */
 var client = require('./controllers/clients.server.controller.js');
 router.get('/client/list', client.list);
-router.get('/client/detail/:Name', client.detail);
+router.get('/client/detail/:id', client.detail);
 router.post('/client/create', client.create);
 router.post('/client/update', client.update);
-router.delete('/client/delete/:clientid', client.delete);
+router.delete('/client/delete/:id', client.delete);
 router.post('/client/search', client.search);
 
 /************************************************************************************************
@@ -89,9 +89,9 @@ router.post('/client/search', client.search);
  */
 var task = require('./controllers/tasks.server.controller.js');
 router.get('/task/list', task.list);
-router.get('/task/detail/:taskid', task.detail);
+router.get('/task/detail/:id', task.detail);
 router.post('/task/create', task.create);
 router.post('/task/update', task.update);
-router.delete('/task/delete/:taskid', task.delete);
+router.delete('/task/delete/:id', task.delete);
 
 module.exports = router;

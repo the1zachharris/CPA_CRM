@@ -51,7 +51,7 @@ tasks.config([
                         }]
                     }
                 })
-                .when('/task/update/:taskid',{
+                .when('/task/update/:id',{
                     name: 'tasks',
                     templateUrl:'modules/tasks/views/edit-task.client.view.html',
                     label: 'Update tasks',
@@ -90,7 +90,7 @@ tasks.factory('taskCalls', function($http,$log, $routeParams) {
         detailTask: function(){
             var promise = $http({
                 method: 'GET',
-                url: '/task/detail/' + $routeParams.taskid
+                url: '/task/detail/' + $routeParams.id
             }).then(function (response) {
                 return response;
             });
@@ -120,7 +120,7 @@ tasks.factory('taskCalls', function($http,$log, $routeParams) {
         deleteTask: function(req){
             var promise = $http({
                 method: 'DELETE',
-                url: '/task/delete/' + $routeParams.taskid,
+                url: '/task/delete/' + $routeParams.id,
                 params: req
             }).then(function (response) {
                 return response;
