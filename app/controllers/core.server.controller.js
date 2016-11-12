@@ -34,7 +34,7 @@ exports.index = function (req, res) {
     } else {
         res.render('index');
         //res.render('signin');
-        //TODO: pass the requested URL on so that post login OCL can take them there in case it was a deep link
+        //TODO: pass the requested URL on so that post login TT can take them there in case it was a deep link
 
     }
     //  }

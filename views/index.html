@@ -82,6 +82,8 @@
     <!--now for the app.js -->
     <script src="app.js"></script>
 
+    <script src="modules/core/controllers/header.client.controller.js"></script> <!-- Header Controller -->
+
     <!-- load the clients Module -->
     <script src="clientsModule.js"></script>
 
@@ -91,11 +93,15 @@
     <!-- load the employees Module -->
     <script src="employeesModule.js"></script>
 
-    <script src="applicationsModule.js"></script> <!-- Applications -->
+    <!-- load the applications Module -->
+    <script src="applicationsModule.js"></script>
+
 </head>
-{% raw %}
+
 <body >
+<header data-ng-include="'modules/core/views/header.client.view.html'" class="navbar navbar-fixed-top navbar-inverse"></header>
+{% raw %}
     <ng-view></ng-view>
-</body>
 {% endraw %}
+</body>
 </html>

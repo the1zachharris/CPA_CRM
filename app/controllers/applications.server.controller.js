@@ -13,7 +13,7 @@ var mongoose = require('mongoose'),
 /**
  * @apiUse ApplicationVersion
  * @api {post} /applications/:myApp/:myPerm Create Application
- * @apiDescription Create an application within the OCL framework with menus and security params
+ * @apiDescription Create an application within the TT framework with menus and security params
  * @apiName Create
  * @apiGroup Applications
  * @apiParam {String} myApp  Mandatory Name of Application required via security.
@@ -130,7 +130,7 @@ exports.getSettings = function(req, res) {
 /**
  * @apiUse ApplicationVersion
  * @api {post} /applications/update/:myApp/:myPerm Update Application
- * @apiDescription Update an application within the OCL framework with menus and security params
+ * @apiDescription Update an application within the TT framework with menus and security params
  * @apiName Update
  * @apiGroup Applications
  * @apiParam {String} myApp  Mandatory Name of Application required via security.

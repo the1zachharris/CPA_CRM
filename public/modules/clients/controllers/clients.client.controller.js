@@ -679,14 +679,14 @@ clients.controller('clientsController',[
 
         function logError(logMessage, userMessage) {
             console.error(logMessage);
-            oclLog.log('error', logMessage);
+            console.log('error', logMessage);
             $mdDialog.hide();
             $mdDialog.show(
                 $mdDialog
                     .alert()
                     .parent(angular.element(document.querySelector('body#OCL')))
                     .title('Error')
-                    .content((userMessage || logMessage) + ' - If the error persists submit an email to DL-OCLFeedback@Level3.com that describes your error and the steps you took to see the error.')
+                    .content((userMessage || logMessage) + ' - If the error persists submit an email to askmaud@tasktrakker.com that describes your error and the steps you took to see the error.')
                     .ariaLabel('Error Dialog')
                     .ok('OK')
                     .clickOutsideToClose(false)

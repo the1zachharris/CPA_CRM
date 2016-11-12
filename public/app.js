@@ -46,37 +46,29 @@ var app = angular.module('TrakkTask', [
 
 app.config(['$routeProvider', '$controllerProvider', '$provide', function ($routeProvider, $ocLazyLoad) {
         $routeProvider
-            .when('/unauthorized', {
-                templateUrl: 'modules/core/views/home.client.view.html',
-                label: 'Dashboard',
-                controller: 'MainController',
+            .when('/',{
+                name: 'clients',
+                templateUrl:'modules/clients/views/clients.view.html',
+                label: 'clients',
+                controller: 'clientsController',
                 resolve: {
                     loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
                         return $ocLazyLoad.load({
-                            name: 'MainController',
+                            name: 'clientsController',
                             files:[
+                                // Controllers
+                                'modules/clients/controllers/clients.client.controller.js',
+
                                 // Styles
-                                'modules/core/css/home.client.styles.css'
-                            ]
-                        });
+                                'modules/core/css/datagrids.client.styles.css',
+                                'modules/core/css/tabsets.client.styles.css',
+                                'modules/core/css/search.client.styles.css',
+                                'modules/clients/css/clients.client.styles.css',
+                                'modules/clients/css/client-search.client.style.css'
+                            ]});
                     }]
                 }
-            })
-            .when('/', {
-                templateUrl: 'modules/clients/views/clients.view.html',
-                label: 'Dashboard',
-                controller: 'MainController',
-                resolve: {
-                    loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
-                        return $ocLazyLoad.load({
-                            name: 'MainController',
-                            files:[
-                                // Styles
-                                'modules/core/css/home.client.styles.css'
-                            ]
-                        });
-                    }]
-                }
+
             })
             .otherwise({
                 redirectTo: '/'
@@ -396,7 +388,7 @@ app.factory('FeedbackService', ['$window', function($window) {
             + '\nBrowser: ' + data.ua.browser.name + ' v' + data.ua.browser.version + ' on ' + data.ua.os.name + ' ' + data.ua.os.version
             + '\nServer: ' + $window.location.hostname;
 
-        var feedbackUrl = 'mailto:DL-TaskMasterFeedback@Level3.com?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+        var feedbackUrl = 'mailto:askMaud@tasktrakker.com?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
 
         return feedbackUrl;
     };

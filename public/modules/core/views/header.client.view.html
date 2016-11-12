@@ -1,0 +1,88 @@
+<div class="container" ng-controller="HeaderController" header layout-gt-sm="row">
+    <a ng-href="#/" class="navbar-brand" style="padding: 0;"><img src="images/logoTT.png" width="114" height="30" alt="TrakkTask" class="pull-left"></a>
+    <div>
+        <nav>
+			<span style="color: #999;display: inline-block;font-size: 1.51em;padding:3px 0;">
+                <span>
+                    <a href ng-click="openModal();">TrakkTask&nbsp;<em style="font-size: 0.71em;">[BETA]</em></a>
+                </span>
+                <em style="font-size: 0.71em;">
+                    &nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;Optimized for use with
+					<a href="https://www.google.com/chrome/" target="_blank">Chrome</a>
+					and <a href="https://www.mozilla.org/firefox/" target="_blank">Firefox</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<a ng-click="emailTTfeedback();" style="cursor: pointer;">TrakkTask Feedback</a>
+                </em>
+            </span>
+            <span>
+                <a ng-click="navTo(page);" style="cursor: pointer;">Tasks</a>
+            </span>
+        </nav>
+    </div>
+    <!-- Previous User Menu
+    <nav class="collapse navbar-collapse pull-right" collapse="!isCollapsed" role="navigation">
+        <div class="dropdown">
+            <button class="btn btn-primary dropdown-toggle navBtn" id="signOutMenu" type="button" data-toggle="dropdown">
+                <span></span>&nbsp;&nbsp;&nbsp;<i class="fa fa-user"></i>&nbsp;<span class="caret"></span></button>
+            </button>
+            <ul class="dropdown-menu" role="menu" aria-labelledby="signOutMenu">
+                <li role="signout"><a role="menuitem" tabindex="-1" href="/auth/signout">Sign Out</a></li>
+            </ul>
+        </div>
+    </nav>
+    -->
+
+    <!-- flexible spacer width -->
+    <span flex></span>
+
+
+
+    <!-- User menu -->
+    <md-menu md-offset="0 48">
+        <md-button aria-label="User menu" class="md-icon-button" ng-click="user.openMenu($mdOpenMenu, $event)">
+            <i class="fa fa-user"></i>
+            <md-tooltip md-delay="2000">My TrakkTask</md-tooltip>
+        </md-button>
+        <md-menu-content width="3" class="userMenu widget">
+            <md-menu-item><h5>{{userFullName}}</h5></md-menu-item>
+            <md-menu-divider></md-menu-divider>
+            <md-menu-item>
+                <md-button ng-click="user.logout()">
+                    <i class="fa fa-sign-out"></i>
+                    Logout
+                </md-button>
+            </md-menu-item>
+        </md-menu-content>
+    </md-menu>
+</div>
+
+<script type="text/ng-template" id="aboutModal">
+    <div class="modal-header about-header">
+        <h3>TrakkTask<br />
+        <em>Task tracking for professionals</em></h3>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <label class="col-lg-2">Version</label>
+            <div class="col-lg-10">{{version}}</div>
+        </div>
+        <div class="row">
+            <label class="col-lg-2">Node</label>
+            <div class="col-lg-10">{{nodeVersion}}</div>
+        </div>
+        <div class="row">
+            <label class="col-lg-2">Username</label>
+            <div class="col-lg-10">{{userFullName}}&nbsp;({{username}})</div>
+        </div>
+        <div class="row">
+            <label class="col-lg-2">Roles</label>
+            <div class="col-lg-10">{{formattedRoles()}}</div>
+        </div>
+        <div class="row">
+            <label class="col-lg-2">Browser</label>
+            <div class="col-lg-10">{{ua.browser.name}} v{{ua.browser.version}} on {{ua.os.name}} {{ua.os.version}}</div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" type="button" ng-click="emailTTfeedback()">Feedback</button>
+        <button class="btn btn-primary" type="button" ng-click="close()">Close</button>
+    </div>
+</script>

@@ -2,7 +2,7 @@
  * this a re-usable tab pane that you can use
  * ============================================================================================= */
 
-angular.module('opsConsoleLite').directive('ocltabs', function() {
+angular.module('TrakkTask').directive('TTtabs', function() {
     return {
         restrict : 'E',
         replace: true,

@@ -1,9 +1,9 @@
 /* ================================================================================
    Home View Content
    ================================================================================ */
-section[oclDashboard] {
+section[ttDashboard] {
 }
 
-section[oclDashboard] div.panel-group {
+section[ttDashboard] div.panel-group {
     box-shadow: 4px 4px 5px #888;
 }

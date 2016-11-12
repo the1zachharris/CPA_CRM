@@ -116,7 +116,7 @@ div.uiCurtain {
 	transition: opacity 1s ease;
 }
 
-#OCL.closeCurtain div.uiCurtain {
+#TT.closeCurtain div.uiCurtain {
 	opacity: 1;
 	display: block;
 }
