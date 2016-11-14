@@ -36,7 +36,7 @@ router.get('/clienttype/list', clientTypes.listAll);
 router.post('/clienttype/create', clientTypes.createIt);
 router.post('/clienttype/update', clientTypes.updateIt);
 router.get('/clienttype/detail/:id', clientTypes.detailIt);
-router.delete('/clienttype/:id', clientTypes.deleteIt);
+router.delete('/clienttype/delete/:id', clientTypes.deleteIt);
 
 /************************************************************************************************
  * frequency ROUTES
