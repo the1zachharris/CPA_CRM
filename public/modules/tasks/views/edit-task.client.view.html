@@ -15,12 +15,12 @@
             <i ng-if="myUpdateFieldset.actionName == 'Create'" class="glyphicon glyphicon-plus-sign"></i>
             <i ng-if="myUpdateFieldset.actionName == 'Update'" class="glyphicon glyphicon-pencil"></i>
         </button>
-        <button type="delete" class="btn btn-danger"  ng-click="deleteTask(myItem)">Delete
-            <i ng-if="myUpdateFieldset.actionName == 'Update'" class="glyphicon glyphicon-erase"></i>
-        </button>
+
     </form>
 
-
+    <button type="delete" class="btn btn-danger"  ng-click="deleteTask(myItem)">Delete
+        <i ng-if="myUpdateFieldset.actionName == 'Update'" class="glyphicon glyphicon-trash"></i>
+    </button>
     <!--
     <form ng-submit="updateTask(detailedtask)" layout="row" flex="100">
         <md-input-container flex>

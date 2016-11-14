@@ -212,8 +212,8 @@ tasks.controller('tasksController',[
         $scope.deleteTask = function (item) {
 
             $scope.modal = {
-                title : 'Delete ' + item.name,
-                body : 'Are you sure you want to delete the task, \'' + item.name + '?\''
+                title : 'Delete ' + item.Name,
+                body : 'Are you sure you want to delete the task, \'' + item.Name + '?\''
             };
             console.log('in deleteTask');
             console.dir(item);
