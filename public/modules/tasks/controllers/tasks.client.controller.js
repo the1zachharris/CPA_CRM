@@ -53,10 +53,38 @@ tasks.controller('tasksController',[
         $scope.tab = undefined;
 
         var tasks = "",
-            newTask = "",
+            newTask = '',
             updatedtask = "",
             detailedtask = "",
             deletedtask = "";
+
+        $scope.myFieldset = {
+            newitem : {},
+            actionName: 'Create',
+            collectionName: 'Task',
+            fields: [
+              { label:'Name', field: 'Name', required: true },
+              { label: 'Number', field: 'Number', required: true},
+              { label:'Frequency', field: 'Frequency', required: true},
+              { label:'Due Date', field: 'DueDate', required: true},
+              { label:'Extended Due Date', field: 'ExtendedDueDate', required: false},
+              { label:'Second Extended Due Date', field: 'SecondExtendedDueDate', required: false}
+          ]
+        };
+
+        $scope.myUpdateFieldset = {
+            myItem : {},
+            actionName: 'Update',
+            collectionName: 'Task',
+            fields: [
+                { label:'Name', field: 'Name', required: true },
+                { label: 'Number', field: 'Number', required: true},
+                { label:'Frequency', field: 'Frequency', required: true},
+                { label:'Due Date', field: 'DueDate', required: true},
+                { label:'Extended Due Date', field: 'ExtendedDueDate', required: false},
+                { label:'Second Extended Due Date', field: 'SecondExtendedDueDate', required: false}
+            ]
+        };
 
         $scope.gridOptions = {
             enableSorting: true,
@@ -169,6 +197,7 @@ tasks.controller('tasksController',[
                 function (res) {
                     detailedtask = angular.copy(res.data);
                     $scope.detailedtask = detailedtask;
+                    $scope.myItem = detailedtask;
                     console.dir(detailedtask);
                 },
                 function (err) {
@@ -180,13 +209,14 @@ tasks.controller('tasksController',[
         /* =====================================================================
          * Delete a task from Mongo database
          * ===================================================================== */
-        $scope.deleteTask = function (detailedtask) {
+        $scope.deleteTask = function (item) {
 
             $scope.modal = {
-                title : 'Delete ' + detailedtask.name,
-                body : 'Are you sure you want to delete the task, \'' + detailedtask.name + '?\''
+                title : 'Delete ' + item.name,
+                body : 'Are you sure you want to delete the task, \'' + item.name + '?\''
             };
-
+            console.log('in deleteTask');
+            console.dir(item);
             var modalInstance = $modal.open({
                 animation: true,
                 templateUrl: 'appModal',
@@ -199,10 +229,11 @@ tasks.controller('tasksController',[
             modalInstance.result.then(
                 function () {
                     taskCalls.deleteTask({
-                        taskid: detailedtask.id
+                        id: item.id
                     }).then(
                         function (res) {
                             deletedtask = angular.copy(res.data);
+                            console.dir(detailedtask);
                             $scope.deletedtask = deletedtask;
                             window.location.href ='#/tasks';
                         },
