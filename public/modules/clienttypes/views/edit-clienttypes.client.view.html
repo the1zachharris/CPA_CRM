@@ -1,0 +1,48 @@
+<section applications>
+    <div class="appheader">
+        <h3>Update Client Type <strong>{{detailedclienttype.type}}</strong></h3>
+    </div>
+    <form ng-init="viewClienttype()" ng-submit="updateClienttype(detailedclienttype)"  class="form-group col-lg-6">
+        <fieldset>
+            <div class="input-group">
+                <span class="input-group-addon">Type</span>
+                <input class="form-control" ng-model="detailedclienttype.type" required>
+            </div>
+        </fieldset>
+        <button type="submit" class="btn btn-success">Update
+            <i class="glyphicon glyphicon-plus-sign"></i>
+        </button>
+    </form>
+    <button class="btn btn-success" ng-click="deleteClienttype(detailedclienttype)">
+        <i class="glyphicon glyphicon-trash">Delete</i>
+    </button>
+
+    <!-- Modal Template -->
+
+    <script type="text/ng-template" id="appModal">
+        <div class="modal-header">
+            <i class="fa pull-right fa-{{modal.icon}}" ng-if="modal.icon" ng-class="{'error' : modal.title == 'Error','warning' : modal.title == 'Warning','success' : modal.title == 'Success'}"></i>
+            <h4 class="modal-title">{{modal.title}}</h4>
+        </div>
+        <div class="modal-body">
+            {{modal.body}}
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" type="button" ng-click="cancel()">Cancel</button>
+            <button class="btn btn-primary" type="button" ng-click="confirm()">OK</button>
+        </div>
+    </script>
+
+    <script type="text/ng-template" id="appModal2">
+        <div class="modal-header">
+            <i class="fa pull-right fa-{{modal.icon}}" ng-if="modal.icon" ng-class="{'error' : modal.title == 'Error','warning' : modal.title == 'Warning','success' : modal.title == 'Success'}"></i>
+            <h4 class="modal-title">{{modal.title}}</h4>
+        </div>
+        <div class="modal-body">
+            {{modal.body}}
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" type="button" ng-click="cancel()">OK</button>
+        </div>
+    </script>
+</section>
