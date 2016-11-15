@@ -4,8 +4,8 @@
  * Module dependencies.
  */
 var mongoose = require('mongoose'),
-    ClientModel = require('../models/clientTaskTask.server.model.js'),
-    clientTaskTask = mongoose.model('clientTaskTask'),
+    ClientModel = require('../models/clientTask.server.model.js'),
+    clientTask = mongoose.model('clientTask'),
     crypto = require('crypto');
 
 
@@ -15,17 +15,17 @@ var mongoose = require('mongoose'),
  * @apiGroup clientTaskTask
  *
  * @apiParam {clientid} clientid
- * @apiParam {Address1} Address1
- * @apiParam {Address2} Address2
- * @apiParam {City} City
- * @apiParam {StateProvince} StateProvince
- * @apiParam {PostalCode} PostalCode
- * @apiParam {Country} Country
- * @apiParam {Phone} Phone
- * @apiParam {Email} Email
- * @apiParam {Contacts} Contacts
- * @apiParam {ResponsibleEmployee} ResponsibleEmployee
- * @apiParam {Type} Type
+ * @apiParam {clientName} clientName
+ * @apiParam {taskid} taskid
+ * @apiParam {taskName} taskName
+ * @apiParam {taskDueDate} taskDueDate
+ * @apiParam {taskExtendedDueDate} taskExtendedDueDate
+ * @apiParam {taskStatus} taskStatus
+ * @apiParam {taskCompletedDate} taskCompletedDate
+ * @apiParam {taskCreatedDate} taskCreatedDate
+ * @apiParam {taskExtendedDate} taskExtendedDate
+ * @apiParam {taskStuffReceivedDate} taskStuffReceivedDate
+ * @apiParam {taskEmployeeid} taskEmployeeid
  * @apiParam {DateCreated} DateCreated
  * @apiParam {DateUpdated} DateUpdated
  * @apiParam {Tasks} Tasks
@@ -48,17 +48,17 @@ exports.create = function (req, res) {
     var v = new clientTask({
         id: crypto.createHash('sha1').update(current_date + random).digest('hex'),
         clientid: req.body.clientid,
-        Address1: req.body.Address1,
-        Address2: req.body.Address2,
-        City: req.body.City,
-        StateProvince: req.body.StateProvince,
-        PostalCode: req.body.PostalCode,
-        Country: req.body.Country,
-        Phone: req.body.Phone,
-        Email: req.body.Email,
-        Contacts: req.body.Contacts,
-        ResponsibleEmployee: req.body.ResponsibleEmployee,
-        Type: req.body.Type,
+        clientName: req.body.clientName,
+        taskid: req.body.taskid,
+        taskName: req.body.taskName,
+        taskDueDate: req.body.taskDueDate,
+        taskExtendedDueDate: req.body.taskExtendedDueDate,
+        taskStatus: req.body.taskStatus,
+        taskCompletedDate: req.body.taskCompletedDate,
+        taskCreatedDate: req.body.taskCreatedDate,
+        taskExtendedDate: req.body.taskExtendedDate,
+        taskStuffReceivedDate: req.body.taskStuffReceivedDate,
+        taskEmployeeid: req.body.taskEmployeeid,
         DateCreated: current_date,
         DateUpdated: req.body.DateUpdated,
         Tasks: req.body.Tasks
@@ -123,10 +123,7 @@ exports.list = function (req, res) {
 *     }
  */
 exports.detail = function (req, res) {
-    clientTask.find({id: req.params.id}).sort('-type').exec(function (err, clientTask) {
-        if (!clientTask) {
-            res.status(200).send()
-        } else {
+    clientTask.findOne({id: req.params.id}).exec(function (err, clientTask) {
             if (err) {
                 return res.status(400).send({
                     message:  err
@@ -134,7 +131,6 @@ exports.detail = function (req, res) {
             } else {
                 res.jsonp(clientTask);
             }
-        }
     });
 };
 
@@ -157,8 +153,9 @@ exports.detail = function (req, res) {
 *     }
  */
 exports.update = function (req, res) {
+    console.dir(req.body);
     var query = {id: req.body.id};
-    clientTask.findOneAndUpdate(query, req.body.updatedclientTask, {upsert: true}, function (err, doc) {
+    clientTask.findOneAndUpdate(query, req.body, {upsert: true}, function (err, doc) {
         if (err) {
             return res.status(400).send({
                 message:  err
@@ -190,39 +187,6 @@ exports.delete = function (req, res) {
     var id = req.params.id;
     var query = {id: id};
     clientTask.remove(query, function (err, doc) {
-        if (err) {
-            return res.status(400).send({
-                message:  err
-            });
-        } else {
-            res.status(200).send({results: doc});
-        }
-
-    })
-};
-
-/**
- * @api {search} /clientTask/:clientTask
- * @apiName search
- * @apiGroup clientTask
- *
- * @apiParam {keyword} keyword
- *
- * @apiSuccessExample Success-Response:
- * 200 OK
- *  {results: doc}
- *
- * @apiErrorExample Error-Response:
- *  400 Bad Request
- *  {
-*  "message": "error of some kind"
-*     }
- */
-exports.search = function (req, res) {
-    var keyword = req.body.keyword;
-    console.log(keyword);
-    var query = {$text: {$search: keyword}};
-    clientTask.find(query, function (err, doc) {
         if (err) {
             return res.status(400).send({
                 message:  err

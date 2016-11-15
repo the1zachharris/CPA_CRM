@@ -43,7 +43,7 @@ var clientTaskSchema = new Schema ({
         type: String
     },
     taskExtendedDate: {
-        type: Array
+        type: String
     },
     taskStuffReceivedDate: {
         type: String
