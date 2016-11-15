@@ -19,10 +19,6 @@ var frequencySchema = new Schema({
         type: String,
         required: 'Must have an frequency',
         unique: 'frequency must be unique'
-    },
-    pattern: {
-        type: Boolean,
-        required: 'Must have an pattern for the frequency'
     }
 });
 
