@@ -14,7 +14,7 @@ console.log('in server.routes now');
 
 router.get('/',core.index);
 
-/************************************************************************************************
+/*
  * APPLICATION ROUTES
  * @type {exports|module.exports}
  */
@@ -27,7 +27,7 @@ router.post('/applications/update', applications.update);
 router.delete('/applications/:applicationId', applications.delete);
 router.post('/checkApp',applications.checkName);
 
-/************************************************************************************************
+/*
  * ClientType ROUTES
  * @type {exports|module.exports}
  */
@@ -38,7 +38,7 @@ router.post('/clienttype/update', clientTypes.updateIt);
 router.get('/clienttype/detail/:id', clientTypes.detailIt);
 router.delete('/clienttype/delete/:id', clientTypes.deleteIt);
 
-/************************************************************************************************
+/*
  * frequency ROUTES
  * @type {exports|module.exports}
  */
@@ -49,7 +49,7 @@ router.post('/frequency/create', frequency.create);
 router.post('/frequency/update', frequency.update);
 router.delete('/frequency/delete/:id', frequency.delete);
 
-/************************************************************************************************
+/*
  * employee ROUTES
  * @type {exports|module.exports}
  */
@@ -60,7 +60,7 @@ router.post('/employee/create', employee.create);
 router.post('/employee/update', employee.update);
 router.delete('/employee/delete/:id', employee.delete);
 
-/************************************************************************************************
+/*
  * reminder ROUTES
  * @type {exports|module.exports}
  */
@@ -71,7 +71,7 @@ router.post('/reminder/create', reminder.create);
 router.post('/reminder/update', reminder.update);
 router.delete('/reminder/delete/:id', reminder.delete);
 
-/************************************************************************************************
+/*
  * client ROUTES
  * @type {exports|module.exports}
  */
@@ -83,7 +83,18 @@ router.post('/client/update', client.update);
 router.delete('/client/delete/:id', client.delete);
 router.post('/client/search', client.search);
 
-/************************************************************************************************
+/*
+ * clientTask ROUTES
+ * @type {exports|module.exports}
+ */
+var clientTask = require('./controllers/clientTask.server.controller.js');
+router.get('/clienttask/list', clientTask.list);
+router.get('/clienttask/detail/:id', clientTask.detail);
+router.post('/clienttask/create', clientTask.create);
+router.post('/clienttask/update', clientTask.update);
+router.delete('/clienttask/delete/:id', clientTask.delete);
+
+/*
  * task ROUTES
  * @type {exports|module.exports}
  */

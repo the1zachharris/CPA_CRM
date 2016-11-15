@@ -137,7 +137,7 @@ exports.detailIt = function (req, res) {
  */
 exports.updateIt = function (req, res) {
         var query = {id: req.body.id};
-        Clienttype.findOneAndUpdate(query, req.body, {upsert: false}, function (err, doc) {
+        Clienttype.findOneAndUpdate(query, req.body.id, {upsert: false}, function (err, doc) {
             if (err) {
                 return res.status(400).send({
                     message:  err
