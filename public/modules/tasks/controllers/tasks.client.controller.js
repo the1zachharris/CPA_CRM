@@ -58,6 +58,36 @@ tasks.controller('tasksController',[
             detailedtask = "",
             deletedtask = "";
 
+        //Build the tabset to run the CRUD for tasks
+        $scope.tasksTabset = {
+            resultsTab : {
+                active: true,
+                label: 'Results',
+                view: 'modules/tasks/views/tasks.results.view.html'
+            },
+
+            updateTab : {
+                active: false,
+                label: 'Update',
+                view: 'modules/tasks/views/edit-task.client.view.html'
+            }
+        };
+
+        /* Tab Detail Functions */
+
+        $scope.removeTab = function (index) {
+            try {
+                delete $scope.tabs[index];
+            }
+            catch (err) {
+                console.log('There was an error trying to close a tab: ' + err.message);
+            }
+        };
+
+        $scope.openNewTab = function(tabKey, tabValue) {
+            $scope.tasksTabset[tabKey] = tabValue;
+        };
+
         $scope.myFieldset = {
             newitem : {},
             actionName: 'Create',
@@ -90,20 +120,21 @@ tasks.controller('tasksController',[
             enableSorting: true,
             enableFiltering: true,
             columnDefs: [
-                { name:'Name', field: 'Name' },
-                { name: 'Number', field: 'Number'},
-                { name:'Frequency', field: 'Frequency' },
-                { name:'Due Date', field: 'DueDate'},
                 {
                     name: 'actions',
                     displayName: '',
                     cellTemplate:
-                        '<a ng-href="#/task/update/{{row.entity.id}}"  aria-label="Task Detail" class="md-mini"><i class="fa fa-info-circle"></i></a>',
+                        '<a ng-href="#/task/update/{{row.entity.id}}"  aria-label="Task Detail" class="btn btn-default"><i class="glyphicon glyphicon-pencil"></i></a>',
                     enableSorting: false,
-                    width: "60",
                     resizable: false,
+                    width: 50,
+                    height: 30,
                     pinnable: false
-                }
+                },
+                { name:'Name', field: 'Name' },
+                { name: 'Number', field: 'Number'},
+                { name:'Frequency', field: 'Frequency' },
+                { name:'Due Date', field: 'DueDate'}
             ],
             data : []
         };

@@ -13,7 +13,7 @@ tasks.config([
             $routeProvider
                 .when('/tasks',{
                     name: 'tasks',
-                    templateUrl:'modules/tasks/views/list-tasks.client.view.html',
+                    templateUrl:'modules/tasks/views/home.tasks.client.view.html',
                     label: 'tasks',
                     controller: 'tasksController',
                     resolve: {

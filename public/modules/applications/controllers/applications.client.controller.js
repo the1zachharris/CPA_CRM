@@ -70,7 +70,8 @@ var applications = angular.module('applications',[
             $scope.tabs = {
                 tab1: {
                     dead: false,
-                    active: true
+                    active: true,
+                    view: 'myHTMLfile.html'
                 },
                 tab2: {
                     dead: true,

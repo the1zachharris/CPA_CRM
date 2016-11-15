@@ -8,6 +8,7 @@ app
         '$window',
         '$modal',
         '$timeout',
+        '$location',
         //'authorization',
         'FeedbackService',
         HeaderController
@@ -18,6 +19,7 @@ function HeaderController(
     $window,
     $modal,
     $timeout,
+    $location,
     //authorization,
     feedbackService
 ) {
@@ -46,7 +48,7 @@ function HeaderController(
         console.log('navTo: ');
         console.log(page);
         //TODO: add navigation action here to move between tabs
-
+        $location.path(page.replace(/#/,  ''))
     };
 
     $scope.openModal = function (size) {

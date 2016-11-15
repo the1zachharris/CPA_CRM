@@ -1,4 +1,4 @@
-<section class="full-height nopad search" clients flex="100" layout="column">
+<section class="full-height nopad search" clients flex="100" layout="column" ng-controller="clientsController">
     <div class="appheader">
     <h3>Clients</h3>
     </div>
@@ -13,12 +13,13 @@ md-dynamic-height="false"
     >
     <md-tab ng-repeat="(tabKey,tabValue) in tabs track by $index">
     <md-tab-label>
-    <span>{{tabValue.ticketId}}</span>
+    <span>{{tabValue.clientid}}</span>
 <a ng-if="tabKey != '0'" href="" ng-click="removeTab(tabKey)"><i class="fa fa-times"></i></a>
     </md-tab-label>
     <md-tab-body>
         <div class="table-responsive resultsList" ng-class="{advCritOpen: criteriaCollapsed, advCritClosed: !criteriaCollapsed}" layout="column">
            <!--- Results grid ----->
+
             <div ng-init="listClients()"
                     ui-grid="gridOptions"
                     ui-grid-auto-resize
@@ -28,11 +29,10 @@ md-dynamic-height="false"
                     ui-grid-pagination
                     class="grid"
             ></div>
+
         </div>
     </md-tab-body>
     </md-tab>
     </md-tabs>
     </md-content>
-
-
 </section>

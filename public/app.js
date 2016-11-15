@@ -48,18 +48,16 @@ var app = angular.module('TrakkTask', [
 app.config(['$routeProvider', '$controllerProvider', '$provide', function ($routeProvider, $ocLazyLoad) {
         $routeProvider
             .when('/',{
-                name: 'clients',
-                templateUrl:'modules/clients/views/clients.view.html',
-                label: 'clients',
-                controller: 'clientsController',
+                templateUrl:'modules/core/views/masterTabset.view.html',
+                controller: 'MainController',
                 resolve: {
                     loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
                         return $ocLazyLoad.load({
-                            name: 'clientsController',
+                            name: 'MainController',
                             files:[
                                 // Controllers
                                 'modules/clients/controllers/clients.client.controller.js',
-
+                                'modules/tasks/controllers/tasks.client.controller.js',
                                 // Styles
                                 'modules/core/css/datagrids.client.styles.css',
                                 'modules/core/css/tabsets.client.styles.css',
@@ -144,6 +142,21 @@ app.controller('MainController', function (
     $mdToast
 ) {
 
+    //Build the tabset to run the navigation
+    $scope.masterTabset = {
+      clientTab : {
+          active: true,
+          label: 'Clients',
+          view: 'modules/clients/views/clients.view.html',
+          tabs: {}
+      },
+        tasksTab : {
+            active: false,
+            label: 'Tasks',
+            view: 'modules/tasks/views/home.tasks.client.view.html',
+            tabs: {}
+        }
+    };
 
     //This block of code checks for the browser version, and if not IE9, injects Angular Material
     var ua = window.navigator.userAgent;

@@ -1,0 +1,18 @@
+<section>
+<md-tabs md-border-bottom >
+    <md-tab ng-repeat="(tabKey,tabValue) in masterTabset track by $index" md-active="tabValue.active">
+        <md-tab-label>
+            <span>{{tabValue.label}}</span>
+            <!--close tab button -->
+            <!--
+            <a href="" ng-click="removeTab(tabKey)"><i class="fa fa-times"></i></a>
+            -->
+        </md-tab-label>
+        <md-tab-body>
+            <!-- this ng-if logic allow us to only load in the tab view that is currently active -->
+            <ng-include ng-if="tabKey == 'clientTab'" src="tabValue.view"></ng-include>
+            <ng-include ng-if="tabKey == 'tasksTab'" src="tabValue.view"></ng-include>
+        </md-tab-body>
+    </md-tab>
+</md-tabs>
+</section>
