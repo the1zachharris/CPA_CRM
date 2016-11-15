@@ -1,0 +1,29 @@
+[
+  {
+    "frequency": "Daily"
+  },
+  {
+    "frequency": "Weekly"
+  },
+  {
+    "frequency": "Monthly"
+  },
+  {
+    "frequency": "Monthly EOM"
+  },
+  {
+    "frequency": "Quarterly EOM"
+  },
+  {
+    "frequency": "Annual EOM"
+  },
+  {
+    "frequency": "Annual"
+  },
+  {
+    "frequency": "Quarterly"
+  },
+  {
+    "frequency": "One-Time"
+  }
+]

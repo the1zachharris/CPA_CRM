@@ -4,7 +4,7 @@
  * Module dependencies.
  */
 var mongoose = require('mongoose'),
-    FrequencyModel = require('../models/frequencys.server.model.js'),
+    FrequencyModel = require('../models/frequencies.server.model.js'),
     Frequency = mongoose.model('Frequency'),
     crypto = require('crypto');
 
