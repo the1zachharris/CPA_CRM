@@ -1,4 +1,27 @@
-<md-content ng-init="viewTask()">
+<section>
+    <div class="appheader">
+        <h3>{{myUpdateFieldset.actionName}} {{myUpdateFieldset.collectionName}} <strong>{{myItem.Name}}</strong></h3>
+    </div>
+    <form ng-init="viewTask()" ng-submit="updateTask(myItem)"  class="form-group col-lg-6">
+
+        <fieldset>
+            <div ng-repeat="item in myUpdateFieldset.fields" class="input-group">
+                <span class="input-group-addon">{{item.label}}</span>
+                <input class="form-control" ng-model="$parent.myItem[item.field]" ng-required="item.required">
+            </div>
+        </fieldset>
+
+        <button type="submit" class="btn btn-success">{{myUpdateFieldset.actionName}}
+            <i ng-if="myUpdateFieldset.actionName == 'Create'" class="glyphicon glyphicon-plus-sign"></i>
+            <i ng-if="myUpdateFieldset.actionName == 'Update'" class="glyphicon glyphicon-pencil"></i>
+        </button>
+
+    </form>
+
+    <button type="delete" class="btn btn-danger"  ng-click="deleteTask(myItem)">Delete
+        <i ng-if="myUpdateFieldset.actionName == 'Update'" class="glyphicon glyphicon-trash"></i>
+    </button>
+    <!--
     <form ng-submit="updateTask(detailedtask)" layout="row" flex="100">
         <md-input-container flex>
             <label>Name</label>
@@ -31,7 +54,7 @@
             <i class="fa fa-pencil">Delete</i>
         </md-button>
     </form>
-
+    -->
 
     <!-- Modal Template -->
 
@@ -61,4 +84,5 @@
             <button class="btn btn-primary" type="button" ng-click="cancel()">OK</button>
         </div>
     </script>
-</md-content>
+
+</section>
