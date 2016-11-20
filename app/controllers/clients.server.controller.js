@@ -187,8 +187,7 @@ exports.update = function (req, res) {
 *     }
  */
 exports.delete = function (req, res) {
-    var id = req.params.id;
-    var query = {id: id};
+    var query = {id: req.params.id};
     client.remove(query, function (err, doc) {
         if (err) {
             return res.status(400).send({
@@ -232,4 +231,66 @@ exports.search = function (req, res) {
         }
 
     })
+};
+
+/**
+ * @api {post} /client
+ * @apiName assign task
+ * @apiGroup client
+ *
+ * @apiParam {clientid} clientid
+ * @apiParam {task} task
+ *
+ * @apiSuccessExample Success-Response:
+ *  200 OK
+ *  {results: doc}
+ *
+ * @apiErrorExample Error-Response:
+ *  400 Bad Request
+ *  {
+*  "message": "error of some kind"
+*     }
+ */
+exports.assigntask = function (req, res) {
+    var query = {id: req.body.client.id};
+    client.findOneAndUpdate(query, { $push: { Tasks: req.body.task}}, {upsert: true}, function (err, doc) {
+        if (err) {
+            return res.status(400).send({
+                message:  err
+            });
+        } else {
+            res.status(200).send({results: doc});
+        }
+    });
+};
+
+/**
+ * @api {post} /client
+ * @apiName remove task
+ * @apiGroup client
+ *
+ * @apiParam {clientid} clientid
+ * @apiParam {task} task
+ *
+ * @apiSuccessExample Success-Response:
+ *  200 OK
+ *  {results: doc}
+ *
+ * @apiErrorExample Error-Response:
+ *  400 Bad Request
+ *  {
+*  "message": "error of some kind"
+*     }
+ */
+exports.removetask = function (req, res) {
+    var query = {id: req.body.client.id};
+    client.findOneAndUpdate(query, { $pull: { Tasks: req.body.task}}, {upsert: true}, function (err, doc) {
+        if (err) {
+            return res.status(400).send({
+                message:  err
+            });
+        } else {
+            res.status(200).send({results: doc});
+        }
+    });
 };

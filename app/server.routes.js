@@ -82,6 +82,8 @@ router.post('/client/create', client.create);
 router.post('/client/update', client.update);
 router.delete('/client/delete/:id', client.delete);
 router.post('/client/search', client.search);
+router.post('/client/assigntask', client.assigntask);
+router.post('/client/removetask', client.removetask);
 
 /*
  * clientTask ROUTES
