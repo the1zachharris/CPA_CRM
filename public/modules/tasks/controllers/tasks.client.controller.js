@@ -64,20 +64,22 @@ tasks.controller('tasksController',[
                 active: true,
                 label: 'Results',
                 view: 'modules/tasks/views/tasks.results.view.html'
-            },
-
+            }
+            /*
+            ,
             updateTab : {
                 active: false,
                 label: 'Update',
                 view: 'modules/tasks/views/edit-task.client.view.html'
             }
+            */
         };
 
         /* Tab Detail Functions */
 
         $scope.removeTab = function (index) {
             try {
-                delete $scope.tabs[index];
+                delete $scope.tasksTabset[index];
             }
             catch (err) {
                 console.log('There was an error trying to close a tab: ' + err.message);
