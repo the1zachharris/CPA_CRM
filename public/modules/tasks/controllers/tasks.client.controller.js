@@ -90,6 +90,11 @@ tasks.controller('tasksController',[
             $scope.tasksTabset[tabKey] = tabValue;
         };
 
+        $scope.openNewItemTab = function(itemId) {
+            console.log('in openNewItemTab, itemId: ' + itemId);
+            $scope.viewTask(itemId);
+        };
+
         $scope.myFieldset = {
             newitem : {},
             actionName: 'Create',
@@ -126,7 +131,10 @@ tasks.controller('tasksController',[
                     name: 'actions',
                     displayName: '',
                     cellTemplate:
-                        '<a ng-href="#/task/update/{{row.entity.id}}"  aria-label="Task Detail" class="btn btn-default"><i class="glyphicon glyphicon-pencil"></i></a>',
+                        '<md-button aria-label="Task Detail" class="btn btn-default" ng-click="grid.appScope.openNewItemTab(row.entity.id)">'
+                        + '<i class="glyphicon glyphicon-pencil"></i>'
+                        + '<md-tooltip>{{row.entity.Name}} Detail</md-tooltip>'
+                        + '</md-button>',
                     enableSorting: false,
                     resizable: false,
                     width: 50,
@@ -185,7 +193,11 @@ tasks.controller('tasksController',[
                 function (res) {
                     newTask = angular.copy(res.data);
                     $scope.newtask = {};
-                    window.location.href ='#/tasks';
+                    $scope.getTasks();
+                    //TODO: add toast message to notify user the record has been created
+
+                    //window.location.href ='#/tasks';
+                    $scope.removeTab('createTab');
                 },
                 function (err) {
                     $scope.badTask = 'Error creating task: ' + JSON.stringify(err.data.message);
@@ -212,7 +224,11 @@ tasks.controller('tasksController',[
                 function (res) {
                     updatedtask = angular.copy(res.data);
                     $scope.updatedtask = updatedtask;
-                    window.location.href ='#/tasks';
+                    $scope.getTasks();
+                    //TODO: add toast message to notify user the record has been updated
+
+                    //window.location.href ='#/tasks';
+                    $scope.removeTab(detailedtask.id);
                 },
                 function (err) {
                     console.error('Error updating task: ' + err.message);
@@ -224,13 +240,19 @@ tasks.controller('tasksController',[
         /* =====================================================================
          * view task
          * ===================================================================== */
-        $scope.viewTask = function () {
+        $scope.viewTask = function (taskId) {
 
-            taskCalls.detailTask().then(
+            taskCalls.detailTask(taskId).then(
                 function (res) {
+                    //FIXME: index this to allow it to close the proper tab
                     detailedtask = angular.copy(res.data);
                     $scope.detailedtask = detailedtask;
                     $scope.myItem = detailedtask;
+                    $scope.tasksTabset[taskId] = {
+                        active: true,
+                        label: $scope.myItem.Number,
+                        view: 'modules/tasks/views/edit-task.client.view.html'
+                    };
                     console.dir(detailedtask);
                 },
                 function (err) {
