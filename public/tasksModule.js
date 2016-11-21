@@ -87,10 +87,10 @@ tasks.factory('taskCalls', function($http,$log, $routeParams) {
             });
             return promise;
         },
-        detailTask: function(){
+        detailTask: function(taskId){
             var promise = $http({
                 method: 'GET',
-                url: '/task/detail/' + $routeParams.id
+                url: '/task/detail/' + taskId
             }).then(function (response) {
                 return response;
             });

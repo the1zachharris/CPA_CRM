@@ -135,3 +135,7 @@ header .btn.navBtn:hover{
         transform: scale(1);
     }
 }
+
+.oneHundred {
+    height: 100%;
+}

@@ -422,7 +422,7 @@ md-tab-content > div {
 }
 
 md-tabs:not(.md-no-tab-content):not(.md-dynamic-height) {
-    height: 100%;
+
 }
 
 .detailHeader {
