@@ -253,7 +253,7 @@ exports.search = function (req, res) {
  */
 exports.assigntask = function (req, res) {
     var query = {id: req.body.client.id};
-    client.findOneAndUpdate(query, { $push: { Tasks: req.body.task}}, {upsert: true}, function (err, doc) {
+    client.findOneAndUpdate(query, { $push: { Tasks: req.body.task }}, {upsert: true}, function (err, doc) {
         if (err) {
             return res.status(400).send({
                 message:  err

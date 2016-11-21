@@ -190,6 +190,9 @@ clients.controller('clientsController',[
                 }
             );
         };
+        $scope.assignTask = function () {
+            clientCalls.assignTask({})
+        };
 
         /* Tab handling */
         $scope.tabs = {

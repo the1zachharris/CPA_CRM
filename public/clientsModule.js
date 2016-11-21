@@ -182,6 +182,16 @@ clients.factory('clientCalls', function($http,$log, $routeParams) {
             });
             // Return the promise to the controller
             return promise;
+        },
+        assignTask: function(req){
+            var promise = $http({
+                method: 'POST',
+                url: '/client/assigntask'
+            }).then(function (response) {
+                return response;
+            });
+            // Return the promise to the controller
+            return promise;
         }
     };
     return clientsMasterService;
