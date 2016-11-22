@@ -55,7 +55,7 @@ tasks.controller('tasksController',[
         var tasks = "",
             newTask = '',
             updatedtask = "",
-            detailedtask = "",
+            detailedtask = {},
             deletedtask = "";
 
         //Build the tabset to run the CRUD for tasks
@@ -65,14 +65,6 @@ tasks.controller('tasksController',[
                 label: 'Results',
                 view: 'modules/tasks/views/tasks.results.view.html'
             }
-            /*
-            ,
-            updateTab : {
-                active: false,
-                label: 'Update',
-                view: 'modules/tasks/views/edit-task.client.view.html'
-            }
-            */
         };
 
         /* Tab Detail Functions */
@@ -91,7 +83,6 @@ tasks.controller('tasksController',[
         };
 
         $scope.openNewItemTab = function(itemId) {
-            console.log('in openNewItemTab, itemId: ' + itemId);
             $scope.viewTask(itemId);
         };
 
@@ -244,14 +235,12 @@ tasks.controller('tasksController',[
 
             taskCalls.detailTask(taskId).then(
                 function (res) {
-                    //FIXME: index this to allow it to close the proper tab
                     detailedtask = angular.copy(res.data);
-                    $scope.detailedtask = detailedtask;
-                    $scope.myItem = detailedtask;
                     $scope.tasksTabset[taskId] = {
                         active: true,
-                        label: $scope.myItem.Number,
-                        view: 'modules/tasks/views/edit-task.client.view.html'
+                        label: detailedtask.Number,
+                        view: 'modules/tasks/views/edit-task.client.view.html',
+                        item: detailedtask
                     };
                     console.dir(detailedtask);
                 },

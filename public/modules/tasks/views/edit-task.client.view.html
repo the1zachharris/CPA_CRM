@@ -1,14 +1,14 @@
 <section>
     <div class="appheader">
-        <h3>{{myUpdateFieldset.actionName}} {{myUpdateFieldset.collectionName}} <strong>{{myItem.Name}}</strong></h3>
+        <h3>{{myUpdateFieldset.actionName}} {{myUpdateFieldset.collectionName}} <strong>{{tabValue.item.Name}}</strong></h3>
     </div>
 
-    <form ng-submit="updateTask(myItem)"  class="form-group">
+    <form ng-submit="updateTask(tabValue.item)"  class="form-group">
 
         <fieldset>
             <div ng-repeat="item in myUpdateFieldset.fields" class="input-group">
                 <span class="input-group-addon">{{item.label}}</span>
-                <input class="form-control" ng-model="$parent.myItem[item.field]" ng-required="item.required">
+                <input class="form-control" ng-model="$parent.tabValue.item[item.field]" ng-required="item.required">
             </div>
         </fieldset>
 
