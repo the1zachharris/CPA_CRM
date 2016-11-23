@@ -711,9 +711,6 @@ clients.controller('clientsController',[
         }
 
 
-
-
-
     }
 ]).directive('notesWizard', function(){
     return {

@@ -279,19 +279,3 @@ employees.controller('employeesController',[
     }
 ]);
 
-/* ================================================================================
- Modal Controller
- * ================================================================================ */
-employees.controller('ModalInstanceCtrl', function ($scope, $modalInstance) {
-
-    $scope.cancel = function () {
-        // $log.info('We are canceling...');
-        $modalInstance.dismiss('cancel');
-    };
-    $scope.confirm = function () {
-        //$log.info('We are confirming...');
-        $modalInstance.close('closed');
-    };
-
-
-});
