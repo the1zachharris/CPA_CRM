@@ -128,7 +128,7 @@ clienttypes.controller('clienttypesController',[
         };
 
 
-        $scope.refreshClientTypeData = function (keyword) {
+        $scope.refreshData = function (keyword) {
             $scope.gridOptions.data = $scope.clienttypes;
             while (keyword) {
                 var oSearchArray = keyword.split(' ');

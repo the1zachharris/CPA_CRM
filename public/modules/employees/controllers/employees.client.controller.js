@@ -49,31 +49,86 @@ employees.controller('employeesController',[
         $log
     ) {
 
-        $scope.appheader = 'employees';
+        $scope.appheader = 'Employees';
         $scope.tab = undefined;
 
         var employees = "",
+            newEmployee = '',
             updatedemployee = "",
-            detailedemployee = "",
+            detailedemployee = {},
             deletedemployee = "";
+
+        //Build the tabset to run the CRUD for employees
+        $scope.employeesTabset = {
+            resultsTab : {
+                active: true,
+                label: 'Results',
+                view: 'modules/core/views/grid.results.view.html'
+            }
+        };
+
+        /* Tab Detail Functions */
+
+        $scope.removeTab = function (index) {
+            try {
+                delete $scope.employeesTabset[index];
+            }
+            catch (err) {
+                console.log('There was an error trying to close a tab: ' + err.message);
+            }
+        };
+
+        $scope.openNewTab = function(tabKey, tabValue) {
+            $scope.employeesTabset[tabKey] = tabValue;
+        };
+
+        $scope.openNewItemTab = function(itemId) {
+            $scope.viewEmployee(itemId);
+        };
+
+        $scope.myFieldset = {
+            newitem : {},
+            actionName: 'Create',
+            collectionName: 'Employee',
+            fields: [
+                { label:'First Name', field: 'FirstName', required: true },
+                { label: 'Last Name', field: 'LastName', required: true},
+                { label:'Email', field: 'Email', required: true}
+          ]
+        };
+
+        $scope.myUpdateFieldset = {
+            myItem : {},
+            actionName: 'Update',
+            collectionName: 'Employee',
+            fields: [
+                { label:'First Name', field: 'FirstName', required: true },
+                { label: 'Last Name', field: 'LastName', required: true},
+                { label:'Email', field: 'Email', required: true}
+            ]
+        };
 
         $scope.gridOptions = {
             enableSorting: true,
             enableFiltering: true,
             columnDefs: [
-                { name:'First Name', field: 'FirstName' },
-                { name: 'Last Name', field: 'LastName'},
-                { name:'Email', field: 'Email'},
                 {
                     name: 'actions',
                     displayName: '',
                     cellTemplate:
-                        '<a ng-href="#/employee/update/{{row.entity.id}}"  aria-label="Employees Detail" class="md-mini"><i class="fa fa-info-circle"></i></a>',
+                        '<md-button aria-label="Employee Detail" class="btn btn-default" ng-click="grid.appScope.openNewItemTab(row.entity.id)">'
+                        + '<i class="glyphicon glyphicon-pencil"></i>'
+                        + '<md-tooltip>{{row.entity.type}} Detail</md-tooltip>'
+                        + '</md-button>',
                     enableSorting: false,
-                    width: "60",
                     resizable: false,
+                    width: 50,
+                    height: 30,
                     pinnable: false
-                }
+                },
+                { name:'First Name', field: 'FirstName' },
+                { name: 'Last Name', field: 'LastName'},
+                { name:'Email', field: 'Email'}
             ],
             data : []
         };
@@ -98,6 +153,7 @@ employees.controller('employeesController',[
                 function (res) {
                     employees = angular.copy(res.data);
                     $scope.employees = employees;
+                    console.dir(employees);
                     $scope.gridOptions.data = employees;
                 },
                 function (err) {
@@ -108,18 +164,24 @@ employees.controller('employeesController',[
         /* =====================================================================
          * create new employee
          * ===================================================================== */
-        $scope.createEmployee = function (newemployee) {
+        $scope.createItem = function (newemployee) {
+            console.log(newemployee);
             employeeCalls.createEmployee({
                 FirstName: newemployee.FirstName,
                 LastName: newemployee.LastName,
                 Email: newemployee.Email
             }).then(
                 function (res) {
-                    newemployee = angular.copy(res.data);
+                    newEmployee = angular.copy(res.data);
                     $scope.newemployee = {};
-                    window.location.href ='#/employees';
+                    $scope.getEmployees();
+                    //TODO: add toast message to notify user the record has been created
+
+                    //window.location.href ='#/employees';
+                    $scope.removeTab('createTab');
                 },
                 function (err) {
+                    $scope.badEmployee = 'Error creating employee: ' + JSON.stringify(err.data.message);
                     console.error('Error creating employee: ' + JSON.stringify(err.data.message));
                 }
             );
@@ -129,8 +191,7 @@ employees.controller('employeesController',[
         /* =====================================================================
          * update employee
          * ===================================================================== */
-        $scope.updateEmployee = function (detailedemployee) {
-            console.dir(detailedemployee);
+        $scope.updateItem = function (detailedemployee) {
             employeeCalls.updateEmployee({
                 id: detailedemployee.id,
                 FirstName: detailedemployee.FirstName,
@@ -140,8 +201,11 @@ employees.controller('employeesController',[
                 function (res) {
                     updatedemployee = angular.copy(res.data);
                     $scope.updatedemployee = updatedemployee;
-                    window.location.href ='#/employees';
-                    console.dir(updatedemployee);
+                    $scope.getEmployees();
+                    //TODO: add toast message to notify user the record has been updated
+
+                    //window.location.href ='#/employees';
+                    $scope.removeTab(detailedemployee.id);
                 },
                 function (err) {
                     console.error('Error updating employee: ' + err.message);
@@ -151,15 +215,20 @@ employees.controller('employeesController',[
 
 
         /* =====================================================================
-         * view task
+         * view employee
          * ===================================================================== */
-        $scope.viewEmployee = function () {
-
-            employeeCalls.detailEmployee().then(
+        $scope.viewEmployee = function (employeeId) {
+            console.log(employeeId);
+            employeeCalls.detailEmployee(employeeId).then(
                 function (res) {
                     detailedemployee = angular.copy(res.data);
-                    $scope.detailedemployee = detailedemployee;
-                    console.dir(detailedemployee);
+                    console.dir(deletedemployee);
+                    $scope.employeesTabset[employeeId] = {
+                        active: true,
+                        label: detailedemployee.FirstName + ' ' + detailedemployee.LastName,
+                        view: 'modules/core/views/edit-item.client.view.html',
+                        item: detailedemployee
+                    };
                 },
                 function (err) {
                     console.error('Error viewing employee: ' + err.message);
@@ -168,15 +237,14 @@ employees.controller('employeesController',[
         };
 
         /* =====================================================================
-         * Delete a task from Mongo database
+         * Delete a employee from Mongo database
          * ===================================================================== */
-        $scope.deleteEmployee = function (detailedemployee) {
+        $scope.deleteItem = function (item) {
 
             $scope.modal = {
-                title : 'Delete ' + detailedemployee.FirstName,
-                body : 'Are you sure you want to delete this employee, \'' + detailedemployee.FirstName + '?\''
+                title : 'Delete ' + item.FirstName + ' ' + item.LastName,
+                body : 'Are you sure you want to delete the employee, \'' + item.FirstName + ' ' + item.LastName + '?\''
             };
-
             var modalInstance = $modal.open({
                 animation: true,
                 templateUrl: 'appModal',
@@ -185,16 +253,17 @@ employees.controller('employeesController',[
                 size: 'md'
                 // resolve: {}
             });
-
             modalInstance.result.then(
                 function () {
+                    console.dir(item);
                     employeeCalls.deleteEmployee({
-                        id: detailedemployee.id
+                        id: item.id
                     }).then(
                         function (res) {
                             deletedemployee = angular.copy(res.data);
                             $scope.deletedemployee = deletedemployee;
-                            window.location.href ='#/employees';
+                            $scope.getEmployees();
+                            $scope.removeTab(item.id);
                         },
                         function (err) {
                             console.error('Error deleting employee: ' + err.message);
