@@ -214,7 +214,7 @@ clienttypes.controller('clienttypesController',[
                     detailedclienttype = angular.copy(res.data);
                     $scope.clienttypesTabset[clienttypeId] = {
                         active: true,
-                        label: detailedclienttype.Number,
+                        label: detailedclienttype.type,
                         view: 'modules/core/views/edit-item.client.view.html',
                         item: detailedclienttype
                     };
