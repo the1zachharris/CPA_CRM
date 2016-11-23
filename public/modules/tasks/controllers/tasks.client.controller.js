@@ -63,7 +63,7 @@ tasks.controller('tasksController',[
             resultsTab : {
                 active: true,
                 label: 'Results',
-                view: 'modules/tasks/views/tasks.results.view.html'
+                view: 'modules/core/views/grid.results.view.html'
             }
         };
 
@@ -239,10 +239,9 @@ tasks.controller('tasksController',[
                     $scope.tasksTabset[taskId] = {
                         active: true,
                         label: detailedtask.Number,
-                        view: 'modules/tasks/views/edit-task.client.view.html',
+                        view: 'modules/core/views/edit-item.client.view.html',
                         item: detailedtask
                     };
-                    console.dir(detailedtask);
                 },
                 function (err) {
                     console.error('Error viewing task: ' + err.message);
@@ -259,8 +258,6 @@ tasks.controller('tasksController',[
                 title : 'Delete ' + item.Name,
                 body : 'Are you sure you want to delete the task, \'' + item.Name + '?\''
             };
-            console.log('in deleteTask');
-            console.dir(item);
             var modalInstance = $modal.open({
                 animation: true,
                 templateUrl: 'appModal',
@@ -269,17 +266,17 @@ tasks.controller('tasksController',[
                 size: 'md'
                 // resolve: {}
             });
-
             modalInstance.result.then(
                 function () {
+                    console.dir(item);
                     taskCalls.deleteTask({
                         id: item.id
                     }).then(
                         function (res) {
                             deletedtask = angular.copy(res.data);
-                            console.dir(detailedtask);
                             $scope.deletedtask = deletedtask;
-                            window.location.href ='#/tasks';
+                            $scope.getTasks();
+                            $scope.removeTab(item.id);
                         },
                         function (err) {
                             console.error('Error deleting task: ' + err.message);
