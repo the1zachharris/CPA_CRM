@@ -6,10 +6,49 @@
     <form ng-submit="updateItem(tabValue.item)"  class="form-group">
 
         <fieldset>
+            <!-- CSS docs for this form stuff: http://getbootstrap.com/components/#input-groups -->
             <div ng-repeat="item in myUpdateFieldset.fields" class="input-group">
                 <span class="input-group-addon">{{item.label}}</span>
                 <input class="form-control" ng-if="item.field !== 'Frequency'" ng-model="$parent.tabValue.item[item.field]" ng-required="item.required">
-                <typeahead-dropdown ng-model="$parent.tabValue.item[item.field]" ng-if="item.field == 'Frequency'" class="form-control" options="$parent.frequencies" config="config" ng-model="$parent.newitem[item.field]" ng-required="item.required">
+                <!-- check documentation on this one to see if there is a separate attribute on the search for the string --->
+                <typeahead-dropdown
+                        ng-model="$parent.tabValue.item[item.field]"
+                        ng-if="item.field == 'Frequency'"
+                        options="$parent.frequencies"
+                        config="config"
+                        ng-required="item.required">
+                    <!--
+                    https://material.angularjs.org/1.0.7/api/directive/mdAutocomplete
+                    <md-autocomplete
+                        class="searchField"
+                        flex-gt-sm="15"
+                        md-autoselect="true"
+                        md-select-on-match="true"
+                        md-min-length="0"
+                        md-selected-item="search.caseType"
+                        md-selected-item-change="search.setCaseType()"
+                        md-search-text="search.caseTypeText"
+                        md-items="type in search.getCaseTypes(search.caseTypeText)"
+                        md-item-text="type.name"
+                        md-floating-label="Case Type"
+                    >
+                    |||| or |||||||
+                    http://angular-ui.github.io/bootstrap/versioned-docs/0.14.2/#typeahead
+                    <input
+                        type="text"
+                        ng-model="m.name"
+                        class="form-control"
+                        placeholder="Name of field to match"
+                        typeahead="f.id as f.name for f in fieldMatches"
+                        typeahead-min-length="3"
+                        typeahead-wait-ms="500"
+                        typeahead-on-select="setMatchValue($item,$index,field.id)"
+                        typeahead-select-on-exact="true"
+                        typeahead-select-on-blur="true"
+                        ng-change="getFieldMatches(m.name)"
+                        ng-repeat="m in $chip.matches"
+                    >
+                    -->
             </div>
         </fieldset>
 
