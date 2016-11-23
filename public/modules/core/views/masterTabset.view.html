@@ -12,6 +12,7 @@
             <!-- this ng-if logic allow us to only load in the tab view that is currently active -->
             <ng-include ng-if="tabKey == 'clientTypeTab'" src="tabValue.view"></ng-include>
             <ng-include ng-if="tabKey == 'tasksTab'" src="tabValue.view"></ng-include>
+            <ng-include ng-if="tabKey == 'employeesTab'" src="tabValue.view"></ng-include>
         </md-tab-body>
     </md-tab>
 </md-tabs>

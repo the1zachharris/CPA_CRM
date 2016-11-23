@@ -13,7 +13,7 @@ employees.config([
             $routeProvider
                 .when('/employees',{
                     name: 'employees',
-                    templateUrl:'modules/employees/views/list-employees.client.view.html',
+                    templateUrl:'modules/employees/views/home.employees.client.view.html',
                     label: 'employees',
                     controller: 'employeesController',
                     resolve: {
@@ -35,7 +35,7 @@ employees.config([
                 })
                 .when('/employees/create',{
                     name: 'employees',
-                    templateUrl:'modules/employees/views/create-employees.client.view.html',
+                    templateUrl:'modules/core/views/create-item.client.view.html',
                     label: 'Create employees',
                     controller: 'employeesController',
                     resolve: {
@@ -54,7 +54,7 @@ employees.config([
                 })
                 .when('/employee/update/:id',{
                     name: 'employees',
-                    templateUrl:'modules/employees/views/edit-employees.client.view.html',
+                    templateUrl:'modules/core/views/edit-item.client.view.html',
                     label: 'Update employees',
                     controller: 'employeesController',
                     resolve: {
@@ -89,10 +89,10 @@ employees.factory('employeeCalls', function($http,$log, $routeParams) {
             });
             return promise;
         },
-        detailEmployee: function(){
+        detailEmployee: function(itemid){
             var promise = $http({
                 method: 'GET',
-                url: '/employee/detail/' + $routeParams.id
+                url: '/employee/detail/' + itemid
             }).then(function (response) {
                 return response;
             });
@@ -121,7 +121,7 @@ employees.factory('employeeCalls', function($http,$log, $routeParams) {
         deleteEmployee: function(req){
             var promise = $http({
                 method: 'DELETE',
-                url: '/employee/delete/' + $routeParams.id,
+                url: '/employee/delete/' + req.id,
                 params: req
             }).then(function (response) {
                 return response;

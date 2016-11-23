@@ -128,7 +128,7 @@ clienttypes.controller('clienttypesController',[
         };
 
 
-        $scope.refreshClientTypeData = function (keyword) {
+        $scope.refreshData = function (keyword) {
             $scope.gridOptions.data = $scope.clienttypes;
             while (keyword) {
                 var oSearchArray = keyword.split(' ');
@@ -267,20 +267,3 @@ clienttypes.controller('clienttypesController',[
         };
     }
 ]);
-
-/* ================================================================================
- Modal Controller
- * ================================================================================ */
-clienttypes.controller('ModalInstanceCtrl', function ($scope, $modalInstance) {
-
-    $scope.cancel = function () {
-        // $log.info('We are canceling...');
-        $modalInstance.dismiss('cancel');
-    };
-    $scope.confirm = function () {
-        //$log.info('We are confirming...');
-        $modalInstance.close('closed');
-    };
-
-
-});

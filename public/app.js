@@ -59,6 +59,7 @@ app.config(['$routeProvider', '$controllerProvider', '$provide', function ($rout
                                 'modules/clients/controllers/clients.client.controller.js',
                                 'modules/tasks/controllers/tasks.client.controller.js',
                                 'modules/clienttypes/controllers/clienttypes.client.controller.js',
+                                'modules/employees/controllers/employees.client.controller.js',
                                 // Styles
                                 'modules/core/css/datagrids.client.styles.css',
                                 'modules/core/css/tabsets.client.styles.css',
@@ -163,6 +164,12 @@ app.controller('MainController', function (
             active: false,
             label: 'Client Types',
             view: 'modules/clienttypes/views/home.clienttypes.client.view.html',
+            tabs: {}
+        },
+        employeesTab : {
+            active: false,
+            label: 'Employees',
+            view: 'modules/employees/views/home.employees.client.view.html',
             tabs: {}
         }
     };
@@ -411,7 +418,7 @@ app.factory('FeedbackService', ['$window', function($window) {
             + '\nBrowser: ' + data.ua.browser.name + ' v' + data.ua.browser.version + ' on ' + data.ua.os.name + ' ' + data.ua.os.version
             + '\nServer: ' + $window.location.hostname;
 
-        var feedbackUrl = 'mailto:askMaud@tasktrakker.com?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+        var feedbackUrl = 'mailto:askMaud@trakktask.com?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
 
         return feedbackUrl;
     };
@@ -613,7 +620,6 @@ app.controller('MenuController', [
 
     }
 ]);
-
 
 
 
