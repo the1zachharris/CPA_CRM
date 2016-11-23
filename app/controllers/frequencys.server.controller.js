@@ -71,25 +71,15 @@ exports.create = function (req, res) {
 *     }
  */
 exports.list = function (req, res) {
-    try {
-        Frequency.find().sort('-type').exec(function (err, frequency) {
-            if (!frequency.length) {
-                res.status(200).send({frequency: frequency})
-            } else {
-                if (err) {
-                    return res.status(400).send({
-                        message:  err
-                    });
-                } else {
-                    res.jsonp(frequency);
-                }
-            }
-        });
-    } catch (err) {
-        return res.status(400).send({
-            message:  err
-        });
-    }
+    Frequency.find().sort('-type').exec(function (err, frequency) {
+        if (err) {
+            return res.status(400).send({
+                message:  err
+            });
+        } else {
+            res.jsonp(frequency);
+        }
+    });
 };
 
 /**

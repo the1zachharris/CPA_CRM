@@ -117,6 +117,16 @@ tasks.factory('taskCalls', function($http,$log, $routeParams) {
             });
             return promise;
         },
+        getFrequencies: function(req){
+            var promise = $http({
+                method: 'GET',
+                url: '/frequency/list',
+                params : req
+            }).then(function (response) {
+                return response;
+            });
+            return promise;
+        },
         deleteTask: function(req){
             console.dir(req);
             var promise = $http({

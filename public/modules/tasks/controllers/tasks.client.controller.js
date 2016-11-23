@@ -56,6 +56,7 @@ tasks.controller('tasksController',[
             newTask = '',
             updatedtask = "",
             detailedtask = {},
+            frequencies = "",
             deletedtask = "";
 
         //Build the tabset to run the CRUD for tasks
@@ -79,10 +80,12 @@ tasks.controller('tasksController',[
         };
 
         $scope.openNewTab = function(tabKey, tabValue) {
+            $scope.getFrequencies();
             $scope.tasksTabset[tabKey] = tabValue;
         };
 
         $scope.openNewItemTab = function(itemId) {
+            $scope.getFrequencies();
             $scope.viewTask(itemId);
         };
 
@@ -93,10 +96,10 @@ tasks.controller('tasksController',[
             fields: [
               { label:'Name', field: 'Name', required: true },
               { label: 'Number', field: 'Number', required: true},
-              { label:'Frequency', field: 'Frequency', required: true},
               { label:'Due Date', field: 'DueDate', required: true},
               { label:'Extended Due Date', field: 'ExtendedDueDate', required: false},
-              { label:'Second Extended Due Date', field: 'SecondExtendedDueDate', required: false}
+              { label:'Second Extended Due Date', field: 'SecondExtendedDueDate', required: false},
+              { label:'Frequency', field: 'Frequency', required: true}
           ]
         };
 
@@ -107,10 +110,10 @@ tasks.controller('tasksController',[
             fields: [
                 { label:'Name', field: 'Name', required: true },
                 { label: 'Number', field: 'Number', required: true},
-                { label:'Frequency', field: 'Frequency', required: true},
                 { label:'Due Date', field: 'DueDate', required: true},
                 { label:'Extended Due Date', field: 'ExtendedDueDate', required: false},
-                { label:'Second Extended Due Date', field: 'SecondExtendedDueDate', required: false}
+                { label:'Second Extended Due Date', field: 'SecondExtendedDueDate', required: false},
+                { label:'Frequency', field: 'Frequency', required: true}
             ]
         };
 
@@ -176,10 +179,10 @@ tasks.controller('tasksController',[
             taskCalls.createTask({
                 Name: newtask.Name,
                 Number: newtask.Number,
-                Frequency: newtask.Frequency,
                 DueDate: newtask.DueDate,
                 ExtendedDueDate: newtask.ExtendedDueDate,
-                SecondExtendedDueDate: newtask.SecondExtendedDueDate
+                SecondExtendedDueDate: newtask.SecondExtendedDueDate,
+                Frequency: newtask.Frequency
             }).then(
                 function (res) {
                     newTask = angular.copy(res.data);
@@ -286,6 +289,22 @@ tasks.controller('tasksController',[
                 function () {
                     // $log.info('Modal dismissed at: ' + new Date());
                     $log.info('Delete task cancelled');
+                }
+            );
+        };
+
+        $scope.getFrequencies = function () {
+            $scope.config = {
+                optionLabel:'frequency'
+            };
+            taskCalls.getFrequencies({}).then(
+                function (res) {
+                    frequencies = angular.copy(res.data);
+                    $scope.frequencies = frequencies;
+                    console.dir(frequencies);
+                },
+                function (err) {
+                    console.error('Error getting Frequencies: ' + err.message);
                 }
             );
         };
