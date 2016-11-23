@@ -49,7 +49,7 @@ tasks.controller('tasksController',[
         $log
     ) {
 
-        $scope.appheader = 'tasks';
+        $scope.appheader = 'Tasks';
         $scope.tab = undefined;
 
         var tasks = "",
@@ -171,7 +171,7 @@ tasks.controller('tasksController',[
         /* =====================================================================
          * create new task
          * ===================================================================== */
-        $scope.createTask = function (newtask) {
+        $scope.createItem = function (newtask) {
             console.log(newtask);
             taskCalls.createTask({
                 Name: newtask.Name,
@@ -201,7 +201,7 @@ tasks.controller('tasksController',[
         /* =====================================================================
          * update task
          * ===================================================================== */
-        $scope.updateTask = function (detailedtask) {
+        $scope.updateItem = function (detailedtask) {
 
             taskCalls.updateTask({
                 id: detailedtask.id,
@@ -252,7 +252,7 @@ tasks.controller('tasksController',[
         /* =====================================================================
          * Delete a task from Mongo database
          * ===================================================================== */
-        $scope.deleteTask = function (item) {
+        $scope.deleteItem = function (item) {
 
             $scope.modal = {
                 title : 'Delete ' + item.Name,

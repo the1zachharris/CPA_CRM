@@ -58,6 +58,7 @@ app.config(['$routeProvider', '$controllerProvider', '$provide', function ($rout
                                 // Controllers
                                 'modules/clients/controllers/clients.client.controller.js',
                                 'modules/tasks/controllers/tasks.client.controller.js',
+                                'modules/clienttypes/controllers/clienttypes.client.controller.js',
                                 // Styles
                                 'modules/core/css/datagrids.client.styles.css',
                                 'modules/core/css/tabsets.client.styles.css',
@@ -144,16 +145,24 @@ app.controller('MainController', function (
 
     //Build the tabset to run the navigation
     $scope.masterTabset = {
-      clientTab : {
-          active: true,
+      /*
+        clientTab : {
+          active: false,
           label: 'Clients',
           view: 'modules/clients/views/clients.view.html',
           tabs: {}
       },
+      */
         tasksTab : {
-            active: false,
+            active: true,
             label: 'Tasks',
             view: 'modules/tasks/views/home.tasks.client.view.html',
+            tabs: {}
+        },
+        clientTypeTab : {
+            active: false,
+            label: 'Client Types',
+            view: 'modules/clienttypes/views/home.clienttypes.client.view.html',
             tabs: {}
         }
     };

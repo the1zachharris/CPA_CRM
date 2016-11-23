@@ -13,7 +13,7 @@ clienttypes.config([
             $routeProvider
                 .when('/clienttypes',{
                     name: 'clienttypes',
-                    templateUrl:'modules/clienttypes/views/list-clienttypes.client.view.html',
+                    templateUrl:'modules/clienttypes/views/home.clienttypes.client.view.html',
                     label: 'clienttypes',
                     controller: 'clienttypesController',
                     resolve: {
@@ -35,7 +35,7 @@ clienttypes.config([
                 })
                 .when('/clienttypes/create',{
                     name: 'clienttypes',
-                    templateUrl:'modules/clienttypes/views/create-clienttypes.client.view.html',
+                    templateUrl:'modules/core/views/create-item.client.view.html',
                     label: 'Create clienttypes',
                     controller: 'clienttypesController',
                     resolve: {
@@ -53,7 +53,7 @@ clienttypes.config([
                 })
                 .when('/clienttypes/update/:id',{
                     name: 'clienttypes',
-                    templateUrl:'modules/clienttypes/views/edit-clienttypes.client.view.html',
+                    templateUrl:'modules/core/views/edit-item.client.view.html',
                     label: 'Update clienttypes',
                     controller: 'clienttypesController',
                     resolve: {
@@ -77,7 +77,7 @@ clienttypes.config([
 clienttypes.factory('clienttypeCalls', function($http,$log, $routeParams) {
     console.log("in clienttypeCalls factory");
     var clienttypeMasterService = {
-        getClienttypes: function(req){
+        getClientTypes: function(req){
             var promise = $http({
                 method: 'GET',
                 url: '/clienttype/list',
@@ -87,16 +87,16 @@ clienttypes.factory('clienttypeCalls', function($http,$log, $routeParams) {
             });
             return promise;
         },
-        detailClienttype: function(){
+        detailClientType: function(itemid){
             var promise = $http({
                 method: 'GET',
-                url: '/clienttype/detail/' + $routeParams.id
+                url: '/clienttype/detail/' + itemid
             }).then(function (response) {
                 return response;
             });
             return promise;
         },
-        createClienttype: function(req){
+        createClientType: function(req){
             console.dir(req);
             var promise = $http({
                 method: 'POST',
@@ -107,7 +107,7 @@ clienttypes.factory('clienttypeCalls', function($http,$log, $routeParams) {
             });
             return promise;
         },
-        updateClienttype: function(req){
+        updateClientType: function(req){
             var promise = $http({
                 method: 'POST',
                 url: '/clienttype/update',
@@ -117,10 +117,10 @@ clienttypes.factory('clienttypeCalls', function($http,$log, $routeParams) {
             });
             return promise;
         },
-        deleteClienttype: function(req){
+        deleteClientType: function(req){
             var promise = $http({
                 method: 'DELETE',
-                url: '/clienttype/delete/' + $routeParams.id,
+                url: '/clienttype/delete/' + req.id,
                 params: req
             }).then(function (response) {
                 return response;

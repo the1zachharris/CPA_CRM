@@ -53,31 +53,82 @@ clienttypes.controller('clienttypesController',[
         $scope.tab = undefined;
 
         var clienttypes = "",
+            newClientType = '',
             updatedclienttype = "",
-            detailedclienttype = "",
+            detailedclienttype = {},
             deletedclienttype = "";
+
+        //Build the tabset to run the CRUD for clienttypes
+        $scope.clienttypesTabset = {
+            resultsTab : {
+                active: true,
+                label: 'Results',
+                view: 'modules/core/views/grid.results.view.html'
+            }
+        };
+
+        /* Tab Detail Functions */
+
+        $scope.removeTab = function (index) {
+            try {
+                delete $scope.clienttypesTabset[index];
+            }
+            catch (err) {
+                console.log('There was an error trying to close a tab: ' + err.message);
+            }
+        };
+
+        $scope.openNewTab = function(tabKey, tabValue) {
+            $scope.clienttypesTabset[tabKey] = tabValue;
+        };
+
+        $scope.openNewItemTab = function(itemId) {
+            $scope.viewClientType(itemId);
+        };
+
+        $scope.myFieldset = {
+            newitem : {},
+            actionName: 'Create',
+            collectionName: 'Client Type',
+            fields: [
+              { label:'Type', field: 'type', required: true }
+          ]
+        };
+
+        $scope.myUpdateFieldset = {
+            myItem : {},
+            actionName: 'Update',
+            collectionName: 'Client Type',
+            fields: [
+                { label:'Type', field: 'type', required: true }
+            ]
+        };
 
         $scope.gridOptions = {
             enableSorting: true,
             enableFiltering: true,
             columnDefs: [
-                { name:'Type', field: 'type' },
                 {
                     name: 'actions',
                     displayName: '',
                     cellTemplate:
-                        '<a ng-href="#/clienttypes/update/{{row.entity.id}}"  aria-label="clienttypes Detail" class="md-mini"><i class="fa fa-info-circle"></i></a>',
+                        '<md-button aria-label="Client Type Detail" class="btn btn-default" ng-click="grid.appScope.openNewItemTab(row.entity.id)">'
+                        + '<i class="glyphicon glyphicon-pencil"></i>'
+                        + '<md-tooltip>{{row.entity.type}} Detail</md-tooltip>'
+                        + '</md-button>',
                     enableSorting: false,
-                    width: "60",
                     resizable: false,
+                    width: 50,
+                    height: 30,
                     pinnable: false
-                }
+                },
+                { name:'Type', field: 'type' }
             ],
             data : []
         };
 
 
-        $scope.refreshData = function (keyword) {
+        $scope.refreshClientTypeData = function (keyword) {
             $scope.gridOptions.data = $scope.clienttypes;
             while (keyword) {
                 var oSearchArray = keyword.split(' ');
@@ -90,86 +141,99 @@ clienttypes.controller('clienttypesController',[
         /* =====================================================================
          * Get all clienttypes from Mongo database
          * ===================================================================== */
-        $scope.getClienttypes = function () {
+        $scope.getclientTypes = function () {
 
-            clienttypeCalls.getClienttypes({}).then(
+            clienttypeCalls.getClientTypes({}).then(
                 function (res) {
                     clienttypes = angular.copy(res.data);
                     $scope.clienttypes = clienttypes;
+                    console.dir(clienttypes);
                     $scope.gridOptions.data = clienttypes;
                 },
                 function (err) {
-                    console.error('Error getting Client Types: ' + err.message);
+                    console.error('Error getting clienttypes: ' + err.message);
                 }
             );
         };
         /* =====================================================================
-         * create new Client Type
+         * create new clienttype
          * ===================================================================== */
-        $scope.createClienttype = function (newclienttype) {
-            clienttypeCalls.createClienttype({
+        $scope.createItem = function (newclienttype) {
+            console.log(newclienttype);
+            clienttypeCalls.createClientType({
                 type: newclienttype.type
             }).then(
                 function (res) {
-                    newclienttype = angular.copy(res.data);
+                    newClientType = angular.copy(res.data);
                     $scope.newclienttype = {};
-                    window.location.href ='#/clienttypes';
+                    $scope.getclientTypes();
+                    //TODO: add toast message to notify user the record has been created
+
+                    //window.location.href ='#/clienttypes';
+                    $scope.removeTab('createTab');
                 },
                 function (err) {
-                    console.error('Error creating Client Type: ' + JSON.stringify(err.data.message));
+                    $scope.badClientType = 'Error creating clienttype: ' + JSON.stringify(err.data.message);
+                    console.error('Error creating clienttype: ' + JSON.stringify(err.data.message));
                 }
             );
         };
 
 
         /* =====================================================================
-         * update Client Type
+         * update clienttype
          * ===================================================================== */
-        $scope.updateClienttype = function (detailedclienttype) {
-            clienttypeCalls.updateClienttype({
+        $scope.updateItem = function (detailedclienttype) {
+            clienttypeCalls.updateClientType({
                 id: detailedclienttype.id,
                 type: detailedclienttype.type
             }).then(
                 function (res) {
                     updatedclienttype = angular.copy(res.data);
                     $scope.updatedclienttype = updatedclienttype;
-                    window.location.href ='#/clienttypes';
-                    console.dir(updatedclienttype);
+                    $scope.getclientTypes();
+                    //TODO: add toast message to notify user the record has been updated
+
+                    //window.location.href ='#/clienttypes';
+                    $scope.removeTab(detailedclienttype.id);
                 },
                 function (err) {
-                    console.error('Error updating Client Type: ' + err.message);
+                    console.error('Error updating clienttype: ' + err.message);
                 }
             );
         };
 
 
         /* =====================================================================
-         * view a Client Type
+         * view clienttype
          * ===================================================================== */
-        $scope.viewClienttype = function () {
+        $scope.viewClientType = function (clienttypeId) {
 
-            clienttypeCalls.detailClienttype().then(
+            clienttypeCalls.detailClientType(clienttypeId).then(
                 function (res) {
                     detailedclienttype = angular.copy(res.data);
-                    $scope.detailedclienttype = detailedclienttype;
-                    console.dir(detailedclienttype);
+                    $scope.clienttypesTabset[clienttypeId] = {
+                        active: true,
+                        label: detailedclienttype.Number,
+                        view: 'modules/core/views/edit-item.client.view.html',
+                        item: detailedclienttype
+                    };
                 },
                 function (err) {
-                    console.error('Error viewing Client Type: ' + err.message);
+                    console.error('Error viewing clienttype: ' + err.message);
                 }
             );
         };
 
         /* =====================================================================
-         * Delete a Client Type from Mongo database
+         * Delete a clienttype from Mongo database
          * ===================================================================== */
-        $scope.deleteClienttype = function (detailedclienttype) {
+        $scope.deleteItem = function (item) {
 
             $scope.modal = {
-                title : 'Delete ' + detailedclienttype.type,
-                body : 'Are you sure you want to delete Client Type, \'' + detailedclienttype.type + '?\''
+                title : 'Delete ' + item.type,
+                body : 'Are you sure you want to delete the clienttype, \'' + item.type + '?\''
             };
-
             var modalInstance = $modal.open({
                 animation: true,
                 templateUrl: 'appModal',
@@ -178,26 +242,26 @@ clienttypes.controller('clienttypesController',[
                 size: 'md'
                 // resolve: {}
             });
-
             modalInstance.result.then(
                 function () {
-                    clienttypeCalls.deleteClienttype({
-                        id: detailedclienttype.id,
-                        type: detailedclienttype.type
+                    console.dir(item);
+                    clienttypeCalls.deleteClientType({
+                        id: item.id
                     }).then(
                         function (res) {
                             deletedclienttype = angular.copy(res.data);
                             $scope.deletedclienttype = deletedclienttype;
-                            window.location.href ='#/clienttypes';
+                            $scope.getclientTypes();
+                            $scope.removeTab(item.id);
                         },
                         function (err) {
-                            console.error('Error deleting Client Type: ' + err.message);
+                            console.error('Error deleting clienttype: ' + err.message);
                         }
                     );
                 },
                 function () {
                     // $log.info('Modal dismissed at: ' + new Date());
-                    $log.info('Delete Client Type cancelled');
+                    $log.info('Delete clienttype cancelled');
                 }
             );
         };

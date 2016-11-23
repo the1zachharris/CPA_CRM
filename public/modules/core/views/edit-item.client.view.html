@@ -3,7 +3,7 @@
         <h3>{{myUpdateFieldset.actionName}} {{myUpdateFieldset.collectionName}} <strong>{{tabValue.item.Name}}</strong></h3>
     </div>
 
-    <form ng-submit="updateTask(tabValue.item)"  class="form-group">
+    <form ng-submit="updateItem(tabValue.item)"  class="form-group">
 
         <fieldset>
             <div ng-repeat="item in myUpdateFieldset.fields" class="input-group">
@@ -19,7 +19,7 @@
 
     </form>
 
-    <button type="delete" class="btn btn-danger"  ng-click="deleteTask(tabValue.item)">Delete
+    <button type="delete" class="btn btn-danger"  ng-click="deleteItem(tabValue.item)">Delete
         <i ng-if="myUpdateFieldset.actionName == 'Update'" class="glyphicon glyphicon-trash"></i>
     </button>
 
