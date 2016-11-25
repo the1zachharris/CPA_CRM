@@ -123,7 +123,7 @@ exports.list = function (req, res) {
 *     }
  */
 exports.detail = function (req, res) {
-    client.find({id: req.params.id}).sort('-type').exec(function (err, client) {
+    client.findOne({id: req.params.id}).sort('-type').exec(function (err, client) {
         if (!client) {
             res.status(200).send()
         } else {
@@ -158,7 +158,7 @@ exports.detail = function (req, res) {
  */
 exports.update = function (req, res) {
     var query = {id: req.body.id};
-    client.findOneAndUpdate(query, req.body.updatedclient, {upsert: true}, function (err, doc) {
+    client.findOneAndUpdate(query, req.body, {upsert: true}, function (err, doc) {
         if (err) {
             return res.status(400).send({
                 message:  err

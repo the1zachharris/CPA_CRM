@@ -13,7 +13,7 @@ clients.config([
             $routeProvider
                 .when('/clients',{
                     name: 'clients',
-                    templateUrl:'modules/clients/views/clients.view.html',
+                    templateUrl:'modules/clients/views/home.clients.client.view.html',
                     label: 'clients',
                     controller: 'clientsController',
                     resolve: {
@@ -97,6 +97,15 @@ clients.factory('clientCalls', function($http,$log, $routeParams) {
             // Return the promise to the controller
             return promise;
         },
+        detailclient: function(clientId){
+            var promise = $http({
+                method: 'GET',
+                url: '/client/detail/' + clientId
+            }).then(function (response) {
+                return response;
+            });
+            return promise;
+        },
         getClientTypes: function(req){
             var promise = $http({
                 method: 'GET',
@@ -156,7 +165,8 @@ clients.factory('clientCalls', function($http,$log, $routeParams) {
         newClient: function(req){
             var promise = $http({
                 method: 'POST',
-                url: '/client/create'
+                url: '/client/create',
+                data: req
             }).then(function (response) {
                 return response;
             });
@@ -166,7 +176,8 @@ clients.factory('clientCalls', function($http,$log, $routeParams) {
         updateClient: function(req){
             var promise = $http({
                 method: 'POST',
-                url: '/client/update'
+                url: '/client/update',
+                data: req
             }).then(function (response) {
                 return response;
             });
@@ -176,7 +187,7 @@ clients.factory('clientCalls', function($http,$log, $routeParams) {
         deleteClient: function(req){
             var promise = $http({
                 method: 'DELETE',
-                url: '/client/delete/:id'
+                url: '/client/delete/' + req.id
             }).then(function (response) {
                 return response;
             });
