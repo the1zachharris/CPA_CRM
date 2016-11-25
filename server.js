@@ -86,7 +86,7 @@ app.use('/',routes);
 var server = app.listen(envLoaded.port, function() {
     var host = server.address().address;
     var port = server.address().port;
-    console.log('CPA_CRM listening at port:'+ port);
+    console.log('TrakkTask listening at port:'+ port);
 });
 
 // catch 404 and forward to error handler
