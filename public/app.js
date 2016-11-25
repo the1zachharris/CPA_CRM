@@ -5,11 +5,11 @@
     //console.dir(errorObj);
 
     /*var msg = {
-        TaskMasterClientController : function(){ var app = url.split('/'); return app[app.length-1]},
-        TaskMasterClientLineNumber : lineNumber,
-        TaskMasterClientColumn : column,
-        TaskMasterClientMessage : errorMsg,
-        TaskMasterClientErrorObj : errorObj
+        TrakkTaskClientController : function(){ var app = url.split('/'); return app[app.length-1]},
+        TrakkTaskClientLineNumber : lineNumber,
+        TrakkTaskClientColumn : column,
+        TrakkTaskClientMessage : errorMsg,
+        TrakkTaskClientErrorObj : errorObj
     };
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
@@ -146,14 +146,6 @@ app.controller('MainController', function (
 
     //Build the tabset to run the navigation
     $scope.masterTabset = {
-      /*
-        clientTab : {
-          active: false,
-          label: 'Clients',
-          view: 'modules/clients/views/clients.view.html',
-          tabs: {}
-      },
-      */
         tasksTab : {
             active: true,
             label: 'Tasks',
@@ -171,6 +163,12 @@ app.controller('MainController', function (
             label: 'Employees',
             view: 'modules/employees/views/home.employees.client.view.html',
             tabs: {}
+        },
+        clientsTab : {
+            active: false,
+            label: 'Clients',
+            view: 'modules/clients/views/home.clients.client.view.html',
+            tabs: {}
         }
     };
 
@@ -179,7 +177,7 @@ app.controller('MainController', function (
     var msie = ua.indexOf ( "MSIE " );
     var IEVersion =  parseInt (ua.substring (msie+5, ua.indexOf (".", msie )));
     if (IEVersion > 9){
-        angular.module('taskMaster').requires.push('ngMaterial');
+        angular.module('TrakkTask').requires.push('ngMaterial');
     }
 
     $scope.openModal = function (size) {
@@ -233,7 +231,7 @@ app.controller('MainController', function (
             });
             $scope.aHistory = $rootScope.user.auditHistory;
             $scope.roles = $rootScope.user.roles;
-            $scope.TaskMasterMenu = $rootScope.TaskMasterMenu;
+            $scope.TrakkTaskMenu = $rootScope.TrakkTaskMenu;
         }
     );
 });
@@ -246,7 +244,7 @@ app.factory(
         $http,
         $rootScope,
         methodCop,
-        TaskMasterLog
+        TrakkTaskLog
     ) {
         try {
             var authService = {
@@ -283,7 +281,7 @@ app.factory(
                                                     endCallback(true);
                                                 } else {
                                                     console.error('error', 'There was an error with the response while trying to check authorization: ' + res);
-                                                    TaskMasterLog.log('error', 'There was an error with the response while trying to check authorization: ' + res);
+                                                    TrakkTaskLog.log('error', 'There was an error with the response while trying to check authorization: ' + res);
                                                     endCallback(null,'There was an error with the response when checking for authorization: ' + res);
                                                 }
                                             } else {
@@ -304,7 +302,7 @@ app.factory(
                                                         endCallback(false);
                                                     } else {
                                                         console.error('error', 'There was an error with the response while trying to check authorization: ' + rej);
-                                                        TaskMasterLog.log('error', 'There was an error with the response while trying to check authorization: ' + rej);
+                                                        TrakkTaskLog.log('error', 'There was an error with the response while trying to check authorization: ' + rej);
                                                         endCallback(null,'The check for authorization was rejected while trying to check authorization: ' + rej);
                                                     }
                                                 } else {
@@ -321,7 +319,7 @@ app.factory(
                     }
                     catch (err) {
                         console.error('error','There was an error while trying to check for authorization: ' + err.message);
-                        TaskMasterLog.log('error','There was an error while trying to check for authorization: ' + err.message);
+                        TrakkTaskLog.log('error','There was an error while trying to check for authorization: ' + err.message);
                     }
                 }
             }
@@ -329,14 +327,14 @@ app.factory(
 
         catch (err) {
             console.error('error','There was an error while trying to initialize the authorization service: ' + err.message);
-            TaskMasterLog.log('error','There was an error while trying to initialize the authorization service: ' + err.message);
+            TrakkTaskLog.log('error','There was an error while trying to initialize the authorization service: ' + err.message);
         }
         return authService;
     }
 );
 
 // server logging service
-app.factory('TaskMasterLog', ['$http', '$log', function ($http, $log) {
+app.factory('TrakkTaskLog', ['$http', '$log', function ($http, $log) {
     this.error = function(message) {
         this.log('ERROR', message);
     };
@@ -426,7 +424,7 @@ app.factory('FeedbackService', ['$window', function($window) {
     return service;
 }]);
 
-app.factory('AnalyticsService', ['$http', '$rootScope', 'methodCop', 'TaskMasterLog', function($http, $rootScope, methodCop, TaskMasterLog) {
+app.factory('AnalyticsService', ['$http', '$rootScope', 'methodCop', 'TrakkTaskLog', function($http, $rootScope, methodCop, TrakkTaskLog) {
     var service = {};
 
     function waitForUser(fn) {
@@ -452,12 +450,12 @@ app.factory('AnalyticsService', ['$http', '$rootScope', 'methodCop', 'TaskMaster
                             $rootScope.currentAnalyticId = res.data.id;
                         },
                         function (res) {
-                            TaskMasterLog.log('error', 'There was an error calling the Create Analytic service: ' + res);
+                            TrakkTaskLog.log('error', 'There was an error calling the Create Analytic service: ' + res);
                         }
                     )
             }
             catch (err) {
-                TaskMasterLog.log('error', 'There was an error calling the Create Analytic service: ' + res);
+                TrakkTaskLog.log('error', 'There was an error calling the Create Analytic service: ' + res);
             }
         });
     };
@@ -472,16 +470,16 @@ app.factory('AnalyticsService', ['$http', '$rootScope', 'methodCop', 'TaskMaster
                     .then(
                         function () { console.log($rootScope.currentAnalyticId, "wrote step", arguments); },
                         function (res) {
-                            TaskMasterLog.log('error', 'There was an error calling the Analytic Add Step service: ' + res);
+                            TrakkTaskLog.log('error', 'There was an error calling the Analytic Add Step service: ' + res);
                         }
                     )
             }
             else {
-                TaskMasterLog.log('error', 'Function name was not provided to the Analytic Add Step service: ' + res);
+                TrakkTaskLog.log('error', 'Function name was not provided to the Analytic Add Step service: ' + res);
             }
         }
         catch (err) {
-            TaskMasterLog.log('error', 'There was an error calling the Analytic Add Step service: ' + res);
+            TrakkTaskLog.log('error', 'There was an error calling the Analytic Add Step service: ' + res);
         }
     };
 
@@ -507,9 +505,9 @@ function HeaderController($scope, $modal, feedbackService) {
         $scope.isCollapsed = false;
     });
 
-    $scope.emailTaskMasterFeedback = function () {
+    $scope.emailTrakkTaskFeedback = function () {
         document.location.href = feedbackService.mailToUrl($scope);
-        asvc.addStep('emailTaskMasterFeedback');
+        asvc.addStep('emailTrakkTaskFeedback');
     };
 
     $scope.openModal = function (size) {
@@ -524,7 +522,7 @@ function HeaderController($scope, $modal, feedbackService) {
 }
 
 function AboutModalController($scope, $modalInstance, feedbackService) {
-    $scope.emailTaskMasterFeedback = function () {
+    $scope.emailTrakkTaskFeedback = function () {
         document.location.href = feedbackService.mailToUrl($scope);
         $scope.close();
     };
@@ -598,17 +596,17 @@ app.controller('MenuController', [
             e.stopPropagation();
         };
 
-        // load TaskMasterMenu once it becomes available
+        // load TrakkTaskMenu once it becomes available
         async.whilst(
-            function () { return typeof $rootScope.TaskMasterMenu === 'undefined';},
+            function () { return typeof $rootScope.TrakkTaskMenu === 'undefined';},
             function (callback) {
                 setTimeout(function () {
-                    callback(null, $rootScope.TaskMasterMenu);
+                    callback(null, $rootScope.TrakkTaskMenu);
                 }, 500);
             },
             function (error,result) {
-                $scope.TaskMasterMenu = $rootScope.TaskMasterMenu;
-                angular.forEach($scope.TaskMasterMenu, function (mV,mK) {
+                $scope.TrakkTaskMenu = $rootScope.TrakkTaskMenu;
+                angular.forEach($scope.TrakkTaskMenu, function (mV,mK) {
                     if ($scope.currentRouteName == mV.name) {
                         mV.open = true;
                     } else {
@@ -645,7 +643,7 @@ app.controller('ModalInstanceCtrl', function ($scope, $modalInstance) {
 app.config(function ($mdThemingProvider) {
 
 
-    $mdThemingProvider.definePalette('TaskMasterMDPalette', {
+    $mdThemingProvider.definePalette('TrakkTaskMDPalette', {
         '50': 'D1EEFF',
         '100': 'B2D7ED',
         '200': '7BBCE0',
@@ -672,7 +670,7 @@ app.config(function ($mdThemingProvider) {
     });
 
     $mdThemingProvider.theme('default')
-        .primaryPalette('TaskMasterMDPalette')
+        .primaryPalette('TrakkTaskMDPalette')
         .accentPalette('red');
 
     /*

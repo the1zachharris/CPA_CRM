@@ -7,8 +7,16 @@
         <fieldset>
         <div ng-repeat="item in myFieldset.fields" class="input-group">
             <span class="input-group-addon">{{item.label}}</span>
-            <input class="form-control" ng-if="item.field !== 'Frequency'" ng-model="$parent.newitem[item.field]" ng-required="item.required">
-            <typeahead-dropdown ng-if="item.field == 'Frequency'" class="form-control" options="$parent.frequencies" config="config" ng-model="$parent.newitem[item.field]" ng-required="item.required">
+            <input class="form-control" ng-model="$parent.newitem[item.field]" ng-required="item.required">
+            <!--
+            <typeahead-dropdown
+                ng-if="item.field == 'Frequency'"
+                class="form-control"
+                options="$parent.frequencies"
+                config="config"
+                ng-model="$parent.newitem[item.field]"
+                ng-required="item.required">
+             -->
         </div>
         </fieldset>
 

@@ -76,7 +76,7 @@ tasks.config([
 
 tasks.factory('taskCalls', function($http,$log, $routeParams) {
     console.log("in taskCalls factory");
-    var taskMasterService = {
+    var TrakkTaskService = {
         getTasks: function(req){
             var promise = $http({
                 method: 'GET',
@@ -139,5 +139,5 @@ tasks.factory('taskCalls', function($http,$log, $routeParams) {
             return promise;
         }
     };
-    return taskMasterService;
+    return TrakkTaskService;
 });
