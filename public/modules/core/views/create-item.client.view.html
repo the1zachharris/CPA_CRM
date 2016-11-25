@@ -7,16 +7,21 @@
         <fieldset>
         <div ng-repeat="item in myFieldset.fields" class="input-group">
             <span class="input-group-addon">{{item.label}}</span>
-            <input class="form-control" ng-model="$parent.newitem[item.field]" ng-required="item.required">
-            <!--
-            <typeahead-dropdown
-                ng-if="item.field == 'Frequency'"
-                class="form-control"
-                options="$parent.frequencies"
-                config="config"
-                ng-model="$parent.newitem[item.field]"
-                ng-required="item.required">
-             -->
+            <input ng-if="item.field !== 'Frequency'" class="form-control" ng-model="$parent.newitem[item.field]" ng-required="item.required">
+            <md-autocomplete
+                    ng-init="getFrequencies()"
+                    md-selected-item="$parent.tabValue.item[item.field]"
+                    md-search-text-change="searchTextChange(searchText)"
+                    md-search-text="searchText"
+                    md-selected-item-change="selectedItemChange(item)"
+                    md-items="item in frequencies | filter:searchText"
+                    md-item-text="item.frequency"
+                    md-min-length="0"
+                    placeholder="Enter a Frequency">
+                <md-item-template>
+                    <span md-highlight-text="ctrl.searchText" md-highlight-flags="^i">{{item.frequency}}</span>
+                </md-item-template>
+            </md-autocomplete>
         </div>
         </fieldset>
 
