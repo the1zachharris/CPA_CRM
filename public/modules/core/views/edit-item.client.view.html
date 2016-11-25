@@ -10,28 +10,22 @@
             <div ng-repeat="item in myUpdateFieldset.fields" class="input-group">
                 <span class="input-group-addon">{{item.label}}</span>
                 <input class="form-control" ng-if="item.field !== 'Frequency'" ng-model="$parent.tabValue.item[item.field]" ng-required="item.required">
-                <!-- check documentation on this one to see if there is a separate attribute on the search for the string --->
-                <typeahead-dropdown
-                        ng-model="$parent.tabValue.item[item.field]"
-                        ng-if="item.field == 'Frequency'"
-                        options="$parent.frequencies"
-                        config="config"
-                        ng-required="item.required">
+                <md-autocomplete
+                      ng-init="getFrequencies()"
+                      md-selected-item="$parent.tabValue.item[item.field]"
+                      md-search-text-change="searchTextChange(searchText)"
+                      md-search-text="searchText"
+                      md-selected-item-change="selectedItemChange(item)"
+                      md-items="item in frequencies | filter:searchText"
+                      md-item-text="item.frequency"
+                      md-min-length="0"
+                      placeholder="Enter a Frequency">
+                    <md-item-template>
+                      <span md-highlight-text="ctrl.searchText" md-highlight-flags="^i">{{item.frequency}}</span>
+                    </md-item-template>
+                </md-autocomplete>
+
                     <!--
-                    https://material.angularjs.org/1.0.7/api/directive/mdAutocomplete
-                    <md-autocomplete
-                        class="searchField"
-                        flex-gt-sm="15"
-                        md-autoselect="true"
-                        md-select-on-match="true"
-                        md-min-length="0"
-                        md-selected-item="search.caseType"
-                        md-selected-item-change="search.setCaseType()"
-                        md-search-text="search.caseTypeText"
-                        md-items="type in search.getCaseTypes(search.caseTypeText)"
-                        md-item-text="type.name"
-                        md-floating-label="Case Type"
-                    >
                     |||| or |||||||
                     http://angular-ui.github.io/bootstrap/versioned-docs/0.14.2/#typeahead
                     <input

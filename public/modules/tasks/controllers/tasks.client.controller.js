@@ -16,6 +16,7 @@ var tasks = angular.module('tasks',[
 
 
 tasks.controller('tasksController',[
+    '$filter',
     'taskCalls',
     '$scope',
     '$http',
@@ -28,10 +29,10 @@ tasks.controller('tasksController',[
     'lodash',
     'methodCop',
     'uiGridConstants',
-    '$filter',
     '$modal',
     '$log',
     function (
+        $filter,
         taskCalls,
         $scope,
         $http,
@@ -44,7 +45,6 @@ tasks.controller('tasksController',[
         lodash,
         methodCop,
         uiGridConstants,
-        $filter,
         $modal,
         $log
     ) {
@@ -80,12 +80,10 @@ tasks.controller('tasksController',[
         };
 
         $scope.openNewTab = function(tabKey, tabValue) {
-            $scope.getFrequencies();
             $scope.tasksTabset[tabKey] = tabValue;
         };
 
         $scope.openNewItemTab = function(itemId) {
-            $scope.getFrequencies();
             $scope.viewTask(itemId);
         };
 
@@ -205,12 +203,12 @@ tasks.controller('tasksController',[
          * update task
          * ===================================================================== */
         $scope.updateItem = function (detailedtask) {
-
+            console.dir(detailedtask);
             taskCalls.updateTask({
                 id: detailedtask.id,
                 Name: detailedtask.Name,
                 Number: detailedtask.Number,
-                Frequency: detailedtask.Frequency,
+                Frequency: detailedtask.Frequency.frequency,
                 DueDate: detailedtask.DueDate,
                 ExtendedDueDate: detailedtask.ExtendedDueDate,
                 SecondExtendedDueDate: detailedtask.SecondExtendedDueDate
@@ -294,9 +292,6 @@ tasks.controller('tasksController',[
         };
 
         $scope.getFrequencies = function () {
-            $scope.config = {
-                optionLabel:'frequency'
-            };
             taskCalls.getFrequencies({}).then(
                 function (res) {
                     frequencies = angular.copy(res.data);
