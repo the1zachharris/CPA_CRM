@@ -21,7 +21,7 @@ var frequencies =
       "frequency": "Monthly"
   },
   {
-    "id": "MontlyEOM",
+    "id": "MonthlyEOM",
       "frequency": "Monthly EOM"
   },
   {
