@@ -14,6 +14,18 @@ console.log('in server.routes now');
 
 router.get('/',core.index);
 
+// Seed Route
+router.post('/seed/:app/:mode/:field',core.seed);
+/*
+ // example for seed applications
+    '/seed/applications/updateappend/name'
+
+*/
+
+//other core routes
+router.get('/version', core.version);
+router.get('/releaseNotes', core.releaseNotes);
+
 /*
  * APPLICATION ROUTES
  * @type {exports|module.exports}

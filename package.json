@@ -1,6 +1,6 @@
 {
-  "name": "CPA_CRM",
-  "version": "0.0.1",
+  "name": "TrakkTask",
+  "version": "0.1.0",
   "private": true,
   "scripts": {
     "start": "nodemon server.js"

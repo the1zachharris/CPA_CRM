@@ -47,7 +47,6 @@ function HeaderController(
     $scope.navTo = function (page) {
         console.log('navTo: ');
         console.log(page);
-        //TODO: add navigation action here to move between tabs
         $location.path(page.replace(/#/,  ''))
     };
 
