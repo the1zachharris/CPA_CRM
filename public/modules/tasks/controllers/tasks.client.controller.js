@@ -172,15 +172,15 @@ tasks.controller('tasksController',[
         /* =====================================================================
          * create new task
          * ===================================================================== */
-        $scope.createItem = function (newtask) {
-            console.log(newtask);
+        $scope.createItem = function (item) {
+            console.log(item);
             taskCalls.createTask({
-                Name: newtask.Name,
-                Number: newtask.Number,
-                DueDate: newtask.DueDate,
-                ExtendedDueDate: newtask.ExtendedDueDate,
-                SecondExtendedDueDate: newtask.SecondExtendedDueDate,
-                Frequency: newtask.Frequency
+                Name: item.Name,
+                Number: item.Number,
+                DueDate: item.DueDate,
+                ExtendedDueDate: item.ExtendedDueDate,
+                SecondExtendedDueDate: item.SecondExtendedDueDate,
+                Frequency: item.Frequency.frequency
             }).then(
                 function (res) {
                     newTask = angular.copy(res.data);

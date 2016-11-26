@@ -1,14 +1,15 @@
 <section>
     <div class="appheader">
-        <h3>{{myFieldset.actionName}} {{myFieldset.collectionName}} <strong>{{newitem.Name}}</strong></h3>
+        <h3>{{myFieldset.actionName}} {{myFieldset.collectionName}} <strong>{{tabValue.item.Name}}</strong></h3>
     </div>
-    <form ng-submit="createItem(item)"  class="form-group col-lg-6">
+    <form ng-submit="createItem(tabValue.item)"  class="form-group col-lg-6">
 
         <fieldset>
         <div ng-repeat="item in myFieldset.fields" class="input-group">
             <span class="input-group-addon">{{item.label}}</span>
-            <input ng-if="item.field !== 'Frequency'" class="form-control" ng-model="$parent.newitem[item.field]" ng-required="item.required">
+            <input ng-if="item.field !== 'Frequency'" class="form-control" ng-model="$parent.tabValue.item[item.field]" ng-required="item.required">
             <md-autocomplete
+                    ng-if="item.field == 'Frequency'"
                     ng-init="getFrequencies()"
                     md-selected-item="$parent.tabValue.item[item.field]"
                     md-search-text-change="searchTextChange(searchText)"
