@@ -123,7 +123,13 @@ app.config(['$routeProvider', '$controllerProvider', '$provide', function ($rout
 app.run(function(editableOptions,$http,$log,$rootScope,Idle,AnalyticsService){
     Idle.watch();
     editableOptions.theme = 'bs3';
-
+    $http.get('/version')
+        .then(function(res) {
+            $rootScope.version = res.data.version;
+            $rootScope.nodeVersion = res.data.nodeVersion;
+            $rootScope.gitBranch = res.data.gitBranch;
+            $rootScope.gitCommit = res.data.gitCommit;
+        });
     $rootScope.userAgent = window.navigator.userAgent;
     $rootScope.ua = new UAParser().getResult();
 
