@@ -136,7 +136,7 @@ tasks.controller('tasksController',[
                 { name:'Name', field: 'Name' },
                 { name: 'Number', field: 'Number'},
                 { name:'Frequency', field: 'Frequency' },
-                { name:'Due Date', field: 'DueDate'}
+                { name:'Due Date', field: 'DueDate', cellFilter: 'date:\'MM/dd/yyyy\''}
             ],
             data : []
         };
