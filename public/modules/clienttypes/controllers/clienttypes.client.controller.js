@@ -106,7 +106,6 @@ clienttypes.controller('clienttypesController',[
 
         $scope.gridOptions = {
             enableSorting: true,
-            enableFiltering: true,
             columnDefs: [
                 {
                     name: 'actions',

@@ -110,7 +110,6 @@ employees.controller('employeesController',[
 
         $scope.gridOptions = {
             enableSorting: true,
-            enableFiltering: true,
             columnDefs: [
                 {
                     name: 'actions',

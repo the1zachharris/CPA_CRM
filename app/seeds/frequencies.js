@@ -43,5 +43,9 @@ var frequencies =
   {
     "id": "One-Time",
       "frequency": "One-Time"
-  }
+  },
+    {
+        "id": "Semi-Annual",
+        "frequency": "Semi-Annual"
+    }
 ];

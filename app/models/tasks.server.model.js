@@ -49,3 +49,5 @@ var tasksSchema = new Schema ({
 
 mongoose.model('task', tasksSchema);
 mongoose.model('tasks', tasksSchema);
+mongoose.model('Task', tasksSchema);
+mongoose.model('Tasks', tasksSchema);
