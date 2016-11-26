@@ -120,7 +120,7 @@ clients.factory('clientCalls', function($http,$log, $routeParams) {
         getEmployees: function(req){
             var promise = $http({
                 method: 'GET',
-                url: '/employee/list',
+                url: '/employees/list',
                 params: req
             }).then(function (response) {
                 return response;

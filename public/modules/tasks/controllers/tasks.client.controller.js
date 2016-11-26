@@ -133,7 +133,7 @@ tasks.controller('tasksController',[
                     height: 30,
                     pinnable: false
                 },
-                { name:'Name', field: 'Name' },
+                { name:'Name', field: 'Name'},
                 { name: 'Number', field: 'Number'},
                 { name:'Frequency', field: 'Frequency' },
                 { name:'Due Date', field: 'DueDate', cellFilter: 'date:\'MM/dd/yyyy\''}
@@ -291,7 +291,7 @@ tasks.controller('tasksController',[
             );
         };
 
-        $scope.getFrequencies = function () {
+        $scope.getList = function () {
             taskCalls.getFrequencies({}).then(
                 function (res) {
                     frequencies = angular.copy(res.data);

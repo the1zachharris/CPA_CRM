@@ -56,7 +56,8 @@ clients.controller('clientsController',[
             newclient = '',
             updatedclient = "",
             detailedclient = {},
-            frequencies = "",
+            clienttypes = "",
+            employees = "",
             deletedclient = "";
 
         //Build the tabset to run the CRUD for clients
@@ -127,7 +128,6 @@ clients.controller('clientsController',[
 
         $scope.gridOptions = {
             enableSorting: true,
-            enableFiltering: true,
             columnDefs: [
                 {
                     name: 'actions',
@@ -143,9 +143,9 @@ clients.controller('clientsController',[
                     height: 30,
                     pinnable: false
                 },
-                { name:'Name', field: 'Name' },
+                { name:'Name', field: 'Name'},
                 { name: 'Type', field: 'Type'},
-                { name:'Address', field: 'Address1' },
+                { name:'Address', field: 'Address1'},
                 { name:'Phone', field: 'Phone'},
                 { name: 'Email', field: 'Email'}
             ],
@@ -195,8 +195,8 @@ clients.controller('clientsController',[
                 Country: newclient.Country,
                 Phone: newclient.Phone,
                 Email: newclient.Email,
-                ResponsibleEmployee: newclient.ResponsibleEmployee,
-                Type: newclient.Type
+                ResponsibleEmployee: newclient.ResponsibleEmployee.FirstName,
+                Type: newclient.Type.type
             }).then(
                 function (res) {
                     newclient = angular.copy(res.data);
@@ -231,8 +231,8 @@ clients.controller('clientsController',[
                 Country: detailedclient.Country,
                 Phone: detailedclient.Phone,
                 Email: detailedclient.Email,
-                ResponsibleEmployee: detailedclient.ResponsibleEmployee,
-                Type: detailedclient.Type
+                ResponsibleEmployee: detailedclient.ResponsibleEmployee.FirstName,
+                Type: detailedclient.Type.type
             }).then(
                 function (res) {
                     updatedclient = angular.copy(res.data);
@@ -262,7 +262,7 @@ clients.controller('clientsController',[
                     $scope.clientsTabset[clientId] = {
                         active: true,
                         label: detailedclient.Name,
-                        view: 'modules/core/views/edit-item.client.view.html',
+                        view: 'modules/clients/views/edit-item.client.view.html',
                         item: detailedclient
                     };
                 },
@@ -313,18 +313,27 @@ clients.controller('clientsController',[
             );
         };
 
-        $scope.getFrequencies = function () {
-            $scope.config = {
-                optionLabel:'frequency'
-            };
-            clientCalls.getFrequencies({}).then(
+        $scope.getClientTypes = function () {
+            clientCalls.getClientTypes({}).then(
                 function (res) {
-                    frequencies = angular.copy(res.data);
-                    $scope.frequencies = frequencies;
-                    console.dir(frequencies);
+                    clienttypes = angular.copy(res.data);
+                    $scope.clienttypes = clienttypes;
+                    console.dir(clienttypes);
                 },
                 function (err) {
                     console.error('Error getting Frequencies: ' + err.message);
+                }
+            );
+        };
+
+        $scope.getEmployees = function () {
+            clientCalls.getEmployees({}).then(
+                function (res) {
+                    employees = angular.copy(res.data);
+                    $scope.employees = employees;
+                },
+                function (err) {
+                    console.error('Error getting Employees: ' + err.message);
                 }
             );
         };
