@@ -9,30 +9,39 @@ module.exports = {
 var frequencies =
 [
   {
-    "frequency": "Daily"
+    "id": "Daily",
+      "frequency": "Daily"
   },
   {
-    "frequency": "Weekly"
+      "id": "Weekly",
+      "frequency": "Weekly"
   },
   {
-    "frequency": "Monthly"
+      "id": "Monthly",
+      "frequency": "Monthly"
   },
   {
-    "frequency": "Monthly EOM"
+    "id": "MontlyEOM",
+      "frequency": "Monthly EOM"
   },
   {
-    "frequency": "Quarterly EOM"
+    "id": "QuarterlyEOM",
+      "frequency": "Quarterly EOM"
   },
   {
-    "frequency": "Annual EOM"
+    "id": "AnnualEOM",
+      "frequency": "Annual EOM"
   },
   {
-    "frequency": "Annual"
+    "id": "Annual",
+      "frequency": "Annual"
   },
   {
-    "frequency": "Quarterly"
+    "id": "Quarterly",
+      "frequency": "Quarterly"
   },
   {
-    "frequency": "One-Time"
+    "id": "One-Time",
+      "frequency": "One-Time"
   }
 ];

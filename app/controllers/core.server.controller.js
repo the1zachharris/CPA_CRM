@@ -78,7 +78,7 @@ exports.releaseNotes = function(req, res) {
     var releaseNotes = "";
     fs.stat('./releaseNotes.txt', function (err, stats) {
         if (err) {
-            logger.log("ERROR", __function, "Missing releaseNotes.txt", req, res)
+            console.log("ERROR", __function, "Missing releaseNotes.txt", req, res)
         }
         else {
             releaseNotes = fs.readFileSync('./releaseNotes.txt');
@@ -128,7 +128,7 @@ function plantSeeds (myModel,myMode,dupField,app,myseeds) {
         //drop the entire collection and add our seeds
         myModel.remove(app, function (err, result) {
             if (err) {
-                var dropmessage = logger.log("ERROR", __function, err, req, res)
+                var dropmessage = console.log("ERROR", __function, err, req, res)
             } else {
                 //loop over mySeeds array
                 for (var i = 0; i < myseeds.length; i++) {
@@ -139,7 +139,7 @@ function plantSeeds (myModel,myMode,dupField,app,myseeds) {
                     var seed = new myModel(finalSeed);
                     seed.save(function (err) {
                         if (err) {
-                            savemessage[i] = logger.log("ERROR", __function, err, req, res)
+                            savemessage[i] = console.log("ERROR", __function, err, req, res)
                         } else {
                             savemessage[i] = i + ' seed saved';
                             console.log(savemessage[i]);
@@ -183,7 +183,7 @@ function plantSeeds (myModel,myMode,dupField,app,myseeds) {
                             // console.log(finalSeed);
 
                             if (err) {
-                                // querymessage[i] = logger.log("ERROR", __function, err, req, res)
+                                // querymessage[i] = console.log("ERROR", __function, err, req, res)
                                 console.log(err);
                             } else {
 
@@ -200,7 +200,7 @@ function plantSeeds (myModel,myMode,dupField,app,myseeds) {
                                     var seed = new myModel(finalSeed);
                                     seed.save(function (err) {
                                         if (err) {
-                                            savemessage[i] = logger.log("ERROR", __function, err, req, res)
+                                            savemessage[i] = console.log("ERROR", err);
                                             console.log('error adding as new record: ' + err);
                                         } else {
                                             savemessage[i] = i + ' seed saved';
@@ -233,7 +233,7 @@ function plantSeeds (myModel,myMode,dupField,app,myseeds) {
                                         //update the record
                                         myModel.findOneAndUpdate(findQuery, finalSeed, {upsert: false}, function (err, doc) {
                                             if (err) {
-                                                //updatemessage[i] = logger.log("ERROR", __function, err, req, res)
+                                                //updatemessage[i] = console.log("ERROR", __function, err, req, res)
                                                 console.log('error updating existing record: ');
                                                 console.dir(err);
                                             } else {
@@ -293,7 +293,7 @@ function plantSeeds (myModel,myMode,dupField,app,myseeds) {
                     console.log('dup found:' + duplicates);
                     //console.log('length of dups found = ' + duplicates.length);
                     if (err) {
-                        querymessage[i] = logger.log("ERROR", __function, err, req, res)
+                        querymessage[i] = console.log("ERROR", __function, err, req, res)
                         errormessage[i] = err;
                     } else {
 
@@ -309,7 +309,7 @@ function plantSeeds (myModel,myMode,dupField,app,myseeds) {
                             console.log('should add new record' + i + finalSeed);
                             seed.save(function (err) {
                                 if (err) {
-                                    savemessage[i] = logger.log("ERROR", __function, err, req, res)
+                                    savemessage[i] = console.log("ERROR", __function, err, req, res)
                                     console.log(err);
                                 } else {
                                     savemessage[i] = i + ' seed saved';
@@ -354,7 +354,7 @@ exports.seed = function (req, res) {
         // var myModelFile = require('../models/' + app + '.server.model');
         var upperModel = app.toProperCase();
         var myModel = mongoose.model(upperModel);
-        var mySeeds = require('../seeds/' + app + '.seeds');
+        var mySeeds = require('../seeds/' + app + '.js');
         var myMode = req.params.mode,
             savemessage = [],
             querymessage = [],
@@ -378,7 +378,7 @@ exports.seed = function (req, res) {
         }
         console.log('2: batch: ' + batch);
         //console.dir(req);
-
+        getSeeds(myModel, myMode, mySeeds, dupField, app, triggeraudit, limit, offset);
         console.log('2: totalcount: ' + totalcount);
         console.log('3: batch: ' + batch);
 
