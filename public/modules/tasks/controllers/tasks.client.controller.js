@@ -31,6 +31,7 @@ tasks.controller('tasksController',[
     'uiGridConstants',
     '$modal',
     '$log',
+    'ngToast',
     function (
         $filter,
         taskCalls,
@@ -46,7 +47,8 @@ tasks.controller('tasksController',[
         methodCop,
         uiGridConstants,
         $modal,
-        $log
+        $log,
+        ngToast
     ) {
 
         $scope.appheader = 'Tasks';

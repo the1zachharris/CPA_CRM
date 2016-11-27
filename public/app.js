@@ -643,7 +643,13 @@ app.controller('ModalInstanceCtrl', function ($scope, $modalInstance) {
 
 });
 
-
+app.config(['ngToastProvider', function(ngToastProvider) {
+    ngToastProvider.configure({
+        animation: 'slide', // or 'fade'
+        verticalPosition: 'bottom',
+        horizontalPosition: 'left'
+    });
+}]);
 
 /* MD Theming and Color Customizations ================================================ */
 app.config(function ($mdThemingProvider) {
