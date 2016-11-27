@@ -147,7 +147,8 @@ app.controller('MainController', function (
     $route,
     ngToast,
     authorization,
-    $mdToast
+    $mdToast,
+    $sce
 ) {
 
     //Build the tabset to run the navigation
@@ -208,6 +209,21 @@ app.controller('MainController', function (
 
     $scope.nowDate = new Date();
     $scope.foo = "some string";
+
+    // show toast indicating success
+    $scope.createToast = function(item, action, myclass) {
+        console.log("in create toast function");
+        $scope.toast = ngToast.create({
+            className: myclass,
+            compileContent: true,
+            content: $sce.trustAsHtml('<i class="fa fa-thumbs-o-up"></i><br>' + item + ' was successfully ' + action + '.'),
+            dismissButton: true,
+            dismissButtonHtml: '<md-button class="md-raised">OK</md-button>',
+            dismissOnClick: true,
+            dismissOnTimeout: true,
+            timeout: 3 * 1000
+        });
+    };
 
     async.whilst(
         function () { return typeof $rootScope.user === 'undefined';},

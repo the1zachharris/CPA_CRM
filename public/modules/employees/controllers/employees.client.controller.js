@@ -178,6 +178,7 @@ employees.controller('employeesController',[
 
                     //window.location.href ='#/employees';
                     $scope.removeTab('createTab');
+                    $scope.createToast(newemployee.FirstName, "created", "success");
                 },
                 function (err) {
                     $scope.badEmployee = 'Error creating employee: ' + JSON.stringify(err.data.message);
@@ -205,6 +206,7 @@ employees.controller('employeesController',[
 
                     //window.location.href ='#/employees';
                     $scope.removeTab(detailedemployee.id);
+                    $scope.createToast(detailedemployee.FirstName, "updated", "success");
                 },
                 function (err) {
                     console.error('Error updating employee: ' + err.message);
@@ -263,6 +265,7 @@ employees.controller('employeesController',[
                             $scope.deletedemployee = deletedemployee;
                             $scope.getEmployees();
                             $scope.removeTab(item.id);
+                            $scope.createToast(item.FirstName, "deleted", "danger");
                         },
                         function (err) {
                             console.error('Error deleting employee: ' + err.message);

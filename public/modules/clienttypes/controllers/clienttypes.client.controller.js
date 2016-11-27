@@ -170,6 +170,7 @@ clienttypes.controller('clienttypesController',[
 
                     //window.location.href ='#/clienttypes';
                     $scope.removeTab('createTab');
+                    $scope.createToast(newclienttype.type, "created", "success");
                 },
                 function (err) {
                     $scope.badClientType = 'Error creating clienttype: ' + JSON.stringify(err.data.message);
@@ -195,6 +196,7 @@ clienttypes.controller('clienttypesController',[
 
                     //window.location.href ='#/clienttypes';
                     $scope.removeTab(detailedclienttype.id);
+                    $scope.createToast(detailedclienttype.type, "updated", "success");
                 },
                 function (err) {
                     console.error('Error updating clienttype: ' + err.message);
@@ -252,6 +254,7 @@ clienttypes.controller('clienttypesController',[
                             $scope.deletedclienttype = deletedclienttype;
                             $scope.getclientTypes();
                             $scope.removeTab(item.id);
+                            $scope.createToast(item.type, "deleted", "danger");
                         },
                         function (err) {
                             console.error('Error deleting clienttype: ' + err.message);

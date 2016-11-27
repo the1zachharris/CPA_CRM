@@ -191,6 +191,7 @@ tasks.controller('tasksController',[
 
                     //window.location.href ='#/tasks';
                     $scope.removeTab('createTab');
+                    $scope.createToast(item.Name, "created", "success");
                 },
                 function (err) {
                     $scope.badTask = 'Error creating task: ' + JSON.stringify(err.data.message);
@@ -222,6 +223,7 @@ tasks.controller('tasksController',[
 
                     //window.location.href ='#/tasks';
                     $scope.removeTab(detailedtask.id);
+                    $scope.createToast(detailedtask.Name, "updated", "success");
                 },
                 function (err) {
                     console.error('Error updating task: ' + err.message);
@@ -279,6 +281,7 @@ tasks.controller('tasksController',[
                             $scope.deletedtask = deletedtask;
                             $scope.getTasks();
                             $scope.removeTab(item.id);
+                            $scope.createToast(item.Name, "deleted", "danger");
                         },
                         function (err) {
                             console.error('Error deleting task: ' + err.message);

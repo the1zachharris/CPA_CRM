@@ -53,7 +53,7 @@ clients.controller('clientsController',[
         $scope.tab = undefined;
 
         var clients = "",
-            newclient = '',
+            newClient = '',
             updatedclient = "",
             detailedclient = {},
             clienttypes = "",
@@ -199,13 +199,13 @@ clients.controller('clientsController',[
                 Type: newclient.Type.type
             }).then(
                 function (res) {
-                    newclient = angular.copy(res.data);
-                    $scope.newclient = {};
+                    newClient = angular.copy(res.data);
                     $scope.getClients();
                     //TODO: add toast message to notify user the record has been created
 
                     //window.location.href ='#/clients';
                     $scope.removeTab('createTab');
+                    $scope.createToast(newclient.Name, "created", "success");
                 },
                 function (err) {
                     $scope.badclient = 'Error creating client: ' + JSON.stringify(err.data.message);
@@ -242,6 +242,7 @@ clients.controller('clientsController',[
 
                     //window.location.href ='#/clients';
                     $scope.removeTab(detailedclient.id);
+                    $scope.createToast(detailedclient.Name, "updated", "success");
                 },
                 function (err) {
                     console.error('Error updating client: ' + err.message);
@@ -300,6 +301,7 @@ clients.controller('clientsController',[
                             $scope.deletedclient = deletedclient;
                             $scope.getClients();
                             $scope.removeTab(item.id);
+                            $scope.createToast(item.Name, "deleted", "danger");
                         },
                         function (err) {
                             console.error('Error deleting client: ' + err.message);
