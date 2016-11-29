@@ -39,7 +39,7 @@
                 </md-autocomplete>
             </div>
         </fieldset>
-    <form ng-submit="addTask(item)"  class="form-group">
+    <form ng-submit="addTask(item, tabValue.item.id, tabValue.item.Name)"  class="form-group">
         <fieldset>
             <div class="input-group">
                 <span class="input-group-addon">Client Tasks</span>
@@ -53,7 +53,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr ng-repeat="(sk,sv) in tabValue.item.tasks">
+                <tr ng-repeat="(sk,sv) in tabValue.item.Tasks">
                     <td valign="top"><input type="text" class="form-control" ng-model="sv.task.Name"></td>
                     <td valign="top"><input type="text" class="form-control" ng-model="sv.employee.FirstName + ' ' + sv.employee.LastName"></td>
                     <td valign="top">
@@ -90,7 +90,7 @@
                 </md-autocomplete>
             </div>
         </fieldset>
-        <button type="submit"  class="btn btn-default">Add Task
+        <button type="submit"  class="btn btn-default">Assign Task
             <i class="glyphicon glyphicon-pencil"></i>
         </button>
     </form>

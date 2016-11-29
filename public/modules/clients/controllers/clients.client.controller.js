@@ -163,11 +163,42 @@ clients.controller('clientsController',[
             }
         };
 
-        $scope.addTask  = function (task) {
+        $scope.addTask  = function (task, clientid, clientName) {
           console.log('in addTask: ');
           console.dir(task);
-          //TODO: assign task to client NOW and add to $scope var
-
+          console.log(clientid);
+          task = {task: task.task,
+              employee: task.employee,
+              dateAssigned: moment()};
+          var fullTask = {
+              client: {id: clientid},
+              task: task};
+          console.log('fullTask: ');
+          console.dir(fullTask);
+          //Assign the task to the client
+          clientCalls.assignTask(fullTask).then(
+                function (res) {
+                    console.dir(res);
+                    //upon success, create the corresponding clientTask
+                    clientCalls.createClientTask(
+                        {
+                            clientid: clientid,
+                            taskid:task.task.id,
+                            taskName:task.task.Name,
+                            taskDueDate:task.task.DueDate,
+                            taskExtendedDueDate:task.task.ExtendedDueDate,
+                            taskSecondExtendedDueDate:task.task.SecondExtendedDueDate,
+                            taskFrequency:task.task.Frequency,
+                            taskEmployeeid:task.employee.id,
+                            clientName:clientName
+                        }
+                    )
+                },
+                function (err) {
+                    console.error(err);
+                }
+            );
+            $scope.clientsTabset[clientid].item.Tasks.push(fullTask.task);
         };
 
         /* =====================================================================
