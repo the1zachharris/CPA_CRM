@@ -206,7 +206,8 @@ clients.factory('clientCalls', function($http,$log, $routeParams) {
         assignTask: function(req){
             var promise = $http({
                 method: 'POST',
-                url: '/client/assigntask'
+                url: '/client/assigntask',
+                data: req
             }).then(function (response) {
                 return response;
             });

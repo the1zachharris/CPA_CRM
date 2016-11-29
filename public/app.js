@@ -154,7 +154,7 @@ app.controller('MainController', function (
     //Build the tabset to run the navigation
     $scope.masterTabset = {
         tasksTab : {
-            active: true,
+            active: false,
             label: 'Tasks',
             view: 'modules/tasks/views/home.tasks.client.view.html',
             tabs: {}
@@ -172,7 +172,7 @@ app.controller('MainController', function (
             tabs: {}
         },
         clientsTab : {
-            active: false,
+            active: true,
             label: 'Clients',
             view: 'modules/clients/views/home.clients.client.view.html',
             tabs: {}

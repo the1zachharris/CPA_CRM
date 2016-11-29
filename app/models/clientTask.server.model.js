@@ -33,6 +33,9 @@ var clientTaskSchema = new Schema ({
     taskExtendedDueDate: {
         type: String
     },
+    taskSecondExtendedDueDate: {
+        type: String
+    },
     taskStatus: {
         type: String
     },
