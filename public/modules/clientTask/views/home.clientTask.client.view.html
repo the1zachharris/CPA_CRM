@@ -1,0 +1,39 @@
+<section class="full-height nopad search" clients flex="100" layout="column" ng-controller="clientsTaskController">
+    <div class="appheader">
+        <h3>Client Tasks</h3>
+    </div>
+    <md-content class="search clients tasks" flex layout="column">
+        <div>
+            <md-input-container flex>
+                <label><i class="fa fa-search"></i> Search Clients</label>
+                <input ng-change="refreshData(search)" ng-model="search">
+            </md-input-container>
+            <button class="btn btn-default"
+                    ng-click="openNewTab(
+                    'createTab',
+                    {active: true,
+                    label: 'Create',
+                    view: 'modules/clients/views/create-item.client.view.html'}
+                    )">
+                Test Mark Task
+                <i class="glyphicon glyphicon-exclamation-sign"></i>
+            </button>
+        </div>
+        <md-tabs md-border-bottom md-dynamic-height="false" flex>
+            <md-tab ng-repeat="(tabKey,tabValue) in clientsTabset track by $index" md-active="tabValue.active">
+                <md-tab-label>
+                    <span>{{tabValue.label}}</span>
+                    <!--close tab button -->
+                    <a ng-if="tabKey != 'resultsTab'" href="" ng-click="removeTab(tabKey)"><i class="fa fa-times"></i></a>
+                </md-tab-label>
+                <md-tab-body>
+                    <div class="table-responsive resultsList" layout="column">
+                        <!-- this ng-if logic allow us to only load in the tab view that is currently active -->
+                        <ng-include ng-if="tabKey == 'resultsTab'" ng-init="getClients()" src="tabValue.view"></ng-include>
+                        <ng-include src="tabValue.view"></ng-include>
+                    </div>
+                </md-tab-body>
+            </md-tab>
+        </md-tabs>
+    </md-content>
+</section>

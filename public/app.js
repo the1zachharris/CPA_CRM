@@ -176,6 +176,12 @@ app.controller('MainController', function (
             label: 'Clients',
             view: 'modules/clients/views/home.clients.client.view.html',
             tabs: {}
+        },
+        clientTasksTab : {
+            active: false,
+            label: 'Client Tasks',
+            view: 'modules/clientTask/views/home.clientTask.client.view.html',
+            tabs: {}
         }
     };
 

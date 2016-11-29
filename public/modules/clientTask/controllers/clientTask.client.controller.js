@@ -1,5 +1,5 @@
 'use strict';
-var clients = angular.module('clients',[
+var clienttasks = angular.module('clienttasks',[
     'ui.grid',
     'ui.grid.pagination',
     'ui.grid.exporter',
@@ -15,7 +15,7 @@ var clients = angular.module('clients',[
 ]);
 
 
-clients.controller('clientTasksController',[
+clienttasks.controller('clientTasksController',[
     'clientCalls',
     '$scope',
     '$http',
