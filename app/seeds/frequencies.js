@@ -16,6 +16,10 @@ var frequencies =
       "id": "Weekly",
       "frequency": "Weekly"
   },
+    {
+      "id": "Bi-Weekly",
+      "frequency": "Bi-Weekly"
+    },
   {
       "id": "Monthly",
       "frequency": "Monthly"

@@ -91,6 +91,9 @@ clienttasks.controller('clientTasksController',[
                 else if (Task.taskFrequency == "Daily") {
                     newDate = moment().add(1, 'd');
                 }
+                else if (Task.taskFrequency == "Bi-Weekly") {
+                    newDate = moment().add(2, 'w');
+                }
                 else if (Task.taskFrequency == "Weekly") {
                     newDate = moment().add(1, 'w');
                 }
