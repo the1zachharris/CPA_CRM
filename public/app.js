@@ -60,6 +60,7 @@ app.config(['$routeProvider', '$controllerProvider', '$provide', function ($rout
                                 'modules/tasks/controllers/tasks.client.controller.js',
                                 'modules/clienttypes/controllers/clienttypes.client.controller.js',
                                 'modules/employees/controllers/employees.client.controller.js',
+                                'modules/clientTask/controllers/clientTask.client.controller.js',
                                 // Styles
                                 'modules/core/css/datagrids.client.styles.css',
                                 'modules/core/css/tabsets.client.styles.css',

@@ -28,25 +28,25 @@ var clientTaskSchema = new Schema ({
         type: String
     },
     taskDueDate: {
-        type: String
+        type: Date
     },
     taskExtendedDueDate: {
-        type: String
+        type: Date
     },
     taskStatus: {
         type: String
     },
     taskCompletedDate: {
-        type: String
+        type: Date
     },
     taskCreatedDate: {
-        type: String
+        type: Date
     },
     taskExtendedDate: {
-        type: String
+        type: Date
     },
     taskReceivedDate: {
-        type: String
+        type: Date
     },
     taskEmployeeid: {
         type: String

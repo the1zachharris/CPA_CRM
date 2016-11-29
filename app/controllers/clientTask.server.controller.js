@@ -55,14 +55,13 @@ exports.create = function (req, res) {
         taskExtendedDueDate: req.body.taskExtendedDueDate,
         taskStatus: req.body.taskStatus,
         taskCompletedDate: req.body.taskCompletedDate,
-        taskCreatedDate: req.body.taskCreatedDate,
+        taskCreatedDate: current_date,
         taskExtendedDate: req.body.taskExtendedDate,
-        taskStuffReceivedDate: req.body.taskStuffReceivedDate,
+        taskReceivedDate: req.body.taskReceivedDate,
         taskEmployeeid: req.body.taskEmployeeid,
         DateCreated: current_date,
         DateUpdated: req.body.DateUpdated,
-        Tasks: req.body.Tasks
-
+        taskFrequency: req.body.taskFrequency
     });
 
     v.save(function (err, clientTask) {
@@ -161,7 +160,7 @@ exports.update = function (req, res) {
                 message:  err
             });
         } else {
-            res.status(200).send({results: doc});
+            res.status(200).send(doc);
         }
     });
 };

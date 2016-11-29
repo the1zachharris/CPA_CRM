@@ -1,4 +1,4 @@
-<section class="full-height nopad search" clients flex="100" layout="column" ng-controller="clientsTaskController">
+<section class="full-height nopad search" clients flex="100" layout="column" ng-controller="clientTasksController">
     <div class="appheader">
         <h3>Client Tasks</h3>
     </div>
@@ -9,12 +9,20 @@
                 <input ng-change="refreshData(search)" ng-model="search">
             </md-input-container>
             <button class="btn btn-default"
-                    ng-click="openNewTab(
-                    'createTab',
-                    {active: true,
-                    label: 'Create',
-                    view: 'modules/clients/views/create-item.client.view.html'}
-                    )">
+                    ng-click="markComplete(
+                    {id: 'a0fb58717ac317ffc09c5345b361bdf7774e0b46',
+                    clientid : '333333333',
+                    clientName : 'Joe',
+                    taskid : '55555555',
+                    taskName : 'decree',
+                    taskDueDate : '2016-11-27 02:20:52.828Z',
+                    taskExtendedDueDate : '2016-11-27 02:20:52.828Z',
+                    taskStatus : 'Recieved',
+                    taskCreatedDate : '2016-11-27 02:20:52.828Z',
+                    taskExtendedDate : '2016-11-27 02:20:52.828Z',
+                    taskReceivedDate : '2016-11-27 02:20:52.828Z',
+                    taskEmployeeid : '6t6t6t6t6t6t',
+                    taskFrequency : 'Annual'})">
                 Test Mark Task
                 <i class="glyphicon glyphicon-exclamation-sign"></i>
             </button>

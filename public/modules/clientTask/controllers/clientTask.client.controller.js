@@ -18,7 +18,7 @@ var clienttasks = angular.module('clienttasks',[
 clienttasks.controller('clientTasksController',[
     'clientCalls',
     '$scope',
-    '$http',
+    /*'$http',
     '$mdDialog',
     '$mdSidenav',
     '$mdToast',
@@ -30,12 +30,11 @@ clienttasks.controller('clientTasksController',[
     'uiGridConstants',
     '$filter',
     '$modal',
-    '$log',
-    'moment',
+    '$log',*/
     function (
         clientCalls,
-        $scope,
-        $http,
+        $scope
+        /*$http,
         $mdDialog,
         $mdSidenav,
         $mdToast,
@@ -47,59 +46,76 @@ clienttasks.controller('clientTasksController',[
         uiGridConstants,
         $filter,
         $modal,
-        $log,
-        moment
+        $log*/
     ) {
-        var updatedclientTask = "",
+        var updatedClientTask = "",
             newClientTask = "",
-            nowString = moment().toString(),
             now = moment(),
-            newDate = moment().toString();
-        $scope.frequencyLogic = function (status, clientTask) {
-
-            if (clientTask.taskFrequency == "Annual" && status == "Complete") {
-                clientCalls.updateClientTask({
-                    id: clientTask.id,
-                    taskStatus: status,
-                    taskCompletedDate: nowString
-                }).then(
-                    function (res) {
-                        updatedclientTask = angular.copy(res.data);
-                        $scope.updatedclientTask = updatedclientTask;
-                        $scope.createClientTask(updatedclient);
-                    },
-                    function (err) {
-                        console.error('Error marking client task complete: ' + err.message);
-                    }
-                );
-            }
+            newDate = now;
+        $scope.markComplete = function (clientTask) {
+            clientCalls.updateClientTask({
+                id: clientTask.id,
+                clientid: clientTask.clientid,
+                clientName: clientTask.clientName,
+                taskid: clientTask.taskid,
+                taskName: clientTask.taskName,
+                taskDueDate: clientTask.taskDueDate,
+                taskExtendedDueDate: clientTask.taskExtendedDueDate,
+                taskStatus: "Complete",
+                taskCompletedDate: now,
+                taskCreatedDate: clientTask.taskCreatedDate,
+                taskExtendedDate: clientTask.taskExtendedDate,
+                taskReceivedDate: clientTask.taskReceivedDate,
+                taskEmployeeid: clientTask.taskEmployeeid,
+                taskFrequency: clientTask.taskFrequency
+            }).then(
+                function (res) {
+                    updatedClientTask = angular.copy(res.data);
+                    $scope.updatedClientTask = updatedClientTask;
+                    $scope.setDate(updatedClientTask);
+                },
+                function (err) {
+                    console.error('Error marking client task complete: ' + err.message);
+                }
+            );
         };
 
-        $scope.createClientTask = function (Task) {
+        $scope.setDate = function (Task) {
+            console.dir(Task);
             var dueDate = moment(Task.taskDueDate);
             if (dueDate.diff(now) < 0) {
                 if (Task.taskFrequency == "Annual" || Task.taskFrequency == "AnnualEOM") {
-                    newDate = moment().add(1, 'y').toString();
+                    newDate = moment().add(1, 'y');
+                    console.log(newDate);
                 }
                 else if (Task.taskFrequency == "Daily") {
-                    newDate = moment().add(1, 'd').toString();
+                    newDate = moment().add(1, 'd');
                 }
                 else if (Task.taskFrequency == "Weekly") {
-                    newDate = moment().add(1, 'w').toString();
+                    newDate = moment().add(1, 'w');
                 }
                 else if (Task.taskFrequency == "Quarterly" || Task.taskFrequency == "QuarterlyEOM") {
-                    newDate = moment().add(1, 'Q').toString();
+                    newDate = moment().add(1, 'Q');
                 }
                 else if (Task.taskFrequency == "Monthly" || Task.taskFrequency == "MonthlyEOM") {
-                    newDate = moment().add(1, 'M').toString();
+                    newDate = moment().add(1, 'M');
                 }
                 else if (Task.taskFrequency == "Semi-Annual") {
-                    newDate = moment().add(6, 'M').toString();
+                    newDate = moment().add(6, 'M');
+                }
+                else if (Task.taskFrequency == "One-Time") {
+                    return Task
                 }
             }
             else {
-                newDate = Task.taskDueDate
+                newDate = Task.taskDueDate;
+                console.log(newDate);
             }
+            console.log(newDate);
+            $scope.createClientTask(Task, newDate);
+        };
+
+        $scope.createClientTask = function (Task, newDate) {
             clientCalls.createClientTask({
                 clientid: Task.clientid,
                 clientName: Task.clientName,
@@ -108,10 +124,7 @@ clienttasks.controller('clientTasksController',[
                 taskDueDate: newDate,
                 taskExtendedDueDate: Task.taskExtendedDueDate,
                 taskStatus: "New",
-                taskCompletedDate: null,
-                taskCreatedDate: nowString,
                 taskExtendedDate: Task.taskExtendedDate,
-                taskReceivedDate: null,
                 taskEmployeeid: Task.taskEmployeeid,
                 taskFrequency: Task.taskFrequency
             }).then(
@@ -123,6 +136,6 @@ clienttasks.controller('clientTasksController',[
                     console.error('Error creating client task: ' + JSON.stringify(err.data.message));
                 }
             );
-        };
+        }
     }
 ]);
