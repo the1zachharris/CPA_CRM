@@ -163,6 +163,13 @@ clients.controller('clientsController',[
             }
         };
 
+        $scope.addTask  = function (task) {
+          console.log('in addTask: ');
+          console.dir(task);
+          //TODO: assign task to client NOW and add to $scope var
+
+        };
+
         /* =====================================================================
          * Get all clients from Mongo database
          * ===================================================================== */
@@ -219,7 +226,8 @@ clients.controller('clientsController',[
          * update client
          * ===================================================================== */
         $scope.updateItem = function (detailedclient) {
-
+            console.log('detailedClient: ');
+            console.dir(detailedclient);
             clientCalls.updateClient({
                 id: detailedclient.id,
                 Name: detailedclient.Name,
@@ -336,6 +344,18 @@ clients.controller('clientsController',[
                 },
                 function (err) {
                     console.error('Error getting Employees: ' + err.message);
+                }
+            );
+        };
+
+        $scope.getTasks = function () {
+            clientCalls.getTasks({}).then(
+                function (res) {
+                    tasks = angular.copy(res.data);
+                    $scope.tasks = tasks;
+                },
+                function (err) {
+                    console.error('Error getting Tasks: ' + err.message);
                 }
             );
         };

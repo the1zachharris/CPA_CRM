@@ -26,10 +26,8 @@
             <md-autocomplete
                     ng-if="item.field == 'Frequency'"
                     ng-init="getList()"
-                    md-selected-item="$parent.tabValue.item[item.field]"
                     md-search-text-change="searchTextChange(searchText)"
                     md-search-text="searchText"
-                    md-selected-item-change="selectedItemChange(item)"
                     md-items="item in frequencies | filter:searchText"
                     md-item-text="item.frequency"
                     md-min-length="0"
