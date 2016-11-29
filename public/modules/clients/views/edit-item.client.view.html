@@ -3,8 +3,6 @@
         <h3>{{myUpdateFieldset.actionName}} {{myUpdateFieldset.collectionName}} <strong>{{tabValue.item.Name}}</strong></h3>
     </div>
 
-    <form ng-submit="updateItem(tabValue.item)"  class="form-group">
-
         <fieldset>
             <!-- CSS docs for this form stuff: http://getbootstrap.com/components/#input-groups -->
             <div ng-repeat="item in myUpdateFieldset.fields" class="input-group">
@@ -18,9 +16,7 @@
                         ng-if="item.field == 'ResponsibleEmployee'"
                         ng-init="getEmployees()"
                         md-selected-item="$parent.tabValue.item[item.field]"
-                        md-search-text-change="searchTextChange(searchText)"
                         md-search-text="searchText"
-                        md-selected-item-change="selectedItemChange(item)"
                         md-items="item in employees | filter:searchText"
                         md-item-text="item.FirstName"
                         md-min-length="0"
@@ -33,9 +29,7 @@
                         ng-if="item.field == 'Type'"
                         ng-init="getClientTypes()"
                         md-selected-item="$parent.tabValue.item[item.field]"
-                        md-search-text-change="searchTextChange(searchText)"
                         md-search-text="searchText"
-                        md-selected-item-change="selectedItemChange(item)"
                         md-items="item in clienttypes | filter:searchText"
                         md-item-text="item.type"
                         md-min-length="0"
@@ -45,13 +39,66 @@
                 </md-autocomplete>
             </div>
         </fieldset>
-
-        <button type="submit" class="btn btn-success">{{myUpdateFieldset.actionName}}
-            <i ng-if="myUpdateFieldset.actionName == 'Create'" class="glyphicon glyphicon-plus-sign"></i>
-            <i ng-if="myUpdateFieldset.actionName == 'Update'" class="glyphicon glyphicon-pencil"></i>
+    <form ng-submit="addTask(item)"  class="form-group">
+        <fieldset>
+            <div class="input-group">
+                <span class="input-group-addon">Client Tasks</span>
+            </div>
+            <table class="table-striped table-bordered">
+                <thead>
+                <tr>
+                    <th>Task</th>
+                    <th>Employee</th>
+                    <th>Delete Task</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="(sk,sv) in tabValue.item.tasks">
+                    <td valign="top"><input type="text" class="form-control" ng-model="sv.task.Name"></td>
+                    <td valign="top"><input type="text" class="form-control" ng-model="sv.employee.FirstName + ' ' + sv.employee.LastName"></td>
+                    <td valign="top">
+                        <button class="btn btn-danger btn-sm" ng-click="removeSetting($index)"><i class="fa fa-trash"></i></button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="input-group">
+                <span class="input-group-addon">New Task</span>
+                <md-autocomplete
+                        ng-init="getTasks()"
+                        md-selected-item="item.task"
+                        md-search-text="searchTask"
+                        md-items="item in tasks | filter:searchTask"
+                        md-item-text="item.Name"
+                        md-min-length="0"
+                <md-item-template>
+                    <span md-highlight-text="ctrl.searchText" md-highlight-flags="^i">{{item.Name}}</span>
+                </md-item-template>
+                </md-autocomplete>
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon">Responsible Employee</span>
+                <md-autocomplete
+                        md-selected-item="item.employee"
+                        md-search-text="searchText"
+                        md-items="item in employees | filter:searchText"
+                        md-item-text="item.FirstName + ' ' + item.LastName"
+                        md-min-length="0"
+                <md-item-template>
+                    <span md-highlight-text="ctrl.searchText" md-highlight-flags="^i">{{item.FirstName + ' ' + item.LastName}}</span>
+                </md-item-template>
+                </md-autocomplete>
+            </div>
+        </fieldset>
+        <button type="submit"  class="btn btn-default">Add Task
+            <i class="glyphicon glyphicon-pencil"></i>
+        </button>
+    </form>
+        <button ng-click="updateItem(tabValue.item)" class="btn btn-success">{{myUpdateFieldset.actionName}}
+            <i class="glyphicon glyphicon-pencil"></i>
         </button>
 
-    </form>
+
 
     <button type="delete" class="btn btn-danger"  ng-click="deleteItem(tabValue.item)">Delete
         <i ng-if="myUpdateFieldset.actionName == 'Update'" class="glyphicon glyphicon-trash"></i>
