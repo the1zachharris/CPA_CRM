@@ -81,7 +81,6 @@ clients.config([
     ]
 );
 
-var defaultTimeout = 10 * 1000;
 
 clients.factory('clientCalls', function($http,$log, $routeParams) {
     console.log("in clientCalls factory");
@@ -152,7 +151,7 @@ clients.factory('clientCalls', function($http,$log, $routeParams) {
             // Return the promise to the controller
             return promise;
         },
-        clientAdvSearch: function(req){
+        clientAdvSearch: function(){
             var promise = $http({
                 method: 'POST',
                 url: '/client/advsearch'
@@ -194,10 +193,32 @@ clients.factory('clientCalls', function($http,$log, $routeParams) {
             // Return the promise to the controller
             return promise;
         },
-        assignTask: function(req){
+        assignTask: function(){
             var promise = $http({
                 method: 'POST',
                 url: '/client/assigntask'
+            }).then(function (response) {
+                return response;
+            });
+            // Return the promise to the controller
+            return promise;
+        },
+        updateClientTask: function(req){
+            var promise = $http({
+                method: 'POST',
+                url: '/clienttask/update',
+                data: req
+            }).then(function (response) {
+                return response;
+            });
+            // Return the promise to the controller
+            return promise;
+        },
+        createClientTask: function(req){
+            var promise = $http({
+                method: 'POST',
+                url: '/clienttask/create',
+                data: req
             }).then(function (response) {
                 return response;
             });
