@@ -94,7 +94,7 @@ clients.controller('clientsController',[
             collectionName: 'client',
             fields: [
                 { label:'Name', field: 'Name', required: true },
-                { label: 'Type', field: 'Type', required: true},
+                { label:'Type', field: 'Type', required: true},
                 { label:'Address 1', field: 'Address1', required: false},
                 { label:'Address 2', field: 'Address2', required: false},
                 { label:'City', field: 'City', required: false},
@@ -113,7 +113,7 @@ clients.controller('clientsController',[
             collectionName: 'client',
             fields: [
                 { label:'Name', field: 'Name', required: true },
-                { label: 'Type', field: 'Type', required: true},
+                { label:'Type', field: 'Type', required: true},
                 { label:'Address 1', field: 'Address1', required: false},
                 { label:'Address 2', field: 'Address2', required: false},
                 { label:'City', field: 'City', required: false},

@@ -41,7 +41,7 @@ var app = angular.module('TrakkTask', [
     'clients',
     'tasks',
     'employees',
-    'clienttypes'
+    'clienttypes',
 ]);
 
 

@@ -51,6 +51,9 @@ var clientTaskSchema = new Schema ({
     taskReceivedDate: {
         type: Date
     },
+    taskEmployeeName: {
+        type: String
+    },
     taskEmployeeid: {
         type: String
     },

@@ -236,7 +236,6 @@ tasks.controller('tasksController',[
          * view task
          * ===================================================================== */
         $scope.viewTask = function (taskId) {
-
             taskCalls.detailTask(taskId).then(
                 function (res) {
                     detailedtask = angular.copy(res.data);

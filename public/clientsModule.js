@@ -214,6 +214,25 @@ clients.factory('clientCalls', function($http,$log, $routeParams) {
             // Return the promise to the controller
             return promise;
         },
+        getClientTasks: function(req){
+            var promise = $http({
+                method: 'GET',
+                url: '/clienttask/list',
+                params : req
+            }).then(function (response) {
+                return response;
+            });
+            return promise;
+        },
+        detailClientTask: function(clientTaskid){
+            var promise = $http({
+                method: 'GET',
+                url: '/clienttask/detail/' + clientTaskid
+            }).then(function (response) {
+                return response;
+            });
+            return promise;
+        },
         updateClientTask: function(req){
             var promise = $http({
                 method: 'POST',

@@ -24,7 +24,8 @@ var mongoose = require('mongoose'),
  * @apiParam {taskCompletedDate} taskCompletedDate
  * @apiParam {taskCreatedDate} taskCreatedDate
  * @apiParam {taskExtendedDate} taskExtendedDate
- * @apiParam {taskStuffReceivedDate} taskStuffReceivedDate
+ * @apiParam {taskReceivedDate} taskReceivedDate
+ * @apiParam {taskEmployeeName} taskEmployeeName
  * @apiParam {taskEmployeeid} taskEmployeeid
  * @apiParam {DateCreated} DateCreated
  * @apiParam {DateUpdated} DateUpdated
@@ -58,6 +59,7 @@ exports.create = function (req, res) {
         taskCreatedDate: current_date,
         taskExtendedDate: req.body.taskExtendedDate,
         taskReceivedDate: req.body.taskReceivedDate,
+        taskEmployeeName: req.body.taskEmployeeName,
         taskEmployeeid: req.body.taskEmployeeid,
         DateCreated: current_date,
         DateUpdated: req.body.DateUpdated,
