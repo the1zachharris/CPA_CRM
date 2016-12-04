@@ -88,29 +88,10 @@ clienttasks.controller('clientTasksController',[
             $scope.viewClientTask(itemId);
         };
 
-        $scope.myFieldset = {
-            newitem : {},
-            actionName: 'Create',
-            collectionName: 'clientTask',
-            fields: [
-                { label:'Name', field: 'Name', required: true },
-                { label:'Type', field: 'Type', required: true},
-                { label:'Address 1', field: 'Address1', required: false},
-                { label:'Address 2', field: 'Address2', required: false},
-                { label:'City', field: 'City', required: false},
-                { label:'State / Province', field: 'StateProvince', required: true},
-                { label:'Postal Code', field: 'PostalCode', required: false},
-                { label:'Country', field: 'Country', required: false},
-                { label:'Phone', field: 'Phone', required: false},
-                { label:'Email', field: 'Email', required: false},
-                { label:'Responsible Employee', field: 'ResponsibleEmployee', required: true}
-            ]
-        };
-
         $scope.myUpdateFieldset = {
             myItem : {},
-            actionName: 'Update',
-            collectionName: 'clientTask',
+            actionName: 'View',
+            collectionName: 'Client Task',
             fields: [
                 { label:'Client Name', field: 'clientName'},
                 { label:'Task Name', field: 'taskName'},
@@ -134,7 +115,7 @@ clienttasks.controller('clientTasksController',[
                     cellTemplate:
                     '<md-button aria-label="Client Task Detail" class="btn btn-default" ng-click="grid.appScope.openNewItemTab(row.entity.id)">'
                     + '<i class="glyphicon glyphicon-pencil"></i>'
-                    + '<md-tooltip>{{row.entity.Name}} Detail</md-tooltip>'
+                    + '<md-tooltip>{{row.entity.clientName}} Detail</md-tooltip>'
                     + '</md-button>',
                     enableSorting: false,
                     resizable: false,
@@ -144,7 +125,7 @@ clienttasks.controller('clientTasksController',[
                 },
                 { name:'Client Name', field: 'clientName'},
                 { name: 'Task Name', field: 'taskName'},
-                { name:'Task Due Date', field: 'taskDueDate', cellFilter: 'date:\'MM/dd/yyyy\''},
+                { name:'Due Date', field: 'taskDueDate', cellFilter: 'date:\'MM/dd/yyyy\''},
                 { name:'Status', field: 'taskStatus'},
                 { name: 'Employee Name', field: 'taskEmployeeName'},
                 { name: 'Frequency', field: 'taskFrequency'}
@@ -163,7 +144,16 @@ clienttasks.controller('clientTasksController',[
             }
         };
 
+        $scope.refreshGrid = function () {
+            $scope.getClientTasks()
+        };
+
+        $scope.$on("refreshClientTasks", function () {
+           $scope.getClientTasks()
+        });
+
         $scope.getClientTasks = function () {
+            console.log("in getClientTasks");
             clientCalls.getClientTasks({}).then(
                 function (res) {
                     clientTasks = angular.copy(res.data);
@@ -183,8 +173,8 @@ clienttasks.controller('clientTasksController',[
                     detailedClientTask = angular.copy(res.data);
                     $scope.clientTasksTabset[clientTaskid] = {
                         active: true,
-                        label: detailedClientTask.Number,
-                        view: 'modules/core/views/edit-item.client.view.html',
+                        label: detailedClientTask.taskName,
+                        view: 'modules/clientTask/views/view-item.client.view.html',
                         item: detailedClientTask
                     };
                 },
@@ -216,11 +206,76 @@ clienttasks.controller('clientTasksController',[
                     updatedClientTask = angular.copy(res.data);
                     $scope.updatedClientTask = updatedClientTask;
                     $scope.setDate(updatedClientTask);
+                    $scope.removeTab(clientTask.id);
+                    $scope.createToast(clientTask.taskName, "Completed", "success");
+                    $scope.getClientTasks()
                 },
                 function (err) {
                     console.error('Error marking client task complete: ' + err.message);
                 }
             );
+        };
+
+        $scope.markReceived = function (clientTask) {
+            clientCalls.updateClientTask({
+                id: clientTask.id,
+                clientid: clientTask.clientid,
+                clientName: clientTask.clientName,
+                taskid: clientTask.taskid,
+                taskName: clientTask.taskName,
+                taskDueDate: clientTask.taskDueDate,
+                taskExtendedDueDate: clientTask.taskExtendedDueDate,
+                taskStatus: "Received",
+                taskCompletedDate: clientTask.taskCompletedDate,
+                taskCreatedDate: clientTask.taskCreatedDate,
+                taskExtendedDate: clientTask.taskExtendedDate,
+                taskReceivedDate: now,
+                taskEmployeeName: clientTask.taskEmployeeName,
+                taskEmployeeid: clientTask.taskEmployeeid,
+                taskFrequency: clientTask.taskFrequency
+            }).then(
+                function (res) {
+                    updatedClientTask = angular.copy(res.data);
+                    $scope.updatedClientTask = updatedClientTask;
+                    $scope.removeTab(clientTask.id);
+                    $scope.createToast(clientTask.taskName, "Received", "success");
+                    $scope.getClientTasks()
+                },
+                function (err) {
+                    console.error('Error marking client task received: ' + err.message);
+                }
+            )
+        };
+
+        $scope.markExtended = function (clientTask) {
+            clientCalls.updateClientTask({
+                id: clientTask.id,
+                clientid: clientTask.clientid,
+                clientName: clientTask.clientName,
+                taskid: clientTask.taskid,
+                taskName: clientTask.taskName,
+                taskDueDate: clientTask.taskExtendedDueDate,
+                taskExtendedDueDate: clientTask.taskExtendedDueDate,
+                taskStatus: "Extended",
+                taskCompletedDate: clientTask.taskCompletedDate,
+                taskCreatedDate: clientTask.taskCreatedDate,
+                taskExtendedDate: now,
+                taskReceivedDate: clientTask.taskReceivedDate,
+                taskEmployeeName: clientTask.taskEmployeeName,
+                taskEmployeeid: clientTask.taskEmployeeid,
+                taskFrequency: clientTask.taskFrequency
+            }).then(
+                function (res) {
+                    updatedClientTask = angular.copy(res.data);
+                    $scope.updatedClientTask = updatedClientTask;
+                    $scope.removeTab(clientTask.id);
+                    $scope.createToast(clientTask.taskName, "Extended", "success");
+                    $scope.getClientTasks()
+                },
+                function (err) {
+                    console.error('Error marking client task extended: ' + err.message);
+                }
+            )
         };
 
         $scope.setDate = function (Task) {

@@ -8,10 +8,10 @@
                 <label><i class="fa fa-search"></i> Search Clients</label>
                 <input ng-change="refreshData(search)" ng-model="search">
             </md-input-container>
-            <button class="btn btn-default"
-                    ng-click="markComplete()">Test Mark Task
-                <i class="glyphicon glyphicon-exclamation-sign"></i>
-            </button>
+            <md-button id="refreshGrid" aria-label="reset" class="btn btn-success" ng-click="refreshGrid();">
+                <i class="fa fa-refresh"></i>
+                <md-tooltip>Refresh Grid</md-tooltip>
+            </md-button>
         </div>
         <md-tabs md-border-bottom md-dynamic-height="false" flex>
             <md-tab ng-repeat="(tabKey,tabValue) in clientTasksTabset track by $index" md-active="tabValue.active">

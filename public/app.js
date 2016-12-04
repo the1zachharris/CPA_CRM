@@ -41,7 +41,7 @@ var app = angular.module('TrakkTask', [
     'clients',
     'tasks',
     'employees',
-    'clienttypes',
+    'clienttypes'
 ]);
 
 
@@ -56,11 +56,12 @@ app.config(['$routeProvider', '$controllerProvider', '$provide', function ($rout
                             name: 'MainController',
                             files:[
                                 // Controllers
+                                'modules/clientTask/controllers/clientTask.client.controller.js',
                                 'modules/clients/controllers/clients.client.controller.js',
                                 'modules/tasks/controllers/tasks.client.controller.js',
                                 'modules/clienttypes/controllers/clienttypes.client.controller.js',
                                 'modules/employees/controllers/employees.client.controller.js',
-                                'modules/clientTask/controllers/clientTask.client.controller.js',
+
                                 // Styles
                                 'modules/core/css/datagrids.client.styles.css',
                                 'modules/core/css/tabsets.client.styles.css',
