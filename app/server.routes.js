@@ -14,6 +14,10 @@ console.log('in server.routes now');
 
 router.get('/',core.index);
 
+//subscriptions routes
+var subscriptions = require('./controllers/subscriptions.server.controller');
+router.post('/subscriptions/create', subscriptions.createSubscription);
+
 // Seed Route
 router.post('/seed/:app/:mode/:field',core.seed);
 /*
