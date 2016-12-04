@@ -204,6 +204,8 @@ clients.controller('clientsController',[
             $scope.$emit("refreshClientTasks", {});
         };
 
+        $scope.removeTask = function () {};
+
         /* =====================================================================
          * Get all clients from Mongo database
          * ===================================================================== */

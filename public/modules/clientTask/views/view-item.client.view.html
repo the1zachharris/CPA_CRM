@@ -8,25 +8,25 @@
         {{$parent.tabValue.item[item.field]}}
     </div>
 
-    <button class="btn btn-default"
+    <button class="btn btn-success"
             ng-click="markComplete(tabValue.item)"
             ng-if="tabValue.item.taskStatus != 'Complete'">
         Mark Complete
-        <i class="glyphicon glyphicon-exclamation-sign"></i>
+        <i class="glyphicon glyphicon-check"></i>
     </button>
 
     <button class="btn btn-default"
             ng-click="markReceived(tabValue.item)"
             ng-if="tabValue.item.taskStatus != 'Complete' && tabValue.item.taskStatus != 'Received'">
         Mark Received
-        <i class="glyphicon glyphicon-exclamation-sign"></i>
+        <i class="glyphicon glyphicon-open-file"></i>
     </button>
 
-    <button class="btn btn-default"
+    <button class="btn btn-warning"
             ng-click="markExtended(tabValue.item)"
             ng-if="tabValue.item.taskStatus != 'Complete' && tabValue.item.taskDueDate != tabValue.item.taskExtendedDueDate && tabValue.item.taskExtendedDueDate != null">
          Mark Extended
-        <i class="glyphicon glyphicon-exclamation-sign"></i>
+        <i class="glyphicon glyphicon-time"></i>
     </button>
 
     <!-- Modal Template -->
