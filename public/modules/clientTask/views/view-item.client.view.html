@@ -1,0 +1,61 @@
+<section>
+    <div class="appheader">
+        <h3>View {{myUpdateFieldset.collectionName}} <strong>{{tabValue.item.clientName}}</strong></h3>
+    </div>
+
+    <div ng-repeat="item in myUpdateFieldset.fields" class="input-group">
+        <span class="input-group-addon">{{item.label}}</span>
+        {{$parent.tabValue.item[item.field]}}
+    </div>
+
+    <button class="btn btn-default"
+            ng-click="markComplete(tabValue.item)"
+            ng-if="tabValue.item.taskStatus != 'Complete'">
+        Mark Complete
+        <i class="glyphicon glyphicon-exclamation-sign"></i>
+    </button>
+
+    <button class="btn btn-default"
+            ng-click="markReceived(tabValue.item)"
+            ng-if="tabValue.item.taskStatus != 'Complete' && tabValue.item.taskStatus != 'Received'">
+        Mark Received
+        <i class="glyphicon glyphicon-exclamation-sign"></i>
+    </button>
+
+    <button class="btn btn-default"
+            ng-click="markExtended(tabValue.item)"
+            ng-if="tabValue.item.taskStatus != 'Complete' && tabValue.item.taskDueDate != tabValue.item.taskExtendedDueDate && tabValue.item.taskExtendedDueDate != null">
+         Mark Extended
+        <i class="glyphicon glyphicon-exclamation-sign"></i>
+    </button>
+
+    <!-- Modal Template -->
+
+    <script type="text/ng-template" id="appModal">
+        <div class="modal-header">
+            <i class="fa pull-right fa-{{modal.icon}}" ng-if="modal.icon" ng-class="{'error' : modal.title == 'Error','warning' : modal.title == 'Warning','success' : modal.title == 'Success'}"></i>
+            <h4 class="modal-title">{{modal.title}}</h4>
+        </div>
+        <div class="modal-body">
+            {{modal.body}}
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" type="button" ng-click="cancel()">Cancel</button>
+            <button class="btn btn-primary" type="button" ng-click="confirm()">OK</button>
+        </div>
+    </script>
+
+    <script type="text/ng-template" id="appModal2">
+        <div class="modal-header">
+            <i class="fa pull-right fa-{{modal.icon}}" ng-if="modal.icon" ng-class="{'error' : modal.title == 'Error','warning' : modal.title == 'Warning','success' : modal.title == 'Success'}"></i>
+            <h4 class="modal-title">{{modal.title}}</h4>
+        </div>
+        <div class="modal-body">
+            {{modal.body}}
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" type="button" ng-click="cancel()">OK</button>
+        </div>
+    </script>
+
+</section>

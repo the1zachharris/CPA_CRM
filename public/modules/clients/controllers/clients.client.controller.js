@@ -189,6 +189,8 @@ clients.controller('clientsController',[
                             taskExtendedDueDate:task.task.ExtendedDueDate,
                             taskSecondExtendedDueDate:task.task.SecondExtendedDueDate,
                             taskFrequency:task.task.Frequency,
+                            taskStatus:"New",
+                            taskEmployeeName:task.employee.FirstName,
                             taskEmployeeid:task.employee.id,
                             clientName:clientName
                         }
@@ -199,6 +201,7 @@ clients.controller('clientsController',[
                 }
             );
             $scope.clientsTabset[clientid].item.Tasks.push(fullTask.task);
+            $scope.$emit("refreshClientTasks", {});
         };
 
         /* =====================================================================
@@ -239,7 +242,6 @@ clients.controller('clientsController',[
                 function (res) {
                     newClient = angular.copy(res.data);
                     $scope.getClients();
-                    //TODO: add toast message to notify user the record has been created
 
                     //window.location.href ='#/clients';
                     $scope.removeTab('createTab');
@@ -277,7 +279,6 @@ clients.controller('clientsController',[
                     updatedclient = angular.copy(res.data);
                     $scope.updatedclient = updatedclient;
                     $scope.getClients();
-                    //TODO: add toast message to notify user the record has been updated
 
                     //window.location.href ='#/clients';
                     $scope.removeTab(detailedclient.id);

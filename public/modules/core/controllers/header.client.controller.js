@@ -11,6 +11,7 @@ app
         '$location',
         //'authorization',
         'FeedbackService',
+        'clientCalls',
         HeaderController
     ]);
 
@@ -21,13 +22,29 @@ function HeaderController(
     $timeout,
     $location,
     //authorization,
-    feedbackService
+    feedbackService,
+    clientCalls
 ) {
 
 
     $scope.isCollapsed = false;
 
     $scope.page = 'tasks';
+
+    $scope.getClientTasks = function () {
+        console.log("in getClientTasks");
+        clientCalls.getClientTasks({}).then(
+            function (res) {
+                clientTasks = angular.copy(res.data);
+                $scope.clientTasks = clientTasks;
+                console.dir(clientTasks);
+                $scope.gridOptions.data = clientTasks;
+            },
+            function (err) {
+                console.error('Error getting clientTasks: ' + err.message);
+            }
+        );
+    };
 
     $scope.toggleCollapsibleMenu = function () {
         $scope.isCollapsed = !$scope.isCollapsed;
