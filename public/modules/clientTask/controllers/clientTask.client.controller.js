@@ -111,7 +111,7 @@ clienttasks.controller('clientTasksController',[
             columnDefs: [
                 {
                     name: 'actions',
-                    displayName: '',
+                    displayName: 'Detail',
                     cellTemplate:
                     '<md-button aria-label="Client Task Detail" class="btn btn-default" ng-click="grid.appScope.openNewItemTab(row.entity.id)">'
                     + '<i class="glyphicon glyphicon-pencil"></i>'
@@ -119,7 +119,49 @@ clienttasks.controller('clientTasksController',[
                     + '</md-button>',
                     enableSorting: false,
                     resizable: false,
-                    width: 50,
+                    width: 65,
+                    height: 30,
+                    pinnable: false
+                },
+                {
+                    name: 'complete',
+                    displayName: 'Complete',
+                    cellTemplate:
+                    '<md-button aria-label="Mark Complete" class="btn btn-default" ng-click="grid.appScope.markComplete(row.entity)" ng-if="row.entity.taskStatus != \'Complete\'">'
+                    + '<i class="glyphicon glyphicon-check"></i>'
+                    + '<md-tooltip>{{row.entity.clientName}} Complete</md-tooltip>'
+                    + '</md-button>',
+                    enableSorting: false,
+                    resizable: false,
+                    width: 85,
+                    height: 30,
+                    pinnable: false
+                },
+                {
+                    name: 'receive',
+                    displayName: 'Receive',
+                    cellTemplate:
+                    '<md-button aria-label="Mark Received" class="btn btn-default" ng-click="grid.appScope.markReceived(row.entity)" ng-if="row.entity.taskStatus != \'Complete\' && row.entity.taskStatus != \'Received\'">'
+                    + '<i class="glyphicon glyphicon-open-file"></i>'
+                    + '<md-tooltip>{{row.entity.clientName}} Received</md-tooltip>'
+                    + '</md-button>',
+                    enableSorting: false,
+                    resizable: false,
+                    width: 85,
+                    height: 30,
+                    pinnable: false
+                },
+                {
+                    name: 'extended',
+                    displayName: 'Extended',
+                    cellTemplate:
+                    '<md-button aria-label="Mark Extended" class="btn btn-default" ng-click="grid.appScope.markExtended(row.entity)" ng-if="row.entity.taskStatus != \'Complete\' && row.entity.taskDueDate != row.entity.taskExtendedDueDate && row.entity.taskExtendedDueDate != null">'
+                    + '<i class="glyphicon glyphicon-time"></i>'
+                    + '<md-tooltip>{{row.entity.clientName}} Extended</md-tooltip>'
+                    + '</md-button>',
+                    enableSorting: false,
+                    resizable: false,
+                    width: 85,
                     height: 30,
                     pinnable: false
                 },
