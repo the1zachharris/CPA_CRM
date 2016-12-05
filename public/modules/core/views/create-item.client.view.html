@@ -27,14 +27,15 @@
                     ng-if="item.field == 'Frequency'"
                     ng-init="getList()"
                     md-search-text-change="searchTextChange(searchText)"
+                    md-selected-item="$parent.tabValue.item[item.field]"
                     md-search-text="searchText"
                     md-items="item in frequencies | filter:searchText"
                     md-item-text="item.frequency"
                     md-min-length="0"
                     placeholder="Enter a Frequency"
-                <md-item-template>
-                    <span md-highlight-text="ctrl.searchText" md-highlight-flags="^i">{{item.frequency}}</span>
-                </md-item-template>
+            <md-item-template>
+                <span md-highlight-text="ctrl.searchText" md-highlight-flags="^i">{{item.frequency}}</span>
+            </md-item-template>
             </md-autocomplete>
         </div>
         </fieldset>

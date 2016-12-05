@@ -95,7 +95,6 @@ tasks.controller('tasksController',[
             collectionName: 'Task',
             fields: [
               { label:'Name', field: 'Name', required: true },
-              { label: 'Number', field: 'Number', required: true},
               { label:'Due Date', field: 'DueDate', required: true},
               { label:'Extended Due Date', field: 'ExtendedDueDate', required: false},
               { label:'Second Extended Due Date', field: 'SecondExtendedDueDate', required: false},
@@ -109,7 +108,6 @@ tasks.controller('tasksController',[
             collectionName: 'Task',
             fields: [
                 { label:'Name', field: 'Name', required: true },
-                { label: 'Number', field: 'Number', required: true},
                 { label:'Due Date', field: 'DueDate', required: true},
                 { label:'Extended Due Date', field: 'ExtendedDueDate', required: false},
                 { label:'Second Extended Due Date', field: 'SecondExtendedDueDate', required: false},
@@ -135,7 +133,6 @@ tasks.controller('tasksController',[
                     pinnable: false
                 },
                 { name:'Name', field: 'Name'},
-                { name: 'Number', field: 'Number'},
                 { name:'Frequency', field: 'Frequency' },
                 { name:'Due Date', field: 'DueDate', cellFilter: 'date:\'MM/dd/yyyy\''}
             ],
@@ -174,10 +171,9 @@ tasks.controller('tasksController',[
          * create new task
          * ===================================================================== */
         $scope.createItem = function (item) {
-            console.log(item);
+            console.dir(item);
             taskCalls.createTask({
                 Name: item.Name,
-                Number: item.Number,
                 DueDate: item.DueDate,
                 ExtendedDueDate: item.ExtendedDueDate,
                 SecondExtendedDueDate: item.SecondExtendedDueDate,
@@ -199,8 +195,6 @@ tasks.controller('tasksController',[
                 }
             );
         };
-
-
         /* =====================================================================
          * update task
          * ===================================================================== */
@@ -209,7 +203,6 @@ tasks.controller('tasksController',[
             taskCalls.updateTask({
                 id: detailedtask.id,
                 Name: detailedtask.Name,
-                Number: detailedtask.Number,
                 Frequency: detailedtask.Frequency.frequency,
                 DueDate: detailedtask.DueDate,
                 ExtendedDueDate: detailedtask.ExtendedDueDate,
@@ -230,8 +223,6 @@ tasks.controller('tasksController',[
                 }
             );
         };
-
-
         /* =====================================================================
          * view task
          * ===================================================================== */
@@ -251,7 +242,6 @@ tasks.controller('tasksController',[
                 }
             );
         };
-
         /* =====================================================================
          * Delete a task from Mongo database
          * ===================================================================== */
@@ -293,7 +283,6 @@ tasks.controller('tasksController',[
                 }
             );
         };
-
         $scope.getList = function () {
             taskCalls.getFrequencies({}).then(
                 function (res) {

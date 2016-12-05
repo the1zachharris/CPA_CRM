@@ -21,12 +21,6 @@ var tasksSchema = new Schema ({
         unique: 'Task name must be unique',
         trim: true
     },
-    Number: {
-        type: String,
-        required: 'Please fill in a number for the Task',
-        unique: 'Task number must be unique',
-        trim: true
-    },
     Frequency: {
         type: String,
         required: 'Please fill in a frequency for the Task',
