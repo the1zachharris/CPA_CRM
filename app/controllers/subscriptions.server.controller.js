@@ -1,14 +1,15 @@
 'use strict';
 
-var ApiContracts = require('authorizenet').APIContracts;
-var ApiControllers = require('authorizenet').APIControllers;
+var ApiContracts = require('authorizenet').APIContracts,
+ApiControllers = require('authorizenet').APIControllers,
+envLoaded = require('../../config/env/' + process.env.NODE_ENV);
 //var utils = require('../utils.js');
 //var constants = require('../constants.js');
 
 function createSubscription(callback) {
     var merchantAuthenticationType = new ApiContracts.MerchantAuthenticationType();
-    merchantAuthenticationType.setName(constants.apiLoginKey);
-    merchantAuthenticationType.setTransactionKey(constants.transactionKey);
+    merchantAuthenticationType.setName(envLoaded.apiLoginKey);
+    merchantAuthenticationType.setTransactionKey(envLoaded.transactionKey);
 
     var interval = new ApiContracts.PaymentScheduleType.Interval();
     interval.setLength(1);

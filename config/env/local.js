@@ -4,11 +4,11 @@ var mongoose = require('mongoose');
 module.exports = {
 
 ///// Mongo /////
-    db: 'mongodb://localhost/cpa_crm',
-    dbname: 'cpa_crm',
+    db: 'mongodb://localhost/trakktask',
+    dbname: 'trakktask',
     port:3000,
     app: {
-        title: 'local: CPA_CRM'
+        title: 'local: TrakkTask'
     },
     mongoIndexTimezoneOffset: '0',
     //// Logging Level /////
@@ -23,8 +23,13 @@ module.exports = {
                 pass: process.env.MAILER_PASSWORD || 'MAILER_PASSWORD'
             }
         }
-    }
+    },
+    // Authorize.net vars
+    apiLoginKey: '87zYp6PSh',
+    transactionKey: '2bg9x3u2q9XV72PD'
 };
 
 // Call the console.log function.
 console.log('Hello Local Host!');
+
+

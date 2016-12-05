@@ -3,7 +3,7 @@
 var express = require('express'),
     app = express(),
     path = require('path'),
-    debug = require('debug')('CPA_CRM'),
+    debug = require('debug')('TrakkTask'),
     bodyParser = require('body-parser'),
     mongoose = require('mongoose'),
     session = require('express-session'),

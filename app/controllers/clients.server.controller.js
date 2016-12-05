@@ -5,6 +5,7 @@
  */
 var mongoose = require('mongoose'),
     ClientModel = require('../models/clients.server.model.js'),
+    //TODO: Add DB specification to all model references to hit the correct DB
     client = mongoose.model('client'),
     crypto = require('crypto');
 
