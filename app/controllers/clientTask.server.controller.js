@@ -136,6 +136,77 @@ exports.detail = function (req, res) {
 };
 
 /**
+ * @api {search} /client/:client
+ * @apiName search
+ * @apiGroup client
+ *
+ * @apiParam {taskid} taskid
+ *
+ * @apiSuccessExample Success-Response:
+ * 200 OK
+ *  {results: doc}
+ *
+ * @apiErrorExample Error-Response:
+ *  400 Bad Request
+ *  {
+ *  "message": "error of some kind"
+ *  }
+ */
+exports.search = function (req, res) {
+
+    var searchQuery = req.body.query,
+        limit = req.body.limit,
+        skip = req.body.skip,
+        sort = req.body.sort,
+        limitSearch = 0,
+        and = req.body.and,
+        or = req.body.or,
+        filter = req.body.filter;
+    /* a sample query that we know works in mongo
+    {$and: [
+        {taskid: '10b0972fcafa7d4a0189a8cb3919786523d8d3e2'},
+        {clientid: '1b70c4906261f9097bd7d2e497d443a709efc618'},
+        {taskStatus: {$not: {$eq: 'Complete'}}}
+    ]}
+    +++++ sample POSTMAN ++++++++
+     {"query":"searchText",
+     "limit":"25",
+     "limitsearch":"0",
+     "exactsearch":false,
+     "skip":0,
+     "and": [
+     {"taskid": "foo99"},
+     {"clientid": "freebo007"},
+     {"taskStatus":
+     {"$not": {"$eq": "Complete"}}}
+     ],
+     "sort":{"taskName":1}
+     }
+    */
+
+
+    var itemDeepSearch = clientTask
+        .find({
+            $and : and
+        })
+        .limit(limit)
+        .skip(skip)
+        .sort(sort);
+
+    itemDeepSearch.exec(function (err, doc) {
+        if (err) {
+            console.dir(err);
+            return res.status(400).send({
+                message:  err
+            });
+        } else {
+            res.status(200).send({results: doc});
+        }
+
+    })
+};
+
+/**
  * @api {post} /clientTask
  * @apiName update
  * @apiGroup clientTask

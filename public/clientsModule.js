@@ -85,17 +85,6 @@ clients.config([
 clients.factory('clientCalls', function($http,$log, $routeParams) {
     console.log("in clientCalls factory");
     var clientsMasterService = {
-        getTasks: function(req){
-            var promise = $http({
-                method: 'GET',
-                url: '/task/list',
-                params : req
-            }).then(function (response) {
-                return response;
-            });
-            // Return the promise to the controller
-            return promise;
-        },
         detailclient: function(clientId){
             var promise = $http({
                 method: 'GET',
@@ -214,6 +203,17 @@ clients.factory('clientCalls', function($http,$log, $routeParams) {
             // Return the promise to the controller
             return promise;
         },
+        removeTask: function(req){
+            var promise = $http({
+                method: 'POST',
+                url: '/client/removetask',
+                data: req
+            }).then(function (response) {
+                return response;
+            });
+            // Return the promise to the controller
+            return promise;
+        },
         getClientTasks: function(req){
             var promise = $http({
                 method: 'GET',
@@ -244,11 +244,33 @@ clients.factory('clientCalls', function($http,$log, $routeParams) {
             // Return the promise to the controller
             return promise;
         },
+        searchClientTasks: function(req){
+            var promise = $http({
+                method: 'POST',
+                url: '/clienttask/search',
+                data: req
+            }).then(function (response) {
+                console.dir(response);
+                return response;
+            });
+            // Return the promise to the controller
+            return promise;
+        },
         createClientTask: function(req){
             var promise = $http({
                 method: 'POST',
                 url: '/clienttask/create',
                 data: req
+            }).then(function (response) {
+                return response;
+            });
+            // Return the promise to the controller
+            return promise;
+        },
+        deleteClientTask: function(req){
+            var promise = $http({
+                method: 'DELETE',
+                url: '/client/delete/' + req.id
             }).then(function (response) {
                 return response;
             });

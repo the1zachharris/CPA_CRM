@@ -111,6 +111,7 @@ router.get('/clienttask/detail/:id', clientTask.detail);
 router.post('/clienttask/create', clientTask.create);
 router.post('/clienttask/update', clientTask.update);
 router.delete('/clienttask/delete/:id', clientTask.delete);
+router.post('/clienttask/search', clientTask.search);
 
 /*
  * task ROUTES
