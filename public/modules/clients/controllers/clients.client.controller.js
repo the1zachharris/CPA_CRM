@@ -164,17 +164,12 @@ clients.controller('clientsController',[
         };
 
         $scope.addTask  = function (task, clientid, clientName) {
-          console.log('in addTask: ');
-          console.dir(task);
-          console.log(clientid);
           task = {task: task.task,
               employee: task.employee,
               dateAssigned: moment()};
           var fullTask = {
               client: {id: clientid},
               task: task};
-          console.log('fullTask: ');
-          console.dir(fullTask);
           //Assign the task to the client
           clientCalls.assignTask(fullTask).then(
                 function (res) {
@@ -204,7 +199,65 @@ clients.controller('clientsController',[
             $scope.$emit("refreshClientTasks", {});
         };
 
-        $scope.removeTask = function () {};
+        $scope.searchClientTasks = function (clientid, taskid) {
+            var searchObj = {searchObj: {$and: [{taskid: taskid}, {clientid: clientid}, {taskStatus: {$not: {$eq: 'Complete'}}}]}};
+            clientCalls.searchClientTasks(searchObj).then(
+                function(res) {
+                    clientTask = angular.copy(res.data);
+                    $scope.clientTask = clientTask;
+                },
+                function (err) {
+                    console.error(err);
+                }
+            )
+        };
+
+        $scope.removeTask = function (client, task) {
+            clientCalls.removeTask(client, task).then(
+                function (res) {
+                    console.dir(res)
+                },
+                function (err) {
+                    console.error(err);
+                }
+            );
+            $scope.modal = {
+                title : 'Delete Client Task' + task.Name,
+                body : 'Do you want to delete \'' + task.Name + '\' uncompleted Client Task?'
+            };
+            var modalInstance = $modal.open({
+                animation: true,
+                templateUrl: 'appModal',
+                controller: 'ModalInstanceCtrl',
+                scope: $scope,
+                size: 'md'
+                // resolve: {}
+            });
+            modalInstance.result.then(
+                function () {
+                    $scope.searchClientTasks(client.id, task.id);
+                    clientCalls.deleteClientTask({
+                        id: $scope.clientTask.id
+                    }).then(
+                        function (res) {
+                            deletedclient = angular.copy(res.data);
+                            $scope.deletedclient = deletedclient;
+                            $scope.getClients();
+                            $scope.removeTab(item.id);
+                            $scope.createToast(item.Name, "deleted", "danger");
+                        },
+                        function (err) {
+                            console.error('Error deleting client: ' + err.message);
+                        }
+                    );
+                },
+                function () {
+                    // $log.info('Modal dismissed at: ' + new Date());
+                    $log.info('Delete client cancelled');
+                }
+            );
+
+        };
 
         /* =====================================================================
          * Get all clients from Mongo database
