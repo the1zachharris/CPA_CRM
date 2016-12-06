@@ -39,7 +39,6 @@ exports.create = function (req, res) {
     var v = new task({
         id: crypto.createHash('sha1').update(current_date + random).digest('hex'),
         Name: req.body.Name,
-        Number: req.body.Number,
         Frequency: req.body.Frequency,
         DueDate: req.body.DueDate,
         ExtendedDueDate: req.body.ExtendedDueDate,

@@ -99,7 +99,7 @@ clients.controller('clientsController',[
                 { label:'Address 1', field: 'Address1', required: false},
                 { label:'Address 2', field: 'Address2', required: false},
                 { label:'City', field: 'City', required: false},
-                { label:'State / Province', field: 'StateProvince', required: true},
+                { label:'State / Province', field: 'StateProvince', required: false},
                 { label:'Postal Code', field: 'PostalCode', required: false},
                 { label:'Country', field: 'Country', required: false},
                 { label:'Phone', field: 'Phone', required: false},
@@ -118,7 +118,7 @@ clients.controller('clientsController',[
                 { label:'Address 1', field: 'Address1', required: false},
                 { label:'Address 2', field: 'Address2', required: false},
                 { label:'City', field: 'City', required: false},
-                { label:'State / Province', field: 'StateProvince', required: true},
+                { label:'State / Province', field: 'StateProvince', required: false},
                 { label:'Postal Code', field: 'PostalCode', required: false},
                 { label:'Country', field: 'Country', required: false},
                 { label:'Phone', field: 'Phone', required: false},
@@ -304,7 +304,7 @@ clients.controller('clientsController',[
                 Country: newclient.Country,
                 Phone: newclient.Phone,
                 Email: newclient.Email,
-                ResponsibleEmployee: newclient.ResponsibleEmployee.FirstName,
+                ResponsibleEmployee: newclient.ResponsibleEmployee.FirstName + newclient.ResponsibleEmployee.LastName,
                 Type: newclient.Type.type
             }).then(
                 function (res) {
@@ -340,7 +340,7 @@ clients.controller('clientsController',[
                 Country: detailedclient.Country,
                 Phone: detailedclient.Phone,
                 Email: detailedclient.Email,
-                ResponsibleEmployee: detailedclient.ResponsibleEmployee.FirstName,
+                ResponsibleEmployee: detailedclient.ResponsibleEmployee.FirstName + newClient.ResponsibleEmployee.LastName,
                 Type: detailedclient.Type.type
             }).then(
                 function (res) {
