@@ -27,6 +27,7 @@
                     ng-if="item.field == 'Frequency'"
                     ng-init="getList()"
                     md-search-text-change="searchTextChange(searchText)"
+                    md-selected-item="$parent.tabValue.item[item.field]"
                     md-search-text="searchText"
                     md-items="item in frequencies | filter:searchText"
                     md-item-text="item.frequency"

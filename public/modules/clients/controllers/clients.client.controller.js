@@ -58,7 +58,8 @@ clients.controller('clientsController',[
             detailedclient = {},
             clienttypes = "",
             employees = "",
-            deletedclient = "";
+            deletedclient = "",
+            deletedClientTask = "";
 
         //Build the tabset to run the CRUD for clients
         $scope.clientsTabset = {
@@ -200,7 +201,19 @@ clients.controller('clientsController',[
         };
 
         $scope.searchClientTasks = function (clientid, taskid) {
-            var searchObj = {searchObj: {$and: [{taskid: taskid}, {clientid: clientid}, {taskStatus: {$not: {$eq: 'Complete'}}}]}};
+            var searchObj = {"query":"searchText",
+                "limit":25,
+                "limitsearch":0,
+                "exactsearch":false,
+                "skip":0,
+                "and": [
+                    {"taskid": "taskid"},
+                    {"clientid": "clientid"},
+                    {"taskStatus":
+                    {"$not": {"$eq": "Complete"}}}
+                ],
+                "sort":{"taskName":1}
+            };
             clientCalls.searchClientTasks(searchObj).then(
                 function(res) {
                     clientTask = angular.copy(res.data);
@@ -223,7 +236,7 @@ clients.controller('clientsController',[
             );
             $scope.modal = {
                 title : 'Delete Client Task' + task.Name,
-                body : 'Do you want to delete \'' + task.Name + '\' uncompleted Client Task?'
+                body : 'Do you also want to delete \'' + task.Name + '\' uncompleted Client Task?'
             };
             var modalInstance = $modal.open({
                 animation: true,
@@ -237,14 +250,14 @@ clients.controller('clientsController',[
                 function () {
                     $scope.searchClientTasks(client.id, task.id);
                     clientCalls.deleteClientTask({
-                        id: $scope.clientTask.id
+                        id: clientTask.id
                     }).then(
                         function (res) {
-                            deletedclient = angular.copy(res.data);
-                            $scope.deletedclient = deletedclient;
+                            deletedClientTask = angular.copy(res.data);
+                            $scope.deletedClientTask = deletedClientTask;
                             $scope.getClients();
-                            $scope.removeTab(item.id);
-                            $scope.createToast(item.Name, "deleted", "danger");
+                            $scope.removeTab(client.id);
+                            $scope.createToast(deletedClientTask.task.Name, "deleted", "danger");
                         },
                         function (err) {
                             console.error('Error deleting client: ' + err.message);

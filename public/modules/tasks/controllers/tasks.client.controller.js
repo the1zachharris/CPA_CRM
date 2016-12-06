@@ -187,7 +187,6 @@ tasks.controller('tasksController',[
                     newTask = angular.copy(res.data);
                     $scope.newtask = {};
                     $scope.getTasks();
-                    //TODO: add toast message to notify user the record has been created
 
                     //window.location.href ='#/tasks';
                     $scope.removeTab('createTab');
