@@ -85,7 +85,7 @@ exports.me = function(req, res) {
  * @apiName List of Users
  * @apiGroup Administrative Tools
  * @apiUse NotesFieldsVersion
- * @apiDescription Returns a list of users and their properties that are registered in OCL.
+ * @apiDescription Returns a list of users and their properties that are registered in TT.
  * @apiParam {String} query Query
  * @apiParam {Number} limit Limit
  * @apiParam {String} sort Sort

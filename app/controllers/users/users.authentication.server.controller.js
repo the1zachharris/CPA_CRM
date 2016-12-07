@@ -82,16 +82,16 @@ exports.signin = function( req, res, next ){
     //passport.use( new ldapStrategy( authOpts ));
     passport.initialize();
 
-	passport.authenticate( 'ldapauth', { session: false }, function( err, ldapUsr, info ){
+	passport.authenticate( 'LocalStrategy', { session: false }, function( err, localUsr, info ){
         if( err ){
             return next( err ); // Will generate a 500 error
         }
-        if( ! ldapUsr ){   // ldapUsr is the retrieved LDAP record
+        if( ! localUsr ){   
             return res.status( 401 ).send( info );  // unauthorized
         }
 
-        if (coreUtils.methodCop([ldapUsr.department])) {
-            var myDept = ldapUsr.department;
+        if (coreUtils.methodCop([localUsr.department])) {
+            var myDept = localUsr.department;
         } else {
             var myDept = '';
         };
@@ -99,7 +99,7 @@ exports.signin = function( req, res, next ){
 		var deptNum = deptSplit[0].replace( /\D/g, '');
 
         var query = User.findOne();
-        var filter = ldapUsr.sAMAccountName;
+        var filter = localUsr.sAMAccountName;
         query.where( { username: filter });
         query.exec( function( err, user ){
             if( err ){
@@ -107,18 +107,18 @@ exports.signin = function( req, res, next ){
                 return next( err ); // Will generate a 500 error
             }
 
-            if( ! user ){    // OCL hasn't seen this login before
-                //console.log( 'Couldnt find user ' + ldapUsr.sAMAccountName );
+            if( ! user ){    // TT hasn't seen this login before
+                //console.log( 'Couldnt find user ' + localUsr.sAMAccountName );
                 user = new User({
-                    username:  ldapUsr.sAMAccountName,
+                    username:  localUsr.sAMAccountName,
                     created:   Date.now(),
                     updated:   Date.now()
                 });
             }
 			if (user){
-				//console.log( 'Found user ' + ldapUsr.sAMAccountName );
+				//console.log( 'Found user ' + localUsr.sAMAccountName );
                 //console.log('Now do a findOneAndUpdate where I update groups in the query but nothing else');
-                User.findOneAndUpdate({_id:user._id},{groups:ldapUsr.memberOf},{upsert:false},function(err,doc){
+                User.findOneAndUpdate({_id:user._id},{groups:localUsr.memberOf},{upsert:false},function(err,doc){
 					if (err){
 						logger.log("ERROR", __function, err, req, res);
 					}
@@ -127,21 +127,21 @@ exports.signin = function( req, res, next ){
 
             user.loginTime   = Date.now();
             //console.log('user.loginTime: ' + user.loginTime);
-            user.email       = ldapUsr.userPrincipalName;
+            user.email       = localUsr.userPrincipalName;
             //console.log('user.email: ' + user.email);
-            user.displayName = ldapUsr.displayName;
+            user.displayName = localUsr.displayName;
             //console.log('user.displayName: ' + user.displayName);
             user.department = deptNum;
             //console.log('user.department: ' + user.department);
 
             //Divide up the username to firstname and lastname
-            if( ldapUsr.sAMAccountName.indexOf( '.' ) !== -1 ){
-                user.firstName = ldapUsr.sAMAccountName.substring( ldapUsr.sAMAccountName.indexOf( '.' ) + 1 );
-                user.lastName  = ldapUsr.sAMAccountName.substring( 0, ldapUsr.sAMAccountName.indexOf( '.' ));
+            if( localUsr.sAMAccountName.indexOf( '.' ) !== -1 ){
+                user.firstName = localUsr.sAMAccountName.substring( localUsr.sAMAccountName.indexOf( '.' ) + 1 );
+                user.lastName  = localUsr.sAMAccountName.substring( 0, localUsr.sAMAccountName.indexOf( '.' ));
             }
 
-			if (coreUtils.methodCop([ldapUsr.telephoneNumber])) {
-				user.phone = ldapUsr.telephoneNumber;
+			if (coreUtils.methodCop([localUsr.telephoneNumber])) {
+				user.phone = localUsr.telephoneNumber;
 			}
 
             //console.dir('this is the user just before save: ' + user);

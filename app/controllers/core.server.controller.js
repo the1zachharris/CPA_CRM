@@ -385,7 +385,7 @@ exports.seed = function (req, res) {
 
         if (triggeraudit) {
             //FIXME: Audit.create is not a function
-            // Audit.create('OCL', 'Seed ran', req.body, 'Seeds', req.method, res.body);
+            // Audit.create('TT', 'Seed ran', req.body, 'Seeds', req.method, res.body);
         }
         res.status(200).send({
             success: true,
