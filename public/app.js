@@ -47,7 +47,7 @@ var app = angular.module('TrakkTask', [
 
 app.config(['$routeProvider', '$controllerProvider', '$provide', function ($routeProvider, $ocLazyLoad) {
         $routeProvider
-            .when('/',{
+            .when('/myTasks',{
                 templateUrl:'modules/core/views/masterTabset.view.html',
                 controller: 'MainController',
                 resolve: {

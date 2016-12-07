@@ -20,6 +20,8 @@ app.use(compression()); //use compression
 log4js.configure('log4jsConfig.json');
 //log4js.replaceConsole(CPA_CRMLogger);
 
+var isAuth = false;
+
 if (!process.env.NODE_ENV){
     process.env.NODE_ENV = 'local';
 }
@@ -34,8 +36,6 @@ if (!envLoaded.db){
             console.log('Can not reach Mongo database');
             console.log(err);
         }
-
-
     });
 } else{
     db = mongoose.connect(envLoaded.db, function(err){
@@ -44,7 +44,14 @@ if (!envLoaded.db){
             console.log(err);
         }
     });
+};
+
+if (isAuth) {
+    console.log('authenicated');
+} else {
+    console.log('not authenicated');
 }
+
 
 app.use(cookieParser());
 

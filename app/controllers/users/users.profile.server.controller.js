@@ -129,7 +129,6 @@ exports.list = function(req, res) {
                     {displayName: new RegExp(usersQuery, 'i')},
                     {username: new RegExp(usersQuery, 'i')},
                     {roles: new RegExp(usersQuery, 'i')},
-                    {groups: new RegExp(usersQuery, 'i')},
                     {email: new RegExp(usersQuery, 'i')},
                     {phone: new RegExp(usersQuery, 'i')}
                 ]

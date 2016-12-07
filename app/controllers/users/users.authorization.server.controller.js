@@ -8,9 +8,8 @@ var _ = require('lodash'),
     async = require('async'),
     mongoose = require('mongoose'),
     User = mongoose.model('User'),
-    ldapgroupModel = require('../../models/ldapgroups.server.model.js'),
-    logger = require('../../controllers/logger.server.controller.js'),
-    Ldapgroup = mongoose.model('Ldapgroup');
+    //ldapgroupModel = require('../../models/ldapgroups.server.model.js'),
+    logger = require('../../controllers/logger.server.controller.js');
 
 /**
  * User middleware

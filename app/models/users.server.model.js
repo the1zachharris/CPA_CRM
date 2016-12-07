@@ -44,6 +44,11 @@ var UserSchema = new Schema({
         trim: true,
         required: 'Please fill in a Company Name'
     },
+    displayName: {
+        type: String,
+        trim: true,
+        required: 'Display Name is required'
+    },
     address: {
         address1: {
             type: String
@@ -52,25 +57,23 @@ var UserSchema = new Schema({
             type: String
         },
         city: {
-            type: String,
-            index: true
+            type: String
         },
         country: {
-            type: String,
-            index: true
+            type: String
         },
         state: {
-            type: String,
-            index: true
+            type: String
         },
-        postalcode: {
+        postalCode: {
             type: String
         }
     },
     email: {
         type: String,
         trim: true,
-        default: '',
+        required: 'Email address is required',
+        unique: 'There is already an account associated with that email address.',
         //validate: [validateLocalStrategyProperty, 'Please fill in your email'],
         match: [/.+\@.+\..+/, 'Please fill a valid email address']
     },

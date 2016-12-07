@@ -8,13 +8,11 @@ var _ = require('lodash'),
     coreUtils = require('../../controllers/core.server.controller.js'),
 	mongoose = require('mongoose'),
 	passport = require('passport'),
-    ldapStrategy = require('passport-ldapauth'),
+    LocalStrategy = require('passport-local').Strategy,
+    crypto = require('crypto'),
 	UserModel = require('../../models/users.server.model.js'),
-	User = mongoose.model('User'),
-	allConfig = require('../../../config/env/all');
-/**
- * Signup
- */
+	User = mongoose.model('User');
+
 
 passport.serializeUser(function(user, done) {
 	done(null, user.id);
@@ -29,6 +27,10 @@ passport.deserializeUser(function(id, done) {
 	});
 });
 
+
+/**
+ * Signup
+ */
 exports.signup = function(req, res) {
 	// For security measurement we remove the roles from the req.body object
 	delete req.body.roles;
@@ -36,10 +38,14 @@ exports.signup = function(req, res) {
 	// Init Variables
 	var user = new User(req.body);
 	var message = null;
+	var salt = "TrakkTask";
 
 	// Add missing user fields
 	user.provider = 'local';
-	//user.displayName = user.firstName + ' ' + user.lastName;
+	user.displayName = user.firstName + ' ' + user.lastName;
+
+	//encrypt password for storage
+	user.password = crypto.createHash('sha1').update(salt + user.password).digest('hex');
 
 	// Then save the user 
 	user.save(function(err) {
@@ -66,19 +72,14 @@ exports.signup = function(req, res) {
 
 // A requirement for this function to work is connectivity to the TW or Lev3 network.
 exports.signin = function( req, res, next ){
-    var fallbackLdapHost = allConfig.fallbackLdapHost;  // #FIXME: needs code for fallback LDAP server
+    var fallbackLdapHost = allConfig.fallbackLdapHost;
     
     var authOpts = {
-        server: {
-            url:          allConfig.ldapHost,
-            searchBase:   'dc=corp,dc=global,dc=level3,dc=com',
-            searchFilter: '(sAMAccountName={{username}})'
-        },
         usernameField: 'username',
         passwordField: 'password'
     };
 
-    passport.use( new ldapStrategy( authOpts ));
+    //passport.use( new ldapStrategy( authOpts ));
     passport.initialize();
 
 	passport.authenticate( 'ldapauth', { session: false }, function( err, ldapUsr, info ){
@@ -110,11 +111,8 @@ exports.signin = function( req, res, next ){
                 //console.log( 'Couldnt find user ' + ldapUsr.sAMAccountName );
                 user = new User({
                     username:  ldapUsr.sAMAccountName,
-                    provider:  'LDAP',
                     created:   Date.now(),
-                    updated:   Date.now(),
-					groups: ldapUsr.memberOf,
-					department: deptNum
+                    updated:   Date.now()
                 });
             }
 			if (user){
