@@ -5,7 +5,8 @@
  */
 var mongoose = require('mongoose'),
     Schema = mongoose.Schema,
-    crypto = require('crypto');
+    crypto = require('crypto'),
+    foo = 'TrakkTask';
 
 /**
  * A Validation function for local strategy properties
@@ -30,19 +31,17 @@ var UserSchema = new Schema({
     firstName: {
         type: String,
         trim: true,
-        default: ''//,
-        //validate: [validateLocalStrategyProperty, 'Please fill in your first name']
+        required: 'First Name is required'
     },
     lastName: {
         type: String,
         trim: true,
-        default: ''//,
-        //validate: [validateLocalStrategyProperty, 'Please fill in your last name']
+        required: 'Last Name is required'
     },
     companyName: {
         type: String,
         trim: true,
-        required: 'Please fill in a Company Name'
+        required: 'Company Name is required'
     },
     displayName: {
         type: String,
@@ -74,7 +73,6 @@ var UserSchema = new Schema({
         trim: true,
         required: 'Email address is required',
         unique: 'There is already an account associated with that email address.',
-        //validate: [validateLocalStrategyProperty, 'Please fill in your email'],
         match: [/.+\@.+\..+/, 'Please fill a valid email address']
     },
     phone: {
@@ -88,8 +86,7 @@ var UserSchema = new Schema({
     },
     password: {
         type: String,
-        required: 'Please fill in a password',
-        trim: true
+        required: 'password is required'
     },
     roles: [{
         id: {
@@ -134,21 +131,28 @@ var UserSchema = new Schema({
 /**
  * Hook a pre save method to hash the password
  */
-//UserSchema.pre('save', function(next) {
-//	if (this.password && this.password.length > 6) {
-//		this.salt = new Buffer(crypto.randomBytes(16).toString('base64'), 'base64');
-//		this.password = this.hashPassword(this.password);
-//	}
+UserSchema.pre('save', function(next) {
+    console.log('in pre save');
+    if (this.password) {
+	    console.log('this.password: ' + this.password);
+	    //this.salt = new Buffer(crypto.randomBytes(16).toString('base64'), 'base64');
+        console.log('foo: ' + foo);
+	    this.password = this.hashPassword(this.password);
+	    console.log('pre save password result: ' + this.password);
+	}
 
-//	next();
-//});
+	next();
+});
 
 /**
  * Create instance method for hashing a password
  */
 UserSchema.methods.hashPassword = function(password) {
-    if (this.salt && password) {
-        return crypto.pbkdf2Sync(password, this.salt, 10000, 64).toString('base64');
+    console.log('in hashPassword');
+    if (foo && password) {
+        console.log('foo && password: return hashed password using this.foo');
+        console.log('this.foo: ' + foo);
+        return crypto.createHash('sha1').update(foo + password).digest('hex');
     } else {
         return password;
     }
@@ -157,8 +161,17 @@ UserSchema.methods.hashPassword = function(password) {
 /**
  * Create instance method for authenticating user
  */
-UserSchema.methods.authenticate = function(password) {
-    return this.password === this.hashPassword(password);
+UserSchema.methods.authenticate = function(callback) {
+    console.log('in authenicate');
+    var checkPassword = this.password;
+    var hashedPassword = this.hashPassword(checkPassword);
+    console.log('checkPassword: ' + checkPassword + ' hashPassword: ' + hashedPassword);
+    //pull the hashed password for this user
+    this.model('User').findOne({username: this.username}).exec(function (err, foundUser){
+        console.log('foundUser.password: ' + foundUser.password + ' hashPassword: ' + hashedPassword);
+        console.log(foundUser.password == hashedPassword);
+        callback(foundUser.password === hashedPassword);
+    });
 };
 
 /**

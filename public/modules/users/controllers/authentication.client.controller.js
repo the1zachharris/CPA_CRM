@@ -69,16 +69,7 @@ users.controller('AuthenticationController',
 		$scope.signup = function(newUser) {
 			console.log('insignup');
 		    console.dir(newUser);
-		    /*
-			var newUser = {
-			    username: $scope.newUser.email,
-                firstName: $scope.newUser.firstName,
-                lastName: $scope.newUser.lastName,
-                companyName: $scope.newUser.companyName,
-                email: $scope.newUser.email,
-                password: $scope.newUser.password
-            };
-            */
+
             if ($scope.passMatch(newUser.password, newUser.confirmPassword)){
                 $http.post(
                     '/signup',
@@ -88,7 +79,8 @@ users.controller('AuthenticationController',
                     $rootScope.user = response;
 
                     // And redirect to the index page
-                    $location.path('/');
+                    $location.path('/myTasks');
+
                 }).error(function(response) {
                     $scope.error = response.message;
                 });
@@ -99,19 +91,20 @@ users.controller('AuthenticationController',
             }
 		};
 
-		$scope.signin = function() {
+		$scope.signin = function(credentials) {
 			console.log('in signin');
-		    $http.post('/auth/signin', $scope.credentials).success(function(response) {
+		    $http.post('/auth/signin', credentials).success(function(response) {
 				// If successful we assign the response to the global user model
 				$rootScope.user = response;
 
 				/*Allows Redirect to specific url if false*/
 				if(window.location.href >  -1) {
-					window.location.href ='/';
+					window.location.href ='/myTasks';
 				} else {
 					window.location.href = window.location.href;
 					//reload here to bring up deep link screen after sign in
-					location.reload();
+					//location.reload();
+                    window.location.href ='/myTasks';
 				}
 			}).error(function(response) {
 				$scope.error = response.message;
