@@ -165,9 +165,11 @@ clients.controller('clientsController',[
         };
 
         $scope.addTask  = function (task, clientid, clientName) {
-          task = {task: task.task,
+          task = {
+              task: task.task,
               employee: task.employee,
-              dateAssigned: moment()};
+              dateAssigned: moment()
+          };
           var fullTask = {
               client: {id: clientid},
               task: task};
@@ -190,14 +192,18 @@ clients.controller('clientsController',[
                             taskEmployeeid:task.employee.id,
                             clientName:clientName
                         }
-                    )
+                    );
+                    fullTask.task.taskClientId = res.data.taskClientId;
+                    console.log('after res: ');
+                    console.dir(fullTask);
+                    $scope.clientsTabset[clientid].item.Tasks.push(fullTask.task);
+                    $scope.$emit("refreshClientTasks", {});
                 },
                 function (err) {
                     console.error(err);
                 }
             );
-            $scope.clientsTabset[clientid].item.Tasks.push(fullTask.task);
-            $scope.$emit("refreshClientTasks", {});
+
         };
 
         $scope.searchClientTasks = function (clientid, taskid) {
@@ -225,18 +231,22 @@ clients.controller('clientsController',[
             )
         };
 
-        $scope.removeTask = function (client, task) {
-            clientCalls.removeTask(client, task).then(
+        $scope.removeTask = function (client, taskClientid, task) {
+            console.log('888888');
+            console.dir(taskClientid);
+            var taskToRemove = {"client" : client, "taskClientid" : taskClientid};
+            console.dir(taskToRemove);
+            clientCalls.removeTask(taskToRemove).then(
                 function (res) {
-                    console.dir(res)
+                    console.dir(res);
                 },
                 function (err) {
                     console.error(err);
                 }
             );
             $scope.modal = {
-                title : 'Delete Client Task' + task.Name,
-                body : 'Do you also want to delete \'' + task.Name + '\' uncompleted Client Task?'
+                title : 'Delete Client Task' + client.taskName,
+                body : 'Do you also want to delete \'' + client.taskName + '\' uncompleted Client Task?'
             };
             var modalInstance = $modal.open({
                 animation: true,
@@ -248,19 +258,24 @@ clients.controller('clientsController',[
             });
             modalInstance.result.then(
                 function () {
-                    $scope.searchClientTasks(client.id, task.id);
-                    clientCalls.deleteClientTask({
-                        id: clientTask.id
-                    }).then(
-                        function (res) {
-                            deletedClientTask = angular.copy(res.data);
-                            $scope.deletedClientTask = deletedClientTask;
-                            $scope.getClients();
-                            $scope.removeTab(client.id);
-                            $scope.createToast(deletedClientTask.task.Name, "deleted", "danger");
+                    $scope.searchClientTasks(client.id, task.id).then(
+                        function(res) {
+                            clientCalls.deleteClientTask({
+                                id: res.id
+                            }).then(
+                                function (res) {
+                                    deletedClientTask = angular.copy(res.data);
+                                    $scope.deletedClientTask = deletedClientTask;
+                                    $scope.getClients();
+                                    $scope.createToast(deletedClientTask.taskName, "deleted", "danger");
+                                },
+                                function (err) {
+                                    console.error('Error deleting client: ' + err.message);
+                                }
+                            );
                         },
-                        function (err) {
-                            console.error('Error deleting client: ' + err.message);
+                        function(err) {
+                            console.error(err);
                         }
                     );
                 },
@@ -340,7 +355,7 @@ clients.controller('clientsController',[
                 Country: detailedclient.Country,
                 Phone: detailedclient.Phone,
                 Email: detailedclient.Email,
-                ResponsibleEmployee: detailedclient.ResponsibleEmployee.FirstName + newClient.ResponsibleEmployee.LastName,
+                ResponsibleEmployee: detailedclient.ResponsibleEmployee.displayName,
                 Type: detailedclient.Type.type
             }).then(
                 function (res) {
@@ -363,7 +378,6 @@ clients.controller('clientsController',[
          * view client
          * ===================================================================== */
         $scope.viewclient = function (clientId) {
-            console.log(clientId);
             clientCalls.detailclient(clientId).then(
                 function (res) {
                     detailedclient = angular.copy(res.data);

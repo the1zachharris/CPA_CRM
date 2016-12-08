@@ -253,14 +253,18 @@ exports.search = function (req, res) {
 *     }
  */
 exports.assigntask = function (req, res) {
+    var current_date = (new Date()).valueOf().toString();
+    var random = Math.random().toString();
     var query = {id: req.body.client.id};
-    client.findOneAndUpdate(query, { $push: { Tasks: req.body.task }}, {upsert: true}, function (err, doc) {
+    var newTask = req.body.task;
+    newTask.taskClientId = crypto.createHash('sha1').update(current_date + random).digest('hex');
+    client.findOneAndUpdate(query, { $push: { Tasks: newTask }}, {upsert: true}, function (err, doc) {
         if (err) {
             return res.status(400).send({
-                message:  err
+                message: err
             });
         } else {
-            res.status(200).send({results: doc});
+            res.status(200).send({taskClientId: newTask.taskClientId});
         }
     });
 };
@@ -285,7 +289,7 @@ exports.assigntask = function (req, res) {
  */
 exports.removetask = function (req, res) {
     var query = {id: req.body.client.id};
-    client.findOneAndUpdate(query, { $pull: { Tasks: req.body.task}}, {upsert: true}, function (err, doc) {
+    client.findOneAndUpdate(query, { $pull: { Tasks: {taskClientId: req.body.taskClientid}}}, {upsert: true}, function (err, doc) {
         if (err) {
             return res.status(400).send({
                 message:  err

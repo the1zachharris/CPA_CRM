@@ -38,6 +38,7 @@ exports.create = function (req, res) {
             id: crypto.createHash('sha1').update(current_date + random).digest('hex'),
             FirstName: req.body.FirstName,
             LastName: req.body.LastName,
+            displayName: req.body.FirstName + ' ' + req.body.LastName,
             Email: req.body.Email,
             DateCreated: current_date
         });

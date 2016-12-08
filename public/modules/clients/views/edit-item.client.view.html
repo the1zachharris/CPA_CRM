@@ -18,7 +18,7 @@
                         md-selected-item="$parent.tabValue.item[item.field]"
                         md-search-text="searchText"
                         md-items="item in employees | filter:searchText"
-                        md-item-text="item.FirstName"
+                        md-item-text="item.displayName"
                         md-min-length="0"
                 <md-item-template>
                     <span md-highlight-text="ctrl.searchText" md-highlight-flags="^i">{{item.FirstName}}</span>
@@ -39,7 +39,7 @@
                 </md-autocomplete>
             </div>
         </fieldset>
-    <form ng-submit="addTask(item, tabValue.item.id, tabValue.item.Name)"  class="form-group">
+    <form class="form-group">
         <fieldset>
             <div class="input-group">
                 <span class="input-group-addon">Client Tasks</span>
@@ -53,11 +53,11 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr ng-repeat="(sk,sv) in tabValue.item.Tasks">
-                    <td valign="top"><input type="text" class="form-control" ng-model="sv.task.Name"></td>
-                    <td valign="top"><input type="text" class="form-control" ng-model="sv.employee.FirstName + ' ' + sv.employee.LastName"></td>
+                <tr ng-repeat="item in tabValue.item.Tasks">
+                    <td valign="top"><input type="text" class="form-control" ng-model="item.task.Name"></td>
+                    <td valign="top"><input type="text" class="form-control" ng-model="item.employee.displayName"></td>
                     <td valign="top">
-                        <button class="btn btn-danger btn-sm" ng-click="removeTask(item, sv.task)"><i class="fa fa-trash"></i></button>
+                        <button class="btn btn-danger btn-sm" ng-click="removeTask(tabValue.item, item.taskClientId, item.task)"><i class="fa fa-trash"></i></button>
                     </td>
                 </tr>
                 </tbody>
@@ -82,7 +82,7 @@
                         md-selected-item="item.employee"
                         md-search-text="searchText"
                         md-items="item in employees | filter:searchText"
-                        md-item-text="item.FirstName + ' ' + item.LastName"
+                        md-item-text="item.displayName"
                         md-min-length="0"
                 <md-item-template>
                     <span md-highlight-text="ctrl.searchText" md-highlight-flags="^i">{{item.FirstName + ' ' + item.LastName}}</span>
@@ -90,7 +90,7 @@
                 </md-autocomplete>
             </div>
         </fieldset>
-        <button type="submit"  class="btn btn-default">Assign Task
+        <button ng-click="addTask(item, tabValue.item.id, tabValue.item.Name)"  class="btn btn-default">Assign Task
             <i class="glyphicon glyphicon-pencil"></i>
         </button>
     </form>

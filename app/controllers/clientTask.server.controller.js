@@ -162,29 +162,6 @@ exports.search = function (req, res) {
         and = req.body.and,
         or = req.body.or,
         filter = req.body.filter;
-    /* a sample query that we know works in mongo
-    {$and: [
-        {taskid: '10b0972fcafa7d4a0189a8cb3919786523d8d3e2'},
-        {clientid: '1b70c4906261f9097bd7d2e497d443a709efc618'},
-        {taskStatus: {$not: {$eq: 'Complete'}}}
-    ]}
-    +++++ sample POSTMAN ++++++++
-     {"query":"searchText",
-     "limit":"25",
-     "limitsearch":"0",
-     "exactsearch":false,
-     "skip":0,
-     "and": [
-     {"taskid": "foo99"},
-     {"clientid": "freebo007"},
-     {"taskStatus":
-     {"$not": {"$eq": "Complete"}}}
-     ],
-     "sort":{"taskName":1}
-     }
-    */
-
-
     var itemDeepSearch = clientTask
         .find({
             $and : and

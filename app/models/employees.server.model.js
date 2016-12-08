@@ -23,6 +23,9 @@ var employeesSchema = new Schema ({
         type: String,
         required: 'Must have an last name for the employee'
     },
+    displayName: {
+        type: String
+    },
     Email: {
         type: String,
         required: 'Must have a Email for the employee'
