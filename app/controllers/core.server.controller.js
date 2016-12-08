@@ -22,10 +22,13 @@ var MongoClient = require('mongodb').MongoClient,
 
 exports.index = function (req, res) {
     // console.log('called')
-    /*  if (!mongoose.connections._hasOpened){
-     console.log('connection is not open')
+    /*
+    * This if does not seem to work correctly
+    if (!mongoose.connections._hasOpened){
+     console.log('connection is not open');
      res.render('error')
-     } else {*/
+     } else
+     */
     if (req.user) {
         res.render('index', {
             user: req.user || null,
@@ -33,8 +36,8 @@ exports.index = function (req, res) {
             request: req
         });
     } else {
-        res.render('index');
-        //res.render('signin');
+        //res.render('index');
+        res.render('signin');
         //TODO: pass the requested URL on so that post login TT can take them there in case it was a deep link
 
     }

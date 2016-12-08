@@ -93,7 +93,7 @@ employees.controller('employeesController',[
             fields: [
                 { label:'First Name', field: 'FirstName', required: true },
                 { label: 'Last Name', field: 'LastName', required: true},
-                { label:'Email', field: 'Email', required: true}
+                { label:'Email', field: 'Email', required: false}
           ]
         };
 
@@ -104,7 +104,7 @@ employees.controller('employeesController',[
             fields: [
                 { label:'First Name', field: 'FirstName', required: true },
                 { label: 'Last Name', field: 'LastName', required: true},
-                { label:'Email', field: 'Email', required: true}
+                { label:'Email', field: 'Email', required: false}
             ]
         };
 

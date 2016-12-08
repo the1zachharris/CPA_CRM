@@ -29,7 +29,7 @@ body, html {
 }
 
 body.signin {
-    background: url("../images/background.jpg") top center no-repeat;
+    background: url("../images/newBackground.jpg") top center no-repeat;
     background-attachment: fixed;
     -webkit-background-size: 100% 100%;
     background-size: 100% 100%;

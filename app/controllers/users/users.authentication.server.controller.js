@@ -43,6 +43,7 @@ exports.signup = function(req, res) {
 	// Add missing user fields
 	user.provider = 'local';
 	user.displayName = user.firstName + ' ' + user.lastName;
+	user.username = user.email;
 
 	//encrypt password for storage
 	user.password = crypto.createHash('sha1').update(salt + user.password).digest('hex');
@@ -72,7 +73,7 @@ exports.signup = function(req, res) {
 
 // A requirement for this function to work is connectivity to the TW or Lev3 network.
 exports.signin = function( req, res, next ){
-    var fallbackLdapHost = allConfig.fallbackLdapHost;
+    //var fallbackLdapHost = allConfig.fallbackLdapHost;
     
     var authOpts = {
         usernameField: 'username',
