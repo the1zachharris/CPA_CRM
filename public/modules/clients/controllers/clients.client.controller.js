@@ -59,7 +59,8 @@ clients.controller('clientsController',[
             clienttypes = "",
             employees = "",
             deletedclient = "",
-            deletedClientTask = "";
+            deletedClientTask = "",
+            clientTask = "";
 
         //Build the tabset to run the CRUD for clients
         $scope.clientsTabset = {
@@ -206,15 +207,32 @@ clients.controller('clientsController',[
 
         };
 
-        $scope.searchClientTasks = function (clientid, taskid) {
+        /*
+         UserSchema.methods.authenticate = function(callback) {
+         console.log('in authenicate');
+         var checkPassword = this.password;
+         var hashedPassword = this.hashPassword(checkPassword);
+         console.log('checkPassword: ' + checkPassword + ' hashPassword: ' + hashedPassword);
+         //pull the hashed password for this user
+         this.model('User').findOne({username: this.username}).exec(function (err, foundUser){
+         console.log('foundUser.password: ' + foundUser.password + ' hashPassword: ' + hashedPassword);
+         console.log(foundUser.password == hashedPassword);
+         callback(foundUser.password === hashedPassword);
+         });
+         };
+         */
+
+        $scope.searchClientTasks = function (clientid, taskid, callback) {
+            console.log(clientid);
+            console.log(taskid);
             var searchObj = {"query":"searchText",
                 "limit":25,
                 "limitsearch":0,
                 "exactsearch":false,
                 "skip":0,
                 "and": [
-                    {"taskid": "taskid"},
-                    {"clientid": "clientid"},
+                    {"taskid": taskid},
+                    {"clientid": clientid},
                     {"taskStatus":
                     {"$not": {"$eq": "Complete"}}}
                 ],
@@ -222,31 +240,21 @@ clients.controller('clientsController',[
             };
             clientCalls.searchClientTasks(searchObj).then(
                 function(res) {
-                    clientTask = angular.copy(res.data);
-                    $scope.clientTask = clientTask;
-                },
-                function (err) {
-                    console.error(err);
-                }
-            )
-        };
-
-        $scope.removeTask = function (client, taskClientid, task) {
-            console.log('888888');
-            console.dir(taskClientid);
-            var taskToRemove = {"client" : client, "taskClientid" : taskClientid};
-            console.dir(taskToRemove);
-            clientCalls.removeTask(taskToRemove).then(
-                function (res) {
                     console.dir(res);
+                    clientTask = angular.copy(res.data.results);
+                    $scope.clientTask = clientTask;
+                    callback(clientTask);
                 },
                 function (err) {
                     console.error(err);
                 }
             );
+        };
+
+        $scope.removeTask = function (client, taskClientid, task, index) {
             $scope.modal = {
-                title : 'Delete Client Task' + client.taskName,
-                body : 'Do you also want to delete \'' + client.taskName + '\' uncompleted Client Task?'
+                title : 'Delete Client Task ' + task.Name,
+                body : 'Are you sure you want to delete \'' + task.Name + '\' Client Task?'
             };
             var modalInstance = $modal.open({
                 animation: true,
@@ -258,26 +266,38 @@ clients.controller('clientsController',[
             });
             modalInstance.result.then(
                 function () {
-                    $scope.searchClientTasks(client.id, task.id).then(
-                        function(res) {
-                            clientCalls.deleteClientTask({
-                                id: res.id
-                            }).then(
-                                function (res) {
-                                    deletedClientTask = angular.copy(res.data);
-                                    $scope.deletedClientTask = deletedClientTask;
-                                    $scope.getClients();
-                                    $scope.createToast(deletedClientTask.taskName, "deleted", "danger");
-                                },
-                                function (err) {
-                                    console.error('Error deleting client: ' + err.message);
-                                }
-                            );
+                    var taskToRemove = {"client" : client, "taskClientid" : taskClientid};
+                    clientCalls.removeTask(taskToRemove).then(
+                        function (res) {
+                            console.dir(res);
                         },
-                        function(err) {
+                        function (err) {
                             console.error(err);
                         }
                     );
+                    $scope.searchClientTasks(
+                        client.id,
+                        task.id,
+                        function(clientTask){
+                        console.log(clientTask.id);
+                        clientCalls.deleteClientTask({
+                            id: clientTask.id
+                        }).then(
+                            function (res) {
+                                deletedClientTask = angular.copy(res.data);
+                                $scope.clientsTabset[client.id].item.Tasks.splice(index,1);
+                                $scope.deletedClientTask = deletedClientTask;
+                                $scope.getClients();
+                                $scope.createToast(clientTask.taskName, " deleted", "danger");
+                            },
+                            function (err) {
+                                console.error('Error deleting client: ' + err.message);
+                            }
+                        );
+                    });
+
+
+
                 },
                 function () {
                     // $log.info('Modal dismissed at: ' + new Date());

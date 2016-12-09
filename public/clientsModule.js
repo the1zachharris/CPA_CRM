@@ -268,9 +268,10 @@ clients.factory('clientCalls', function($http,$log, $routeParams) {
             return promise;
         },
         deleteClientTask: function(req){
+            console.dir(req);
             var promise = $http({
                 method: 'DELETE',
-                url: '/client/delete/' + req.id
+                url: '/clienttask/delete/' + req.id
             }).then(function (response) {
                 return response;
             });

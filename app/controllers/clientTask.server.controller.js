@@ -163,7 +163,7 @@ exports.search = function (req, res) {
         or = req.body.or,
         filter = req.body.filter;
     var itemDeepSearch = clientTask
-        .find({
+        .findOne({
             $and : and
         })
         .limit(limit)

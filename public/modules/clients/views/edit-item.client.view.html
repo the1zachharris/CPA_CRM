@@ -57,7 +57,7 @@
                     <td valign="top"><input type="text" class="form-control" ng-model="item.task.Name"></td>
                     <td valign="top"><input type="text" class="form-control" ng-model="item.employee.displayName"></td>
                     <td valign="top">
-                        <button class="btn btn-danger btn-sm" ng-click="removeTask(tabValue.item, item.taskClientId, item.task)"><i class="fa fa-trash"></i></button>
+                        <button class="btn btn-danger btn-sm" ng-click="removeTask(tabValue.item, item.taskClientId, item.task, $index)"><i class="fa fa-trash"></i></button>
                     </td>
                 </tr>
                 </tbody>
