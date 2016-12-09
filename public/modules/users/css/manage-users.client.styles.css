@@ -1,0 +1,233 @@
+*{
+    -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box;
+}
+
+[manageUsers] [ng-drag]{
+    -moz-user-select: -moz-none;
+    -khtml-user-select:    none;
+    -webkit-user-select:   none;
+    -ms-user-select:       none;
+    user-select:           none;
+}
+[manageUsers] [ng-drag]{
+    padding: 7px;
+    text-align:  center;
+    display:     inline-block;
+    cursor:      move;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    background: #555;
+    color: #fff;
+}
+
+[manageUsers] ul.draggable-objects:after {
+    display: block;
+    content: "";
+    clear:   both;
+}
+
+[manageUsers] .draggable-objects {
+    margin: 0;
+}
+
+[manageUsers] .draggable-objects li {
+    margin: 0 0 9px;
+}
+
+[manageUsers] [ng-drag].drag-over{
+    border:solid 1px green;
+}
+[manageUsers] [ng-drag].dragging{
+    opacity: 0.77;
+    -webkit-box-shadow: 3px 7px 9px rgba(0,0,0,0.33);
+    -moz-box-shadow: 3px 7px 9px rgba(0,0,0,0.33);
+    box-shadow: 3px 7px 9px rgba(0,0,0,0.33);
+}
+
+[manageUsers] [ng-drop]{
+    background:   rgba(255,255,255,0.93);
+    text-align:  left;
+    width:       auto;
+    height:      300px;
+    padding-top: 30px;
+    display:     block;
+    position:    relative;
+}
+
+[manageUsers] [ng-drop] div {
+    margin: 0 3px 0 5px;
+}
+
+[manageUsers] [ng-drop] div.row {
+    margin: 21px 0 0 5px;
+}
+
+[manageUsers] [ng-drop].drag-enter{
+    border:solid 4px green;
+}
+
+[manageUsers] [ng-drop] span.title{
+    display:     block;
+    font-weight: bold;
+    font-size:   18px;
+    position:    absolute;
+    top:         12px;
+    left:        110px;
+    width:       300px;
+    height:      12px;
+    margin-left: -100px;
+    margin-top:  -4px;
+}
+[manageUsers] [ng-drop] div{
+    position: relative;
+    z-index:  2;
+}
+
+[manageUsers] #trash{
+    background:  rgba( 255,50,50, 0.5 );
+    text-align:  left;
+    width:       auto;
+    height:      150px;
+    display:     block;
+    position:    relative;
+}
+
+[manageUsers] ul.simpleList{
+    list-style: none;
+    width:        auto;
+    height:       395px;
+    text-align:   left;
+    overflow:     auto;
+    padding-left: 0;
+    margin-bottom: 20px;
+}
+
+[manageUsers] ul.simpleList li{
+    border-bottom: 1px solid #888;
+}
+
+[manageUsers] ul.simpleList li p{
+    margin-left:  0;
+    font-weight:  bold;
+    padding-top:  8px;
+    padding-left: 10px;
+}
+
+[manageUsers] .rolelist {
+    text-align: center;
+    overflow: hidden;
+}
+
+[manageUsers] .rolelist li {
+    padding: 7px 3px;
+}
+
+[manageUsers] .fade.ng-hide {
+    opacity: 0;
+}
+
+[manageUsers] .fade {
+    -webkit-transition: opacity 0.5s ease;
+    -moz-transition: opacity 0.5s ease;
+    -ms-transition: opacity 0.5s ease;
+    -o-transition: opacity 0.5s ease;
+    transition: opacity 0.5s ease;
+    opacity: 1;
+}
+
+[manageUsers] v-pane-header::before,
+[manageUsers] v-pane-header::after {
+    display: none;
+}
+
+[manageUsers] .vAccordion--default v-pane-header {
+    margin-bottom: 0;
+}
+
+[manageUsers] md-list.listWrapper md-list-item.fieldRow {
+    border-bottom: none;
+}
+[manageUsers] v-pane-header::before,
+[manageUsers] v-pane-header::after {
+    display: none;
+}
+
+[manageUsers] .vAccordion--default v-pane-header {
+    margin-bottom: 0;
+}
+
+[manageUsers] md-list.listWrapper md-list-item.fieldRow {
+    border-bottom: none;
+}
+
+[manageUsers] md-card md-list md-list-item:last-child {
+    margin: 0;
+}
+
+[manageUsers] md-card md-list md-list-item {
+    border-bottom: 1px solid #e7e7e7;
+}
+
+[manageUsers] md-card md-list md-list-item.roleList div {
+    text-align: right;
+}
+
+    [manageUsers] md-card md-list md-list-item strong.label {
+        background-color: #9a9a9a;
+        font-size: 1.01em;
+        -webkit-border-radius: 8px;
+           -moz-border-radius: 8px;
+                border-radius: 8px;
+    }
+
+
+
+/* resizing of the edit button*/
+[manageUsers] md-card .md-button.md-fab.md-mini {
+    line-height: 32px;
+    margin: 4px 4px 0;
+    width: 32px;
+    height: 32px;
+}
+
+[manageUsers] md-menu {
+    padding: 0;
+}
+
+.manageUsers md-menu-item[flex="none"] {
+    height: auto;
+}
+
+    .manageUsers md-menu-item md-list md-list-item,
+    .manageUsers md-menu-item md-list md-list-item .md-list-item-inner {
+        min-height: auto;
+    }
+
+    .manageUsers md-menu-item p {
+        font-size: 1.01em;
+    }
+
+    .manageUsers md-menu-item md-switch {
+        margin: 0 16px;
+    }
+
+        .manageUsers md-menu-item form md-input-container {
+            margin: 0 0 -4px;
+            overflow: hidden;
+        }
+
+        .manageUsers md-menu-item.filled,
+        .filled {
+            background-color: rgba(219,227,239,0.5);
+        }
+
+    md-menu-content.manageUsers {
+        padding: 0;
+    }
+
+div.ns-popover-tooltip {
+    max-height: 300px;
+    overflow-y: auto;
+}
+

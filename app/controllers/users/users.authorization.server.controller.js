@@ -8,9 +8,8 @@ var _ = require('lodash'),
     async = require('async'),
     mongoose = require('mongoose'),
     User = mongoose.model('User'),
-    ldapgroupModel = require('../../models/ldapgroups.server.model.js'),
-    logger = require('../../controllers/logger.server.controller.js'),
-    Ldapgroup = mongoose.model('Ldapgroup');
+    //ldapgroupModel = require('../../models/ldapgroups.server.model.js'),
+    logger = require('../../controllers/logger.server.controller.js');
 
 /**
  * User middleware
@@ -97,11 +96,11 @@ var checkAuth = exports.checkAuth = function (user, app, perm, res, usrMenu, men
                 message: logger.log("ERROR", __function, err, null, res)
             });
         } else if (auth.length > 0) {
-            logger.log("TRACE", __function, user.username + ' is authorized by their OCL permission alone.');
+            logger.log("TRACE", __function, user.username + ' is authorized by their TT permission alone.');
             isAuth = true;
             callback(isAuth,app,perm,usrMenu,menuitem);
         } else {
-            logger.log("TRACE", __function, user.username + ' is not authorized for ' + appName + ':' + perm + ' by their OCL permission alone. We are going to check their LDAP groups.');
+            logger.log("TRACE", __function, user.username + ' is not authorized for ' + appName + ':' + perm + ' by their TT permission alone. We are going to check their LDAP groups.');
             // Get all groups that have the perm
             var findGroupRoleQuery = Ldapgroup.find({
                 roles : {

@@ -22,19 +22,23 @@ var MongoClient = require('mongodb').MongoClient,
 
 exports.index = function (req, res) {
     // console.log('called')
-    /*  if (!mongoose.connections._hasOpened){
-     console.log('connection is not open')
+    /*
+    * This if does not seem to work correctly
+    if (!mongoose.connections._hasOpened){
+     console.log('connection is not open');
      res.render('error')
-     } else {*/
+     } else
+     */
     if (req.user) {
+        //console.dir(req.user.displayName);
         res.render('index', {
-            user: req.user || null,
+            user: req.user,
             env: process.env.NODE_ENV,
             request: req
         });
     } else {
-        res.render('index');
-        //res.render('signin');
+        //res.render('index');
+        res.render('signin');
         //TODO: pass the requested URL on so that post login TT can take them there in case it was a deep link
 
     }
@@ -385,7 +389,7 @@ exports.seed = function (req, res) {
 
         if (triggeraudit) {
             //FIXME: Audit.create is not a function
-            // Audit.create('OCL', 'Seed ran', req.body, 'Seeds', req.method, res.body);
+            // Audit.create('TT', 'Seed ran', req.body, 'Seeds', req.method, res.body);
         }
         res.status(200).send({
             success: true,

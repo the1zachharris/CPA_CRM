@@ -1,0 +1,223 @@
+<script ng-init="getAppList();getUserList();"></script>
+
+<!-- The view -->
+<section class="full-height scroll" manageUsers layout="column">
+
+    <div class="appheader">
+        <h3>Manage Users</h3>
+    </div>
+
+    <md-toolbar class="full-width">
+        <div class="md-toolbar-tools">
+            <md-chips>
+                <md-chip ng-repeat="(tk,tv) in checkedAggs">
+                    <span ng-repeat="(ttk,ttv) in tv">
+                        <a href="" ng-click="removeTag(tk)" class="pull-right"><i class="fa fa-times-circle"></i></a>
+                        <strong>{{ttv}}</strong>
+                        <em>({{srchAggNames[ttk]}})</em>&nbsp;
+                    </span>
+                </md-chip>
+            </md-chips>
+            <span flex></span>
+            <md-menu md-position-mode="target-right target" md-offset="0 24">
+                <md-button aria-label="Open filters menu" class="md-raised" ng-click="$mdOpenMenu($event)"><i class="fa fa-search"></i></md-button>
+                <md-menu-content width="96" class="manageUsers">
+                    <md-menu-item layout="row" class="filled">
+                        <form ng-submit="getUserList(query)" layout="row" flex="100">
+                            <md-input-container flex>
+                                <label><i class="fa fa-search"></i> Search users</label>
+                                <input ng-model="query">
+                            </md-input-container>
+                            <md-button id="refreshAllButton" type="button" aria-label="reset" class="md-raised" ng-click="resetSearch();">
+                                <i class="fa fa-refresh"></i>
+                                <md-tooltip>reset search</md-tooltip>
+                            </md-button>
+                        </form>
+                    </md-menu-item>
+                    <md-menu-item layout="row" layout-padding>
+                        <p flex><strong><em>Filter by App:Role</em></strong></p>
+                    </md-menu-item>
+                    <md-menu-item ng-repeat="agg in usrs.aggs.results track by $index">
+                        <md-button ng-click="getUserList(query,agg._id.appname,agg._id.name);">
+                            <div layout="row" flex>
+                                <p flex><strong>{{agg._id.appname}}</strong> : {{agg._id.name}}</p>
+                                <p><em>{{agg.count}}</em></p>
+                            </div>
+                        </md-button>
+                    </md-menu-item>
+                </md-menu-content>
+            </md-menu>
+        </div>
+    </md-toolbar>
+
+
+    <md-content class="nopad" layout="column" flex>
+
+        <!-- progress circular -->
+        <div flex-gt-sm="70" ng-if="searchInProgress" layout="row" layout-align="center center">
+            <md-card layout="row" layout-wrap class="progressWrapper">
+                <div flex="100" layout="row" layout-align="center center" class="md-subhead">Loading Users</div>
+                <div flex="100" layout="row" layout-align="center center">
+                    <md-progress-circular md-mode="indeterminate" md-diameter="96"></md-progress-circular>
+                </div>
+            </md-card>
+        </div>
+
+        <!--- No results 'if' div ----->
+        <div
+            ng-if="!searchInProgress && usrs.users.length == 0"
+            style="margin-top:-50px;position: absolute;top:50%; text-align: center; left: 0; right: 0;"
+        >No results to display. Please search for a valid user.
+        </div>
+
+        <!-- grid header -->
+        <div class="listHead" layout-gt-sm="row" flex="100" ng-if="!searchInProgress">
+            <div flex-gt-sm="10"><a ng-click="sortColumn('label')" href="">Name <i class="fa" ng-class="{'fa-sort-asc' : columnSorts.label == 1,'fa-sort-desc' : columnSorts.label == -1}"></i></a></div>
+            <div flex-gt-sm="5"></div>
+        </div>
+        <md-list class="listWrapper" flex="100" ng-if="!searchInProgress">
+            <md-list-item ng-repeat="usr in usrs.users track by $index" class="fieldRow">
+                <form novalidate layout-gt-sm="row" flex name="{{field.id}}" >
+                    <v-accordion class="vAccordion--default" multiple>
+                        <v-pane class="rowContainer box box-blue" flex="100">
+                            <v-pane-header flex layout-gt-sm="row" inactive>
+                                <h4 class="pull-left">{{usr.displayName}}</h4>
+                                <md-button class="pull-right" ng-click="$pane.toggle()" aria-label="open row">
+                                    <i class="fa" ng-class="{'fa-chevron-down' : $pane.isExpanded(), 'fa-chevron-left' : !$pane.isExpanded()}"></i>
+                                </md-button>
+                            </v-pane-header>
+                            <v-pane-content>
+                                <div layout="row">
+
+                                    <!-- general info -->
+                                    <md-card layout="column" layout-margin flex-gt-sm="25">
+                                        <div layout="row" class="md-body-2 filled">
+                                            <div flex layout-padding>User Information</div>
+                                        </div>
+                                        <md-list>
+                                            <md-list-item><strong class="label">NT ID</strong><span flex></span>{{usr.username}}</md-list-item>
+                                            <md-list-item><strong class="label">Phone</strong><span flex></span>{{usr.phone}}</md-list-item>
+                                            <md-list-item><strong class="label">Email</strong><span flex></span><a href="mailto:{{usr.email}}">{{usr.email}}</a></md-list-item>
+                                            <md-list-item><strong class="label">Create Date</strong><span flex></span>{{usr.created}}</md-list-item>
+                                            <md-list-item><strong class="label">Last Log In</strong><span flex></span>{{usr.loginTime}}</md-list-item>
+                                        </md-list>
+                                    </md-card>
+
+                                    <!-- app roles -->
+                                    <md-card layout-gt-sm="column" layout-wrap layout-margin flex-gt-sm="50">
+                                        <div layout="row" class="md-body-2 filled">
+                                            <div flex layout-padding>Application Roles</div>
+                                            <md-menu md-position-mode="target-right target" md-offset="0 24">
+                                                <md-button
+                                                    class="md-fab md-mini md-primary"
+                                                    layout-margin
+                                                    aria-label="Edit roles"
+                                                    ng-click="$mdOpenMenu($event)"
+                                                ><i class="fa fa-pencil"></i></md-button>
+                                                <md-menu-content width="4" class="manageUsers">
+                                                    <md-menu-item layout="row" layout-padding>
+                                                        <p flex><strong><em>OCL Application Roles</em></strong></p>
+                                                    </md-menu-item>
+
+                                                    <!-- application list -->
+                                                    <md-menu-item ng-repeat="(appKey,appValue) in usr.roleStats track by $index" layout="column" flex="none">
+                                                        <p flex><strong>{{appKey}}</strong></p>
+                                                        <md-list>
+                                                            <md-list-item ng-repeat="(roleKey,roleValue) in appValue track by $index">
+                                                                <span>{{roleKey}}</span>
+                                                                <span flex></span>
+                                                                <md-switch
+                                                                    class="md-primary"
+                                                                    md-no-ink
+                                                                    aria-label="Switch No Ink"
+                                                                    ng-model="roleValue.hasRole"
+                                                                    ng-change="saveUser(usr);"
+                                                                ></md-switch>
+                                                            </md-list-item>
+                                                        </md-list>
+                                                    </md-menu-item>
+
+                                                </md-menu-content>
+                                            </md-menu>
+                                        </div>
+                                        <md-list layout="row" layout-wrap layout-align="start start">
+                                            <md-list-item
+                                                class="roleList"
+                                                flex-gt-sm="50"
+                                                ng-repeat="r in usr.rolesByApp"
+                                            >
+                                                <strong class="label">{{r.name}}</strong>
+                                                <div flex layout-align="end start">
+                                                    <span ng-repeat="role in r.roles" flex>{{role.name}}<span ng-if="!$last">, </span></span>
+                                                </div>
+                                            </md-list-item>
+                                        </md-list>
+                                    </md-card>
+
+                                </div>
+                            </v-pane-content>
+                        </v-pane>
+                    </v-accordion>
+                </form>
+            </md-list-item>
+        </md-list>
+    </md-content>
+
+    <!--- Pagination ----->
+    <md-toolbar class="gridFoot">
+        <div class="md-toolbar-tools">
+            <span ng-if="usrs.users.length <= 0" class="text-justify" flex>There are no results.</span>
+            <span ng-if="usrs.users.length > 0" class="text-justify" flex>Viewing <strong>{{pageStartCount}}</strong> to <strong>{{pageEndCount}}</strong> of <strong>{{usrs.count}}</strong> total results.</span>
+
+            <md-input-container>
+                <md-select ng-model="usersQueryLimit" ng-change="getUserList(usersQuery,appAgg,roleAgg);" aria-label="change number of results displayed">
+                    <md-option ng-repeat="num in usersQueryPageMax" value="{{num}}">{{num}}</md-option>
+                </md-select>
+            </md-input-container>
+            <!-- BS -- action getting called 2x
+            <pagination
+                total-items="usrs.aggs.count"
+                items-per-page="usersQueryLimit"
+                ng-model="currentPage"
+                max-size="paginationMax"
+                class="pagination-sm"
+                boundary-links="true"
+                ng-change="getUserList()"
+            ></pagination>
+            -->
+            <paging
+                    page="currentPage"
+                    page-size="usersQueryLimit"
+                    total="usrs.aggs.count"
+                    paging-action="changePage(page)"
+                    hide-if-empty="true"
+                    show-prev-next="true"
+                    show-first-last="true"
+                    text-first="&laquo;"
+                    text-last="&raquo;"
+                    text-next="&rsaquo;"
+                    text-prev="&lsaquo;"
+                    text-first-class="fa fa-angle-double-left"
+                    text-last-class="fa fa-angle-double-right"
+                    text-next-class="fa fa-angle-right"
+                    text-prev-class="fa fa-angle-left">
+            </paging>
+        </div>
+    </md-toolbar>
+
+    <!-- Modal Template -->
+
+    <script type="text/ng-template" id="appModal">
+        <div class="modal-header">
+            <i class="fa pull-right fa-{{modal.icon}}" ng-show="modal.icon" ng-class="{'error' : modal.title == 'Error','warning' : modal.title == 'Warning'}"></i>
+            <h4 class="modal-title">{{modal.title}}</h4>
+        </div>
+        <div class="modal-body">
+            {{modal.body}}
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" type="button" ng-click="cancel()">OK</button>
+        </div>
+    </script>
+
+</section>
