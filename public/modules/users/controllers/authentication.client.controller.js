@@ -77,9 +77,10 @@ users.controller('AuthenticationController',
                 ).success(function(response) {
                     // If successful we assign the response to the global user model
                     $rootScope.user = response;
-
+                    console.dir($rootScope.user);
                     // And redirect to the index page
                     $location.path('/myTasks');
+                    location.reload();
 
                 }).error(function(response) {
                     $scope.error = response.message;
@@ -96,16 +97,11 @@ users.controller('AuthenticationController',
 		    $http.post('/auth/signin', credentials).success(function(response) {
 				// If successful we assign the response to the global user model
 				$rootScope.user = response;
+                console.dir($rootScope.user);
+                // And redirect to the index page
+                $location.path('/myTasks');
+                location.reload();
 
-				/*Allows Redirect to specific url if false*/
-				if(window.location.href >  -1) {
-					window.location.href ='/myTasks';
-				} else {
-					window.location.href = window.location.href;
-					//reload here to bring up deep link screen after sign in
-					//location.reload();
-                    window.location.href ='/myTasks';
-				}
 			}).error(function(response) {
 				$scope.error = response.message;
 			});

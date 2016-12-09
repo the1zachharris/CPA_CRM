@@ -125,6 +125,17 @@ app.config(['$routeProvider', '$controllerProvider', '$provide', function ($rout
 app.run(function(editableOptions,$http,$log,$rootScope,Idle,AnalyticsService){
     Idle.watch();
     editableOptions.theme = 'bs3';
+    if (typeof $rootScope.user != 'undefined') {
+        $rootScope.userFullName = $rootScope.user.displayName;
+        $rootScope.username = $rootScope.user.username;
+    } else {
+        $http.get('/auth/me')
+            .then(function (res) {
+                $rootScope.userFullName = res.data.user.displayName;
+                $rootScope.username = res.data.user.username;
+            });
+    };
+    console.dir($rootScope);
     $http.get('/version')
         .then(function(res) {
             $rootScope.version = res.data.version;
@@ -132,6 +143,7 @@ app.run(function(editableOptions,$http,$log,$rootScope,Idle,AnalyticsService){
             $rootScope.gitBranch = res.data.gitBranch;
             $rootScope.gitCommit = res.data.gitCommit;
         });
+
     $rootScope.userAgent = window.navigator.userAgent;
     $rootScope.ua = new UAParser().getResult();
 

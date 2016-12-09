@@ -71,7 +71,7 @@ exports.signup = function(req, res) {
 };
 
 
-exports.signin = function( req, res, next ){
+exports.signin = function( req, res){
 
     //User.findOne with username
     User.findOne({username: req.body.username}).exec(function (err, foundUser){
@@ -82,7 +82,8 @@ exports.signin = function( req, res, next ){
 
             var user = new User ({
                 username: foundUser.username,
-                password:  req.body.password
+                password:  req.body.password,
+                displayName: foundUser.displayName
             });
 
             user.authenticate(function(passback){
@@ -115,8 +116,6 @@ exports.signin = function( req, res, next ){
             })
         }
     });
-
-( req, res, next );
 };
 
 
@@ -131,7 +130,9 @@ exports.signout = function(req, res) {
 
 exports.me = function(req,res){
 	if(req.user){
-		res.status(200).send({user: req.user.username})
+		console.log('in auth.me');
+		console.dir(req.user.username);
+	    res.status(200).send({user: req.user})
 	} else {
 		res.status(400);
 	}

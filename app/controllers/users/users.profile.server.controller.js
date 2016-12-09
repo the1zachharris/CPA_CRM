@@ -11,7 +11,7 @@ var _ = require('lodash'),  // lodash is crap, why are we using it ??
     logger = require('../../controllers/logger.server.controller.js'),
 	mongoose = require('mongoose'),
 	passport = require('passport'),
-	Audit = require('../audits.server.controller'),
+	//Audit = require('../audits.server.controller'),
 	User = mongoose.model('User');
 
 
@@ -23,7 +23,7 @@ exports.updtUser = function( req, res ){
                 message: logger.log("ERROR", __function, err, req, res)
             });
         }else{
-            Audit.create(req.user,'Update specified user',req.body,req.url,req.method,doc);
+            //Audit.create(req.user,'Update specified user',req.body,req.url,req.method,doc);
             res.status(200).send({results: doc});
             //console.log( 'users.profile.server.cont updated ' + req.body.updatedUser.username );
         }
@@ -58,7 +58,7 @@ exports.update = function(req, res) {
 						res.status(400).send(err);
 					} else {
 						res.json(user);
-						Audit.create(req.user,'Update User', req.body, (req.url || 'no req.url'), req.method ,res.body);
+						//Audit.create(req.user,'Update User', req.body, (req.url || 'no req.url'), req.method ,res.body);
 					}
 				});
 			}
@@ -289,7 +289,7 @@ exports.list = function(req, res) {
 
 
 exports.profile = function(req, res) {
-    var query = { username: decodeURIComponent(req.query.username) };
+    var query = { username: decodeURIComponent(req.username) };
     User.findOne(query).exec(function( err, profile ){
         if( err ){
             return res.status(400).send({

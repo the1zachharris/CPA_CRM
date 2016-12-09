@@ -17,7 +17,11 @@ var authenicate = require('./controllers/users/users.authentication.server.contr
 router.post('/signup', authenicate.signup);
 router.post('/auth/signin',authenicate.signin);
 router.get('/auth/signout',authenicate.signout);
-router.post('me', authenicate.me);
+router.get('/auth/me', authenicate.me);
+
+// profile api
+var profile = require('./controllers/users/users.profile.server.controller');
+router.get('me', profile.me);
 
 //Auth routes for checking permissions (authorization)
 var auth = require('./controllers/users/users.authorization.server.controller.js');

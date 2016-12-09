@@ -30,8 +30,9 @@ exports.index = function (req, res) {
      } else
      */
     if (req.user) {
+        //console.dir(req.user.displayName);
         res.render('index', {
-            user: req.user || null,
+            user: req.user,
             env: process.env.NODE_ENV,
             request: req
         });
