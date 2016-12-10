@@ -21,7 +21,7 @@
                         md-item-text="item.displayName"
                         md-min-length="0"
                 <md-item-template>
-                    <span md-highlight-text="ctrl.searchText" md-highlight-flags="^i">{{item.FirstName}}</span>
+                    <span md-highlight-text="ctrl.searchText" md-highlight-flags="^i">{{item.displayName}}</span>
                 </md-item-template>
                 </md-autocomplete>
 
@@ -85,7 +85,7 @@
                         md-item-text="item.displayName"
                         md-min-length="0"
                 <md-item-template>
-                    <span md-highlight-text="ctrl.searchText" md-highlight-flags="^i">{{item.FirstName + ' ' + item.LastName}}</span>
+                    <span md-highlight-text="ctrl.searchText" md-highlight-flags="^i">{{item.displayName}}</span>
                 </md-item-template>
                 </md-autocomplete>
             </div>

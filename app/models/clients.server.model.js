@@ -46,7 +46,7 @@ var clientSchema = new Schema ({
         type: Array
     },
     ResponsibleEmployee: {
-        type: String
+        type: Object
     },
     Type: {
         type: String

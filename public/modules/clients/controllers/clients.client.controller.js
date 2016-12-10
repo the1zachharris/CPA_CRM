@@ -339,7 +339,7 @@ clients.controller('clientsController',[
                 Country: newclient.Country,
                 Phone: newclient.Phone,
                 Email: newclient.Email,
-                ResponsibleEmployee: newclient.ResponsibleEmployee.FirstName + newclient.ResponsibleEmployee.LastName,
+                ResponsibleEmployee: newclient.ResponsibleEmployee,
                 Type: newclient.Type.type
             }).then(
                 function (res) {
@@ -375,7 +375,7 @@ clients.controller('clientsController',[
                 Country: detailedclient.Country,
                 Phone: detailedclient.Phone,
                 Email: detailedclient.Email,
-                ResponsibleEmployee: detailedclient.ResponsibleEmployee.displayName,
+                ResponsibleEmployee: detailedclient.ResponsibleEmployee,
                 Type: detailedclient.Type.type
             }).then(
                 function (res) {
