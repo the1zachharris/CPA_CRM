@@ -9,7 +9,7 @@ var _ = require('lodash'),
     async = require('async'),
 	mongoose = require('mongoose'),
 	passport = require('passport'),
-    LocalStrategy = require('passport-local').Strategy,
+    LocalStrategy = require('passport-local'),
     crypto = require('crypto'),
 	UserModel = require('../../models/users.server.model.js'),
 	User = mongoose.model('User');
@@ -30,6 +30,8 @@ passport.deserializeUser(function(id, done) {
 });
 
 
+
+
 /**
  * Signup
  */
@@ -38,6 +40,7 @@ exports.signup = function(req, res) {
 	delete req.body.roles;
 
 	// Init Variables
+
 	var user = new User(req.body);
 	var message = null;
 
@@ -72,7 +75,7 @@ exports.signup = function(req, res) {
 
 
 exports.signin = function( req, res){
-
+    //passport.use(new LocalStrategy(
     //User.findOne with username
     User.findOne({username: req.body.username}).exec(function (err, foundUser){
         if (err) {
@@ -80,18 +83,38 @@ exports.signin = function( req, res){
         } else if (foundUser) {
             console.log('found user with username');
 
-            var user = new User ({
-                username: foundUser.username,
-                password:  req.body.password,
-                displayName: foundUser.displayName
-            });
+            var user = new User (foundUser);
+
+            user.password = req.body.password;
 
             user.authenticate(function(passback){
                 if (passback) {
                     user.loginTime = Date.now();
+                    user.auth = passback;
                     console.log('user.auth: ');
                     console.dir(user.auth);
+                    // Then save the user
+                    user.save(function(err) {
+                        if (err) {
+                            return res.status(400).send({
+                                message: logger.log("ERROR", __function, err)
+                            });
+                        } else {
+                            // Remove sensitive data before login
+                            user.password = undefined;
+                            user.salt = undefined;
 
+                            req.login(user, function(err) {
+                                if (err) {
+                                    res.status(400).send(err);
+                                } else {
+                                    res.json(user);
+                                }
+                            });
+                        }
+                    });
+
+                    /*
                     //console.dir('this is the user just before save: ' + user);
                     user.save();
                     // Remove sensitive data before login
@@ -99,13 +122,16 @@ exports.signin = function( req, res){
 
                     req.login(user, function (err) {
                         if (err) {
+                            console.log('error with login within signin');
                             res.status(400).send(err);
                         } else {
+                            console.log('sucess with login within signin');
                             res.json(user);
                         }
                     });
+                    */
                 } else {
-                    res.status(200).send({message: 'incorrect password!', auth: user.auth})
+                    res.status(400).send({message: 'incorrect password!', auth: user.auth})
                 };
             });
 
@@ -116,6 +142,7 @@ exports.signin = function( req, res){
             })
         }
     });
+    //));
 };
 
 

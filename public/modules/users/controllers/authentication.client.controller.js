@@ -94,17 +94,20 @@ users.controller('AuthenticationController',
 
 		$scope.signin = function(credentials) {
 			console.log('in signin');
-		    $http.post('/auth/signin', credentials).success(function(response) {
-				// If successful we assign the response to the global user model
-				$rootScope.user = response;
-                console.dir($rootScope.user);
-                // And redirect to the index page
-                $location.path('/myTasks');
-                location.reload();
-
-			}).error(function(response) {
-				$scope.error = response.message;
-			});
+		    $http.post('/auth/signin', credentials)
+				.success(function(response) {
+					// If successful we assign the response to the global user model
+					$rootScope.user = response;
+					console.dir($rootScope.user);
+					// And redirect to the index page
+					$location.path('/myTasks');
+					location.reload();
+				})
+				.error(function(response) {
+					console.log('error with signing you in!');
+                    $scope.showError = true;
+                    $scope.error = response.message;
+				});
 		};
 
 		$scope.forgotPassword = function(){

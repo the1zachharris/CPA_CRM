@@ -50,7 +50,7 @@ if (isAuth) {
     console.log('authenicated');
 } else {
     console.log('not authenicated');
-}
+};
 
 
 app.use(cookieParser());

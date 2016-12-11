@@ -3,7 +3,10 @@
 var express = require('express'),
     app = express(),
     bodyParser = require('body-parser'),
+    passport = require('passport'),
     core = require('./controllers/core.server.controller.js');
+
+app.use(passport.initialize());
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));

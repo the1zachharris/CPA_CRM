@@ -29,6 +29,8 @@ exports.index = function (req, res) {
      res.render('error')
      } else
      */
+    console.log('in core.server.controller.js: 32 - req.user: ')
+    console.dir(req.user);
     if (req.user) {
         //console.dir(req.user.displayName);
         res.render('index', {
@@ -39,8 +41,6 @@ exports.index = function (req, res) {
     } else {
         //res.render('index');
         res.render('signin');
-        //TODO: pass the requested URL on so that post login TT can take them there in case it was a deep link
-
     }
     //  }
 
