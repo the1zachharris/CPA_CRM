@@ -14,7 +14,7 @@ var clients = angular.module('clients',[
     'gm.typeaheadDropdown'
 ]);
 
-
+//TODO: include the clientTask controller
 clients.controller('clientsController',[
     'clientCalls',
     '$scope',
@@ -164,7 +164,7 @@ clients.controller('clientsController',[
                 keyword = (oSearchArray.length !== 0) ? oSearchArray.join(' ') : '';
             }
         };
-
+//TODO: have this function use the setDate function to get updated date for frequency
         $scope.addTask  = function (task, clientid, clientName) {
           task = {
               task: task.task,

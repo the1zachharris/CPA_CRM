@@ -56,7 +56,7 @@ clienttasks.controller('clientTasksController',[
         var updatedClientTask = "",
             newClientTask = "",
             now = moment(),
-            newDate = now,
+            //newDate = now,
             clientTasks = "",
             detailedClientTask = "";
 
@@ -319,52 +319,48 @@ clienttasks.controller('clientTasksController',[
                 }
             )
         };
-
+//TODO: make this function more generic
         $scope.setDate = function (Task) {
             console.dir(Task);
             var dueDate = moment(Task.taskDueDate);
-            if (dueDate.diff(now) < 0) {
+            while (dueDate < moment()) {
                 if (Task.taskFrequency == "Annual" || Task.taskFrequency == "AnnualEOM") {
-                    newDate = moment().add(1, 'y');
-                    console.log(newDate);
+                    dueDate = moment().add(1, 'y');
+                    console.log(dueDate);
                 }
                 else if (Task.taskFrequency == "Daily") {
-                    newDate = moment().add(1, 'd');
+                    dueDate = moment().add(1, 'd');
                 }
                 else if (Task.taskFrequency == "Bi-Weekly") {
-                    newDate = moment().add(2, 'w');
+                    dueDate = moment().add(2, 'w');
                 }
                 else if (Task.taskFrequency == "Weekly") {
-                    newDate = moment().add(1, 'w');
+                    dueDate = moment().add(1, 'w');
                 }
                 else if (Task.taskFrequency == "Quarterly" || Task.taskFrequency == "QuarterlyEOM") {
-                    newDate = moment().add(1, 'Q');
+                    dueDate = moment().add(1, 'Q');
                 }
                 else if (Task.taskFrequency == "Monthly" || Task.taskFrequency == "MonthlyEOM") {
-                    newDate = moment().add(1, 'M');
+                    dueDate = moment().add(1, 'M');
                 }
                 else if (Task.taskFrequency == "Semi-Annual") {
-                    newDate = moment().add(6, 'M');
+                    dueDate = moment().add(6, 'M');
                 }
                 else if (Task.taskFrequency == "One-Time") {
                     return Task
                 }
             }
-            else {
-                newDate = Task.taskDueDate;
-                console.log(newDate);
-            }
-            console.log(newDate);
-            $scope.createClientTask(Task, newDate);
+            $scope.createClientTask(Task, dueDate);
         };
+//TODO: call setDate in this function
+        $scope.createClientTask = function (Task, dueDate) {
 
-        $scope.createClientTask = function (Task, newDate) {
             clientCalls.createClientTask({
                 clientid: Task.clientid,
                 clientName: Task.clientName,
                 taskid: Task.taskid,
                 taskName: Task.taskName,
-                taskDueDate: newDate,
+                taskDueDate: dueDate,
                 taskExtendedDueDate: Task.taskExtendedDueDate,
                 taskStatus: "New",
                 taskExtendedDate: Task.taskExtendedDate,

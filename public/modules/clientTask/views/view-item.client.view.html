@@ -5,7 +5,8 @@
 
     <div ng-repeat="item in myUpdateFieldset.fields" class="input-group">
         <span class="input-group-addon">{{item.label}}</span>
-        {{$parent.tabValue.item[item.field]}}
+        {{$parent.tabValue.item[item.field] | date : 'MM/dd/yyyy'}}
+
     </div>
 
     <button class="btn btn-success"
