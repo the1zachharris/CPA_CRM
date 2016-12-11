@@ -91,8 +91,8 @@ exports.signin = function( req, res){
                 if (passback) {
                     user.loginTime = Date.now();
                     user.auth = passback;
-                    console.log('user.auth: ');
-                    console.dir(user.auth);
+                    //console.log('user.auth: ');
+                    //console.dir(user.auth);
                     // Then save the user
                     user.save(function(err) {
                         if (err) {

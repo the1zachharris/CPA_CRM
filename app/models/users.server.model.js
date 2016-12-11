@@ -165,11 +165,11 @@ UserSchema.methods.authenticate = function(callback) {
     console.log('in authenicate');
     var checkPassword = this.password.toString();
     var hashedPassword = this.hashPassword(checkPassword).toString();
-    console.log('checkPassword: ' + checkPassword + ' hashPassword: ' + hashedPassword);
+    //console.log('checkPassword: ' + checkPassword + ' hashPassword: ' + hashedPassword);
     //pull the hashed password for this user
     this.model('User').findOne({username: this.username}).exec(function (err, foundUser){
-        console.log('foundUser.password: ' + foundUser.password + ' hashPassword: ' + hashedPassword);
-        console.log('still in authenicate: ' + foundUser.password == hashedPassword);
+        //console.log('foundUser.password: ' + foundUser.password + ' hashPassword: ' + hashedPassword);
+        //console.log('still in authenicate: ' + foundUser.password == hashedPassword);
         //this.auth = foundUser.password === hashedPassword;
         callback(foundUser.password == hashedPassword);
     });

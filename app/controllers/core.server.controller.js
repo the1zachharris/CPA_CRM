@@ -29,8 +29,8 @@ exports.index = function (req, res) {
      res.render('error')
      } else
      */
-    console.log('in core.server.controller.js: 32 - req.user: ')
-    console.dir(req.user);
+    //console.log('in core.server.controller.js: 32 - req.user: ')
+    //console.dir(req.user);
     if (req.user) {
         //console.dir(req.user.displayName);
         res.render('index', {

@@ -98,13 +98,13 @@ users.controller('AuthenticationController',
 				.success(function(response) {
 					// If successful we assign the response to the global user model
 					$rootScope.user = response;
-					console.dir($rootScope.user);
+					//console.dir($rootScope.user);
 					// And redirect to the index page
 					$location.path('/myTasks');
 					location.reload();
 				})
 				.error(function(response) {
-					console.log('error with signing you in!');
+					//console.log('error with signing you in!');
                     $scope.showError = true;
                     $scope.error = response.message;
 				});
