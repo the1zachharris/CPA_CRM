@@ -10,7 +10,7 @@ div.content.container-fluid {
     left: 0;
     right: 0;
     padding: 0 0 0 45px;
-    overflow: hidden;
+    overflow: scroll;
     transition: padding 250ms ease;
 }
 

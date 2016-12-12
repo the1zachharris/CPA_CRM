@@ -77,3 +77,7 @@ ol.progtrckr li.progtrckr-todo:before {
     min-width: 165px;
     text-align: right;
 }
+
+.inLine {
+    display: inline-block;
+}
