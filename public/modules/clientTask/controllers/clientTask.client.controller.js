@@ -97,6 +97,7 @@ clienttasks.controller('clientTasksController',[
                 { label:'Task Name', field: 'taskName'},
                 { label:'Due Date', field: 'taskDueDate'},
                 { label:'Extended Due Date', field: 'taskExtendedDueDate'},
+                { label:'2nd Extended Due Date', field: 'taskSecondExtendedDueDate'},
                 { label:'Status', field: 'taskStatus'},
                 { label:'Completed Date', field: 'taskCompletedDate'},
                 { label:'Extended Date', field: 'taskExtendedDate'},

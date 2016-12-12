@@ -97,7 +97,7 @@ tasks.controller('tasksController',[
               { label:'Name', field: 'Name', required: true },
               { label:'Due Date', field: 'DueDate', required: true},
               { label:'Extended Due Date', field: 'ExtendedDueDate', required: false},
-              { label:'Second Extended Due Date', field: 'SecondExtendedDueDate', required: false},
+              { label:'2nd Extended Due Date', field: 'SecondExtendedDueDate', required: false},
               { label:'Frequency', field: 'Frequency', required: true}
           ]
         };
@@ -110,7 +110,7 @@ tasks.controller('tasksController',[
                 { label:'Name', field: 'Name', required: true },
                 { label:'Due Date', field: 'DueDate', required: true},
                 { label:'Extended Due Date', field: 'ExtendedDueDate', required: false},
-                { label:'Second Extended Due Date', field: 'SecondExtendedDueDate', required: false},
+                { label:'2nd Extended Due Date', field: 'SecondExtendedDueDate', required: false},
                 { label:'Frequency', field: 'Frequency', required: true}
             ]
         };
