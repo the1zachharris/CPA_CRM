@@ -72,3 +72,8 @@ ol.progtrckr li.progtrckr-todo:before {
 	font-size: 1.5em;
 	bottom: -1.6em;
 }
+
+.input-group-addon {
+    min-width: 150px;
+    text-align: right;
+}
