@@ -231,7 +231,7 @@ tasks.controller('tasksController',[
                     detailedtask = angular.copy(res.data);
                     $scope.tasksTabset[taskId] = {
                         active: true,
-                        label: detailedtask.Number,
+                        label: detailedtask.Name,
                         view: 'modules/core/views/edit-item.client.view.html',
                         item: detailedtask
                     };
