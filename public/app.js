@@ -73,10 +73,31 @@ app.config(['$routeProvider', '$controllerProvider', '$provide', function ($rout
                 }
 
             })
-            .otherwise({
-                redirectTo: '/'
-            });
+            .when('/', {
+                templateUrl:'modules/core/views/masterTabset.view.html',
+                controller: 'MainController',
+                resolve: {
+                    loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
+                        return $ocLazyLoad.load({
+                            name: 'MainController',
+                            files:[
+                                // Controllers
+                                'modules/clientTask/controllers/clientTask.client.controller.js',
+                                'modules/clients/controllers/clients.client.controller.js',
+                                'modules/tasks/controllers/tasks.client.controller.js',
+                                'modules/clienttypes/controllers/clienttypes.client.controller.js',
+                                'modules/employees/controllers/employees.client.controller.js',
 
+                                // Styles
+                                'modules/core/css/datagrids.client.styles.css',
+                                'modules/core/css/tabsets.client.styles.css',
+                                'modules/core/css/search.client.styles.css',
+                                'modules/clients/css/clients.client.styles.css',
+                                'modules/clients/css/client-search.client.style.css'
+                            ]});
+                    }]
+                }
+            })
     }])
 
     .config(['IdleProvider', function(IdleProvider) {
