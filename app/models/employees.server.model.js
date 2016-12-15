@@ -27,8 +27,7 @@ var employeesSchema = new Schema ({
         type: String
     },
     Email: {
-        type: String,
-        required: 'Must have a Email for the employee'
+        type: String
     },
     LastLogin: {
         type: Date
