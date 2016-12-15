@@ -5,7 +5,8 @@
  */
 var mongoose = require('mongoose'),
     TasksModel = require('../models/tasks.server.model.js'),
-    task = mongoose.model('task'),
+    userDbConn = require('../../config/user.connection.db.config'),
+    //task = mongoose.model('task'),
     crypto = require('crypto');
 
 
@@ -35,24 +36,27 @@ exports.create = function (req, res) {
     // used to create ID
     var current_date = (new Date()).valueOf().toString();
     var random = Math.random().toString();
+//for user database
+    userDbConn.userDBConnection(req.user.database, function (userdb) {
+        var task = userdb.model('task');
+        var v = new task({
+            id: crypto.createHash('sha1').update(current_date + random).digest('hex'),
+            Name: req.body.Name,
+            Frequency: req.body.Frequency,
+            DueDate: req.body.DueDate,
+            ExtendedDueDate: req.body.ExtendedDueDate,
+            SecondExtendedDueDate: req.body.SecondExtendedDueDate
+        });
 
-    var v = new task({
-        id: crypto.createHash('sha1').update(current_date + random).digest('hex'),
-        Name: req.body.Name,
-        Frequency: req.body.Frequency,
-        DueDate: req.body.DueDate,
-        ExtendedDueDate: req.body.ExtendedDueDate,
-        SecondExtendedDueDate: req.body.SecondExtendedDueDate
-    });
-
-    v.save(function (err, task) {
-        if (err) {
-            return res.status(400).send({
-                message:  err
-            });
-        } else {
-            res.status(200).send({success: true, id: task.id});
-        }
+        v.save(function (err, task) {
+            if (err) {
+                return res.status(400).send({
+                    message: err
+                });
+            } else {
+                res.status(200).send({success: true, id: task.id});
+            }
+        });
     });
 };
 
@@ -72,18 +76,21 @@ exports.create = function (req, res) {
 *     }
  */
 exports.list = function (req, res) {
-    task.find().sort('-type').exec(function (err, task) {
-        if (!task.length) {
-            res.status(200).send({tasks: task})
-        } else {
-            if (err) {
-                return res.status(400).send({
-                    message:  err
-                });
+    userDbConn.userDBConnection(req.user.database, function (userdb) {
+        var task = userdb.model('task');
+        task.find().sort('-type').exec(function (err, task) {
+            if (!task.length) {
+                res.status(200).send({tasks: task})
             } else {
-                res.jsonp(task);
+                if (err) {
+                    return res.status(400).send({
+                        message: err
+                    });
+                } else {
+                    res.jsonp(task);
+                }
             }
-        }
+        });
     });
 };
 
@@ -103,14 +110,17 @@ exports.list = function (req, res) {
 *     }
  */
 exports.detail = function (req, res) {
-    task.findOne({id: req.params.id}).exec(function (err, task) {
-        if (err) {
-            return res.status(400).send({
-                message: err
-            });
-        } else {
-            res.jsonp(task);
-        }
+    userDbConn.userDBConnection(req.user.database, function (userdb) {
+        var task = userdb.model('task');
+        task.findOne({id: req.params.id}).exec(function (err, task) {
+            if (err) {
+                return res.status(400).send({
+                    message: err
+                });
+            } else {
+                res.jsonp(task);
+            }
+        });
     });
 };
 
@@ -134,14 +144,17 @@ exports.detail = function (req, res) {
  */
 exports.update = function (req, res) {
     var query = {id: req.body.id};
-    task.findOneAndUpdate(query, req.body, {upsert: true}, function (err, doc) {
-        if (err) {
-            return res.status(400).send({
-                message:  err
-            });
-        } else {
-            res.status(200).send({results: doc});
-        }
+    userDbConn.userDBConnection(req.user.database, function (userdb) {
+        var task = userdb.model('task');
+        task.findOneAndUpdate(query, req.body, {upsert: true}, function (err, doc) {
+            if (err) {
+                return res.status(400).send({
+                    message: err
+                });
+            } else {
+                res.status(200).send({results: doc});
+            }
+        });
     });
 };
 
@@ -165,14 +178,17 @@ exports.update = function (req, res) {
 exports.delete = function (req, res) {
     var id = req.params.id;
     var query = {id: id};
-    task.remove(query, function (err, doc) {
-        if (err) {
-            return res.status(400).send({
-                message:  err
-            });
-        } else {
-            res.status(200).send({results: doc});
-        }
+    userDbConn.userDBConnection(req.user.database, function (userdb) {
+        var task = userdb.model('task');
+        task.remove(query, function (err, doc) {
+            if (err) {
+                return res.status(400).send({
+                    message: err
+                });
+            } else {
+                res.status(200).send({results: doc});
+            }
 
-    })
+        })
+    });
 };

@@ -5,7 +5,8 @@
  */
 var mongoose = require('mongoose'),
     ClienttypeModel = require('../models/clienttypes.server.model.js'),
-    Clienttype = mongoose.model('Clienttype'),
+    userDbConn = require('../../config/user.connection.db.config'),
+    //Clienttype = mongoose.model('Clienttype'),
     crypto = require('crypto');
 
 
@@ -27,7 +28,8 @@ var mongoose = require('mongoose'),
 *     }
  */
 exports.createIt = function (req, res) {
-    try {
+    userDbConn.userDBConnection(req.user.database, function (userdb) {
+        var Clienttype = userdb.model('Clienttype');
         // used to create ID
         var current_date = (new Date()).valueOf().toString();
         var random = Math.random().toString();
@@ -40,17 +42,13 @@ exports.createIt = function (req, res) {
         v.save(function (err, clienttype) {
             if (err) {
                 return res.status(400).send({
-                    message:  err
+                    message: err
                 });
             } else {
                 res.status(200).send({success: true, id: clienttype.id});
             }
         });
-    } catch (err) {
-        return res.status(400).send({
-            message:  err
-        });
-    }
+    });
 };
 
 /**
@@ -69,25 +67,22 @@ exports.createIt = function (req, res) {
 *     }
  */
 exports.listAll = function (req, res) {
-    try {
+    userDbConn.userDBConnection(req.user.database, function (userdb) {
+        var Clienttype = userdb.model('Clienttype');
         Clienttype.find().sort('-type').exec(function (err, clientTypes) {
             if (!clientTypes.length) {
                 res.status(200).send({clientType: clientTypes})
             } else {
                 if (err) {
                     return res.status(400).send({
-                        message:  err
+                        message: err
                     });
                 } else {
                     res.jsonp(clientTypes);
                 }
             }
         });
-    } catch (err) {
-        return res.status(400).send({
-            message:  err
-        });
-    }
+    });
 };
 
 /**
@@ -106,14 +101,17 @@ exports.listAll = function (req, res) {
 *     }
  */
 exports.detailIt = function (req, res) {
-    Clienttype.findOne({id: req.params.id}).exec(function (err, clientType) {
-        if (err) {
-            return res.status(400).send({
-                message:  err
-            });
-        } else {
-            res.jsonp(clientType);
-        }
+    userDbConn.userDBConnection(req.user.database, function (userdb) {
+        var Clienttype = userdb.model('Clienttype');
+        Clienttype.findOne({id: req.params.id}).exec(function (err, clientType) {
+            if (err) {
+                return res.status(400).send({
+                    message: err
+                });
+            } else {
+                res.jsonp(clientType);
+            }
+        });
     });
 };
 
@@ -136,16 +134,19 @@ exports.detailIt = function (req, res) {
 *     }
  */
 exports.updateIt = function (req, res) {
+    userDbConn.userDBConnection(req.user.database, function (userdb) {
+        var Clienttype = userdb.model('Clienttype');
         var query = {id: req.body.id};
         Clienttype.findOneAndUpdate(query, req.body, {upsert: false}, function (err, doc) {
             if (err) {
                 return res.status(400).send({
-                    message:  err
+                    message: err
                 });
             } else {
                 res.status(200).send({results: doc});
             }
         });
+    });
 };
 
 /**
@@ -166,22 +167,19 @@ exports.updateIt = function (req, res) {
 *     }
  */
 exports.deleteIt = function (req, res) {
-    try {
+    userDbConn.userDBConnection(req.user.database, function (userdb) {
+        var Clienttype = userdb.model('Clienttype');
         var id = req.params.id;
         var query = {id: id};
         Clienttype.remove(query, function (err, doc) {
             if (err) {
                 return res.status(400).send({
-                    message:  err
+                    message: err
                 });
             } else {
                 res.status(200).send({results: doc});
             }
 
         })
-    } catch (err) {
-        return res.status(400).send({
-            message:  err
-        });
-    }
+    });
 };

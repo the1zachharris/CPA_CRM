@@ -5,7 +5,8 @@
  */
 var mongoose = require('mongoose'),
     EmployeeModel = require('../models/employees.server.model.js'),
-    employee = mongoose.model('employee'),
+    userDbConn = require('../../config/user.connection.db.config'),
+    //employee = mongoose.model('employee'),
     crypto = require('crypto');
 
 
@@ -29,7 +30,8 @@ var mongoose = require('mongoose'),
 *     }
  */
 exports.create = function (req, res) {
-    try {
+    userDbConn.userDBConnection(req.user.database, function (userdb) {
+        var employee = userdb.model('employee');
         // used to create ID
         var current_date = (new Date()).valueOf().toString();
         var random = Math.random().toString();
@@ -46,17 +48,13 @@ exports.create = function (req, res) {
         v.save(function (err, employee) {
             if (err) {
                 return res.status(400).send({
-                    message:  err
+                    message: err
                 });
             } else {
                 res.status(200).send({success: true, id: employee.id});
             }
         });
-    } catch (err) {
-        return res.status(400).send({
-            message:  err
-        });
-    }
+    });
 };
 
 /**
@@ -75,25 +73,22 @@ exports.create = function (req, res) {
 *     }
  */
 exports.list = function (req, res) {
-    try {
+    userDbConn.userDBConnection(req.user.database, function (userdb) {
+        var employee = userdb.model('employee');
         employee.find().sort('-type').exec(function (err, employee) {
             if (!employee.length) {
                 res.status(200).send({employee: employee})
             } else {
                 if (err) {
                     return res.status(400).send({
-                        message:  err
+                        message: err
                     });
                 } else {
                     res.jsonp(employee);
                 }
             }
         });
-    } catch (err) {
-        return res.status(400).send({
-            message:  err
-        });
-    }
+    });
 };
 
 /**
@@ -112,14 +107,17 @@ exports.list = function (req, res) {
 *     }
  */
 exports.detail = function (req, res) {
-    employee.findOne({id: req.params.id}).exec(function (err, employee) {
-        if (err) {
-            return res.status(400).send({
-                message:  err
-            });
-        } else {
-            res.jsonp(employee);
-        }
+    userDbConn.userDBConnection(req.user.database, function (userdb) {
+        var employee = userdb.model('employee');
+        employee.findOne({id: req.params.id}).exec(function (err, employee) {
+            if (err) {
+                return res.status(400).send({
+                    message: err
+                });
+            } else {
+                res.jsonp(employee);
+            }
+        });
     });
 };
 
@@ -143,15 +141,18 @@ exports.detail = function (req, res) {
  */
 exports.update = function (req, res) {
         var query = {id: req.body.id};
+    userDbConn.userDBConnection(req.user.database, function (userdb) {
+        var employee = userdb.model('employee');
         employee.findOneAndUpdate(query, req.body, {upsert: false}, function (err, doc) {
             if (err) {
                 return res.status(400).send({
-                    message:  err
+                    message: err
                 });
             } else {
                 res.status(200).send({results: doc});
             }
         });
+    });
 };
 
 /**
@@ -172,22 +173,19 @@ exports.update = function (req, res) {
 *     }
  */
 exports.delete = function (req, res) {
-    try {
+    userDbConn.userDBConnection(req.user.database, function (userdb) {
+        var employee = userdb.model('employee');
         var id = req.params.id;
         var query = {id: id};
         employee.remove(query, function (err, doc) {
             if (err) {
                 return res.status(400).send({
-                    message:  err
+                    message: err
                 });
             } else {
                 res.status(200).send({results: doc});
             }
 
         })
-    } catch (err) {
-        return res.status(400).send({
-            message:  err
-        });
-    }
+    });
 };

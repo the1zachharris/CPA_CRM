@@ -4,8 +4,9 @@
  * Module dependencies.
  */
 var mongoose = require('mongoose'),
-    ClientModel = require('../models/clientTask.server.model.js'),
-    clientTask = mongoose.model('clientTask'),
+    ClientTaskModel = require('../models/clientTask.server.model.js'),
+    userDbConn = require('../../config/user.connection.db.config'),
+    //clientTask = mongoose.model('clientTask'),
     crypto = require('crypto');
 
 
@@ -45,35 +46,37 @@ exports.create = function (req, res) {
     // used to create ID
     var current_date = (new Date()).valueOf().toString();
     var random = Math.random().toString();
+    userDbConn.userDBConnection(req.user.database, function (userdb) {
+        var clientTask = userdb.model('clientTask');
+        var v = new clientTask({
+            id: crypto.createHash('sha1').update(current_date + random).digest('hex'),
+            clientid: req.body.clientid,
+            clientName: req.body.clientName,
+            taskid: req.body.taskid,
+            taskName: req.body.taskName,
+            taskDueDate: req.body.taskDueDate,
+            taskExtendedDueDate: req.body.taskExtendedDueDate,
+            taskStatus: req.body.taskStatus,
+            taskCompletedDate: req.body.taskCompletedDate,
+            taskCreatedDate: current_date,
+            taskExtendedDate: req.body.taskExtendedDate,
+            taskReceivedDate: req.body.taskReceivedDate,
+            taskEmployeeName: req.body.taskEmployeeName,
+            taskEmployeeid: req.body.taskEmployeeid,
+            DateCreated: current_date,
+            DateUpdated: req.body.DateUpdated,
+            taskFrequency: req.body.taskFrequency
+        });
 
-    var v = new clientTask({
-        id: crypto.createHash('sha1').update(current_date + random).digest('hex'),
-        clientid: req.body.clientid,
-        clientName: req.body.clientName,
-        taskid: req.body.taskid,
-        taskName: req.body.taskName,
-        taskDueDate: req.body.taskDueDate,
-        taskExtendedDueDate: req.body.taskExtendedDueDate,
-        taskStatus: req.body.taskStatus,
-        taskCompletedDate: req.body.taskCompletedDate,
-        taskCreatedDate: current_date,
-        taskExtendedDate: req.body.taskExtendedDate,
-        taskReceivedDate: req.body.taskReceivedDate,
-        taskEmployeeName: req.body.taskEmployeeName,
-        taskEmployeeid: req.body.taskEmployeeid,
-        DateCreated: current_date,
-        DateUpdated: req.body.DateUpdated,
-        taskFrequency: req.body.taskFrequency
-    });
-
-    v.save(function (err, clientTask) {
-        if (err) {
-            return res.status(400).send({
-                message:  err
-            });
-        } else {
-            res.status(200).send({success: true, id: clientTask.id});
-        }
+        v.save(function (err, clientTask) {
+            if (err) {
+                return res.status(400).send({
+                    message: err
+                });
+            } else {
+                res.status(200).send({success: true, id: clientTask.id});
+            }
+        });
     });
 };
 
@@ -93,18 +96,21 @@ exports.create = function (req, res) {
 *     }
  */
 exports.list = function (req, res) {
-    clientTask.find().sort('-type').exec(function (err, clientTasks) {
-        if (!clientTask.length) {
-            res.status(200).send({clientTasks: clientTasks})
-        } else {
-            if (err) {
-                return res.status(400).send({
-                    message:  err
-                });
+    userDbConn.userDBConnection(req.user.database, function (userdb) {
+        var clientTask = userdb.model('clientTask');
+        clientTask.find().sort('-type').exec(function (err, clientTasks) {
+            if (!clientTask.length) {
+                res.status(200).send({clientTasks: clientTasks})
             } else {
-                res.jsonp(clientTasks);
+                if (err) {
+                    return res.status(400).send({
+                        message: err
+                    });
+                } else {
+                    res.jsonp(clientTasks);
+                }
             }
-        }
+        });
     });
 };
 
@@ -124,14 +130,17 @@ exports.list = function (req, res) {
 *     }
  */
 exports.detail = function (req, res) {
-    clientTask.findOne({id: req.params.id}).exec(function (err, clientTask) {
+    userDbConn.userDBConnection(req.user.database, function (userdb) {
+        var clientTask = userdb.model('clientTask');
+        clientTask.findOne({id: req.params.id}).exec(function (err, clientTask) {
             if (err) {
                 return res.status(400).send({
-                    message:  err
+                    message: err
                 });
             } else {
                 res.jsonp(clientTask);
             }
+        });
     });
 };
 
@@ -153,34 +162,36 @@ exports.detail = function (req, res) {
  *  }
  */
 exports.search = function (req, res) {
+    userDbConn.userDBConnection(req.user.database, function (userdb) {
+        var clientTask = userdb.model('clientTask');
+        var searchQuery = req.body.query,
+            limit = req.body.limit,
+            skip = req.body.skip,
+            sort = req.body.sort,
+            limitSearch = 0,
+            and = req.body.and,
+            or = req.body.or,
+            filter = req.body.filter;
+        var itemDeepSearch = clientTask
+            .findOne({
+                $and: and
+            })
+            .limit(limit)
+            .skip(skip)
+            .sort(sort);
 
-    var searchQuery = req.body.query,
-        limit = req.body.limit,
-        skip = req.body.skip,
-        sort = req.body.sort,
-        limitSearch = 0,
-        and = req.body.and,
-        or = req.body.or,
-        filter = req.body.filter;
-    var itemDeepSearch = clientTask
-        .findOne({
-            $and : and
+        itemDeepSearch.exec(function (err, doc) {
+            if (err) {
+                console.dir(err);
+                return res.status(400).send({
+                    message: err
+                });
+            } else {
+                res.status(200).send({results: doc});
+            }
+
         })
-        .limit(limit)
-        .skip(skip)
-        .sort(sort);
-
-    itemDeepSearch.exec(function (err, doc) {
-        if (err) {
-            console.dir(err);
-            return res.status(400).send({
-                message:  err
-            });
-        } else {
-            res.status(200).send({results: doc});
-        }
-
-    })
+    });
 };
 
 /**
@@ -204,14 +215,17 @@ exports.search = function (req, res) {
 exports.update = function (req, res) {
     console.dir(req.body);
     var query = {id: req.body.id};
-    clientTask.findOneAndUpdate(query, req.body, {upsert: true}, function (err, doc) {
-        if (err) {
-            return res.status(400).send({
-                message:  err
-            });
-        } else {
-            res.status(200).send(doc);
-        }
+    userDbConn.userDBConnection(req.user.database, function (userdb) {
+        var clientTask = userdb.model('clientTask');
+        clientTask.findOneAndUpdate(query, req.body, {upsert: true}, function (err, doc) {
+            if (err) {
+                return res.status(400).send({
+                    message: err
+                });
+            } else {
+                res.status(200).send(doc);
+            }
+        });
     });
 };
 
@@ -235,14 +249,17 @@ exports.update = function (req, res) {
 exports.delete = function (req, res) {
     var id = req.params.id;
     var query = {id: id};
-    clientTask.remove(query, function (err, doc) {
-        if (err) {
-            return res.status(400).send({
-                message:  err
-            });
-        } else {
-            res.status(200).send({results: doc});
-        }
+    userDbConn.userDBConnection(req.user.database, function (userdb) {
+        var clientTask = userdb.model('clientTask');
+        clientTask.remove(query, function (err, doc) {
+            if (err) {
+                return res.status(400).send({
+                    message: err
+                });
+            } else {
+                res.status(200).send({results: doc});
+            }
 
-    })
+        });
+    });
 };
