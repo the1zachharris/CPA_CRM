@@ -23,6 +23,7 @@
                     md-item-text="item.displayName"
                     md-min-length="0"
                     placeholder="Enter A Employee"
+                    ng-required="item.required"
             <md-item-template>
                 <span md-highlight-text="ctrl.searchText" md-highlight-flags="^i">{{item.displayName}}</span>
             </md-item-template>
@@ -39,6 +40,7 @@
                     md-item-text="item.type"
                     md-min-length="0"
                     placeholder="Enter A Type"
+                    ng-required="item.required"
                 <md-item-template>
                     <span md-highlight-text="ctrl.searchText" md-highlight-flags="^i">{{item.type}}</span>
                 </md-item-template>
