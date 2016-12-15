@@ -4,7 +4,7 @@ var mongoose = require('mongoose');
 module.exports = {
 
 ///// Mongo /////
-    db: 'mongodb://localhost/trakktask',
+    db: 'mongodb://localhost/',
     dbname: 'trakktask',
     port:3000,
     app: {

@@ -84,6 +84,9 @@ var UserSchema = new Schema({
         required: 'Please fill in a username',
         trim: true
     },
+    database: {
+        type: String
+    },
     password: {
         type: String,
         required: 'password is required'

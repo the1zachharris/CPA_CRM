@@ -49,6 +49,8 @@ exports.signup = function(req, res) {
 	user.provider = 'local';
 	user.displayName = user.firstName + ' ' + user.lastName;
 	user.username = user.email;
+	user.database = user.username.replace('.', '_');
+	user.database = user.database.replace('@', '_at_');
 	console.log('signup user.salt: ' + salt);
 
 	// Then save the user 

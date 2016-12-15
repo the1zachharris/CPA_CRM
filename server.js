@@ -30,7 +30,7 @@ var envLoaded = require('./config/env/'+ process.env.NODE_ENV);
 
 log4js.setGlobalLogLevel(envLoaded.defaultLoggingLevel);
 
-if (!envLoaded.db){
+if (envLoaded.user){
     var db = mongoose.connect('mongodb://'+ envLoaded.user + ':' + envLoaded.pass + '@' + envLoaded.replset + envLoaded.dbname, function(err){
         if (err){
             console.log('Can not reach Mongo database');
@@ -38,7 +38,7 @@ if (!envLoaded.db){
         }
     });
 } else{
-    db = mongoose.connect(envLoaded.db, function(err){
+    db = mongoose.connect(envLoaded.db + envLoaded.dbname, function(err){
         if (err) {
             console.log('Can not reach Mongo database');
             console.log(err);
@@ -66,6 +66,9 @@ app.use(session({
         collection:'sessions'
     })
 }));
+
+
+
 app.set('view engine', 'html');
 app.set('view options', {
     layout: false
