@@ -71,6 +71,7 @@
                         md-items="item in tasks | filter:searchTask"
                         md-item-text="item.Name"
                         md-min-length="0"
+                        ng-required="true"
                 <md-item-template>
                     <span md-highlight-text="ctrl.searchText" md-highlight-flags="^i">{{item.Name}}</span>
                 </md-item-template>
@@ -84,6 +85,7 @@
                         md-items="item in employees | filter:searchText"
                         md-item-text="item.displayName"
                         md-min-length="0"
+                        ng-required="true"
                 <md-item-template>
                     <span md-highlight-text="ctrl.searchText" md-highlight-flags="^i">{{item.displayName}}</span>
                 </md-item-template>

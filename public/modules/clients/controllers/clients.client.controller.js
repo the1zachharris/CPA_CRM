@@ -252,9 +252,13 @@ clients.controller('clientsController',[
         };
 
         $scope.removeTask = function (client, taskClientid, task, index) {
+            var taskName = "undefined";
+            if (typeof task.Name != 'undefined' ) {
+                taskName = task.Name;
+            };
             $scope.modal = {
-                title : 'Delete Client Task ' + task.Name,
-                body : 'Are you sure you want to delete \'' + task.Name + '\' Client Task?'
+                title : 'Delete Client Task ' + taskName,
+                body : 'Are you sure you want to delete \'' + taskName + '\' Client Task?'
             };
             var modalInstance = $modal.open({
                 animation: true,
@@ -288,7 +292,7 @@ clients.controller('clientsController',[
                                 $scope.clientsTabset[client.id].item.Tasks.splice(index,1);
                                 $scope.deletedClientTask = deletedClientTask;
                                 $scope.getClients();
-                                $scope.createToast(clientTask.taskName, " deleted", "danger");
+                                $scope.createToast(taskName, " deleted", "danger");
                             },
                             function (err) {
                                 console.error('Error deleting client: ' + err.message);
