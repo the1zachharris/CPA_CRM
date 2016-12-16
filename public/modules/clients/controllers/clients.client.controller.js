@@ -300,6 +300,10 @@ clients.controller('clientsController',[
                                     }
                                 );
                             });
+                    } else {
+                        $scope.clientsTabset[client.id].item.Tasks.splice(index, 1);
+                        $scope.getClients();
+                        $scope.createToast(taskName, " deleted", "danger");
                     };
 
 
