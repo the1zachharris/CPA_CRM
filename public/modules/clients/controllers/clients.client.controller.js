@@ -253,7 +253,7 @@ clients.controller('clientsController',[
 
         $scope.removeTask = function (client, taskClientid, task, index) {
             var taskName = "undefined";
-            if (typeof task.Name != 'undefined' ) {
+            if (task.Name  != null ) {
                 taskName = task.Name;
             };
             $scope.modal = {
