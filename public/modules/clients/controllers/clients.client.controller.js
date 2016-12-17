@@ -255,7 +255,7 @@ clients.controller('clientsController',[
             var taskName = "undefined";
             if (task  != null ) {
                 taskName = task.Name;
-            };
+            }
             $scope.modal = {
                 title : 'Delete Client Task ' + taskName,
                 body : 'Are you sure you want to delete \'' + taskName + '\' Client Task?'

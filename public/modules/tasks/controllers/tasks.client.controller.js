@@ -139,6 +139,9 @@ tasks.controller('tasksController',[
             data : []
         };
 
+        $scope.removeDate = function (fieldName) {
+            $scope.tasksTabset.createTab.item[fieldName] = null;
+        };
 
         $scope.refreshData = function (keyword) {
             $scope.gridOptions.data = $scope.tasks;
