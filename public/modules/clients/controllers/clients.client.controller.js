@@ -16,6 +16,7 @@ var clients = angular.module('clients',[
 
 //TODO: include the clientTask controller
 clients.controller('clientsController',[
+    //'clientTasksController',
     'clientCalls',
     '$scope',
     '$http',
@@ -32,6 +33,7 @@ clients.controller('clientsController',[
     '$modal',
     '$log',
     function (
+        //clientTasksController,
         clientCalls,
         $scope,
         $http,
@@ -166,6 +168,7 @@ clients.controller('clientsController',[
         };
 //TODO: have this function use the setDate function to get updated date for frequency
         $scope.addTask  = function (task, clientid, clientName) {
+
           task = {
               task: task.task,
               employee: task.employee,
@@ -255,7 +258,7 @@ clients.controller('clientsController',[
             var taskName = "undefined";
             if (task  != null ) {
                 taskName = task.Name;
-            };
+            }
             $scope.modal = {
                 title : 'Delete Client Task ' + taskName,
                 body : 'Are you sure you want to delete \'' + taskName + '\' Client Task?'
