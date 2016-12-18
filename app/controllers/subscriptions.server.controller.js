@@ -54,7 +54,7 @@ exports.create = function(req, res) {
         interval: req.body.interval,
         trialAmount: req.body.trialAmount
     });
-    console.dir(v);
+    //console.dir(v);
     v.save(function(err,sub) {
         if (err) {
             return res.status(400).send({
