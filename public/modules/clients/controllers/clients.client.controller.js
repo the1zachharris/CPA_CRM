@@ -14,9 +14,7 @@ var clients = angular.module('clients',[
     'gm.typeaheadDropdown'
 ]);
 
-//TODO: include the clientTask controller
 clients.controller('clientsController',[
-    //'clientTasksController',
     'clientCalls',
     '$scope',
     '$http',
@@ -33,7 +31,6 @@ clients.controller('clientsController',[
     '$modal',
     '$log',
     function (
-        //clientTasksController,
         clientCalls,
         $scope,
         $http,
@@ -166,7 +163,7 @@ clients.controller('clientsController',[
                 keyword = (oSearchArray.length !== 0) ? oSearchArray.join(' ') : '';
             }
         };
-//TODO: have this function use the setDate function to get updated date for frequency
+
         $scope.addTask  = function (task, clientid, clientName) {
 
           task = {
@@ -179,33 +176,36 @@ clients.controller('clientsController',[
               task: task};
           //Assign the task to the client
           clientCalls.assignTask(fullTask).then(
-                function (res) {
-                    console.dir(res);
-                    //upon success, create the corresponding clientTask
-                    clientCalls.createClientTask(
-                        {
-                            clientid: clientid,
-                            taskid:task.task.id,
-                            taskName:task.task.Name,
-                            taskDueDate:task.task.DueDate,
-                            taskExtendedDueDate:task.task.ExtendedDueDate,
-                            taskSecondExtendedDueDate:task.task.SecondExtendedDueDate,
-                            taskFrequency:task.task.Frequency,
-                            taskStatus:"New",
-                            taskEmployeeName:task.employee.FirstName,
-                            taskEmployeeid:task.employee.id,
-                            clientName:clientName
-                        }
-                    );
-                    fullTask.task.taskClientId = res.data.taskClientId;
-                    console.log('after res: ');
-                    console.dir(fullTask);
-                    $scope.clientsTabset[clientid].item.Tasks.push(fullTask.task);
-                    $scope.$emit("refreshClientTasks", {});
-                },
-                function (err) {
-                    console.error(err);
-                }
+              function (res) {
+
+                  $scope.dueDate = $scope.setDate(fullTask.task.task);
+                  console.dir(res);
+                  console.log($scope.dueDate);
+                  //upon success, create the corresponding clientTask
+                  clientCalls.createClientTask(
+                      {
+                          clientid: clientid,
+                          taskid:task.task.id,
+                          taskName:task.task.Name,
+                          taskDueDate: $scope.dueDate,
+                          taskExtendedDueDate:task.task.ExtendedDueDate,
+                          taskSecondExtendedDueDate:task.task.SecondExtendedDueDate,
+                          taskFrequency:task.task.Frequency,
+                          taskStatus:"New",
+                          taskEmployeeName:task.employee.FirstName,
+                          taskEmployeeid:task.employee.id,
+                          clientName:clientName
+                      }
+                  );
+                  fullTask.task.taskClientId = res.data.taskClientId;
+                  console.log('after res: ');
+                  console.dir(fullTask);
+                  $scope.clientsTabset[clientid].item.Tasks.push(fullTask.task);
+                  $scope.$emit("refreshClientTasks", {});
+              },
+              function (err) {
+                  console.error(err);
+              }
             );
 
         };

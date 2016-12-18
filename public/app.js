@@ -252,31 +252,32 @@ app.controller('MainController', function (
 
     $scope.setDate = function (Task) {
         console.dir(Task);
-        var dueDate = moment(Task.taskDueDate);
+        var dueDate = moment(Task.DueDate);
+        console.log(dueDate);
         while (dueDate < moment()) {
-            if (Task.taskFrequency == "Annual" || Task.taskFrequency == "AnnualEOM") {
+            if (Task.Frequency == "Annual" || Task.Frequency == "AnnualEOM") {
                 dueDate = moment().add(1, 'y');
                 console.log(dueDate);
             }
-            else if (Task.taskFrequency == "Daily") {
-                dueDate = moment().add(1, 'd');
+            else if (Task.Frequency == "Daily") {
+                dueDate = moment(dueDate).add(1, 'd');
             }
-            else if (Task.taskFrequency == "Bi-Weekly") {
-                dueDate = moment().add(2, 'w');
+            else if (Task.Frequency == "Bi-Weekly") {
+                dueDate = moment(dueDate).add(2, 'w');
             }
-            else if (Task.taskFrequency == "Weekly") {
-                dueDate = moment().add(1, 'w');
+            else if (Task.Frequency == "Weekly") {
+                dueDate = moment(dueDate).add(1, 'w');
             }
-            else if (Task.taskFrequency == "Quarterly" || Task.taskFrequency == "QuarterlyEOM") {
-                dueDate = moment().add(1, 'Q');
+            else if (Task.Frequency == "Quarterly" || Task.Frequency == "QuarterlyEOM") {
+                dueDate = moment(dueDate).add(1, 'Q');
             }
-            else if (Task.taskFrequency == "Monthly" || Task.taskFrequency == "MonthlyEOM") {
-                dueDate = moment().add(1, 'M');
+            else if (Task.Frequency == "Monthly" || Task.Frequency == "MonthlyEOM") {
+                dueDate = moment(dueDate).add(1, 'M');
             }
-            else if (Task.taskFrequency == "Semi-Annual") {
-                dueDate = moment().add(6, 'M');
+            else if (Task.Frequency == "Semi-Annual") {
+                dueDate = moment(dueDate).add(6, 'M');
             }
-            else if (Task.taskFrequency == "One-Time") {
+            else if (Task.Frequency == "One-Time") {
                 return Task
             }
         }
