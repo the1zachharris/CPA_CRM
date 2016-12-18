@@ -54,7 +54,7 @@ exports.create = function(req, res) {
         interval: req.body.interval,
         trialAmount: req.body.trialAmount
     });
-
+    console.dir(v);
     v.save(function(err,sub) {
         if (err) {
             return res.status(400).send({
@@ -62,7 +62,7 @@ exports.create = function(req, res) {
             });
         } else {
             //Audit.create(req.user,'Create subscription', req.body,'subscriptions', req.method ,res.body);
-            res.status(200).send({success:true,id:sub._id});
+            res.status(200).send({success:true,id:sub.id});
         }
     });
 };
