@@ -169,7 +169,7 @@ var UserSchema = new Schema({
         status: {
             type: String,
             required: 'Status is required',
-            enum: ['Active', 'Expired', 'Suspended', 'Canceled', 'Terminated']
+            enum: ['Pending', 'Active', 'Expired', 'Suspended', 'Canceled', 'Terminated']
             // Active || Expired || Suspended || Canceled || Terminated
         }
     },

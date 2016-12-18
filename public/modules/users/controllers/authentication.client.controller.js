@@ -35,6 +35,14 @@ users.controller('AuthenticationController',
 			$scope.reqUpgrade = true;
 		};
 
+		$scope.newUser = {};
+
+		$http.get('/subscriptions'
+		).success(function (response) {
+			$scope.subscriptions = response;
+			console.dir($scope.subscriptions);
+        });
+
 		$scope.showError = false;
 		//$scope.error = "a Big fat error";
 
@@ -71,20 +79,29 @@ users.controller('AuthenticationController',
 		    console.dir(newUser);
 
             if ($scope.passMatch(newUser.password, newUser.confirmPassword)){
-                $http.post(
-                    '/signup',
-                    newUser
-                ).success(function(response) {
-                    // If successful we assign the response to the global user model
-                    $rootScope.user = response;
-                    console.dir($rootScope.user);
-                    // And redirect to the index page
-                    $location.path('/myTasks');
-                    location.reload();
 
-                }).error(function(response) {
-                    $scope.error = response.message;
-                });
+                console.dir(newUser.subscription);
+                    newUser.subscription.status = 'Pending';
+                    newUser.subscription.refId = newUser.subscription.id;
+                    //add the user to the database
+
+                    $http.post(
+                        '/signup',
+                        newUser
+                    ).success(function(response) {
+                        // If successful we assign the response to the global user model
+                        $rootScope.user = response;
+                        console.dir($rootScope.user);
+                        // And redirect to the index page
+                        $location.path('/myTasks');
+                        location.reload();
+
+                    }).error(function(response) {
+                        $scope.error = response.message;
+                    });
+
+
+
             } else {
                 var noSignup = "could not complete signup because passwords do not match";
                 console.log(noSignup);

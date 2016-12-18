@@ -90,14 +90,14 @@ exports.create = function(req, res) {
 
 exports.read = function(req, res) {
     var subscriptionId = req.params.subscriptionId;
-    var query = subscription.where({_id: subscriptionId});
-    query.exec(function(err,apps){
+    var query = subscription.findOne({id: subscriptionId});
+    query.exec(function(err,sub){
         if (err){
             return res.status(400).send({
                 message: err
             });
         } else {
-            res.status(200).send({app: apps});
+            res.status(200).send(sub);
         }
     });
 };
@@ -128,7 +128,7 @@ exports.read = function(req, res) {
  */
 
 exports.update = function(req, res) {
-    var query = {_id: req.body.updatedApp._id};
+    var query = {_id: req.body.updatedApp.id};
     subscription.findOneAndUpdate(query,req.body.updatedApp,{upsert:false},function(err,doc){
         if (err){
             return res.status(400).send({
@@ -166,7 +166,7 @@ exports.update = function(req, res) {
 
 exports.delete = function(req, res) {
     var subscriptionId = req.params.subscriptionId;
-    var query = {_id: subscriptionId};
+    var query = {id: subscriptionId};
     subscription.remove(query,function(err,doc) {
         if (err){
             return res.status(400).send({

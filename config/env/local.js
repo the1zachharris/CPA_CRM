@@ -31,5 +31,3 @@ module.exports = {
 
 // Call the console.log function.
 console.log('Hello Local Host!');
-
-
