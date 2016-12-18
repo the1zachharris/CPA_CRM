@@ -44,7 +44,6 @@ var app = angular.module('TrakkTask', [
     'clienttypes'
 ]);
 
-
 app.config(['$routeProvider', '$controllerProvider', '$provide', function ($routeProvider, $ocLazyLoad) {
         $routeProvider
             .when('/myTasks',{
@@ -250,6 +249,40 @@ app.controller('MainController', function (
 
     $scope.nowDate = new Date();
     $scope.foo = "some string";
+
+    $scope.setDate = function (Task) {
+        console.dir(Task);
+        var dueDate = moment(Task.taskDueDate);
+        while (dueDate < moment()) {
+            if (Task.taskFrequency == "Annual" || Task.taskFrequency == "AnnualEOM") {
+                dueDate = moment().add(1, 'y');
+                console.log(dueDate);
+            }
+            else if (Task.taskFrequency == "Daily") {
+                dueDate = moment().add(1, 'd');
+            }
+            else if (Task.taskFrequency == "Bi-Weekly") {
+                dueDate = moment().add(2, 'w');
+            }
+            else if (Task.taskFrequency == "Weekly") {
+                dueDate = moment().add(1, 'w');
+            }
+            else if (Task.taskFrequency == "Quarterly" || Task.taskFrequency == "QuarterlyEOM") {
+                dueDate = moment().add(1, 'Q');
+            }
+            else if (Task.taskFrequency == "Monthly" || Task.taskFrequency == "MonthlyEOM") {
+                dueDate = moment().add(1, 'M');
+            }
+            else if (Task.taskFrequency == "Semi-Annual") {
+                dueDate = moment().add(6, 'M');
+            }
+            else if (Task.taskFrequency == "One-Time") {
+                return Task
+            }
+        }
+        console.log(dueDate);
+        return dueDate
+    };
 
     // show toast indicating success
     $scope.createToast = function(item, action, myclass) {

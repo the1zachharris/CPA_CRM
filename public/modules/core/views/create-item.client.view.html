@@ -21,10 +21,15 @@
                    placeholder="Date"
                    ng-model="$parent.tabValue.item[item.field]"
                    min-date="minDate"
-                   max-date="maxDate">
+                   max-date="maxDate"
+                   ng-required="item.required">
 
-            <span class="l3-red-fg" ng-click="removeDate(item.field, $index)" ng-if="item.field == 'DueDate' || item.field == 'ExtendedDueDate' || item.field == 'SecondExtendedDueDate'"><i class="glyphicon glyphicon-remove-circle"></i></span>
-            <!--<a ng-click="(show{{$index}} = false); cancelRoleEdit($index)" ng-show="show{{$index}}" class="btn btn-default">Cancel</a>-->
+            <span class="l3-red-fg"
+                  ng-click="removeDate(item.field, $index)"
+                  ng-if="item.field == 'DueDate' || item.field == 'ExtendedDueDate' || item.field == 'SecondExtendedDueDate'">
+                <i class="glyphicon glyphicon-remove-circle"></i>
+            </span>
+
 
             <md-autocomplete
                     ng-if="item.field == 'Frequency'"

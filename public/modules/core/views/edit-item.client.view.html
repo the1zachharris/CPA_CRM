@@ -25,6 +25,12 @@
                        min-date="minDate"
                        max-date="maxDate">
 
+                <span class="l3-red-fg"
+                      ng-click="removeDate(item.field, $index)"
+                      ng-if="item.field == 'DueDate' || item.field == 'ExtendedDueDate' || item.field == 'SecondExtendedDueDate'">
+                    <i class="glyphicon glyphicon-remove-circle"></i>
+                </span>
+
                 <md-autocomplete
                       ng-if="item.field == 'Frequency'"
                       ng-init="getList()"
