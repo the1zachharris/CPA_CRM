@@ -16,7 +16,6 @@ var clienttasks = angular.module('clienttasks',[
 
 
 clienttasks.controller('clientTasksController',[
-    'setDate',
     'clientCalls',
     '$scope',
     '$filter',
@@ -33,7 +32,6 @@ clienttasks.controller('clientTasksController',[
     '$modal',
     '$log',
     function (
-        setDate,
         clientCalls,
         $scope,
         $filter,
@@ -230,6 +228,10 @@ clienttasks.controller('clientTasksController',[
         };
 
         $scope.markComplete = function (clientTask) {
+            var task = {
+                DueDate: clientTask.taskDueDate,
+                Frequency: clientTask.taskFrequency
+            };
             clientCalls.updateClientTask({
                 id: clientTask.id,
                 clientid: clientTask.clientid,
@@ -250,7 +252,7 @@ clienttasks.controller('clientTasksController',[
                 function (res) {
                     updatedClientTask = angular.copy(res.data);
                     $scope.updatedClientTask = updatedClientTask;
-                    $scope.setDate(updatedClientTask);
+                    $scope.createClientTask(clientTask, task);
                     $scope.removeTab(clientTask.id);
                     $scope.createToast(clientTask.taskName, "Completed", "success");
                     $scope.getClientTasks()
@@ -323,21 +325,20 @@ clienttasks.controller('clientTasksController',[
             )
         };
 
-//TODO: call setDate in this function
-        $scope.createClientTask = function (Task) {
-            $scope.setDate(Task);
+        $scope.createClientTask = function (clientTask, task) {
+            $scope.dueDate = $scope.setDate(task);
             clientCalls.createClientTask({
-                clientid: Task.clientid,
-                clientName: Task.clientName,
-                taskid: Task.taskid,
-                taskName: Task.taskName,
+                clientid: clientTask.clientid,
+                clientName: clientTask.clientName,
+                taskid: clientTask.taskid,
+                taskName: clientTask.taskName,
                 taskDueDate: $scope.dueDate,
-                taskExtendedDueDate: Task.taskExtendedDueDate,
+                taskExtendedDueDate: clientTask.taskExtendedDueDate,
                 taskStatus: "New",
-                taskExtendedDate: Task.taskExtendedDate,
-                taskEmployeeName: Task.taskEmployeeName,
-                taskEmployeeid: Task.taskEmployeeid,
-                taskFrequency: Task.taskFrequency
+                taskExtendedDate: clientTask.taskExtendedDate,
+                taskEmployeeName: clientTask.taskEmployeeName,
+                taskEmployeeid: clientTask.taskEmployeeid,
+                taskFrequency: clientTask.taskFrequency
             }).then(
                 function (res) {
                     newClientTask = angular.copy(res.data);
