@@ -33,7 +33,12 @@ var auth = require('./controllers/users/users.authorization.server.controller.js
 
 //subscriptions routes
 var subscriptions = require('./controllers/subscriptions.server.controller');
-router.post('/subscriptions/create', subscriptions.createSubscription);
+//router.post('/subscriptions/ARBcreate', subscriptions.createSubscription);
+router.get('/subscriptions', subscriptions.list);
+router.post('/subscription/create', subscriptions.create);
+router.get('/subscription/:subscriptionId',subscriptions.read);
+router.post('/subscription/update', subscriptions.update);
+router.delete('/subscriptions/:subscriptionId', subscriptions.delete);
 
 // Seed Route
 router.post('/seed/:app/:mode/:field',core.seed);
