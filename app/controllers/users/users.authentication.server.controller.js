@@ -36,48 +36,53 @@ passport.deserializeUser(function(id, done) {
  * Signup
  */
 exports.signup = function(req, res) {
-	// For security measurement we remove the roles from the req.body object
-	delete req.body.roles;
-
 	// Init Variables
 
 	var user = new User(req.body);
-	var message = null;
 
-
+	//remove problem fields
+    user.cardnumber = undefined;
+    user._id = undefined;
+    user.__v = undefined;
+    user.subscription._id = undefined;
+    user.subscription.__v = undefined;
 	// Add missing user fields
 	user.provider = 'local';
 	user.displayName = user.firstName + ' ' + user.lastName;
 	user.username = user.email;
 	user.database = user.username.replace('.', '_');
 	user.database = user.database.replace('@', '_at_');
-	console.log('signup user.salt: ' + salt);
 
-	// Then save the user 
-	user.save(function(err) {
-		if (err) {
-			return res.status(400).send({
-				message: logger.log("ERROR", __function, err)
-			});
-		} else {
-			// Remove sensitive data before login
-			user.password = undefined;
-			user.salt = undefined;
+    var query = { username: user.username };
 
-			req.login(user, function(err) {
-				if (err) {
-					res.status(400).send(err);
-				} else {
-					res.json(user);
-				}
-			});
-		}
-	});
+    User.findOneAndUpdate( query,user,{upsert:true},function( err,user ){
+        if (err) {
+            console.log('error with findOneAndUpdate');
+            console.dir(err);
+            return res.status(400).send({
+                message: err
+            });
+        } else {
+            console.log('no error with findOneAndUpdate... move to login');
+            req.login(user, function(err) {
+                if (err) {
+                    console.log('error with login');
+                    res.status(400).send(err);
+                } else {
+                    console.log('all good send the user as the response');
+                    // Remove sensitive data before login
+                    user.password = undefined;
+                    user.salt = undefined;
+                    res.status(200).send({checkout: "true", user: user});
+                }
+            });
+        }
+    });
+
 };
 
 
 exports.signin = function( req, res){
-    //passport.use(new LocalStrategy(
     //User.findOne with username
     User.findOne({username: req.body.username}).exec(function (err, foundUser){
         if (err) {
@@ -105,33 +110,33 @@ exports.signin = function( req, res){
                             // Remove sensitive data before login
                             user.password = undefined;
                             user.salt = undefined;
-
-                            req.login(user, function(err) {
+							if (user.free) {
+                            	console.log('user is free!');
+								req.login(user, function(err) {
                                 if (err) {
                                     res.status(400).send(err);
                                 } else {
                                     res.json(user);
                                 }
                             });
+                            } else {
+								console.log('check user.subscription.status == Active');
+								if (user.subscription.status == 'Active'){
+                                    console.log('user has active subscription!');
+                                    req.login(user, function(err) {
+                                        if (err) {
+                                            res.status(400).send(err);
+                                        } else {
+                                            res.json(user);
+                                        }
+                                    });
+								} else {
+									console.log('user does NOT have active subscription');
+								    res.status(400).send({message: 'Subscription is not Active.', checkout: true, user: user});
+								}
+							}
                         }
                     });
-
-                    /*
-                    //console.dir('this is the user just before save: ' + user);
-                    user.save();
-                    // Remove sensitive data before login
-                    user.password = undefined;
-
-                    req.login(user, function (err) {
-                        if (err) {
-                            console.log('error with login within signin');
-                            res.status(400).send(err);
-                        } else {
-                            console.log('sucess with login within signin');
-                            res.json(user);
-                        }
-                    });
-                    */
                 } else {
                     res.status(400).send({message: 'incorrect password!', auth: user.auth})
                 };
@@ -144,7 +149,6 @@ exports.signin = function( req, res){
             })
         }
     });
-    //));
 };
 
 

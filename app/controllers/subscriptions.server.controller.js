@@ -5,10 +5,10 @@
  */
 var mongoose = require('mongoose'),
     crypto = require('crypto'),
+    http = require('http'),
+    request = require('superagent'),
     subscriptionModel = require('../models/subscriptions.server.model.js'),
     subscription = mongoose.model('subscription'),
-    ApiContracts = require('authorizenet').APIContracts,
-    ApiControllers = require('authorizenet').APIControllers,
     envLoaded = require('../../config/env/' + process.env.NODE_ENV);
 
 //var utils = require('../utils.js');
@@ -220,104 +220,86 @@ exports.list = function(req, res) {
     });
 };
 
-
-function createsubscription(callback) {
-    var merchantAuthenticationType = new ApiContracts.MerchantAuthenticationType();
-    merchantAuthenticationType.setName(envLoaded.apiLoginKey);
-    merchantAuthenticationType.setTransactionKey(envLoaded.transactionKey);
-
-    var interval = new ApiContracts.PaymentScheduleType.Interval();
-    interval.setLength(1);
-    interval.setUnit(ApiContracts.ARBsubscriptionUnitEnum.MONTHS);
-
-    var paymentScheduleType = new ApiContracts.PaymentScheduleType();
-    paymentScheduleType.setInterval(interval);
-    paymentScheduleType.setStartDate(utils.getDate());
-    paymentScheduleType.setTotalOccurrences(5);
-    paymentScheduleType.setTrialOccurrences(0);
-
-    var creditCard = new ApiContracts.CreditCardType();
-    creditCard.setExpirationDate('2038-12');
-    creditCard.setCardNumber('4111111111111111');
-
-    var payment = new ApiContracts.PaymentType();
-    payment.setCreditCard(creditCard);
-
-    var orderType = new ApiContracts.OrderType();
-    orderType.setInvoiceNumber(utils.getRandomString('Inv:'));
-    orderType.setDescription(utils.getRandomString('Description'));
-
-    var customer = new ApiContracts.CustomerType();
-    customer.setType(ApiContracts.CustomerTypeEnum.INDIVIDUAL);
-    customer.setId(utils.getRandomString('Id'));
-    customer.setEmail(utils.getRandomInt()+'@test.anet.net');
-    customer.setPhoneNumber('1232122122');
-    customer.setFaxNumber('1232122122');
-    customer.setTaxId('911011011');
-
-    var nameAndAddressType = new ApiContracts.NameAndAddressType();
-    nameAndAddressType.setFirstName(utils.getRandomString('FName'));
-    nameAndAddressType.setLastName(utils.getRandomString('LName'));
-    nameAndAddressType.setCompany(utils.getRandomString('Company'));
-    nameAndAddressType.setAddress(utils.getRandomString('Address'));
-    nameAndAddressType.setCity(utils.getRandomString('City'));
-    nameAndAddressType.setState(utils.getRandomString('State'));
-    nameAndAddressType.setZip('98004');
-    nameAndAddressType.setCountry('USA');
-
-    var arbsubscription = new ApiContracts.ARBsubscriptionType();
-    arbsubscription.setName(utils.getRandomString('Name'));
-    arbsubscription.setPaymentSchedule(paymentScheduleType);
-    arbsubscription.setAmount(utils.getRandomAmount());
-    arbsubscription.setTrialAmount(utils.getRandomAmount());
-    arbsubscription.setPayment(payment);
-    arbsubscription.setOrder(orderType);
-    arbsubscription.setCustomer(customer);
-    arbsubscription.setBillTo(nameAndAddressType);
-    arbsubscription.setShipTo(nameAndAddressType);
-
-    var createRequest = new ApiContracts.ARBCreatesubscriptionRequest();
-    createRequest.setMerchantAuthentication(merchantAuthenticationType);
-    createRequest.setsubscription(arbsubscription);
-
-    console.log(JSON.stringify(createRequest.getJSON(), null, 2));
-
-    var ctrl = new ApiControllers.ARBCreatesubscriptionController(createRequest.getJSON());
-
-    ctrl.execute(function(){
-
-        var apiResponse = ctrl.getResponse();
-
-        var response = new ApiContracts.ARBCreatesubscriptionResponse(apiResponse);
-
-        console.log(JSON.stringify(response, null, 2));
-
-        if(response != null){
-            if(response.getMessages().getResultCode() == ApiContracts.MessageTypeEnum.OK){
-                console.log('subscription Id : ' + response.getsubscriptionId());
-                console.log('Message Code : ' + response.getMessages().getMessage()[0].getCode());
-                console.log('Message Text : ' + response.getMessages().getMessage()[0].getText());
+exports.newSub = function (req, res) {
+    var myRequest = req.body;
+    var current_date = (new Date());
+    var random = Math.random().toString();
+    var refId = crypto.createHash('sha1').update(current_date + random).digest('hex').substring(0,19);
+    var mySubscription = myRequest.ARBCreateSubscriptionRequest.subscription;
+    console.log('mySubscription');
+    console.dir(mySubscription);
+    myRequest.ARBCreateSubscriptionRequest = {merchantAuthentication:
+        {
+            name: envLoaded.AuthNet.endpoint.sandbox.apiLoginKey,
+            transactionKey: envLoaded.AuthNet.endpoint.sandbox.transactionKey
+        },
+        refId: refId,
+        subscription: mySubscription
+    };
+    console.log('myRequest');
+    console.dir(myRequest);
+    request.post(envLoaded.AuthNet.endpoint.sandbox.url)
+        .set('Content-Type', 'application/json')
+        .set('Accept', 'json')
+        .type('json')
+        .send(myRequest)
+        .end(function (response) {
+            console.log('in response');
+            //console.log(response);
+            console.log(response.rawResponse);
+            var stringReponse = JSON.stringify(response.rawResponse);
+            console.log('stringResponse: ' + stringReponse);
+            var parsedResponse = JSON.parse(stringReponse);
+            console.dir(parsedResponse);
+            //var resultCode = parsedResponse.messages.resultCode;
+            //console.log(resultCode);
+            if (response.statusCode == 200) {
+                res.status(200).send(response.rawResponse);
+            } else {
+                res.status(400).send(response);
             }
-            else{
-                console.log('Result Code: ' + response.getMessages().getResultCode());
-                console.log('Error Code: ' + response.getMessages().getMessage()[0].getCode());
-                console.log('Error message: ' + response.getMessages().getMessage()[0].getText());
+
+        });
+};
+
+exports.authCard = function (req, res) {
+    var myRequest = req.body;
+    var current_date = (new Date());
+    var random = Math.random().toString();
+    var refId = crypto.createHash('sha1').update(current_date + random).digest('hex').substring(0,19);
+    var myAuth = myRequest.createTransactionRequest.transactionRequest;
+    console.log('myAuth');
+    console.dir(myAuth);
+    myRequest.createTransactionRequest = {merchantAuthentication:
+        {
+            name: envLoaded.AuthNet.endpoint.sandbox.apiLoginKey,
+            transactionKey: envLoaded.AuthNet.endpoint.sandbox.transactionKey
+        },
+        refId: refId,
+        transactionRequest: myAuth
+    };
+    console.log('myRequest');
+    console.dir(myRequest);
+    request.post(envLoaded.AuthNet.endpoint.sandbox.url)
+        .set('Content-Type', 'application/json')
+        .set('Accept', 'json')
+        .type('json')
+        .send(myRequest)
+        .end(function (response) {
+            console.log('in response');
+            //console.log(response);
+            console.log(response.rawResponse);
+            var stringReponse = JSON.stringify(response.rawResponse);
+            console.log('stringResponse: ' + stringReponse);
+            var parsedResponse = JSON.parse(stringReponse);
+            console.dir(parsedResponse);
+            //var resultCode = parsedResponse.messages.resultCode;
+            //console.log(resultCode);
+            if (response.statusCode == 200) {
+                res.status(200).send(response.rawResponse);
+            } else {
+                res.status(400).send(response);
             }
-        }
-        else{
-            console.log('Null Response.');
-        }
 
-
-
-        callback(response);
-    });
-}
-
-if (require.main === module) {
-    createsubscription(function(){
-        console.log('createsubscription call complete.');
-    });
-}
-
-module.exports.createsubscription = createsubscription;
+        });
+};

@@ -25,20 +25,26 @@ router.get('/auth/me', authenicate.me);
 // profile api
 var profile = require('./controllers/users/users.profile.server.controller');
 router.get('me', profile.me);
+router.post('/updateUser', profile.update);
 
 //Auth routes for checking permissions (authorization)
 var auth = require('./controllers/users/users.authorization.server.controller.js');
 
+//provinces routes
+var provinces = require('./controllers/provinces.server.controller.js');
+router.get('/provinces/:country', provinces.getProvinces);
 
 
 //subscriptions routes
-var subscriptions = require('./controllers/subscriptions.server.controller');
+var subscriptions = require('./controllers/subscriptions.server.controller.js');
 //router.post('/subscriptions/ARBcreate', subscriptions.createSubscription);
 router.get('/subscriptions', subscriptions.list);
 router.post('/subscription/create', subscriptions.create);
 router.get('/subscription/:subscriptionId',subscriptions.read);
 router.post('/subscription/update', subscriptions.update);
 router.delete('/subscriptions/:subscriptionId', subscriptions.delete);
+router.post('/subscription/new', subscriptions.newSub);
+router.post('/authCard', subscriptions.authCard);
 
 // Seed Route
 router.post('/seed/:app/:mode/:field',core.seed);

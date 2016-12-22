@@ -34,40 +34,44 @@ exports.updtUser = function( req, res ){
  * Update user details
  */
 exports.update = function(req, res) {
-	// Init Variables
-	var user = req.user;
-	var message = null;
-
-	// For security measurement we remove the roles from the req.body object
-	//delete req.body.roles;
-
-//	if (user) {
-		// Merge existing user
-		user = _.extend(user, req.body);
-		user.updated = Date.now();
-		//user.displayName = user.firstName + ' ' + user.lastName;
-
-		user.save(function(err) {
-			if (err) {
-				return res.status(400).send({
-					message: logger.log("ERROR", __function, err, req, res)
-				});
-			} else {
-				req.login(user, function(err) {
-					if (err) {
-						res.status(400).send(err);
-					} else {
-						res.json(user);
-						//Audit.create(req.user,'Update User', req.body, (req.url || 'no req.url'), req.method ,res.body);
-					}
-				});
-			}
-		});
-//	} else {
-//		res.status(400).send({
-//			message: 'User is not signed in'
-//		});
-//	}
+    var user = new User (req.body);
+    //remove problem fields
+    user.cardnumber = undefined;
+    user._id = undefined;
+    user.__v = undefined;
+    user.subscription._id = undefined;
+    user.subscription.__v = undefined;
+    // Add missing user fields
+    user.provider = 'local';
+    user.displayName = user.firstName + ' ' + user.lastName;
+    user.username = user.email;
+    user.database = user.email.replace('.', '_');
+    user.database = user.database.replace('@', '_at_');
+    user.updated = Date.now();
+    var query = { username: user.username };
+    User.findOneAndUpdate( query,user,{upsert:true},function( err,user ){
+        if (err) {
+            console.log('error with findOneAndUpdate');
+            console.dir(err);
+            return res.status(400).send({
+                message: err
+            });
+        } else {
+            console.log('no error with findOneAndUpdate... move to login');
+            req.login(user, function(err) {
+                if (err) {
+                    console.log('error with login');
+                    res.status(400).send(err);
+                } else {
+                    console.log('all good send the user as the response');
+                    // Remove sensitive data before login
+                    user.password = undefined;
+                    user.salt = undefined;
+                    res.json(user);
+                }
+            });
+        }
+    });
 };
 
 /**

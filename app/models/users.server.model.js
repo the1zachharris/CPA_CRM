@@ -119,7 +119,7 @@ var UserSchema = new Schema({
         },
         name: {
             type: String,
-            required: 'A subscription must have a name'
+            //required: 'A subscription must have a name'
         },
         description: {
             type: String
@@ -129,7 +129,7 @@ var UserSchema = new Schema({
         },
         interval: {
             type: String,
-            required: 'Must have an interval for a subscription'
+            //required: 'Must have an interval for a subscription'
             //Contains information about the time between payments.
         },
         unit: {
@@ -139,7 +139,7 @@ var UserSchema = new Schema({
         },
         length: {
             type: Number,
-            required: 'must define a length for this subscription'
+            //required: 'must define a length for this subscription'
             //The measurement of time, in association with the Interval Unit, that is used to define the frequency of the billing occurrences.
             //If the Interval Unit is "months", can be any number between 1 and 12. If the Interval Unit is "days", can be any number between 7 and 365.
         },
@@ -156,7 +156,7 @@ var UserSchema = new Schema({
         },
         amount: {
             type: Number,
-            required: 'an amount must be specified for this subscription'
+            //required: 'an amount must be specified for this subscription'
             //The amount to be billed to the customer for each payment in the subscription.
             //If a trial period is specified, this figure is the amount that will be charged after the trial payments are complete.
         },
@@ -168,7 +168,7 @@ var UserSchema = new Schema({
         },
         status: {
             type: String,
-            required: 'Status is required',
+            //required: 'Status is required',
             enum: ['Pending', 'Active', 'Expired', 'Suspended', 'Canceled', 'Terminated']
             // Active || Expired || Suspended || Canceled || Terminated
         }
@@ -191,7 +191,11 @@ var UserSchema = new Schema({
         type: Date,
         default: Date.now
     },
-    menus: Object
+    menus: Object,
+    free: {
+        type: Boolean,
+        default: false
+    }
 });
 
 /**
