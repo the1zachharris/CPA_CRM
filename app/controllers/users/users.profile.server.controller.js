@@ -34,7 +34,7 @@ exports.updtUser = function( req, res ){
  * Update user details
  */
 exports.update = function(req, res) {
-    var user = new User (req.body);
+    var user = new User(req.body);
     //remove problem fields
     user.cardnumber = undefined;
     user._id = undefined;
@@ -47,6 +47,7 @@ exports.update = function(req, res) {
     user.username = user.email;
     user.database = user.email.replace('.', '_');
     user.database = user.database.replace('@', '_at_');
+    user.password = user.hashPassword(user.password);
     user.updated = Date.now();
     var query = { username: user.username };
     User.findOneAndUpdate( query,user,{upsert:true},function( err,user ){
@@ -64,9 +65,6 @@ exports.update = function(req, res) {
                     res.status(400).send(err);
                 } else {
                     console.log('all good send the user as the response');
-                    // Remove sensitive data before login
-                    user.password = undefined;
-                    user.salt = undefined;
                     res.json(user);
                 }
             });

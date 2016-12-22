@@ -36,10 +36,7 @@ passport.deserializeUser(function(id, done) {
  * Signup
  */
 exports.signup = function(req, res) {
-	// Init Variables
-
 	var user = new User(req.body);
-
 	//remove problem fields
     user.cardnumber = undefined;
     user._id = undefined;
@@ -52,7 +49,7 @@ exports.signup = function(req, res) {
 	user.username = user.email;
 	user.database = user.username.replace('.', '_');
 	user.database = user.database.replace('@', '_at_');
-
+    user.password = user.hashPassword(user.password);
     var query = { username: user.username };
 
     User.findOneAndUpdate( query,user,{upsert:true},function( err,user ){
@@ -63,19 +60,8 @@ exports.signup = function(req, res) {
                 message: err
             });
         } else {
-            console.log('no error with findOneAndUpdate... move to login');
-            req.login(user, function(err) {
-                if (err) {
-                    console.log('error with login');
-                    res.status(400).send(err);
-                } else {
-                    console.log('all good send the user as the response');
-                    // Remove sensitive data before login
-                    user.password = undefined;
-                    user.salt = undefined;
-                    res.status(200).send({checkout: "true", user: user});
-                }
-            });
+            console.log('no error with findOneAndUpdate... move along');
+            res.status(200).send({checkout: "true", user: user});
         }
     });
 
