@@ -271,6 +271,7 @@ users.controller('AuthenticationController',
             expYr = '20' + expYr;
             var subExpDate = expYr +'-'+ expMo;
             newUser.subExpDate = subExpDate;
+            //FIXME: add logic for start date to be + 1 month from today and do not use trial amount or trial occurances
             var subRequest = {
                 "ARBCreateSubscriptionRequest": {
                     "subscription": {
@@ -280,12 +281,12 @@ users.controller('AuthenticationController',
                                 "length": newUser.subscription.interval,
                                 "unit": newUser.subscription.unit
                             },
-                            "startDate": "2016-12-25",
+                            "startDate": "2016-01-25",
                             "totalOccurrences": newUser.subscription.totalOccurrences,
-                            "trialOccurrences": newUser.subscription.trialOccurrences
+                            //"trialOccurrences": newUser.subscription.trialOccurrences
                         },
                         "amount": newUser.subscription.amount,
-                        "trialAmount": newUser.subscription.trialAmount,
+                        //"trialAmount": newUser.subscription.trialAmount,
                         "payment": {
                             "creditCard": {
                                 "cardNumber": newUser.cardNumber,

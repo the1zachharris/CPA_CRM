@@ -33,7 +33,7 @@ var subscriptionSchema = new Schema({
     },
     unit: {
         type: String,
-        enum: ['months', 'days']
+        enum: ['months', 'days', 'years']
         //The unit of time, in association with the Interval Length, between each billing occurrence.
     },
     length: {
