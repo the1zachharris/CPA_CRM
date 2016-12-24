@@ -167,6 +167,11 @@ users.controller('AuthenticationController',
                     if (response.checkout) {
                         $rootScope.user = response.user;
                         $scope.newUser = response.user;
+                        $scope.newUser.Address = $scope.newUser.address.address1;
+                        $scope.newUser.City = $scope.newUser.address.city;
+                        $scope.newUser.State = $scope.newUser.address.state;
+                        $scope.newUser.Zip = $scope.newUser.address.postalCode;
+                        console.dir($scope.newUser);
                         console.dir($rootScope.user);
                         $scope.needCheckout(response.message);
 					} else {
@@ -180,7 +185,7 @@ users.controller('AuthenticationController',
             console.log('in checkout');
             delete $scope.error;
             newUser.address = {
-                "address": newUser.Address,
+                "address1": newUser.Address,
                 "city": newUser.City,
                 "state": newUser.State,
                 "postalCode": newUser.Zip,
