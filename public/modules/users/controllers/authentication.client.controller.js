@@ -69,8 +69,39 @@ users.controller('AuthenticationController',
 		$scope.showError = false;
 		//$scope.error = "a Big fat error";
 
-        $scope.signupState = 'login';
+        $scope.signupState = 'checkout';
         $scope.greeting = 'Please login below';
+        $scope.months = [
+            '01',
+            '02',
+            '03',
+            '04',
+            '05',
+            '06',
+            '07',
+            '08',
+            '09',
+            '10',
+            '11',
+            '12'];
+        $scope.years = [
+            $scope.today.getFullYear(),
+            $scope.today.getFullYear()+1,
+            $scope.today.getFullYear()+2,
+            $scope.today.getFullYear()+3,
+            $scope.today.getFullYear()+4,
+            $scope.today.getFullYear()+5,
+            $scope.today.getFullYear()+6,
+            $scope.today.getFullYear()+7,
+            $scope.today.getFullYear()+8,
+            $scope.today.getFullYear()+9,
+            $scope.today.getFullYear()+10,
+            $scope.today.getFullYear()+11,
+            $scope.today.getFullYear()+12,
+            $scope.today.getFullYear()+13,
+            $scope.today.getFullYear()+14,
+            $scope.today.getFullYear()+15
+        ];
 
         $scope.needSignin = function() {
             console.log('in needSignin');
