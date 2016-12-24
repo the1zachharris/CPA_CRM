@@ -69,7 +69,7 @@ users.controller('AuthenticationController',
 		$scope.showError = false;
 		//$scope.error = "a Big fat error";
 
-        $scope.signupState = 'checkout';
+        $scope.signupState = 'login';
         $scope.greeting = 'Please login below';
         $scope.months = [
             '01',
