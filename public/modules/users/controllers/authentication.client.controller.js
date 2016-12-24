@@ -166,6 +166,7 @@ users.controller('AuthenticationController',
 					//console.log('error with signing you in!');
                     if (response.checkout) {
                         $rootScope.user = response.user;
+                        $scope.newUser = response.user;
                         console.dir($rootScope.user);
                         $scope.needCheckout(response.message);
 					} else {
