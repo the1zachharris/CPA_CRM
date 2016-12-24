@@ -349,6 +349,16 @@ users.controller('AuthenticationController',
                                 "expirationDate": newUser.expDate,
                                 "cardCode": newUser.cardCode
                             }
+                        },
+                        "billTo": {
+                            "firstName": newUser.firstName,
+                            "lastName": newUser.lastName,
+                            "company": newUser.companyName,
+                            "address": newUser.Address,
+                            "city": newUser.City,
+                            "state": newUser.State,
+                            "zip": newUser.Zip,
+                            "country": "USA"
                         }
                     }
                 }
