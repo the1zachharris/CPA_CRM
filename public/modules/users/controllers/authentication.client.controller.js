@@ -281,7 +281,7 @@ users.controller('AuthenticationController',
                                 "length": newUser.subscription.interval,
                                 "unit": newUser.subscription.unit
                             },
-                            "startDate": "2016-01-25",
+                            "startDate": "2017-01-25",
                             "totalOccurrences": newUser.subscription.totalOccurrences,
                             //"trialOccurrences": newUser.subscription.trialOccurrences
                         },
