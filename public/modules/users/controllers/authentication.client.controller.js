@@ -300,12 +300,10 @@ users.controller('AuthenticationController',
                  }
              }
              */
-            var expMo = (newUser.expirationDate.getMonth() + 1);
+            var expMo = (newUser.expMo);
             expMo = expMo.toString();
-            if (expMo.length < 2) { expMo = '0' + expMo};
-            var expYr = (newUser.expirationDate.getYear() -100);
+            var expYr = (newUser.expYr);
             expYr = expYr.toString();
-            expYr = '20' + expYr;
             var subExpDate = expYr +'-'+ expMo;
             newUser.subExpDate = subExpDate;
             //FIXME: add logic for start date to be + 1 month from today and do not use trial amount or trial occurances
@@ -319,7 +317,7 @@ users.controller('AuthenticationController',
                                 "unit": newUser.subscription.unit
                             },
                             "startDate": "2017-01-25",
-                            "totalOccurrences": newUser.subscription.totalOccurrences,
+                            "totalOccurrences": newUser.subscription.totalOccurrences
                             //"trialOccurrences": newUser.subscription.trialOccurrences
                         },
                         "amount": newUser.subscription.amount,
@@ -365,13 +363,15 @@ users.controller('AuthenticationController',
                     $scope.showError = true;
                     $scope.error = subError.message;
                 })
-        };
+        }
 
 		function checkCard(newUser, callback) {
-            var expMo = (newUser.expirationDate.getMonth() + 1);
+
+            var expMo = (newUser.expMo);
             expMo = expMo.toString();
-            if (expMo.length < 2) { expMo = '0' + expMo};
-            var expYr = (newUser.expirationDate.getYear() -100);
+            //if (expMo.length < 2) { expMo = '0' + expMo}
+            var expYr = (newUser.expYr);
+            expYr = expYr.toString().slice(2);
             var expDate = expMo +''+ expYr;
             newUser.expDate = expDate;
             // /authCard
@@ -417,7 +417,7 @@ users.controller('AuthenticationController',
                     $scope.showError = true;
                     $scope.error = error.message;
                 })
-        };
+        }
 
         function updateUser(newUser, callback) {
 

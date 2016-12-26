@@ -268,39 +268,12 @@
                                 </div>
                                 <div class="input-group">
                                     <span class="input-group-addon" id="basic-addon1">Expiration Date</span>
-                                    <select class="form-control">
+                                    <select data-ng-model="newUser.expMo" class="form-control">
                                         <option ng-repeat="mon in months">{{mon}}</option>
                                     </select>
-                                    <select class="form-control">
+                                    <select data-ng-model="newUser.expYr" class="form-control">
                                         <option ng-repeat="yea in years">{{yea}}</option>
                                     </select>
-                                    <!--
-                                    <md-autocomplete
-                                        data-ng-model="newUser.expMo"
-                                        md-selected-item="month"
-                                        md-search-text="searchText"
-                                        md-items="item in months | filter:searchText"
-                                        md-item-text="item"
-                                        md-min-length="0"
-                                    <md-item-template>
-                                        <span md-highlight-text="ctrl.searchText" md-highlight-flags="^i">{{item}}</span>
-                                    </md-item-template>
-                                    </md-autocomplete>
-
-                                    <md-autocomplete
-                                            data-ng-model="newUser.expYr"
-                                            md-selected-item="year"
-                                            md-search-text="searchText"
-                                            md-items="item in years | filter:searchText"
-                                            md-item-text="item"
-                                            md-min-length="0"
-                                    <md-item-template>
-                                        <span md-highlight-text="ctrl.searchText" md-highlight-flags="^i">{{item}}</span>
-                                    </md-item-template>
-                                    </md-autocomplete>
-                                    -->
-
-
                                 </div>
                                 <!--cardCode-->
                                 <div class="input-group">
