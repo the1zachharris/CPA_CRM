@@ -195,7 +195,8 @@ var UserSchema = new Schema({
     free: {
         type: Boolean,
         default: false
-    }
+    },
+    ua: Object
 });
 
 /**

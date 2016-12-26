@@ -13,7 +13,8 @@ var users = angular.module('users',
     [
         'ngMaterial',
         'ngMaterialDatePicker',
-        'ui.bootstrap'
+        'ui.bootstrap',
+        'angularMoment'
     ]);
 
 users.filter('range', function() {
@@ -33,12 +34,14 @@ users.controller('AuthenticationController',
 		'$log',
 		'$location',
 		'$rootScope',
+        'moment',
 	function(
 		$scope,
 		$http,
 		$log,
 		$location,
-		$rootScope) {
+		$rootScope,
+        moment) {
 
 		//This block of code checks for the browser version, and if not IE9, injects Angular Material
 		var ua = window.navigator.userAgent;
@@ -151,6 +154,7 @@ users.controller('AuthenticationController',
 
                 console.dir(newUser.subscription);
                     newUser.subscription.status = 'Pending';
+                    newUser.ua = ua;
                     newUser.subscription.refId = newUser.subscription.id;
                     //add the user to the database
 
@@ -198,10 +202,13 @@ users.controller('AuthenticationController',
                     if (response.checkout) {
                         $rootScope.user = response.user;
                         $scope.newUser = response.user;
-                        $scope.newUser.Address = $scope.newUser.address.address1;
-                        $scope.newUser.City = $scope.newUser.address.city;
-                        $scope.newUser.State = $scope.newUser.address.state;
-                        $scope.newUser.Zip = $scope.newUser.address.postalCode;
+                        if (typeof $scope.newUser.address != 'undefined') {
+                            $scope.newUser.Address = $scope.newUser.address.address1;
+                            $scope.newUser.City = $scope.newUser.address.city;
+                            $scope.newUser.State = $scope.newUser.address.state;
+                            $scope.newUser.Zip = $scope.newUser.address.postalCode;
+                        };
+                        $scope.newUser.ua = ua;
                         console.dir($scope.newUser);
                         console.dir($rootScope.user);
                         $scope.needCheckout(response.message);
@@ -307,6 +314,9 @@ users.controller('AuthenticationController',
             var subExpDate = expYr +'-'+ expMo;
             newUser.subExpDate = subExpDate;
             //FIXME: add logic for start date to be + 1 month from today and do not use trial amount or trial occurances
+            var myStart = moment().add(1, 'M');
+            var myStart = moment(myStart).format('YYYY-MM-DD');
+            console.log(myStart);
             var subRequest = {
                 "ARBCreateSubscriptionRequest": {
                     "subscription": {
@@ -316,7 +326,7 @@ users.controller('AuthenticationController',
                                 "length": newUser.subscription.interval,
                                 "unit": newUser.subscription.unit
                             },
-                            "startDate": "2017-01-25",
+                            "startDate": myStart,
                             "totalOccurrences": newUser.subscription.totalOccurrences
                             //"trialOccurrences": newUser.subscription.trialOccurrences
                         },
@@ -331,6 +341,7 @@ users.controller('AuthenticationController',
                         "billTo": {
                             "firstName": newUser.firstName,
                             "lastName": newUser.lastName,
+                            //"email": newUser.email,
                             "company": newUser.companyName,
                             "address": newUser.Address,
                             "city": newUser.City,
@@ -390,6 +401,7 @@ users.controller('AuthenticationController',
                         "billTo": {
                             "firstName": newUser.firstName,
                             "lastName": newUser.lastName,
+                            //"email": newUser.email,
                             "company": newUser.companyName,
                             "address": newUser.Address,
                             "city": newUser.City,
