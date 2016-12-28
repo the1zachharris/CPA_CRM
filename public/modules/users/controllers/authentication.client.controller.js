@@ -14,8 +14,36 @@ var users = angular.module('users',
         'ngMaterial',
         'ngMaterialDatePicker',
         'ui.bootstrap',
-        'angularMoment'
+        'angularMoment',
+        'ngRoute'
     ]);
+
+users.config([
+        '$routeProvider',
+        '$provide',
+        function (
+            $routeProvider
+        ) {
+            $routeProvider
+                .when('/signup',{
+                    name: 'signup',
+                    label: 'Sign up',
+                    controller: 'AuthenticationController'
+                }, console.log('route: signup'))
+                .when('/signin',{
+                    name: 'signin',
+                    label: 'Signin',
+                    controller: 'AuthenticationController'
+                }, console.log('route: signin'))
+                .when('/checkout',{
+                    name: 'checkout',
+                    label: 'Checkout',
+                    controller: 'AuthenticationController'
+                }, console.log('route: checkout'))
+
+        }
+    ]
+);
 
 users.filter('range', function() {
     return function(input, min, max) {
@@ -35,13 +63,17 @@ users.controller('AuthenticationController',
 		'$location',
 		'$rootScope',
         'moment',
+        '$route',
+        '$routeParams',
 	function(
 		$scope,
 		$http,
 		$log,
 		$location,
 		$rootScope,
-        moment) {
+        moment,
+        $route,
+        $routeParams) {
 
 		//This block of code checks for the browser version, and if not IE9, injects Angular Material
 		var ua = window.navigator.userAgent;
@@ -69,11 +101,16 @@ users.controller('AuthenticationController',
 			console.dir($scope.subscriptions);
         });
 
-		$scope.showError = false;
+		console.dir($route.current);
+        console.log($routeParams);
+
+        $scope.showError = false;
 		//$scope.error = "a Big fat error";
 
         $scope.signupState = 'login';
         $scope.greeting = 'Please login below';
+
+
         $scope.months = [
             '01',
             '02',

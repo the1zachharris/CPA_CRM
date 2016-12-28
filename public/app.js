@@ -504,7 +504,7 @@ app.factory('FeedbackService', ['$window', function($window) {
     var service = {};
 
     service.mailToUrl = function(data) {
-        var subject = data.subject || 'Ops Console Lite Feedback';
+        var subject = data.subject || 'TrakkTask Feedback';
         var body = '\n\n--' // Some space for the user to type
             + '\nVersion: v' + data.version
             + (data.gitBranch ? '\nGit: ' + data.gitBranch + '::' + data.gitCommit : '')
