@@ -104,7 +104,7 @@ clients.controller('clientsController',[
                 { label:'Country', field: 'Country', required: false},
                 { label:'Phone', field: 'Phone', required: false},
                 { label:'Email', field: 'Email', required: false},
-                { label:'Responsible Employee', field: 'ResponsibleEmployee', required: true}
+                { label:'Responsible Employee', field: 'ResponsibleEmployee', required: false}
           ]
         };
 
@@ -123,7 +123,7 @@ clients.controller('clientsController',[
                 { label:'Country', field: 'Country', required: false},
                 { label:'Phone', field: 'Phone', required: false},
                 { label:'Email', field: 'Email', required: false},
-                { label:'Responsible Employee', field: 'ResponsibleEmployee', required: true}
+                { label:'Responsible Employee', field: 'ResponsibleEmployee', required: false}
             ]
         };
 
