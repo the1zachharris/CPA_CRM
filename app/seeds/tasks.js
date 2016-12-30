@@ -60,24 +60,6 @@ var tasks =    [
         "DueDate" : "2016-01-31T20:09:00.000+0000"
     },
     {
-        "id" : "d377cee45c3f8651b03f103b906d9624a30e46eb",
-        "Name" : "Monthly Writeup",
-        "Frequency" : "Monthly",
-        "DueDate" : "2016-01-20T20:09:00.000+0000"
-    },
-    {
-        "id" : "6a8f7c9cce1219d9b3ef4b1abdb5463af937bbec",
-        "Name" : "Payroll 15th of Month",
-        "Frequency" : "Monthly",
-        "DueDate" : "2016-01-15T20:48:00.000+0000"
-    },
-    {
-        "id" : "c369d57b1934ca1bc39a4f357fa05997f42f1c68",
-        "Name" : "Payroll 1st of Month",
-        "Frequency" : "Monthly",
-        "DueDate" : "2015-01-01T20:50:00.000+0000"
-    },
-    {
         "id" : "10b0972fcafa7d4a0189a8cb3919786523d8d3e2",
         "Name" : "US 1040",
         "Frequency" : "Annual",
