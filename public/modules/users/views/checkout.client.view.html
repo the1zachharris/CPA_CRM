@@ -1,0 +1,124 @@
+<div class="content container-fluid" data-ng-controller="AuthenticationController" ng-init="param = '{{param}}'">
+    <p class="text-center"><img height="110" src="images/TrakkTaskLogoFinal.png" alt="TrakkTaskLogo"></p>
+    <h3 class="text-center" style="margin: 49px 0;">
+        TrakkTask<br />
+        <small style="font-size:0.51em;">{{greeting}}</small>
+    </h3>
+
+    <div id="upgradewarn">
+
+    </div>
+
+    <div>
+        <h4 ng-if="showError" style="color:red;text-align: center">{{error}}</h4>
+        <div class="row">
+            <div class="col-xs-offset-1 col-xs-10 col-lg-offset-1 col-md-10">
+
+            <form ng-if="signupState == 'checkout'" data-ng-submit="checkout(newUser)" class="signin form-horizontal" autocomplete="off">
+                <fieldset>
+                    <div class="input-group">
+                        <span class="input-group-addon" id="basic-addon1">Address</span>
+                        <input id="Address"
+                               name="Address"
+                               type="text"
+                               ng-required="true"
+                               class="form-control"
+                               data-ng-model="newUser.Address"
+                               aria-describedby="basic-addon1">
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon" id="basic-addon1">City</span>
+                        <input id="City"
+                               name="City"
+                               type="text"
+                               ng-required="true"
+                               class="form-control"
+                               data-ng-model="newUser.City"
+                               aria-describedby="basic-addon1">
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon" id="basic-addon1">State</span>
+                        <select
+                                name="repeatSelect"
+                                id="State"
+                                data-ng-model="newUser.State"
+                                class="form-control">
+                            <option
+                                    ng-repeat="state in USStates"
+                                    value="{{state.short}}">{{state.name}}
+                            </option>
+                        </select>
+                    </div>
+
+                    <div class="input-group">
+                        <span class="input-group-addon" id="basic-addon1">Zip</span>
+                        <input id="Zip"
+                               name="text"
+                               type="Zip"
+                               class="form-control"
+                               data-ng-model="newUser.Zip"
+                               aria-describedby="basic-addon1">
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon" id="basic-addon1">Card Number</span>
+                        <input id="CardNumber"
+                               name="CardNumber"
+                               type="number"
+                               class="form-control"
+                               data-ng-model="newUser.cardNumber"
+                               aria-describedby="basic-addon1">
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon" id="basic-addon1">Expiration Date</span>
+                        <select data-ng-model="newUser.expMo" class="form-control">
+                            <option ng-repeat="mon in months">{{mon}}</option>
+                        </select>
+                        <select data-ng-model="newUser.expYr" class="form-control">
+                            <option ng-repeat="yea in years">{{yea}}</option>
+                        </select>
+                    </div>
+                    <!--cardCode-->
+                    <div class="input-group">
+                        <span class="input-group-addon" id="basic-addon1">Card Code</span>
+                        <input id="cardCode"
+                               name="cardCode"
+                               type="text"
+                               class="form-control"
+                               data-ng-model="newUser.cardCode"
+                               aria-describedby="basic-addon1">
+                    </div>
+                    <h5>One month free trial. Confirm your subscription.</h5>
+                    <div class="input-group">
+                        <div ng-repeat="sub in subscriptions" class="radio">
+                            <label>
+                                <input type="radio"
+                                       ng-checked="sub.paymentSchedule === 'Yearly'"
+                                       data-ng-model="newUser.subscription"
+                                       name="newUser.subscription"
+                                       id="optionsRadios1"
+                                       ng-value="sub"
+                                       required="true"
+                                >
+                                {{sub.amount | currency}}&nbsp;{{sub.paymentSchedule}}<br />
+                            </label>
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-default btn-block">Submit</button>
+                        <button class="btn btn-success"
+                                ng-click="needSignup()">
+                            Back to Signup
+                            <i class="glyphicon glyphicon-plus"></i>
+                        </button>
+                    </div>
+                </fieldset>
+                <div class="help-login text-center row">
+                    <p><em>Sign up now and TrakkTask will help get you out of the weeds.</em></p>
+                    <hr>
+                    <p>TrakkTask has been optimized for use with <br><a href="https://www.google.com/chrome/" target="_blank">Chrome</a></p>
+                </div>
+            </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,60 +1,5 @@
 'use strict';
 
-//This block of code checks for the browser version, and if not IE9, injects Angular Material
-var ua = window.navigator.userAgent;
-var msie = ua.indexOf ( "MSIE " );
-var IEVersion =  parseInt (ua.substring (msie+5, ua.indexOf (".", msie )));
-if (IEVersion <= 9){
-	//var d = document.getElementById("upgradewarn");
-	//d.className = d.className + "show";
-}
-
-var users = angular.module('users',
-    [
-        'ngMaterial',
-        'ngMaterialDatePicker',
-        'ui.bootstrap',
-        'angularMoment',
-        'ngRoute'
-    ]);
-
-users.config([
-        '$routeProvider',
-        '$provide',
-        function (
-            $routeProvider
-        ) {
-            $routeProvider
-                .when('/signup',{
-                    name: 'signup',
-                    label: 'Sign up',
-                    controller: 'AuthenticationController'
-                }, console.log('route: signup'))
-                .when('/signin',{
-                    name: 'signin',
-                    label: 'Signin',
-                    controller: 'AuthenticationController'
-                }, console.log('route: signin'))
-                .when('/checkout',{
-                    name: 'checkout',
-                    label: 'Checkout',
-                    controller: 'AuthenticationController'
-                }, console.log('route: checkout'))
-
-        }
-    ]
-);
-
-users.filter('range', function() {
-    return function(input, min, max) {
-        min = parseInt(min); //Make string input int
-        max = parseInt(max);
-        for (var i=min; i<max; i++)
-            input.push(i);
-        return input;
-    };
-});
-
 users.controller('AuthenticationController',
 	[
 		'$scope',
@@ -101,13 +46,22 @@ users.controller('AuthenticationController',
 			console.dir($scope.subscriptions);
         });
 
-		console.dir($route.current);
-        console.log($routeParams);
+
+        console.dir($route.current.name);
 
         $scope.showError = false;
-		//$scope.error = "a Big fat error";
 
-        $scope.signupState = 'login';
+        if (typeof $route.current.name !== 'undefined') {
+            $scope.signupState = $route.current.name;
+            console.log('we have a $route.current.name!');
+            //TODO: add additional logic here to determine what the greeting should be based on the predefined values
+
+        } else {
+            console.log('no routeParams');
+            $scope.signupState = 'login';
+            $scope.greeting = 'Please login below';
+        };
+
         $scope.greeting = 'Please login below';
 
 
