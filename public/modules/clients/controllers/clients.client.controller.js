@@ -182,13 +182,12 @@ clients.controller('clientsController',[
                   console.dir(res);
                   console.log($scope.dueDate);
                   //upon success, create the corresponding clientTask
-                  clientCalls.createClientTask(
-                      {
+                  clientCalls.createClientTask({
                           clientid: clientid,
                           taskid:task.task.id,
                           taskName:task.task.Name,
                           taskDueDate: $scope.dueDate,
-                          taskExtendedDueDate:task.task.ExtendedDueDate,
+                          taskExtendedDueDate: task.task.ExtendedDueDate,
                           taskSecondExtendedDueDate:task.task.SecondExtendedDueDate,
                           taskFrequency:task.task.Frequency,
                           taskStatus:"New",

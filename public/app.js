@@ -253,11 +253,10 @@ app.controller('MainController', function (
     $scope.setDate = function (Task) {
         console.dir(Task);
         var dueDate = moment(Task.DueDate);
-        console.log(dueDate);
-        while (dueDate < moment()) {
+        console.log(Task.Status);
+        while (dueDate < moment() || Task.Status == "Complete") {
             if (Task.Frequency == "Annual" || Task.Frequency == "AnnualEOM") {
-                dueDate = moment().add(1, 'y');
-                console.log(dueDate);
+                dueDate = moment(dueDate).add(1, 'y');
             }
             else if (Task.Frequency == "Daily") {
                 dueDate = moment(dueDate).add(1, 'd');
@@ -280,6 +279,7 @@ app.controller('MainController', function (
             else if (Task.Frequency == "One-Time") {
                 return Task
             }
+            Task.Status = null
         }
         console.log(dueDate);
         return dueDate

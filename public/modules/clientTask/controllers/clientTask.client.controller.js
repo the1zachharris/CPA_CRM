@@ -228,10 +228,20 @@ clienttasks.controller('clientTasksController',[
         };
 
         $scope.markComplete = function (clientTask) {
-            var task = {
-                DueDate: clientTask.taskDueDate,
-                Frequency: clientTask.taskFrequency
-            };
+            if (clientTask.taskStatus == "Extended") {
+                var task = {
+                    DueDate: $scope.orgDueDate,
+                    Frequency: clientTask.taskFrequency,
+                    Status: "Complete"
+                }
+            }
+            else{
+                task = {
+                    DueDate: clientTask.taskDueDate,
+                    Frequency: clientTask.taskFrequency,
+                    Status: "Complete"
+                }
+            }
             clientCalls.updateClientTask({
                 id: clientTask.id,
                 clientid: clientTask.clientid,
@@ -295,13 +305,19 @@ clienttasks.controller('clientTasksController',[
         };
 
         $scope.markExtended = function (clientTask) {
+            $scope.orgDueDate = clientTask.taskDueDate;
+            var date = {
+                DueDate: clientTask.taskExtendedDueDate,
+                Frequency: clientTask.taskFrequency
+            };
+            $scope.extendedDueDate = $scope.setDate(date);
             clientCalls.updateClientTask({
                 id: clientTask.id,
                 clientid: clientTask.clientid,
                 clientName: clientTask.clientName,
                 taskid: clientTask.taskid,
                 taskName: clientTask.taskName,
-                taskDueDate: clientTask.taskExtendedDueDate,
+                taskDueDate: $scope.extendedDueDate,
                 taskExtendedDueDate: clientTask.taskExtendedDueDate,
                 taskStatus: "Extended",
                 taskCompletedDate: clientTask.taskCompletedDate,
@@ -333,7 +349,7 @@ clienttasks.controller('clientTasksController',[
                 taskid: clientTask.taskid,
                 taskName: clientTask.taskName,
                 taskDueDate: $scope.dueDate,
-                taskExtendedDueDate: clientTask.taskExtendedDueDate,
+                taskExtendedDueDate: $scope.extendedDueDate,
                 taskStatus: "New",
                 taskExtendedDate: clientTask.taskExtendedDate,
                 taskEmployeeName: clientTask.taskEmployeeName,
