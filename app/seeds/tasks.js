@@ -9,7 +9,7 @@ module.exports = {
 var tasks =    [
     {
         "id" : "3f5f9925a305933148c13eeed36a255af0e0dc6d",
-        "Name" : "Fed\\OK Partnership T/R",
+        "Name" : "Fed OK Partnership T/R",
         "Frequency" : "Annual",
         "DueDate" : "2016-03-15T05:00:00.000+0000"
     },
@@ -64,48 +64,6 @@ var tasks =    [
         "Name" : "Monthly Writeup",
         "Frequency" : "Monthly",
         "DueDate" : "2016-01-20T20:09:00.000+0000"
-    },
-    {
-        "id" : "9644c1eed8d333622228cef98a5b28409a2176d5",
-        "Name" : "Oklahoma Franchise Tax Report",
-        "Frequency" : "Annual",
-        "DueDate" : "2016-09-01T19:11:00.000+0000"
-    },
-    {
-        "id" : "319c5df02788e41511398d4ceaf90a2b86206fe9",
-        "Name" : "Oklahoma Sales Tax Semi-Annual",
-        "Frequency" : "Semi-Annual",
-        "DueDate" : "2016-01-15T20:16:00.000+0000"
-    },
-    {
-        "id" : "7298faaeaadbd5ea6fa01a56ac60dae0f52bc4e4",
-        "Name" : "Oklahoma Sales Tax Monthly",
-        "Frequency" : "Monthly",
-        "DueDate" : "2016-08-15T19:41:00.000+0000"
-    },
-    {
-        "id" : "923405b3b839213de1314cb90e0c93883dd3e227",
-        "Name" : "Oklahoma Withholding Monthly",
-        "Frequency" : "Monthly",
-        "DueDate" : "2016-01-15T20:43:00.000+0000"
-    },
-    {
-        "id" : "6f1b17f351d95b49df7ecd8ae6b44a180d47876b",
-        "Name" : "Oklahoma Withholding Quarterly",
-        "Frequency" : "Quarterly",
-        "DueDate" : "2016-01-31T20:44:00.000+0000"
-    },
-    {
-        "id" : "0871486e9464e402e73685b9cd2b4dc2a044cde5",
-        "Name" : "Oklahoma Quarterly SUTA Report",
-        "Frequency" : "Quarterly EOM",
-        "DueDate" : "2016-01-31T20:45:00.000+0000"
-    },
-    {
-        "id" : "52890366edf05733214db57ec0dd5338131b747c",
-        "Name" : "County Property Rendition",
-        "Frequency" : "Annual",
-        "DueDate" : "2016-03-15T19:47:00.000+0000"
     },
     {
         "id" : "6a8f7c9cce1219d9b3ef4b1abdb5463af937bbec",
