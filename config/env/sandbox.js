@@ -29,11 +29,11 @@ module.exports = {
     AuthNet: {
         timeout: 1000,
         endpoint: {
-            apiLoginKey: '87zYp6PSh',
-            transactionKey: '2bg9x3u2q9XV72PD',
-            url: 'https://api.authorize.net/xml/v1/request.api'
+            apiLoginKey: '725rEUv7vW',
+            transactionKey: '632zVju8WUdN248q',
+            url: 'https://apitest.authorize.net/xml/v1/request.api'
+            }
         }
-    }
 };
 
 // Call the console.log function.

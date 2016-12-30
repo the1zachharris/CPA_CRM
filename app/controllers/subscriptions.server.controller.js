@@ -230,15 +230,15 @@ exports.newSub = function (req, res) {
     console.dir(mySubscription);
     myRequest.ARBCreateSubscriptionRequest = {merchantAuthentication:
         {
-            name: envLoaded.AuthNet.endpoint.production.apiLoginKey,
-            transactionKey: envLoaded.AuthNet.endpoint.production.transactionKey
+            name: envLoaded.AuthNet.endpoint.apiLoginKey,
+            transactionKey: envLoaded.AuthNet.endpoint.transactionKey
         },
         refId: refId,
         subscription: mySubscription
     };
     console.log('myRequest');
     console.dir(myRequest);
-    request.post(envLoaded.AuthNet.endpoint.production.url)
+    request.post(envLoaded.AuthNet.endpoint.url)
         .set('Content-Type', 'application/json')
         .set('Accept', 'json')
         .type('json')
@@ -272,15 +272,15 @@ exports.authCard = function (req, res) {
     console.dir(myAuth);
     myRequest.createTransactionRequest = {merchantAuthentication:
         {
-            name: envLoaded.AuthNet.endpoint.production.apiLoginKey,
-            transactionKey: envLoaded.AuthNet.endpoint.production.transactionKey
+            name: envLoaded.AuthNet.endpoint.apiLoginKey,
+            transactionKey: envLoaded.AuthNet.endpoint.transactionKey
         },
         refId: refId,
         transactionRequest: myAuth
     };
     console.log('myRequest');
     console.dir(myRequest);
-    request.post(envLoaded.AuthNet.endpoint.production.url)
+    request.post(envLoaded.AuthNet.endpoint.url)
         .set('Content-Type', 'application/json')
         .set('Accept', 'json')
         .type('json')
