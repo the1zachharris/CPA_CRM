@@ -18,7 +18,7 @@
 
     <button class="btn btn-default"
             ng-click="markReceived(tabValue.item)"
-            ng-if="tabValue.item.taskStatus != 'Complete' && tabValue.item.taskStatus != 'Received'">
+            ng-if="tabValue.item.taskStatus != 'Complete' && ! tabValue.item.taskReceivedDate">
         Mark Received
         <i class="glyphicon glyphicon-open-file"></i>
     </button>

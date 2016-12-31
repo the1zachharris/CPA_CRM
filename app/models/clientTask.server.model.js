@@ -27,6 +27,9 @@ var clientTaskSchema = new Schema ({
     taskName: {
         type: String
     },
+    taskOrgDueDate: {
+        type: Date
+    },
     taskDueDate: {
         type: Date
     },

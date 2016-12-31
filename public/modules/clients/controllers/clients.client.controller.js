@@ -178,24 +178,24 @@ clients.controller('clientsController',[
           clientCalls.assignTask(fullTask).then(
               function (res) {
 
-                  $scope.dueDate = $scope.setDate(fullTask.task.task);
+                  $scope.task = $scope.setDate(fullTask.task.task);
                   console.dir(res);
                   console.log($scope.dueDate);
                   //upon success, create the corresponding clientTask
                   clientCalls.createClientTask({
-                          clientid: clientid,
-                          taskid:task.task.id,
-                          taskName:task.task.Name,
-                          taskDueDate: $scope.dueDate,
-                          taskExtendedDueDate: task.task.ExtendedDueDate,
-                          taskSecondExtendedDueDate:task.task.SecondExtendedDueDate,
-                          taskFrequency:task.task.Frequency,
-                          taskStatus:"New",
-                          taskEmployeeName:task.employee.FirstName,
-                          taskEmployeeid:task.employee.id,
-                          clientName:clientName
-                      }
-                  );
+                      clientid: clientid,
+                      taskid:task.task.id,
+                      taskName:task.task.Name,
+                      taskOrgDueDate: $scope.task.dueDate,
+                      taskDueDate: $scope.task.dueDate,
+                      taskExtendedDueDate: $scope.task.extendedDueDate,
+                      taskSecondExtendedDueDate:task.task.SecondExtendedDueDate,
+                      taskFrequency:task.task.Frequency,
+                      taskStatus:"New",
+                      taskEmployeeName:task.employee.FirstName,
+                      taskEmployeeid:task.employee.id,
+                      clientName:clientName
+                  });
                   fullTask.task.taskClientId = res.data.taskClientId;
                   console.log('after res: ');
                   console.dir(fullTask);
@@ -306,7 +306,7 @@ clients.controller('clientsController',[
                         $scope.clientsTabset[client.id].item.Tasks.splice(index, 1);
                         $scope.getClients();
                         $scope.createToast(taskName, " deleted", "danger");
-                    };
+                    }
 
 
                 },

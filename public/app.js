@@ -252,37 +252,52 @@ app.controller('MainController', function (
 
     $scope.setDate = function (Task) {
         console.dir(Task);
-        var dueDate = moment(Task.DueDate);
+        var dueDate = moment(Task.DueDate),
+            extendedDueDate = moment(Task.ExtendedDueDate);
         console.log(Task.Status);
         while (dueDate < moment() || Task.Status == "Complete") {
             if (Task.Frequency == "Annual" || Task.Frequency == "AnnualEOM") {
                 dueDate = moment(dueDate).add(1, 'y');
+                extendedDueDate = moment(extendedDueDate).add(1, 'y')
             }
             else if (Task.Frequency == "Daily") {
                 dueDate = moment(dueDate).add(1, 'd');
+                extendedDueDate = moment(extendedDueDate).add(1, 'd')
             }
             else if (Task.Frequency == "Bi-Weekly") {
                 dueDate = moment(dueDate).add(2, 'w');
+                extendedDueDate = moment(extendedDueDate).add(2, 'w')
             }
             else if (Task.Frequency == "Weekly") {
                 dueDate = moment(dueDate).add(1, 'w');
+                extendedDueDate = moment(extendedDueDate).add(1, 'w')
             }
             else if (Task.Frequency == "Quarterly" || Task.Frequency == "QuarterlyEOM") {
                 dueDate = moment(dueDate).add(1, 'Q');
+                extendedDueDate = moment(extendedDueDate).add(1, 'Q')
             }
             else if (Task.Frequency == "Monthly" || Task.Frequency == "MonthlyEOM") {
                 dueDate = moment(dueDate).add(1, 'M');
+                extendedDueDate = moment(extendedDueDate).add(1, 'M')
             }
             else if (Task.Frequency == "Semi-Annual") {
                 dueDate = moment(dueDate).add(6, 'M');
+                extendedDueDate = moment(extendedDueDate).add(6, 'M')
             }
             else if (Task.Frequency == "One-Time") {
                 return Task
             }
             Task.Status = null
         }
+        if (Task.ExtendedDueDate == null) {
+            extendedDueDate = null
+        }
+        var task = {
+            dueDate: dueDate,
+            extendedDueDate: extendedDueDate
+        };
         console.log(dueDate);
-        return dueDate
+        return task
     };
 
     // show toast indicating success
