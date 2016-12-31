@@ -156,5 +156,6 @@ Then, they must use the user's database vs. the primaryDB
     router.post('/task/create', task.create);
     router.post('/task/update', task.update);
     router.delete('/task/delete/:id', task.delete);
+    router.get('/task/seed', task.seed);
 
 module.exports = router;

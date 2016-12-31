@@ -170,6 +170,21 @@ tasks.controller('tasksController',[
                 }
             );
         };
+
+        /* =====================================================================
+         * Seed tasks in the Mongo database for them
+         * ===================================================================== */
+        $scope.seedTasks = function () {
+            console.log('seedTasks');
+            taskCalls.seedTasks({}).then(
+                function (res) {
+                    $scope.getTasks();
+                },
+                function (err) {
+                    console.error('Error seeding tasks: ' + err.message);
+                }
+            );
+        };
         /* =====================================================================
          * create new task
          * ===================================================================== */

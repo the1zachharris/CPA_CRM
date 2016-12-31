@@ -7,6 +7,7 @@ var mongoose = require('mongoose'),
     TasksModel = require('../models/tasks.server.model.js'),
     userDbConn = require('../../config/user.connection.db.config'),
     //task = mongoose.model('task'),
+    taskSeeds = require('../seeds/tasks.js'),
     crypto = require('crypto');
 
 
@@ -191,4 +192,52 @@ exports.delete = function (req, res) {
 
         })
     });
+};
+
+/**
+ * @api {post} /task
+ * @apiName seed
+ * @apiGroup task
+ *
+ * @apiSuccessExample Success-Response:
+ *  200 OK
+ *  {results: doc}
+ *
+ * @apiErrorExample Error-Response:
+ *  400 Bad Request
+ *  {
+*  "message": "error of some kind"
+*     }
+ */
+exports.seed = function (req, res) {
+    var foo = taskSeeds.seed(400, 0, function (err, res) {
+        if (err) {
+            console.dir(err);
+        } else {
+            //fulfill(res);
+            var myseeds = res;
+            console.dir(myseeds);
+            console.log('myseeds.length: ' + myseeds.length);
+
+             userDbConn.userDBConnection(req.user.database, function (userdb) {
+             for (var i = 0; i < myseeds.length; i++) {
+                 var currentSeed = myseeds[i];
+                 console.log(i + '. currentseed: ');
+                 console.dir(currentSeed);
+                 var query = {Name: currentSeed.Name};
+
+                 var task = userdb.model('task');
+                     task.findOneAndUpdate(query, currentSeed, {upsert: true}, function (err, doc) {
+                         if (err) {
+                            console.dir(err);
+                         } else {
+                            console.log(i + ' seed added/updated')
+                         }
+                     });
+
+                 }
+             });
+        }
+    });
+    res.status(200).send({success: true});
 };

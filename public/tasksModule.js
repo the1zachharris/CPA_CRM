@@ -137,6 +137,16 @@ tasks.factory('taskCalls', function($http,$log, $routeParams) {
                 return response;
             });
             return promise;
+        },
+        seedTasks: function(req){
+            var promise = $http({
+                method: 'GET',
+                url: '/task/seed',
+                params : req
+            }).then(function (response) {
+                return response;
+            });
+            return promise;
         }
     };
     return TrakkTaskService;
