@@ -54,6 +54,7 @@ exports.create = function (req, res) {
             clientName: req.body.clientName,
             taskid: req.body.taskid,
             taskName: req.body.taskName,
+            taskOrgDueDate: req.body.taskOrgDueDate,
             taskDueDate: req.body.taskDueDate,
             taskExtendedDueDate: req.body.taskExtendedDueDate,
             taskStatus: req.body.taskStatus,
