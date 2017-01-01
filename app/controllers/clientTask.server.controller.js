@@ -46,9 +46,15 @@ exports.create = function (req, res) {
     // used to create ID
     var current_date = (new Date()).valueOf().toString();
     var random = Math.random().toString();
+
     userDbConn.userDBConnection(req.user.database, function (userdb) {
         var clientTask = userdb.model('clientTask');
-        var v = new clientTask({
+        var v = new clientTask(req.body);
+        v.DateCreated = current_date;
+        v.taskCreatedDate = current_date;
+        v.id = crypto.createHash('sha1').update(current_date + random).digest('hex');
+        /*
+        {
             id: crypto.createHash('sha1').update(current_date + random).digest('hex'),
             clientid: req.body.clientid,
             clientName: req.body.clientName,
@@ -67,7 +73,9 @@ exports.create = function (req, res) {
             DateCreated: current_date,
             DateUpdated: req.body.DateUpdated,
             taskFrequency: req.body.taskFrequency
-        });
+        }
+        */
+        //);
 
         v.save(function (err, clientTask) {
             if (err) {
