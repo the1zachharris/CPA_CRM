@@ -256,7 +256,7 @@ app.controller('MainController', function (
             extendedDueDate = moment(Task.ExtendedDueDate);
         console.log(Task.Status);
         while (dueDate < moment() || Task.Status == "Complete") {
-            if (Task.Frequency == "Annual" || Task.Frequency == "AnnualEOM") {
+            if (Task.Frequency == "Annual" || Task.Frequency == "Annual EOM") {
                 dueDate = moment(dueDate).add(1, 'y');
                 extendedDueDate = moment(extendedDueDate).add(1, 'y')
             }
@@ -272,11 +272,11 @@ app.controller('MainController', function (
                 dueDate = moment(dueDate).add(1, 'w');
                 extendedDueDate = moment(extendedDueDate).add(1, 'w')
             }
-            else if (Task.Frequency == "Quarterly" || Task.Frequency == "QuarterlyEOM") {
+            else if (Task.Frequency == "Quarterly" || Task.Frequency == "Quarterly EOM") {
                 dueDate = moment(dueDate).add(1, 'Q');
                 extendedDueDate = moment(extendedDueDate).add(1, 'Q')
             }
-            else if (Task.Frequency == "Monthly" || Task.Frequency == "MonthlyEOM") {
+            else if (Task.Frequency == "Monthly" || Task.Frequency == "Monthly EOM") {
                 dueDate = moment(dueDate).add(1, 'M');
                 extendedDueDate = moment(extendedDueDate).add(1, 'M')
             }
