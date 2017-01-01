@@ -286,21 +286,27 @@ clients.controller('clientsController',[
                             client.id,
                             task.id,
                             function (clientTask) {
-                                console.log(clientTask.id);
-                                clientCalls.deleteClientTask({
-                                    id: clientTask.id
-                                }).then(
-                                    function (res) {
-                                        deletedClientTask = angular.copy(res.data);
-                                        $scope.clientsTabset[client.id].item.Tasks.splice(index, 1);
-                                        $scope.deletedClientTask = deletedClientTask;
-                                        $scope.getClients();
-                                        $scope.createToast(taskName, " deleted", "danger");
-                                    },
-                                    function (err) {
-                                        console.error('Error deleting client: ' + err.message);
-                                    }
-                                );
+                                if (clientTask != null) {
+                                    console.log(clientTask.id);
+                                    clientCalls.deleteClientTask({
+                                        id: clientTask.id
+                                    }).then(
+                                        function (res) {
+                                            deletedClientTask = angular.copy(res.data);
+                                            $scope.clientsTabset[client.id].item.Tasks.splice(index, 1);
+                                            $scope.deletedClientTask = deletedClientTask;
+                                            $scope.getClients();
+                                            $scope.createToast(taskName, " deleted", "danger");
+                                        },
+                                        function (err) {
+                                            console.error('Error deleting client: ' + err.message);
+                                        }
+                                    );
+                                } else {
+                                    $scope.clientsTabset[client.id].item.Tasks.splice(index, 1);
+                                    $scope.getClients();
+                                    $scope.createToast(taskName, " deleted", "danger");
+                                }
                             });
                     } else {
                         $scope.clientsTabset[client.id].item.Tasks.splice(index, 1);
