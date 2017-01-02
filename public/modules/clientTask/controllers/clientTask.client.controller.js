@@ -142,7 +142,7 @@ clienttasks.controller('clientTasksController',[
                     name: 'receive',
                     displayName: 'Receive',
                     cellTemplate:
-                    '<md-button aria-label="Mark Received" class="btn btn-default" ng-click="grid.appScope.markReceived(row.entity)" ng-if="row.entity.taskStatus != \'Complete\' && ! row.entity.taskExtendedDate">'
+                    '<md-button aria-label="Mark Received" class="btn btn-default" ng-click="grid.appScope.markReceived(row.entity)" ng-if="row.entity.taskStatus != \'Complete\' && ! row.entity.taskReceivedDate">'
                     + '<i class="glyphicon glyphicon-open-file"></i>'
                     + '<md-tooltip>{{row.entity.clientName}} Received</md-tooltip>'
                     + '</md-button>',
