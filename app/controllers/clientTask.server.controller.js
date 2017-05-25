@@ -272,3 +272,26 @@ exports.delete = function (req, res) {
         });
     });
 };
+
+/*
+
+ example of aggregation
+
+ db.getCollection('clienttasks').aggregate( [
+ { $match: {clientName: "Zachary Harris"}},
+ { $group: {_id: "$taskStatus", count: { $sum: 1 } } }
+ ])
+
+ */
+
+exports.aggregations = function (req, res) {
+
+};
+
+function taskStatus () {
+
+}
+
+function timeFrame () {
+
+}
